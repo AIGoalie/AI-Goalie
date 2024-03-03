@@ -2,8 +2,7 @@
 <html>
 <head>
 <!-- Google tag (gtag.js) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="description" content="AIGoalie is a brand new football prediction model that uses machine learning, statisticaly analysis, large data, and human expertise to provide user-friendly and interpretable confidence score predictions for all top european league soccer matches.">
 <meta name="keywords" content="AI, Football, Soccer, Machine Learning, Prediction, Confidence Scores">
     <title>AIGoalie - Weekly AI-driven football predictions!</title>
@@ -77,25 +76,25 @@
         /* Define specific widths for each column */
         th:nth-child(1),
         td:nth-child(1) {
-            width: 3%;
+            width: 20%;
         }
 
         th:nth-child(2),
         td:nth-child(2) {
-            width: 20%;
+            width: 1%;
         }
         th:nth-child(3),
         td:nth-child(3) {
-            width: 3%;
+            width: 1%;
         }
 
         th:nth-child(4),
         td:nth-child(4) {
-            width: 3%;
+            width: 1%;
         }
         th:nth-child(5),
         td:nth-child(5) {
-            width: 3%;
+            width: 1%;
         }
         th:nth-child(6),
         td:nth-child(6) {
@@ -109,6 +108,7 @@
             border: 1px solid #ddd;
             text-align: center;
             padding: 8px;
+                        /*font-size: 8px;*/
         }
 
         tr:nth-child(even) {
@@ -312,7 +312,14 @@
             flex: 1;
         }
 
-
+        /* Make navigation responsive */
+        @media screen and (max-width: 600px) {
+            .nav a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
 
 
     </style>
@@ -486,15 +493,15 @@
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
 
-        // Function to redirect if user is on a mobile device
-        function redirectIfMobile() {
-            if (isMobile()) {
-                window.location.href = 'index_m.html'; // Redirect to your mobile page
+        // Function to redirect if user is on a desktop device
+        function redirectIfDesktop() {
+            if (!isMobile()) {
+                window.location.href = 'index.html'; // Redirect to your desktop page
             }
         }
 
         // Call the redirect function when the page loads
-        window.onload = redirectIfMobile;
+        window.onload = redirectIfDesktop;
     </script>
 
 
@@ -502,18 +509,18 @@
 </head>
 <body>
 <ul>
-    <li><a class="paypal" href="index.html"> <img src="AIGoalieblack.png" alt="Logo of the AI Goalie football webpage" width="98" height="78"> </a></li>
+    <li><a class="paypal" href="index_m.html"> <img src="AIGoalieblack.png" alt="Logo of the AI Goalie football webpage" width="98" height="78"> </a></li>
     
-    <li><a href="index.html"><strong>All</strong></a></li>
+    <li><a href="index_m.html"><strong>All</strong></a></li>
     
-    <li><a href="Feb28.html">Wednesday</a></li>
-    <li><a href="Mar1.html">Friday</a></li>
-    <li><a href="Mar2.html">Yesterday</a></li>
-    <li><a href="Mar3.html"><strong>Today</strong></a></li>
-    <li><a href="Mar4.html">Tomorrow</a></li>
+    <li><a href="Feb28_m.html">Wed.</a></li>
+    <li><a href="Mar1_m.html">Fri.</a></li>
+    <li><a href="Mar2_m.html">Yesterday</a></li>
+    <li><a href="Mar3_m.html"><strong>Today</strong></a></li>
+    <li><a href="Mar4_m.html">Tomorrow</a></li>
     <!--    <li><a href="all-prevgw.html">Last Gameweek (old style)</a></li>-->
     <li class="collapsible">
-        <a href="#" class="collapsible-header">Previous Gameweeks</a>
+        <a href="#" class="collapsible-header">Prev. Gameweeks</a>
         <div class="collapsible-content">
             <ul>
                 <li> <a href="Feb23-26.html">23-26 Feb</a></li>
@@ -523,48 +530,31 @@
     </li>
 
 
-    <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee.png" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="78"> </a></li>
-    <li> <a class="contact" href="mailto:ai.goalie.mail@gmail.com"> Contact <br>&#9993;</br> </a> </li>
+<!--    <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee.png" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="78"> </a></li>-->
+<!--    <li> <a class="contact" href="mailto:ai.goalie.mail@gmail.com"> Contact <br>&#9993;</br> </a> </li>-->
 </ul>
 
 
 <table>
     <tr>
-        <th>Date</th>
+<!--        <th>Date</th>-->
         <th>Fixture<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
+        <th>Conf.<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> How confident AIGoalie is that the selected team will win. </span> </span></th>
         <th>Odds<span class="tooltip-info">  <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> Pre-match odds of the selected team winning. </span> </span></th>
-        <th>Confidence<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> How confident AIGoalie is that the selected team will win. </span> </span></th>
-        <th>Result<span class="tooltip-info">  <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
-        <th>Alerts Home<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
-        <th>Alerts Away<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+        <th>Res.<span class="tooltip-info">  <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
+<!--        <th>Alerts Home<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>-->
+<!--        <th>Alerts Away<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>-->
 
     </tr>
     
     <tr class="match">
-        <td class="date">Mar 4</td>
-        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Inter</strong></div><div class="ali">8:45 PM</div><div class="ali">Genoa</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">Form: <strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Cuadrado</li><li class="li-collaps">&#127973; Sensi</li><li class="li-collaps">&#127973; Acerbi</li><li class="li-collaps">&#127973; Thuram</li><li class="li-collaps">&#127973; Çalhanoğlu</li><li class="li-collaps">&#127973; Frattesi</li><li class="li-collaps">&#127973; Bastoni</li><li class="li-collaps">&#127973; A</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">Form: <strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Matturro</li><li class="li-collaps">&#127973; Ankeye</li></ul></div></div></td>
-        <td class="certainty">2.06 vs -3.06</td>
-        <td class="odds">1.28</td>
-        <td class="total-color">80.65%</td>
-        <td class="correct">None</td>
-        <td class="warnings">
-            <span class="tooltip"> &#127973&#127973;
-                <span class="tooltiptext">
-                
-                    Home team has MAJOR injuries
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
+<!--        <td class="date">Mar 1</td>-->
+        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali"><div class="ali">Lazio</div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&#127973; &#128201;</div><div class="li-collaps">Form: <strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Rovella</li><li class="li-collaps">&#127973; Patric</li><li class="li-collaps">&#127973; Pellegrini</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Marusic</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Guendouzi</li><li class="li-collaps">&#127973; A</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&#128201;</div><div class="li-collaps">Form: <strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pobega</li></ul></div></div></td>
+        <td class="certainty">-0.82 vs 0.02</td>
+        <td class="total-color">11.21%</td>
+        <td class="odds">2.36</td>
+        <td class="correct">1</td>
+
     </tr>
     
 </table>
