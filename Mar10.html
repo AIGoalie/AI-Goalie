@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+
+<!-- Google tag (gtag.js) -->
+<meta name="description" content="AIGoalie is a brand new football prediction model that uses machine learning, statisticaly analysis, large data, and human expertise to provide user-friendly and interpretable confidence score predictions for all top european league soccer matches.">
+<meta name="keywords" content="AI, Football, Soccer, Machine Learning, Prediction, Confidence Scores">
+    <title>AIGoalie - Weekly AI-driven football predictions!</title>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+ crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SEQD8XTNBW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SEQD8XTNBW');
+</script>
+
+    <style>
+        .arrow-above {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            flex: 1;
+            margin: 0 -15px;
+        }
+        .arrow-above::before {
+            content: '^'; /* This is the default arrow, you can replace it with any other character */
+            position: absolute;
+            top: -10px; /* Adjust this value to position the arrow properly */
+            left: 50%; /* Position arrow in the middle */
+            transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
+            font-size: 12px; /* Adjust the font size as needed */
+                font-weight: bold; /* Add this line to make the arrow bold */
+        }
+          .cookie-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  .cookie-notice button {
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .accept-btn {
+    background-color: #fff;
+    color: #333;
+    border: none;
+  }
+  .reject-btn {
+    background-color: transparent;
+    color: #ccc;
+    border: 1px solid #ccc;
+  }
+        .certainty {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+        /* Add some basic styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        /* Define specific widths for each column */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 3%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 20%;
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 3%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 3%;
+        }
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 3%;
+        }
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 4%;
+        }
+        th:nth-child(7),
+        td:nth-child(7) {
+            width: 4%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Define classes for different color ranges */
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .odds {
+            text-align: center; /* Centering the content of Odds column */
+        }
+
+        .warnings {
+            text-align: center; /* Centering the content of Odds column */
+        }
+        .ul-colaps {
+            width: 50%;
+        }
+        ul:not(.ul-colaps){
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            width: 100%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+
+        }
+
+
+
+
+        li {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: center; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+
+        }
+
+        .li-collaps {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: left; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+            font-size: 12px;
+        }
+        .contact{
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 20px 1px;
+            text-decoration: none;
+            font-size: 16px;
+
+        }
+
+        .paypal {
+            padding: 1px 1px;
+
+
+        }
+        li a:not(.paypal):not(.contact){
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 30px 1px;
+            text-decoration: none;
+            font-size: 16px; /* Adjust font size */
+
+        }
+
+
+        li a:hover:not(.paypal):not(.contact) {
+            background-color: #ddd;
+        }
+        .active {
+            background-color: #ccc;
+        }
+        .left {
+            width: 100%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+            padding: 5px; /* Add padding for spacing */
+
+        }
+        .center {
+            width: 20%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+        .tooltip-info{
+            position: relative;
+            display: inline-block
+        }
+        .tooltip-info .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            /*bottom: 125%;*/
+            /*left: 50%;*/
+            margin-left: -250px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-info:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            /*bottom: 125%;*/
+            /*left: 50%;*/
+            margin-left: -250px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .container {
+            display: flex;
+            align-items:center;
+
+        }
+        .ali {
+            text-align: center;
+            flex: 1;
+            margin: 0 -15px;
+        }
+        .ali-left{
+            text-align: left;
+            /*flex: 1;*/
+        }
+
+
+
+        /* Style for the arrow */
+        .arrow::before {
+            content: '\25B6'; /* Right-pointing triangle */
+            font-size: 10px;
+            display: inline-block;
+            text-align: left;
+
+            /*margin-right: 90px;*/
+            transform: rotate(0deg); /* Initially rotated 90 degrees */
+            transition: transform 0.3s ease; /* Smooth transition for rotation */
+        }
+
+        /* When the row is expanded, rotate the arrow to point down */
+        .expanded .arrow::before {
+            transform: rotate(90deg);
+        }
+
+        /* Hide the content of the collapsible row by default */
+        .collapsible-content {
+            display: none;
+
+
+        }
+        .collapsible-container {
+            display: flex;
+            justify-content: space-between;
+            /*margin-left: 65px; !* Adjust the left margin as needed *!*/
+            margin-right: -100px;
+            margin-top: 2px;
+        }
+        /* Show the content when the row is expanded */
+        .expanded .collapsible-content {
+            display: table-cell;
+            text-align: center;
+            flex: 1;
+        }
+
+
+
+
+    </style>
+    <script>
+        window.addEventListener("DOMContentLoaded", (event) => {
+            // Get all the elements with class "total-color"
+            const totalCells = document.querySelectorAll(".total-color");
+
+            // Loop through each "Total" cell and set background color based on the value gradient
+            totalCells.forEach((cell) => {
+                const value = parseFloat(cell.textContent);
+                const gradientColor = calculateGradientColor(value);
+                cell.style.backgroundColor = gradientColor;
+            });
+
+            // Get all the elements with class "team"
+            const teamCells = document.querySelectorAll(".team");
+            const certaintyCells = document.querySelectorAll(".certainty");
+
+            // // Loop through each "Team" cell and make the team with the largest certainty value bold
+            // teamCells.forEach((cell, index) => {
+            //     // Get the certainty value by index
+            //     const certaintyCell = certaintyCells[index];
+            //     const [certainty1, certainty2] = certaintyCell.textContent.split(" vs ");
+            //
+            //
+            //     // Extract values from certainty
+            //     const value1 = parseFloat(certainty1);
+            //     const value2 = parseFloat(certainty2);
+            //
+            //     // Determine which team has the largest value and make it bold
+            //     if (value1 > value2) {
+            //         cell.innerHTML = `<strong>${cell.textContent.split(' vs ')[0]}</strong> - ${cell.textContent.split(' vs ')[1]}`;
+            //     } else if (value2 > value1) {
+            //         cell.innerHTML = `${cell.textContent.split(' vs ')[0]} - <strong>${cell.textContent.split(' vs ')[1]}</strong>`;
+            //     }
+            // })
+            const scoreCells = document.querySelectorAll(".result");
+
+            scoreCells.forEach((cell, index) => {
+                if (!cell.textContent.includes('PM') && !cell.textContent.includes('AM') && !cell.textContent.includes('postponed')) {
+                    cell.innerHTML = `<strong>${cell.textContent}</strong>`;
+                }
+            });
+
+
+
+            // Get all the elements with class "result"
+            const correctCells = document.querySelectorAll(".correct");
+            // Loop through each "Result" cell and display checkmarks and crosses based on the result value
+            correctCells.forEach((cell, index) => {
+                const correctValue = parseFloat(cell.textContent);
+                if (correctValue === 1.0) {
+                    cell.innerHTML = `<span class="green">&#10003;</span>`;
+                } else if (correctValue === 0.0) {
+                    cell.innerHTML = `<span>&#10060;</span>`
+                } else if (correctValue === 0.5) {
+                    cell.innerHTML = `<span style="color: orange;"">&#x2043;</span>`; // Set the color to dark yellow using rgb
+                } else {
+                    cell.innerHTML = `<span class="black";>&#x2043;</span>`;
+                }
+            });
+            function calculateGradientColor(value) {
+                if (value <= 0) {
+                    return "red";
+                } else if (value < 50) {
+                    const red = 255;
+                    const green = Math.round((value / 50) * 255);
+                    return `rgb(${red}, ${green}, 0)`;
+                } else if (value >= 50 && value < 75) {
+                    const red = Math.round((1 - (value - 65) / 17.5) * 255);
+                    const green = 255;
+                    return `rgb(${red}, ${green}, 0)`;
+                } else if (value >= 75) {
+                    const green = Math.round(255 - ((value - 78) / 12.5) * 255);
+                    return `rgb(0, ${green}, 0)`;
+                }
+            }
+
+        });
+        window.addEventListener("DOMContentLoaded", (event) => {
+            // Get all the tabs
+            const tabs = document.querySelectorAll("ul li a:not(.paypal):not(.contact)");
+
+            // Function to handle tab click
+            const handleTabClick = (event) => {
+                // Remove "active" class from all tabs
+                tabs.forEach(t => t.classList.remove("active"));
+                // Add "active" class to the clicked tab
+                event.target.classList.add("active");
+            };
+
+            // Loop through each tab
+            tabs.forEach(tab => {
+                // Add click event listener to each tab
+                tab.addEventListener("click", handleTabClick);
+                // Check if this tab should be active based on the current URL
+                if (tab.href === window.location.href && tab.getAttribute("href").endsWith(".html")) {
+                    // If yes, add "active" class to the tab
+                    tab.classList.add("active");
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const matches = document.querySelectorAll('.match');
+
+            matches.forEach(match => {
+                const team = match.querySelector('.team');
+                team.addEventListener('click', function() {
+                    match.classList.toggle('expanded');
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const collapsibles = document.querySelectorAll('.collapsible');
+
+            collapsibles.forEach(collapsible => {
+                const header = collapsible.querySelector('.collapsible-header');
+                const content = collapsible.querySelector('.collapsible-content');
+
+                header.addEventListener('click', function() {
+                    collapsible.classList.toggle('expanded');
+                    if (collapsible.classList.contains('expanded')) {
+                        content.style.display = 'block'; // Show content when expanded
+                    } else {
+                        content.style.display = 'none'; // Hide content when collapsed
+                    }
+                });
+            });
+        });
+            function acceptCookies() {
+              document.querySelector('.cookie-notice').style.display = 'none';
+              // Set a cookie to remember the user's choice
+              document.cookie = "cookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+            }
+
+            function rejectCookies() {
+              document.querySelector('.cookie-notice').style.display = 'none';
+              // Set a cookie to remember the user's choice
+              document.cookie = "cookieConsent=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+            }
+
+            // Check if the cookie exists and user has accepted
+            function checkCookie() {
+              var consentCookie = getCookie("cookieConsent");
+              if (consentCookie === "" || consentCookie === "false") {
+                document.getElementById("cookieNotice").style.display = "block";
+              }
+            }
+
+            // Function to retrieve a specific cookie value
+            function getCookie(name) {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.indexOf(name) === 0) {
+                  return cookie.substring(name.length + 1);
+                }
+              }
+              return "";
+            }
+
+            // Call checkCookie() when the page loads
+            window.onload = checkCookie;
+
+
+        //             Function to detect if the user is using a mobile device
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Function to redirect if user is on a mobile device
+        function redirectIfMobile() {
+            if (isMobile()) {
+                window.location.href = 'index_m.html'; // Redirect to your mobile page
+            }
+        }
+
+        // Call the redirect function when the page loads
+        window.onload = redirectIfMobile;
+
+
+        function redirectToGameweek() {
+    var selectElement = document.getElementById("previousGameweeks");
+    var selectedValue = selectElement.value;
+    if (selectedValue) {
+        window.location.href = selectedValue;
+    }
+}
+    </script>
+
+
+
+</head>
+<body>
+<ul>
+    <li><a class="paypal" href="index.html"> <img src="AIGoalieblack.png" alt="Logo of the AI Goalie football webpage" width="98" height="78"> </a></li>
+    
+    <li><a href="index.html"><strong>All</strong></a></li>
+    
+    <li><a href="Mar8.html">Tomorrow</a></li>
+    <li><a href="Mar9.html">Sat 9 Mar</a></li>
+    <li><a href="Mar10.html">Sun 10 Mar</a></li>
+    <li><a href="Mar11.html">Mon 11 Mar</a></li>
+    <select id="previousGameweeks" onchange="redirectToGameweek()">
+        <option value="" disabled selected>Select Gameweek</option>
+        <option value="index.html">Current</option>
+        <option value="Feb28-Mar4.html">1-4 Mar</option>
+        <option value="Feb23-26.html">23-26 Feb</option>
+        <option value="Feb16-19.html">16-19 Feb</option>
+    </select>
+
+
+    <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee.png" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="78"> </a></li>
+    <li> <a class="contact" href="mailto:ai.goalie.mail@gmail.com"> Contact <br>&#9993;</br> </a> </li>
+</ul>
+
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Fixture<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
+        <th>Odds<span class="tooltip-info">  <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> Pre-match odds of the selected team winning. </span> </span></th>
+        <th>Confidence<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> How confident AIGoalie is that the selected team will win. </span> </span></th>
+        <th>Result<span class="tooltip-info">  <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
+        <th>Alerts Home<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+        <th>Alerts Away<span class="tooltip-info"> <sup><img width="12" height="12" src="info.png"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Feyenoord</strong></div><div class="ali">8:00 PM</div><div class="ali">Heracles</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Zechiël</li><li class="li-collaps">&#127973; Bijlow</li><li class="li-collaps">&#127973; Belt</li><li class="li-collaps">&#127973; Trauner</li><li class="li-collaps">&#127973; Stengs</li><li class="li-collaps">&#127973; Jahanbakhsh</li><li class="li-collaps">&#127973; Lingr</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Oorschot</li><li class="li-collaps">&#127973; Laursen</li><li class="li-collaps">&#127973; Wehmeyer</li><li class="li-collaps">&#127973; Cestic</li></ul></div></div></td>
+        <td class="certainty">2.48 vs -3.38</td>
+        <td class="odds">3.65</td>
+        <td class="total-color">84.83%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="1"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Benfica</strong></div><div class="ali">9:30 PM</div><div class="ali">Estoril</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Bernat</li><li class="li-collaps">&#127973; Otamendi</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Cabaco</li><li class="li-collaps">&#127973; Holsgrove</li></ul></div></div></td>
+        <td class="certainty">2.4 vs -3.03</td>
+        <td class="odds">3.0</td>
+        <td class="total-color">83.95%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="2"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Leverkusen</strong></div><div class="ali">7:30 PM</div><div class="ali">Wolfsburg</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Arthur</li><li class="li-collaps">&#127973; Boniface</li><li class="li-collaps">&#127973; Frimpong</li><li class="li-collaps">&#127973; Mbamba</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Llanez</li><li class="li-collaps">&#127973; Maehle</li></ul></div></div></td>
+        <td class="certainty">2.28 vs -3.12</td>
+        <td class="odds">1.41</td>
+        <td class="total-color">82.81%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="3"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Real Madrid</strong></div><div class="ali">6:30 PM</div><div class="ali">Celta</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Courtois</li><li class="li-collaps">&#127973; Militão</li><li class="li-collaps">&#127973; Alaba</li><li class="li-collaps">&#127973; Bellingham</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Aidoo</li><li class="li-collaps">&#127973; Ristic</li><li class="li-collaps">&#127973; Dotor</li><li class="li-collaps">&#127973; Tapia</li><li class="li-collaps">&#127973; Swedberg</li><li class="li-collaps">&#127973; Rodríguez</li></ul></div></div></td>
+        <td class="certainty">1.98 vs -3.07</td>
+        <td class="odds">1.72</td>
+        <td class="total-color">79.84%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="4"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Fenerbahce</strong></div><div class="ali">5:00 PM</div><div class="ali">Pendikspor</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Peres</li><li class="li-collaps">&#127973; King</li><li class="li-collaps">&#127973; Kahveci</li><li class="li-collaps">&#127973; Becão</li><li class="li-collaps">&#127973; Kent</li><li class="li-collaps">&#127973; Yüksek</li><li class="li-collaps">&#127973; Aziz</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Dursun</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Peres</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Müldür</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Zeybek</li><li class="li-collaps">&#127973; Midtsjø</li><li class="li-collaps">&#127973; Öztürk</li></ul></div></div></td>
+        <td class="certainty">1.8 vs -2.87</td>
+        <td class="odds">1.32</td>
+        <td class="total-color">78.0%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="5"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Paris SG</strong></div><div class="ali">1:00 PM</div><div class="ali">Reims</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kimpembe</li><li class="li-collaps">&#127973; Skriniar</li><li class="li-collaps">&#127973; Rico</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Okumu</li><li class="li-collaps">&#127973; Richardson</li><li class="li-collaps">&#127973; Abdelhamid</li></ul></div></div></td>
+        <td class="certainty">1.71 vs -2.49</td>
+        <td class="odds">2.08</td>
+        <td class="total-color">77.1%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="6"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Milan</strong></div><div class="ali">3:00 PM</div><div class="ali">Empoli</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pobega</li><li class="li-collaps">&#127973; Florenzi</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Leão</li><li class="li-collaps">&#127973; A</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Caputo</li><li class="li-collaps">&#127973; Grassi</li></ul></div></div></td>
+        <td class="certainty">1.31 vs -2.16</td>
+        <td class="odds">2.36</td>
+        <td class="total-color">73.13%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="7"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>St. Gilloise</strong></div><div class="ali">6:30 PM</div><div class="ali">Gent</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Leysen</li><li class="li-collaps">&#127973; Rodríguez</li><li class="li-collaps">&#127973; Allister</li><li class="li-collaps">&#127973; François</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Kabangu</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Nardi</li><li class="li-collaps">&#127973; Hjulsager</li><li class="li-collaps">&#127973; Kums</li><li class="li-collaps">&#127973; Yokota</li><li class="li-collaps">&#127973; Vlieger</li></ul></div></div></td>
+        <td class="certainty">1.12 vs -1.92</td>
+        <td class="odds">1.51</td>
+        <td class="total-color">71.2%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="8"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>AZ Alkmaar</strong></div><div class="ali">12:15 PM</div><div class="ali">Excelsior</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Westerveld</li><li class="li-collaps">&#127973; Verhulst</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Hartjes</li><li class="li-collaps">&#127973; Smeulers</li><li class="li-collaps">&#127973; Pierie</li></ul></div></div></td>
+        <td class="certainty">1.1 vs -1.73</td>
+        <td class="odds">1.89</td>
+        <td class="total-color">70.95%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="9"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Club Brugge</strong></div><div class="ali">4:00 PM</div><div class="ali">Oud-Heverlee Leuven</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Nusa</li><li class="li-collaps">&#127973; Mignolet</li><li class="li-collaps">&#127973; Thiago</li><li class="li-collaps">&#127973; Vetlesen</li><li class="li-collaps">&#127973; Onyedika</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Calut</li><li class="li-collaps">&#127973; Vlietinck</li><li class="li-collaps">&#127973; N’Dri</li><li class="li-collaps">&#127973; Maertens</li><li class="li-collaps">&#127973; League</li></ul></div></div></td>
+        <td class="certainty">1.06 vs -2.18</td>
+        <td class="odds">2.32</td>
+        <td class="total-color">70.65%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="10"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Arouca</div><div class="ali">7:00 PM</div><div class="arrow-above"><strong>Sp Lisbon</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Quaresma</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Inácio</li><li class="li-collaps">&#127973; Adán</li><li class="li-collaps">&#127973; Gonçalves</li></ul></div></div></td>
+        <td class="certainty">-1.88 vs 0.94</td>
+        <td class="odds">1.13</td>
+        <td class="total-color">67.79%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="11"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>West Ham</strong></div><div class="ali">3:00 PM</div><div class="ali">Burnley</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Antonio</li><li class="li-collaps">&#127973; Aguerd</li><li class="li-collaps">&#127973; Kudus</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Koleosho</li><li class="li-collaps">&#127973; Beyer</li></ul></div></div></td>
+        <td class="certainty">0.87 vs -1.79</td>
+        <td class="odds">3.7</td>
+        <td class="total-color">64.84%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="12"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Genk</strong></div><div class="ali">1:30 PM</div><div class="ali">Standard</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Ouattara</li><li class="li-collaps">&#127973; Fadera</li><li class="li-collaps">&#127973; Karetsas</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Henkinet</li><li class="li-collaps">&#127973; Bokadi</li><li class="li-collaps">&#127973; Fossey</li><li class="li-collaps">&#127973; Vanheusden</li><li class="li-collaps">&#127973; O'Neill</li></ul></div></div></td>
+        <td class="certainty">0.72 vs -1.62</td>
+        <td class="odds">3.1</td>
+        <td class="total-color">58.74%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="13"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Ajax</strong></div><div class="ali">2:30 PM</div><div class="ali">For Sittard</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pasveer</li><li class="li-collaps">&#127973; Ávila</li><li class="li-collaps">&#127973; Bergwijn</li><li class="li-collaps">&#127973; Berghuis</li><li class="li-collaps">&#127973; Sutalo</li><li class="li-collaps">&#127973; Rensch</li><li class="li-collaps">&#127973; Eredivisie</li><li class="li-collaps">&#127973; Sutalo</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Gaaei</li><li class="li-collaps">&#127973; Eredivisie</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pinto</li><li class="li-collaps">&#127973; Dijks</li><li class="li-collaps">&#127973; Rosier</li><li class="li-collaps">&#127973; Siovas</li></ul></div></div></td>
+        <td class="certainty">0.59 vs -1.91</td>
+        <td class="odds">1.81</td>
+        <td class="total-color">53.61%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="14"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Kayserispor</strong></div><div class="ali">11:30 AM</div><div class="ali">Hatayspor</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Uzodimma</li><li class="li-collaps">&#127973; Hosseini</li><li class="li-collaps">&#127973; Morte</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Çörekçi</li><li class="li-collaps">&#127973; Önde</li><li class="li-collaps">&#127973; Matondo</li></ul></div></div></td>
+        <td class="certainty">0.52 vs -1.45</td>
+        <td class="odds">3.8</td>
+        <td class="total-color">50.78%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="15"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Alaves</strong></div><div class="ali">2:00 PM</div><div class="ali">Vallecano</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Sedlar</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Balliu</li><li class="li-collaps">&#127973; Lejeune</li><li class="li-collaps">&#127973; Tomás</li><li class="li-collaps">&#127973; Palazón</li></ul></div></div></td>
+        <td class="certainty">0.46 vs -1.39</td>
+        <td class="odds">3.5</td>
+        <td class="total-color">46.49%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="16"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Samsunspor</strong></div><div class="ali">2:00 PM</div><div class="ali">Ankaragucu</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kılınç</li><li class="li-collaps">&#127973; Tait</li><li class="li-collaps">&#127973; Bennasser</li><li class="li-collaps">&#127973; Drongelen</li><li class="li-collaps">&#127973; Mouandilmadji</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Bekiroğlu</li><li class="li-collaps">&#127973; Karabay</li><li class="li-collaps">&#127973; Hanousek</li><li class="li-collaps">&#127973; Özbir</li></ul></div></div></td>
+        <td class="certainty">0.44 vs -1.53</td>
+        <td class="odds">3.2</td>
+        <td class="total-color">45.19%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="17"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Istanbulspor</div><div class="ali">2:00 PM</div><div class="arrow-above"><strong>Kasimpasa</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gültekin</li><li class="li-collaps">&#127973; Yeşil</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Çetinkaya</li><li class="li-collaps">&#127973; Saddiki</li><li class="li-collaps">&#127973; Ngoy</li></ul></div></div></td>
+        <td class="certainty">-1.06 vs 0.27</td>
+        <td class="odds">1.95</td>
+        <td class="total-color">31.98%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="18"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Ein Frankfurt</strong></div><div class="ali">5:30 PM</div><div class="ali">Hoffenheim</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kalajdzic</li><li class="li-collaps">&#127973; Rode</li><li class="li-collaps">&#127973; Loune</li><li class="li-collaps">&#127973; Raebiger</li><li class="li-collaps">&#127973; Futkeu</li><li class="li-collaps">&#127973; DFB-Pokal</li><li class="li-collaps">&#127973; Beek</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Bahoya</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Santos</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; John</li><li class="li-collaps">&#127973; Berisha</li><li class="li-collaps">&#127973; Akpoguma</li><li class="li-collaps">&#127973; Prömel</li><li class="li-collaps">&#127973; Skov</li><li class="li-collaps">&#127973; Geiger</li><li class="li-collaps">&#127973; Bülter</li><li class="li-collaps">&#127973; Kaderabek</li></ul></div></div></td>
+        <td class="certainty">0.24 vs -1.38</td>
+        <td class="odds">2.66</td>
+        <td class="total-color">29.17%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="19"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Lille</strong></div><div class="ali">5:00 PM</div><div class="ali">Rennes</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Ilic</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Nagida</li><li class="li-collaps">&#127973; Fée</li></ul></div></div></td>
+        <td class="certainty">0.14 vs -0.76</td>
+        <td class="odds">2.72</td>
+        <td class="total-color">21.43%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="20"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Nijmegen</strong></div><div class="ali">4:45 PM</div><div class="ali">Heerenveen</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pereira</li><li class="li-collaps">&#127973; Dost</li><li class="li-collaps">&#127973; Wit</li><li class="li-collaps">&#127973; Rossen</li><li class="li-collaps">&#127973; Schöne</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Nicolaescu</li></ul></div></div></td>
+        <td class="certainty">0.09 vs -0.72</td>
+        <td class="odds">1.62</td>
+        <td class="total-color">16.87%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> 
+                <span class="tooltiptext">
+                    
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="21"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Metz</strong></div><div class="ali">3:00 PM</div><div class="ali">Clermont</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Jallow</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gastien</li><li class="li-collaps">&#127973; Caufriez</li><li class="li-collaps">&#127973; Konaté</li></ul></div></div></td>
+        <td class="certainty">0.09 vs -0.8</td>
+        <td class="odds">5.3</td>
+        <td class="total-color">17.22%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="22"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Juventus</strong></div><div class="ali">6:00 PM</div><div class="ali">Atalanta</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kean</li><li class="li-collaps">&#127973; Perin</li><li class="li-collaps">&#127973; McKennie</li><li class="li-collaps">&#127973; Rabiot</li><li class="li-collaps">&#127973; Sciglio</li><li class="li-collaps">&#127973; Vlahović</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Fagioli</li><li class="li-collaps">&#127973; Pogba</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Rossi</li><li class="li-collaps">&#127973; Holm</li><li class="li-collaps">&#127973; A</li></ul></div></div></td>
+        <td class="certainty">0.07 vs -1.12</td>
+        <td class="odds">3.45</td>
+        <td class="total-color">15.93%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="23"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Fiorentina</div><div class="ali">8:45 PM</div><div class="arrow-above"><strong>Roma</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Christensen</li><li class="li-collaps">&#127973; Quarta</li><li class="li-collaps">&#127973; Kouamé</li><li class="li-collaps">&#127973; Beltrán</li><li class="li-collaps">&#127973; A</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Abraham</li><li class="li-collaps">&#127973; Kristensen</li><li class="li-collaps">&#127973; Kristensen</li><li class="li-collaps">&#127973; A</li></ul></div></div></td>
+        <td class="certainty">-1.09 vs 0.05</td>
+        <td class="odds">2.16</td>
+        <td class="total-color">14.32%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="24"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Zwolle</strong></div><div class="ali">2:30 PM</div><div class="ali">Volendam</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lagsir</li><li class="li-collaps">&#127973; Thomas</li><li class="li-collaps">&#127973; Buurmeester</li><li class="li-collaps">&#127973; Druijf</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Antonioli</li><li class="li-collaps">&#127973; Gustavo</li><li class="li-collaps">&#127973; Payne</li><li class="li-collaps">&#127973; Johnson</li><li class="li-collaps">&#127973; Flint</li><li class="li-collaps">&#127973; Mbuyamba</li></ul></div></div></td>
+        <td class="certainty">0.04 vs -1.28</td>
+        <td class="odds">5.3</td>
+        <td class="total-color">13.52%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="25"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Strasbourg</div><div class="ali">3:00 PM</div><div class="arrow-above"><strong>Monaco</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Fila</li><li class="li-collaps">&#127973; Mothiba</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Embolo</li><li class="li-collaps">&#127973; Henrique</li><li class="li-collaps">&#127973; Diatta</li><li class="li-collaps">&#127973; Vanderson</li><li class="li-collaps">&#127973; Camara</li><li class="li-collaps">&#127973; Jakobs</li></ul></div></div></td>
+        <td class="certainty">-1.02 vs 0.03</td>
+        <td class="odds">3.65</td>
+        <td class="total-color">12.3%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="26"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Marseille</strong></div><div class="ali">8:45 PM</div><div class="ali">Nantes</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Rongier</li><li class="li-collaps">&#127973; Murillo</li><li class="li-collaps">&#127973; Nadir</li><li class="li-collaps">&#127973; Garcia</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Gueye</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Onana</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Meupiyou</li><li class="li-collaps">&#127973; Ganago</li><li class="li-collaps">&#127973; Amian</li></ul></div></div></td>
+        <td class="certainty">-0.0 vs -0.81</td>
+        <td class="odds">1.93</td>
+        <td class="total-color">9.95%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="27"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Brighton</strong></div><div class="ali">3:00 PM</div><div class="ali">Nott'm Forest</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; March</li><li class="li-collaps">&#127973; Mitoma</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Wood</li><li class="li-collaps">&#127973; Tavares</li><li class="li-collaps">&#127973; Kouyaté</li><li class="li-collaps">&#127973; Boly</li><li class="li-collaps">&#127973; Aina</li><li class="li-collaps">&#127973; Niakhaté</li><li class="li-collaps">&#127973; Sangaré</li></ul></div></div></td>
+        <td class="certainty">-0.05 vs -1.16</td>
+        <td class="odds">2.7</td>
+        <td class="total-color">8.99%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="28"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Eupen</div><div class="ali">7:15 PM</div><div class="arrow-above"><strong>St Truiden</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Bialek</li><li class="li-collaps">&#127973; Alloh</li><li class="li-collaps">&#127973; Magnée</li><li class="li-collaps">&#127973; Möhwald</li><li class="li-collaps">&#127973; Pattynama</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Okazaki</li><li class="li-collaps">&#127973; Godeau</li></ul></div></div></td>
+        <td class="certainty">-0.74 vs -0.08</td>
+        <td class="odds">5.5</td>
+        <td class="total-color">8.39%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="29"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Aston Villa</strong></div><div class="ali">2:00 PM</div><div class="ali">Tottenham</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Mings</li><li class="li-collaps">&#127973; Buendía</li><li class="li-collaps">&#127973; Konsa</li><li class="li-collaps">&#127973; Kamara</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Solomon</li><li class="li-collaps">&#127973; Porro</li><li class="li-collaps">&#127973; Sessegnon</li><li class="li-collaps">&#127973; Forster</li><li class="li-collaps">&#127973; Richarlison</li></ul></div></div></td>
+        <td class="certainty">-0.17 vs -0.84</td>
+        <td class="odds">1.76</td>
+        <td class="total-color">6.61%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="30"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Las Palmas</div><div class="ali">4:15 PM</div><div class="arrow-above"><strong>Ath Bilbao</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Araujo</li><li class="li-collaps">&#127973; Coco</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Herrera</li><li class="li-collaps">&#127973; Berchiche</li></ul></div></div></td>
+        <td class="certainty">-0.51 vs -0.2</td>
+        <td class="odds">2.94</td>
+        <td class="total-color">5.96%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="31"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Betis</strong></div><div class="ali">9:00 PM</div><div class="ali">Villarreal</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Rodríguez</li><li class="li-collaps">&#127973; Isco</li><li class="li-collaps">&#127973; Ruibal</li><li class="li-collaps">&#127973; Altimira</li><li class="li-collaps">&#127973; Fekir</li><li class="li-collaps">&#127973; Pezzella</li><li class="li-collaps">&#127973; Sabaly</li><li class="li-collaps">&#127973; League</li><li class="li-collaps">&#127973; Fornals</li><li class="li-collaps">&#127973; League</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pino</li><li class="li-collaps">&#127973; Suárez</li><li class="li-collaps">&#127973; Foyth</li><li class="li-collaps">&#127973; Terrats</li><li class="li-collaps">&#127973; Pedraza</li></ul></div></div></td>
+        <td class="certainty">-0.22 vs -1.36</td>
+        <td class="odds">6.4</td>
+        <td class="total-color">5.69%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="32"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="arrow-above"><strong>Lecce</strong></div><div class="ali">12:30 PM</div><div class="ali">Verona</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Dermaku</li><li class="li-collaps">&#127973; Kaba</li><li class="li-collaps">&#127973; Corfitzen</li><li class="li-collaps">&#127973; Brancolini</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Berardi</li><li class="li-collaps">&#127973; Cruz</li><li class="li-collaps">&#127973; Dawidowicz</li><li class="li-collaps">&#127973; A</li></ul></div></div></td>
+        <td class="certainty">-0.28 vs -0.38</td>
+        <td class="odds">3.4</td>
+        <td class="total-color">4.39%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="33"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Le Havre</div><div class="ali">3:00 PM</div><div class="arrow-above"><strong>Toulouse</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Operi</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Aboukhlal</li></ul></div></div></td>
+        <td class="certainty">-0.39 vs -0.34</td>
+        <td class="odds">3.45</td>
+        <td class="total-color">3.1%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="34"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Liverpool</div><div class="ali">4:45 PM</div><div class="arrow-above"><strong>Man City</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Bajcetic</li><li class="li-collaps">&#127973; Matip</li><li class="li-collaps">&#127973; Doak</li><li class="li-collaps">&#127973; Alisson</li><li class="li-collaps">&#127973; Jota</li><li class="li-collaps">&#127973; Alexander-Arnold</li><li class="li-collaps">&#127973; Jones</li><li class="li-collaps">&#127973; Thiago</li><li class="li-collaps">&#127973; Williams</li><li class="li-collaps">&#127973; Gravenberch</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div></td>
+        <td class="certainty">-0.51 vs -0.44</td>
+        <td class="odds">1.29</td>
+        <td class="total-color">1.16%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> 
+                <span class="tooltiptext">
+                    
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 10</td>
+        <td class="team" data-match-index="35"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="ali">Bochum</div><div class="ali">3:30 PM</div><div class="arrow-above"><strong>Freiburg</strong></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Esser</li><li class="li-collaps">&#127973; Kwarteng</li><li class="li-collaps">&#127973; Tolba</li><li class="li-collaps">&#127973; Osterhage</li><li class="li-collaps">&#127973; Antwi-Adjei</li><li class="li-collaps">&#127973; Oermann</li><li class="li-collaps">&#127973; Kwarteng</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kyereh</li><li class="li-collaps">&#127973; Schmidt</li><li class="li-collaps">&#127973; Rosenfelder</li><li class="li-collaps">&#127973; Lienhart</li></ul></div></div></td>
+        <td class="certainty">-0.65 vs -0.46</td>
+        <td class="odds">6.2</td>
+        <td class="total-color">0.71%</td>
+        <td class="correct">None</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+</table>
+<div class="left">
+    Last updated 14:13:37 2024-03-07
+</div>
+<div class="center">
+   <a href="privacy_policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html"> Liability Disclaimer</a>
+</div>
+
+
+
+</body>
+</html>
