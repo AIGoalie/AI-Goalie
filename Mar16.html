@@ -4,22 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
-        //             Function to detect if the user is using a mobile device
-        function isMobile() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        }
-
-        // Function to redirect if user is on a mobile device
-        function redirectIfMobile() {
-            if (isMobile()) {
-                window.location.href = 'index_m.html'; // Redirect to your mobile page
-            }
-        }
-
-        // Call the redirect function when the page loads
-        window.onload = redirectIfMobile;
-</script>
 
 <!-- Google tag (gtag.js) -->
 <meta name="description" content="AIGoalie is a brand new football prediction model that uses machine learning, statistical analysis, large data, and human expertise to provide user-friendly and interpretable confidence score predictions for all top european league soccer matches.">
@@ -480,7 +464,6 @@
             });
 
 
-
             // Get all the elements with class "result"
             const correctCells = document.querySelectorAll(".correct");
             // Loop through each "Result" cell and display checkmarks and crosses based on the result value
@@ -496,6 +479,7 @@
                     cell.innerHTML = `<span class="black";>&#x2043;</span>`;
                 }
             });
+
             function calculateGradientColor(value) {
                 if (value <= 0) {
                     return "red";
@@ -538,25 +522,25 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const matches = document.querySelectorAll('.match');
 
             matches.forEach(match => {
                 const team = match.querySelector('.team');
-                team.addEventListener('click', function() {
+                team.addEventListener('click', function () {
                     match.classList.toggle('expanded');
                 });
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const collapsibles = document.querySelectorAll('.collapsible');
 
             collapsibles.forEach(collapsible => {
                 const header = collapsible.querySelector('.collapsible-header');
                 const content = collapsible.querySelector('.collapsible-content');
 
-                header.addEventListener('click', function() {
+                header.addEventListener('click', function () {
                     collapsible.classList.toggle('expanded');
                     if (collapsible.classList.contains('expanded')) {
                         content.style.display = 'block'; // Show content when expanded
@@ -566,72 +550,87 @@
                 });
             });
         });
-            function acceptCookies() {
-              document.querySelector('.cookie-notice').style.display = 'none';
-              // Set a cookie to remember the user's choice
-              document.cookie = "cookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-            }
 
-            function rejectCookies() {
-              document.querySelector('.cookie-notice').style.display = 'none';
-              // Set a cookie to remember the user's choice
-              document.cookie = "cookieConsent=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-            }
+        function acceptCookies() {
+            document.querySelector('.cookie-notice').style.display = 'none';
+            // Set a cookie to remember the user's choice
+            document.cookie = "cookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+        }
 
-            // Check if the cookie exists and user has accepted
-            function checkCookie() {
-              var consentCookie = getCookie("cookieConsent");
-              if (consentCookie === "" || consentCookie === "false") {
+        function rejectCookies() {
+            document.querySelector('.cookie-notice').style.display = 'none';
+            // Set a cookie to remember the user's choice
+            document.cookie = "cookieConsent=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+        }
+
+        // Check if the cookie exists and user has accepted
+        function checkCookie() {
+            var consentCookie = getCookie("cookieConsent");
+            if (consentCookie === "" || consentCookie === "false") {
                 document.getElementById("cookieNotice").style.display = "block";
-              }
             }
+        }
 
-            // Function to retrieve a specific cookie value
-            function getCookie(name) {
-              var cookies = document.cookie.split(';');
-              for (var i = 0; i < cookies.length; i++) {
+        // Function to retrieve a specific cookie value
+        function getCookie(name) {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
                 var cookie = cookies[i].trim();
                 if (cookie.indexOf(name) === 0) {
-                  return cookie.substring(name.length + 1);
+                    return cookie.substring(name.length + 1);
                 }
-              }
-              return "";
             }
+            return "";
+        }
 
-            // Call checkCookie() when the page loads
-            window.onload = checkCookie;
-
+        // Call checkCookie() when the page loads
+        window.onload = checkCookie;
 
 
         function redirectToGameweek() {
-    var selectElement = document.getElementById("previousGameweeks");
-    var selectedValue = selectElement.value;
-    if (selectedValue) {
-        window.location.href = selectedValue;
-    }
-}
+            var selectElement = document.getElementById("previousGameweeks");
+            var selectedValue = selectElement.value;
+            if (selectedValue) {
+                window.location.href = selectedValue;
+            }
+        }
 
+            // Function to detect if the user is using a mobile device
+            function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+            // Function to redirect if user is on a mobile device
+            function redirectIfMobile() {
+            if (isMobile()) {
+            window.location.href = 'index_m.html'; // Redirect to your mobile page
+        }
+        }
+
+            // Call the redirect function when the page loads
+            window.onload = redirectIfMobile;
+    
     function openSelectDropdown() {
-        var selectWrapper = document.querySelector('.select-wrapper');
-        selectWrapper.classList.add('highlight-red')
-        // selectWrapper.focus(); // Focus on the select element
-        // selectWrapper.click(); // Simulate a click event on the select element
+    var selectWrapper = document.querySelector('.select-wrapper');
+    selectWrapper.classList.add('highlight-red')
+    // selectWrapper.focus(); // Focus on the select element
+    // selectWrapper.click(); // Simulate a click event on the select element
     }
 
-        function closeIntroductionBox() {
-        document.getElementById("introductionBox").style.display = "none";
+    function closeIntroductionBox() {
+    document.getElementById("introductionBox").style.display = "none";
     }
 
 
     </script>
 
-<style>
-      .highlight-green {
-        background-color: lightgreen;
-    }
+    <style>
+        .highlight-green {
+            background-color: lightgreen;
+        }
 
-    .highlight-red {
-        background-color: salmon;
+        .highlight-red {
+            background-color: salmon;
     }
     .introduction-box {
         position: relative; /* Add relative positioning */
@@ -1662,7 +1661,7 @@
     
 </table>
 <div class="left">
-    Last updated 16:52:06 2024-03-14
+    Last updated 16:54:13 2024-03-14
 </div>
 <div class="center">
    <a href="privacy_policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html">Terms</a>
