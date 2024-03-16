@@ -24,14 +24,45 @@
 
     <style>
 
-      .select-wrapper {
+      .select-wrapper_m {
         position: relative;
         display: inline-block;
-        width: 200px; /* Adjust width as needed */
+        width: 150px; /* Adjust width as needed */
+        height: 25px; /* Adjust width as needed */
         font-family: Arial, sans-serif;
         border-radius: 4px;
         overflow: hidden;
           text-align: center;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .select-wrapper_m select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper_m::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+      .select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        height: 50px; /* Adjust width as needed */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        overflow: hidden;
+          text-align: center;
+          top: 15px;
         background-color: #f0f0f0;
         border: 1px solid #ccc;
     }
@@ -566,22 +597,6 @@
 
             // Call checkCookie() when the page loads
             window.onload = checkCookie;
-
-
-        //             Function to detect if the user is using a mobile device
-        function isMobile() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        }
-
-        // Function to redirect if user is on a mobile device
-        function redirectIfMobile() {
-            if (isMobile()) {
-                window.location.href = 'Mar8-Mar11_m.html'; // Redirect to your mobile page
-            }
-        }
-
-        // Call the redirect function when the page loads
-        window.onload = redirectIfMobile;
 
 
         function redirectToGameweek() {
