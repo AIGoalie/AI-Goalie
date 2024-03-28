@@ -671,12 +671,18 @@
             document.cookie = "cookieConsent=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
         }
 
-        // Check if the cookie exists and user has accepted
         function checkCookie() {
-            var consentCookie = getCookie("cookieConsent");
-            if (consentCookie === "" || consentCookie === "false") {
-                document.getElementById("cookieNotice").style.display = "block";
-                document.getElementById("cookieNotice_m").style.display = "block";
+            // Extract the filename from the URL
+            var pathArray = window.location.pathname.split('/');
+            var currentPage = pathArray[pathArray.length - 1];
+
+            // Check if the current page is index.html
+            if (currentPage === "index.html") {
+                var consentCookie = getCookie("cookieConsent");
+                if (consentCookie === "" || consentCookie === "false") {
+                    document.getElementById("cookieNotice").style.display = "block";
+                    document.getElementById("cookieNotice_m").style.display = "block";
+                }
             }
         }
 
@@ -719,6 +725,10 @@
         function closeIntroductionBox() {
             document.getElementById("introductionBox").style.display = "none";
             document.getElementById("introductionBox_m").style.display = "none";
+            document.getElementById("emptyspace").style.display = "none";
+            document.getElementById("emptyspace2").style.display = "none";
+            document.getElementById("emptyspace_m").style.display = "none";
+            document.getElementById("emptyspace2_m").style.display = "none";
         }
 
 
@@ -820,7 +830,7 @@
 <div class="desktop-body">
 <div>{% include 'navbar.html' %}</div>
 {%if 'index' in filename%}
-<div>&nbsp;</div>
+<div id="emptyspace">&nbsp;</div>
 <div class="introduction-box" id="introductionBox">
         <button class="close-btn" onclick="closeIntroductionBox()">&#10006;</button>
 
@@ -835,7 +845,7 @@
 
     <p>Let AIGoalie help you save time, stay ahead of the game, and make informed decisions, completely free!</p>
 </div>
-<div>&nbsp;</div>
+<div id="emptyspace2">&nbsp;</div>
 {%else%}
 {%endif%}
 <table>
@@ -917,7 +927,7 @@
 
     <div>{% include 'navbar_m.html' %}</div>
 {%if 'index' in filename%}
-<div>&nbsp;</div>
+<div id="emptyspace_m">&nbsp;</div>
 <div class="introduction-box" id="introductionBox_m">
         <button class="close-btn" onclick="closeIntroductionBox()">&#10006;</button>
 
@@ -932,7 +942,7 @@
 
     <p>Let AIGoalie help you save time, stay ahead of the game, and make informed decisions, completely free!</p>
 </div>
-<div>&nbsp;</div>
+<div id="emptyspace2_m">&nbsp;</div>
 {%else%}
 {%endif%}
 
