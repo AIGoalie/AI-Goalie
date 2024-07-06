@@ -1,0 +1,1274 @@
+
+    @font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-Regular.woff2') format('woff2'),
+         url('fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-Bold.woff2') format('woff2'),
+         url('fonts/Montserrat-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-Italic.woff2') format('woff2'),
+         url('fonts/Montserrat-Italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-BoldItalic.woff2') format('woff2'),
+         url('fonts/Montserrat-BoldItalic.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+    /* High contrast mode for better accessibility */
+    @media (prefers-contrast: more) {
+        a {
+            color: #0000ff; /* Bright blue for better contrast */
+        }
+    }
+    .slider-container {
+        width:50%;
+        margin: 20px auto; /* Top and bottom margin 20px, left and right auto centers it */
+    }
+
+
+/* Styles for the slider base */
+.noUi-target, .noUi-target * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+}
+.noUi-handle:before, .noUi-handle:after {
+display: none;
+}
+.noUi-base {
+    width: 100%;
+    height: 40px; /* Set the overall height of the slider */
+    position: relative;
+    z-index: 1;
+
+}
+.noUi-horizontal .noUi-handle {
+    width: 19px;
+    height: 17px;
+    right: -7px;
+    top: 3px;
+}
+.noUi-connects {
+    height: 6px; /* Adjust the height of the selected range */
+    top: 17px; /* Centers the bar vertically */
+    background-color: white; /* Set the color of the selected range */
+}
+.noUi-connect {
+    background-color: #990000;
+}
+
+.noUi-handle {
+    width: 34px; /* Handle width */
+    height: 34px; /* Handle height */
+    right: -17px; /* Offset from the edge of the slider base */
+    top: 3px; /* Top position to center vertically */
+    border: 1px solid #990000; /* Border properties */
+    background-color: #FFF; /* Handle background color */
+    border-radius: 50%; /* Rounded corners for the handle */
+    cursor: pointer; /* Cursor on hover */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Shadow for 3D effect */
+}
+
+/* Styles for the tooltip */
+.noUi-tooltip {
+    font-size: 14px; /* Tooltip font size */
+    color: white; /* Tooltip text color */
+    background-color: #990000; /* Tooltip background */
+    padding: 5px; /* Tooltip padding */
+    border-radius: 3px; /* Rounded corners for the tooltip */
+}
+
+.noUi-active {
+    box-shadow: inset 0 0 1px #FFF; /* Shadow effect for active state */
+}
+        .body {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+            font-style: normal;
+        }
+        .arrow-above-home {
+            position: relative;
+            display: inline-block;
+            /*text-align: center;*/
+            flex: 1;
+            /*margin: 0 -15px;*/
+        }
+
+        .sort-arrow {
+            font-size: 10px;
+        }
+      .sort-arrow_m {
+            font-size: 6px;
+        }
+        .arrow-above-home::before {
+            content: '^'; /* This is the default arrow, you can replace it with any other character */
+            position: absolute;
+            top: -10px; /* Adjust this value to position the arrow properly */
+            left: 50%; /* Position arrow in the middle */
+            transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
+            font-size: 0px;
+                font-weight: bold;
+        }
+
+
+        .arrow-above-away {
+            position: relative;
+            display: inline-block;
+            /*text-align: center;*/
+            flex: 1;
+            /*margin: 0 -15px;*/
+        }
+        .arrow-above-away::before {
+            content: '^'; /* This is the default arrow, you can replace it with any other character */
+            position: absolute;
+            top: -10px; /* Adjust this value to position the arrow properly */
+            left: 50%; /* Position arrow in the middle */
+            transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
+            font-size: 0px;
+                font-weight: bold; /* Add this line to make the arrow bold */
+        }
+
+  .accept-btn {
+    background-color: #fff;
+    color: #333;
+    border: none;
+  }
+
+  .select-wrapper_m {
+
+    display: block;
+    width: 100%;
+    /*padding: 10px 5px; !* Same padding as li a *!*/
+      margin-top: 10px;
+    background-color: #990000; /* Same background as li */
+    color: white; /* Same text color */
+    text-align: center; /* Center the text inside the select */
+    cursor: pointer;
+    border: none;
+    position: relative; /* Needed for positioning the arrow pseudo-element */
+}
+
+.select-wrapper_m select {
+    width: 100%;
+
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: white; /* Ensuring the text color is white */
+    cursor: pointer;
+    appearance: none; /* Remove default styling */
+}
+
+.select-wrapper_m::after {
+
+    content: '\25BC'; /* Unicode character for down arrow */
+    position: absolute;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensures the arrow doesn't interfere with click events */
+    color: white; /* Arrow color */
+}
+
+      .select-wrapper {
+
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        height: 50px; /* Adjust width as needed */
+        overflow: hidden;
+          border: none;
+          text-align: center;
+                margin-top: 15px;
+
+          color:white;
+        background-color: #990000;
+        /*border: 1px solid #ccc;*/
+    }
+
+    .select-wrapper select {
+
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper::after {
+
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+select {
+    font-weight: bold;
+}
+  .reject-btn {
+    background-color: transparent;
+    color: #ccc;
+    border: 1px solid #ccc;
+  }
+        .certainty {
+            display: none;
+        }
+              .gp {
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Add some basic styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+        }
+
+        /* Define specific widths for each column */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 3%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 20%;
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 3%;
+        }
+
+
+            th:nth-child(4),
+            td:nth-child(4) {
+                width: 3%;
+            }
+
+            th:nth-child(5),
+            td:nth-child(5) {
+                width: 3%;
+            }
+
+            th:nth-child(6),
+            td:nth-child(6) {
+                width: 3%;
+            }
+
+            th:nth-child(7),
+            td:nth-child(7) {
+                width: 4%;
+            }
+            th:nth-child(8),
+            td:nth-child(8) {
+                width: 4%;
+            }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Define classes for different color ranges */
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .odds {
+            text-align: center; /* Centering the content of Odds column */
+        }
+
+        .warnings {
+            text-align: center; /* Centering the content of Odds column */
+        }
+        .ul-colaps {
+            width: 50%;
+        }
+
+        .lissy {
+        }
+
+
+        .ul-bottom {
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /*background-color: #f1f1f1;*/
+            width: 100%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+        }
+
+        ul:not(.ul-colaps):not(.lissy):not(.ul-bottom) {
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0 auto; /* Add this line to center the table horizontally */
+            padding: 0;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            width: 95%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+            border-radius: 20px;
+
+        }
+
+
+        li {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: center; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+            max-height:75px;
+        }
+
+
+        .li-collaps {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: left; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+            font-size: 12px;
+        }
+        .contact{
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 20px 1px;
+            text-decoration: none;
+            font-size: 16px;
+
+        }
+
+
+
+
+
+        li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a){
+            display: block;
+            color: black;
+            text-align: center;
+    padding: 30px 5px; /* Adds padding inside the title container */
+            text-decoration: none;
+            font-size: 16px; /* Adjust font size */
+
+        }
+
+        li a:hover:not(.paypal):not(.contact):not(.intro):not(.in-text-a) {
+            background-color: #c0392b;
+        }
+        .active {
+            background-color: #c0392b;
+            font-weight : bold;
+        }
+        .left {
+            width: 100%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+            padding: 5px; /* Add padding for spacing */
+        }
+    .center {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+        .tooltip-info{
+            position: relative;
+            display: inline-block
+        }
+        .tooltip-info .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            /*bottom: 125%;*/
+            /*left: 50%;*/
+            margin-left: -250px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-info:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            /*bottom: 125%;*/
+            /*left: 50%;*/
+            margin-left: -250px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .container {
+            display: flex;
+            align-items:center;
+
+        }
+        .ali {
+            text-align: center;
+            flex: 1;
+            margin: 0 -15px;
+        }
+        .ali-left{
+            text-align: left;
+            /*flex: 1;*/
+        }
+
+        .home-team{
+            text-align: right;
+                        flex: 1;
+                overflow: hidden; /* Hide any content that exceeds the specified width */
+    /*white-space: nowrap;*/
+            text-overflow: ellipsis;
+        }
+        .away-team{
+            text-align: left;
+                        flex: 1;
+                overflow: hidden; /* Hide any content that exceeds the specified width */
+    /*white-space: nowrap;*/
+            text-overflow: ellipsis;
+        }
+        .score{
+            text-align: center;
+            flex: 1;
+        }
+        .home-team-logo{
+            text-align: right;
+                        flex: 0;
+
+            margin-left: 10px;
+        }
+        .away-team-logo{
+            text-align: left;
+                        flex: 0;
+            margin-right: 10px;
+
+        }
+
+
+
+
+        /* Style for the arrow */
+        .arrow::before {
+            content: '\25B6'; /* Right-pointing triangle */
+            font-size: 10px;
+            display: inline-block;
+            text-align: left;
+
+            /*margin-right: 90px;*/
+            transform: rotate(0deg); /* Initially rotated 90 degrees */
+            transition: transform 0.3s ease; /* Smooth transition for rotation */
+        }
+
+        /* When the row is expanded, rotate the arrow to point down */
+        .expanded .arrow::before {
+            transform: rotate(90deg);
+        }
+
+        /* Hide the content of the collapsible row by default */
+        .collapsible-content {
+            display: none;
+
+
+        }
+        .collapsible-container {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 200px;
+            margin-right: -50px;
+            margin-top: 2px;
+        }
+
+
+
+        /* Show the content when the row is expanded */
+        .expanded .collapsible-content {
+            display: table-cell;
+            text-align: center;
+            flex: 1;
+        }
+
+        @media screen and (max-width: 768px) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Styles for the slider base */
+.noUi-target, .noUi-target * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+
+}
+
+.noUi-base {
+    width: 100%;
+    height: 20px; /* Set the overall height of the slider */
+    position: relative;
+    z-index: 1;
+
+}
+
+.noUi-connects {
+    height: 6px; /* Adjust the height of the selected range */
+    top: 17px; /* Centers the bar vertically */
+    background-color: white; /* Set the color of the selected range */
+}
+.noUi-connect {
+    height: 5px;
+    background-color: #990000;
+}
+
+.noUi-handle {
+    width: 34px; /* Handle width */
+    height: 34px; /* Handle height */
+    right: -17px; /* Offset from the edge of the slider base */
+    top: 3px; /* Top position to center vertically */
+    border: 1px solid #990000; /* Border properties */
+    background-color: #FFF; /* Handle background color */
+    border-radius: 50%; /* Rounded corners for the handle */
+    cursor: pointer; /* Cursor on hover */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Shadow for 3D effect */
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 16px;
+    height: 14px;
+    right: -7px;
+    top: 3px;
+}
+/* Styles for the tooltip */
+.noUi-tooltip {
+    font-size: 9px; /* Tooltip font size */
+    color: white; /* Tooltip text color */
+    background-color: #990000; /* Tooltip background */
+    padding: 5px; /* Tooltip padding */
+    border-radius: 3px; /* Rounded corners for the tooltip */
+}
+
+.noUi-active {
+    box-shadow: inset 0 0 1px #FFF; /* Shadow effect for active state */
+}
+
+
+
+
+
+
+                    th, td {
+                 font-size: 10px;
+        }
+
+
+            /* Define specific widths for each column */
+            th:nth-child(1),
+            td:nth-child(1) {
+                    width: 70%
+            }
+
+            th:nth-child(2),
+            td:nth-child(2) {
+                    width: 10%
+            }
+
+            th:nth-child(3),
+            td:nth-child(3) {
+                    width: 7.5%
+            }
+
+
+            th:nth-child(4),
+            td:nth-child(4) {
+                    width: 12.5%
+            }
+
+
+        .li-collaps {
+                 font-size: 8px;
+        }
+        .contact{
+                 padding: 8px 1px;
+
+                 font-size: 8px;
+                 width: 80%;
+
+
+        }
+
+        li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a){
+                 padding: 12px 1px;
+
+                 font-size: 12px;
+
+
+        }
+
+        .left {
+                    font-size: 8px;
+
+        }
+        .center {
+            width: 80%;
+            font-size: 8px;
+        }
+      .tooltip-info .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+                 width: 100px;
+
+                 margin-left: -50px;
+
+                 font-size: 8px;
+
+        }
+
+
+
+        /* Style for the arrow */
+        .arrow::before {
+                 font-size: 8px;
+        }
+
+
+           .collapsible-container {
+                 margin-left: 0px;
+
+                 margin-right: -70px;
+
+        }
+
+
+            .nav a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+
+        }
+
+
+
+        @media screen and (max-width: 768px) {
+
+
+
+            th, td {
+                font-size: 10px;
+            }
+
+
+            /* Define specific widths for each column */
+            th:nth-child(1),
+            td:nth-child(1) {
+                width: 70%
+            }
+
+            th:nth-child(2),
+            td:nth-child(2) {
+                width: 10%
+            }
+
+            th:nth-child(3),
+            td:nth-child(3) {
+                width: 7.5%
+            }
+
+
+            th:nth-child(4),
+            td:nth-child(4) {
+                width: 12.5%
+            }
+
+
+            .li-collaps {
+                font-size: 8px;
+            }
+
+            .contact {
+                padding: 8px 1px;
+
+                font-size: 16px;
+                width: 80%;
+
+
+            }
+
+            li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a) {
+                padding: 12px 1px;
+
+                font-size: 12px;
+
+
+            }
+
+            .left {
+                font-size: 8px;
+
+            }
+
+            .center {
+                width: 80%;
+                font-size: 8px;
+            }
+
+            .tooltip-info .tooltiptext {
+                visibility: hidden;
+                width: 250px;
+                width: 100px;
+
+                margin-left: -50px;
+
+                font-size: 8px;
+
+            }
+
+
+            /* Style for the arrow */
+            .arrow::before {
+                font-size: 8px;
+            }
+
+
+            .collapsible-container {
+                margin-left: 0px;
+
+                margin-right: -70px;
+
+            }
+
+
+            .nav a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+
+        }
+
+
+.readmore {
+
+  position: relative;
+  max-height: 100px;
+  overflow: hidden;
+  width:80%;
+  padding: 10px;
+
+  transition:max-height 0.15s ease-out;
+            margin: 0 auto;
+}
+
+.readmore.expand{
+  max-height: 5000px !important;
+  transition:max-height 0.35s ease-in-out;
+}
+
+.readmore-link{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: block;
+  width:100%;
+  text-align: center;
+  font-weight:bold;
+  font-size:16px;
+  padding-top:40px;
+  background-image: linear-gradient(to bottom, transparent, white);
+  cursor: pointer;
+    font-weight: bold;
+
+}
+   @media screen and (max-width: 768px) {
+       .readmore-link{
+     font-size: 10px;
+           }
+ }
+.readmore-link.expand {
+  position: relative;
+  background-image: none;
+  padding-top:10px;
+  height:20px;
+}
+
+.readmore-link:after {
+  content:"Show more";
+}
+.readmore-link.expand:after{
+  content:"Show less";
+}
+
+.search-container {
+    display: flex;
+    position: relative;
+    font-size: 300px;
+   @media screen and (max-width: 768px) {
+
+     font-size: 500px;
+
+ }
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px 0 0 4px; /* Rounded corners on the left side */
+}
+
+#searchBtn {
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0; /* Rounded corners on the right side */
+    cursor: pointer;
+}
+
+#searchBtn:hover {
+    background-color: #0056b3;
+}
+
+#common-snippet {
+    /*position: fixed; !* Fix the navbar's position relative to the viewport *!*/
+    top: 0; /* Align the top edge of the navbar with the top of the viewport */
+    width: 100%; /* Make the navbar extend across the full width of the viewport */
+    /*z-index: 1000; !* Ensure the navbar stays on top of other content *!*/
+    background-color: #fff; /* Optional: Set a background color for the navbar */
+
+}
+
+th {
+    font-size : 14px;
+}
+
+.table-title h1, .table-title-global h1 {
+    text-align: left; /* Centers the title */
+    font-size: 18px; /* Large font size for visibility */
+    color: white; /* White text for contrast against the red background */
+    background-color: #900; /* A strong, sophisticated red */
+            border-collapse: collapse;
+            width: 95%;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+       @media screen and (max-width: 768px) {
+
+     font-size: 12px;
+            width: 93%;
+
+ }
+}
+
+
+.table-container {
+    border-radius: 20px;  /* Adjust the radius as needed */
+    overflow: hidden;    /* Ensures the rounded corners are clean */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Optional shadow for better aesthetics */
+    border: 1px solid #ccc; /* Optional border for clarity */
+    width:95%;
+    background-color: #900;
+    margin: 20px auto; /* Top and bottom margin 20px, left and right auto centers it */
+}
+
+#current_day , #current_day_m {
+    flex-grow: 1;            /* Allows the current day to take up any remaining space */
+    text-align: center;      /* Ensures text is centered within the space it occupies */
+    display: flex;           /* Enable flexbox for vertical alignment */
+    align-items: center;     /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    font-size: 16px;         /* Adjust font size */
+}
+
+.day-nav  h1 {
+    text-align: center; /* Centers the title */
+    font-size: 16px; /* Large font size for visibility */
+    /*margin-bottom: 10px; !* Adds space between the title and the table *!*/
+    /*padding: 5px; !* Adds padding inside the title container *!*/
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); !* Adds a subtle shadow for depth *!*/
+    /*border: 1px solid #b03228; !* Darker red border for slight contrast *!*/
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+        display: flex;           /* Enables flexbox */
+
+       @media screen and (max-width: 768px) {
+     font-size: 12px;
+
+ }
+}
+a {
+    text-decoration: none; /* Removes underline from links */
+}
+
+#prevDay, #nextDay, #prevDay_m, #nextDay_m {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 24px; /* Adjust size as needed */
+    height: auto; /* Ensures buttons don't stretch to fill container */
+    align-self: center; /* Aligns the buttons themselves centrally within the flex container */
+    margin: 0 15px; /* Adds space around the buttons */
+}
+
+#prevDay svg, #nextDay svg, #prevDay_m svg, #nextDay_m svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+    transition: fill 0.3s;
+}
+
+#prevDay:hover svg, #nextDay:hover svg, #prevDay_m:hover svg, #nextDay_m:hover svg {
+    fill: #c0392b;
+}
+
+
+/* Update table header to match or complement the title background */
+#myTable_euros th {
+    background-color: #900; /* A darker shade of red for the header rows */
+    color: white; /* White text for readability */
+    padding: 8px; /* Comfortable padding within headers */
+
+}
+#myTable_euros td {
+    padding: 8px; /* Ensures content within table cells is not cramped */
+    text-align: center; /* Centers text in cells for uniformity */
+    border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
+
+}
+
+/* Update table header to match or complement the title background */
+#myTable_euros_m th {
+    background-color: #900; /* A darker shade of red for the header rows */
+    color: white; /* White text for readability */
+    padding: 8px; /* Comfortable padding within headers */
+}
+#myTable_euros_m td {
+    text-align: center; /* Centers text in cells for uniformity */
+    border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
+}
+
+/* Alternating row colors */
+#myTable_euros, #myTable_euros_m, #myTable, #myTable_m tr:nth-child(odd) {
+    background-color: #ffffff;  /* White for odd rows */
+}
+
+#myTable_euros, #myTable_euros_m, #myTable, #myTable_m tr:nth-child(even) {
+    background-color: #e0e0e0;  /* Light grey for even rows */
+}
+
+
+/* Update table header to match or complement the title background */
+#myTable th {
+    background-color: #900; /* A darker shade of red for the header rows */
+    color: white; /* White text for readability */
+    padding: 8px; /* Comfortable padding within headers */
+}
+#myTable td {
+    padding: 8px; /* Ensures content within table cells is not cramped */
+    text-align: center; /* Centers text in cells for uniformity */
+    border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
+}
+
+
+/* Update table header to match or complement the title background */
+#myTable_m th {
+    background-color: #900; /* A darker shade of red for the header rows */
+    color: white; /* White text for readability */
+    padding: 8px; /* Comfortable padding within headers */
+}
+#myTable_m td {
+    padding: 8px; /* Ensures content within table cells is not cramped */
+    text-align: center; /* Centers text in cells for uniformity */
+    border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
+}
+
+
+  .underline {
+    text-decoration: underline;
+  }
+
+
+/* Update table header to match or complement the title background */
+#myTable_copa th {
+    background-color: #900; /* A darker shade of red for the header rows */
+    color: white; /* White text for readability */
+    padding: 8px; /* Comfortable padding within headers */
+
+}
+#myTable_copa td {
+    padding: 8px; /* Ensures content within table cells is not cramped */
+    text-align: center; /* Centers text in cells for uniformity */
+    border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
+
+}
+
+/* Update table header to match or complement the title background */
+#myTable_copa_m th {
+    background-color: #900; /* A darker shade of red for the header rows */
+    color: white; /* White text for readability */
+    padding: 8px; /* Comfortable padding within headers */
+}
+#myTable_copa_m td {
+    text-align: center; /* Centers text in cells for uniformity */
+    border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
+}
+
+/* Alternating row colors */
+#myTable_copa, #myTable_copa_m, #myTable, #myTable_m tr:nth-child(odd) {
+    background-color: #ffffff;  /* White for odd rows */
+}
+
+#myTable_copa, #myTable_copa_m, #myTable, #myTable_m tr:nth-child(even) {
+    background-color: #e0e0e0;  /* Light grey for even rows */
+}
+
+#loadMoreBtn {
+    display: none; /* Hide initially */
+}
+
+
+
+    
+        .highlight-red {
+                background-color: salmon;
+        }
+
+        .intro{
+                    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: left; /* Center align the content */
+            max-width: 2000px;
+
+        }
+
+        .in-text-a{
+
+        }
+
+
+        .introduction-box {
+            position: relative; /* Add relative positioning */
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0 auto; /* Center the box horizontally */
+            /*max-width: 50%; !* Limit the width to about half of the page *!*/
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .introduction-box h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .introduction-box p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+            @media (max-width: 768px){
+
+       .introduction-box {
+            position: relative; /* Add relative positioning */
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            /*width: 80%;*/
+            margin: 0 auto; /* Center the box horizontally */
+            /*max-width: 80%; !* Limit the width to about half of the page *!*/
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .introduction-box h2 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .introduction-box p {
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        }
+        /* Hide mobile body by default */
+        .mobile-body {
+            display: none;
+        }
+
+        /* Media query to switch bodies based on screen size */
+        @media screen and (max-width: 768px) {
+            .desktop-body {
+                display: none; /* Hide desktop body on small screens */
+            }
+            .mobile-body {
+                display: block; /* Show mobile body on small screens */
+            }
+
+        }
+    
+
+    .search-dropdown-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+        border-collapse: collapse;
+            width: 95%;
+            margin: 0 auto;
+}
+
+.search-dropdown-container input[type="text"] {
+}
+  .dropdown {
+            margin-right: 15px; /* Adjust margin between search input and dropdown button */
+ /* Add this line to center the table horizontally */
+  }
+
+  .dropbtn {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  .dropbtn_m {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+      padding: 10px;
+    /*min-width: 200px; !* Adjust as needed *!*/
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  top: 100%; /* Adjust the distance as needed */
+
+      font-size: 16px;
+              @media screen and (max-width: 768px) {
+      font-size: 12px;
+              }
+
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+  .dropdown-content input+label {
+    margin-left: 5px;
+  }
+
+  .dropdown-content input:checked+label {
+    font-weight: bold;
+  }
+
+  /* Add this new style */
+  .dropdown-content {
+    display: none;
+  }
+

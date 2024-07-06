@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="Cache-Control" content="max-age=3600" />
+<!-- Google tag (gtag.js) -->
+<meta name="description" content="AIGoalie is a brand new football prediction model that uses machine learning, statistical analysis, large data, and human expertise to provide user-friendly and interpretable confidence score predictions for all top european league soccer matches.">
+<meta name="keywords" content="AI, Football, Soccer, Machine Learning, Prediction, Confidence Scores">
+    <title>AIGoalie - Weekly AI-driven football predictions!</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"-->
+<!-- crossorigin="anonymous"></script>-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SEQD8XTNBW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SEQD8XTNBW');
+</script>
+
+    <style>
+        .arrow-above-home {
+            position: relative;
+            display: inline-block;
+            /*text-align: center;*/
+            flex: 1;
+            /*margin: 0 -15px;*/
+        }
+
+
+
+        .arrow-above-home::before {
+            content: '^'; /* This is the default arrow, you can replace it with any other character */
+            position: absolute;
+            top: -10px; /* Adjust this value to position the arrow properly */
+            left: 50%; /* Position arrow in the middle */
+            transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
+            font-size: 0px;
+            @media screen and (max-width: 768px) {
+                font-size: 0px;
+            }
+                font-weight: bold;
+        }
+
+
+        .arrow-above-away {
+            position: relative;
+            display: inline-block;
+            /*text-align: center;*/
+            flex: 1;
+            /*margin: 0 -15px;*/
+        }
+        .arrow-above-away::before {
+            content: '^'; /* This is the default arrow, you can replace it with any other character */
+            position: absolute;
+            top: -10px; /* Adjust this value to position the arrow properly */
+            left: 50%; /* Position arrow in the middle */
+            transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
+            font-size: 0px;
+            @media screen and (max-width: 768px) {
+                font-size: 0px;
+            }/* Adjust the font size as needed */
+                font-weight: bold; /* Add this line to make the arrow bold */
+        }
+          .cookie-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+  }
+
+        .cookie-notice_m {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+       font-size: 8px;
+  }
+
+
+  .cookie-notice button {
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .accept-btn {
+    background-color: #fff;
+    color: #333;
+    border: none;
+  }
+
+      .select-wrapper_m {
+        position: relative;
+        display: inline-block;
+        width: 150px; /* Adjust width as needed */
+        height: 25px; /* Adjust width as needed */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        overflow: hidden;
+          text-align: center;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .select-wrapper_m select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper_m::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+      .select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        height: 50px; /* Adjust width as needed */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        overflow: hidden;
+          text-align: center;
+          top: 15px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .select-wrapper select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+  .reject-btn {
+    background-color: transparent;
+    color: #ccc;
+    border: 1px solid #ccc;
+  }
+        .certainty {
+            display: none;
+        }
+              .gp {
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Add some basic styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 95%;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+        }
+
+        /* Define specific widths for each column */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 3%;
+            @media screen and (max-width: 768px) {
+                 width: 95%
+             }
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 20%;
+            @media screen and (max-width: 768px) {
+                 width: 10%
+             }
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 3%;
+            @media screen and (max-width: 768px) {
+                 width: 10%
+             }
+        }
+        @media screen and (min-width: 768px) {
+
+
+            th:nth-child(4),
+            td:nth-child(4) {
+                width: 3%;
+            }
+
+            th:nth-child(5),
+            td:nth-child(5) {
+                width: 3%;
+            }
+
+            th:nth-child(6),
+            td:nth-child(6) {
+                width: 3%;
+            }
+
+            th:nth-child(7),
+            td:nth-child(7) {
+                width: 4%;
+            }
+            th:nth-child(8),
+            td:nth-child(8) {
+                width: 4%;
+            }
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+            @media screen and (max-width: 768px) {
+                 font-size: 10px;
+             }
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Define classes for different color ranges */
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .odds {
+            text-align: center; /* Centering the content of Odds column */
+        }
+
+        .warnings {
+            text-align: center; /* Centering the content of Odds column */
+        }
+        .ul-colaps {
+            width: 50%;
+        }
+
+        .lissy {
+        }
+
+
+        .ul-bottom {
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /*background-color: #f1f1f1;*/
+            width: 100%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+        }
+
+        ul:not(.ul-colaps):not(.lissy):not(.ul-bottom) {
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0 auto; /* Add this line to center the table horizontally */
+            padding: 0;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            width: 95%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+
+
+        }
+
+
+        li {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: center; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+
+        }
+
+
+        .li-collaps {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: left; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+            font-size: 12px;
+             @media screen and (max-width: 768px) {
+                 font-size: 8px;
+             }
+        }
+        .contact{
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 20px 1px;
+             @media screen and (max-width: 768px) {
+                 padding: 8px 1px;
+             }
+            text-decoration: none;
+            font-size: 16px;
+             @media screen and (max-width: 768px) {
+                 font-size: 8px;
+                 width: 80%;
+             }
+
+        }
+
+
+        .paypal {
+            padding: 1px 1px;
+
+
+        }
+
+        li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a){
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 30px 1px;
+             @media screen and (max-width: 768px) {
+                 padding: 12px 1px;
+             }
+            text-decoration: none;
+            font-size: 16px; /* Adjust font size */
+             @media screen and (max-width: 768px) {
+                 font-size: 12px;
+             }
+
+        }
+
+
+        li a:hover:not(.paypal):not(.contact):not(.intro):not(.in-text-a) {
+            background-color: #ddd;
+        }
+        .active {
+            background-color: #ccc;
+            font-weight : bold;
+        }
+        .left {
+            width: 100%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+            padding: 5px; /* Add padding for spacing */
+             @media screen and (max-width: 768px) {
+                    font-size: 8px;
+             }
+        }
+    .center {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    /* Change width and font size for smaller screens */
+    @media screen and (max-width: 768px) {
+        .center {
+            width: 80%;
+            font-size: 8px;
+        }
+    }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+        .tooltip-info{
+            position: relative;
+            display: inline-block
+        }
+        .tooltip-info .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+             @media screen and (max-width: 768px) {
+                 width: 50px;
+             }
+            background-color: #555;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            /*bottom: 125%;*/
+            /*left: 50%;*/
+            margin-left: -250px;
+             @media screen and (max-width: 768px) {
+                 margin-left: -50px;
+             }
+            opacity: 0;
+            transition: opacity 0.3s;
+             @media screen and (max-width: 768px) {
+                 font-size: 8px;
+             }
+        }
+
+        .tooltip-info:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            /*bottom: 125%;*/
+            /*left: 50%;*/
+            margin-left: -250px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .container {
+            display: flex;
+            align-items:center;
+
+        }
+        .ali {
+            text-align: center;
+            flex: 1;
+            margin: 0 -15px;
+        }
+        .ali-left{
+            text-align: left;
+            /*flex: 1;*/
+        }
+
+        .home-team{
+            text-align: right;
+                        flex: 1;
+                overflow: hidden; /* Hide any content that exceeds the specified width */
+    /*white-space: nowrap;*/
+            text-overflow: ellipsis;
+        }
+        .away-team{
+            text-align: left;
+                        flex: 1;
+                overflow: hidden; /* Hide any content that exceeds the specified width */
+    /*white-space: nowrap;*/
+            text-overflow: ellipsis;
+        }
+        .score{
+            text-align: center;
+            flex: 1;
+        }
+        .home-team-logo{
+            text-align: right;
+                        flex: 0;
+
+            margin-left: 10px;
+        }
+        .away-team-logo{
+            text-align: left;
+                        flex: 0;
+            margin-right: 10px;
+
+        }
+
+
+
+
+        /* Style for the arrow */
+        .arrow::before {
+            content: '\25B6'; /* Right-pointing triangle */
+            font-size: 10px;
+             @media screen and (max-width: 768px) {
+                 font-size: 8px;
+             }
+            display: inline-block;
+            text-align: left;
+
+            /*margin-right: 90px;*/
+            transform: rotate(0deg); /* Initially rotated 90 degrees */
+            transition: transform 0.3s ease; /* Smooth transition for rotation */
+        }
+
+        /* When the row is expanded, rotate the arrow to point down */
+        .expanded .arrow::before {
+            transform: rotate(90deg);
+        }
+
+        /* Hide the content of the collapsible row by default */
+        .collapsible-content {
+            display: none;
+
+
+        }
+        .collapsible-container {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 200px; /* Adjust the left margin as needed */
+             @media screen and (max-width: 768px) {
+                 margin-left: 0px;
+             }
+            margin-right: -50px;
+             @media screen and (max-width: 768px) {
+                 margin-right: -70px;
+             }
+            margin-top: 2px;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .nav a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+
+        /* Show the content when the row is expanded */
+        .expanded .collapsible-content {
+            display: table-cell;
+            text-align: center;
+            flex: 1;
+        }
+
+
+    </style>
+    <script>
+
+
+        window.addEventListener("DOMContentLoaded", (event) => {
+            // Get all the elements with class "total-color"
+            const totalCells = document.querySelectorAll(".total-color");
+
+            // Loop through each "Total" cell and set background color based on the value gradient
+            totalCells.forEach((cell) => {
+                const value = parseFloat(cell.textContent);
+                const gradientColor = calculateGradientColor(value);
+                cell.style.backgroundColor = gradientColor;
+            });
+
+                        // Get all the elements with class "total-color"
+            const gpCells = document.querySelectorAll(".gp");
+
+            // Loop through each "Total" cell and set background color based on the value gradient
+            gpCells.forEach((cell) => {
+                const value = parseFloat(cell.textContent);
+                const gradientColor = calculateGradientColor(value);
+                cell.style.backgroundColor = gradientColor;
+            });
+
+
+            const scoreCells = document.querySelectorAll(".result");
+
+            scoreCells.forEach((cell, index) => {
+                if (!cell.textContent.includes('PM') && !cell.textContent.includes('AM') && !cell.textContent.includes('postponed')) {
+                    cell.innerHTML = `<strong>${cell.textContent}</strong>`;
+                }
+            });
+
+
+            // Get all the elements with class "result"
+            const correctCells = document.querySelectorAll(".correct");
+            // Loop through each "Result" cell and display checkmarks and crosses based on the result value
+            correctCells.forEach((cell, index) => {
+                const correctValue = parseFloat(cell.textContent);
+                if (correctValue === 1.0) {
+                    cell.innerHTML = `<span class="green">&#10003;</span>`;
+                } else if (correctValue === 0.0) {
+                    cell.innerHTML = `<span>&#10060;</span>`
+                } else if (correctValue === 0.5) {
+                    cell.innerHTML = `<span style="color: orange;"">&#x2043;</span>`; // Set the color to dark yellow using rgb
+                } else {
+                    cell.innerHTML = `<span class="black";>&#x2043;</span>`;
+                }
+            });
+
+            function calculateGradientColor(value) {
+                if (value <= 0) {
+                    return "red";
+                } else if (value < 50) {
+                    const red = 255;
+                    const green = Math.round((value / 50) * 255);
+                    return `rgb(${red}, ${green}, 0)`;
+                } else if (value >= 50 && value < 75) {
+                    const red = Math.round((1 - (value - 65) / 17.5) * 255);
+                    const green = 255;
+                    return `rgb(${red}, ${green}, 0)`;
+                } else if (value >= 75) {
+                    const green = Math.round(255 - ((value - 85) / 12.5) * 255);
+                    return `rgb(0, ${green}, 0)`;
+                }
+            }
+
+        });
+        window.addEventListener("DOMContentLoaded", (event) => {
+            // Get all the tabs
+            const tabs = document.querySelectorAll("ul li a:not(.paypal):not(.contact)");
+
+            // Function to handle tab click
+            const handleTabClick = (event) => {
+                // Remove "active" class from all tabs
+                tabs.forEach(t => t.classList.remove("active"));
+                // Add "active" class to the clicked tab
+                event.target.classList.add("active");
+            };
+
+            // Loop through each tab
+            tabs.forEach(tab => {
+                // Add click event listener to each tab
+                tab.addEventListener("click", handleTabClick);
+                // Check if this tab should be active based on the current URL
+                if (tab.href === window.location.href && tab.getAttribute("href").endsWith(".html")) {
+                    // If yes, add "active" class to the tab
+                    tab.classList.add("active");
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const matches = document.querySelectorAll('.match');
+
+            matches.forEach(match => {
+                const team = match.querySelector('.team');
+                team.addEventListener('click', function () {
+                    match.classList.toggle('expanded');
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const collapsibles = document.querySelectorAll('.collapsible');
+
+            collapsibles.forEach(collapsible => {
+                const header = collapsible.querySelector('.collapsible-header');
+                const content = collapsible.querySelector('.collapsible-content');
+
+                header.addEventListener('click', function () {
+                    collapsible.classList.toggle('expanded');
+                    if (collapsible.classList.contains('expanded')) {
+                        content.style.display = 'block'; // Show content when expanded
+                    } else {
+                        content.style.display = 'none'; // Hide content when collapsed
+                    }
+                });
+            });
+        });
+
+        function acceptCookies() {
+            document.querySelector('.cookie-notice').style.display = 'none';
+            document.querySelector('.cookie-notice_m').style.display = 'none';
+            // Set a cookie to remember the user's choice
+            document.cookie = "cookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+        }
+
+        function rejectCookies() {
+            document.querySelector('.cookie-notice').style.display = 'none';
+            document.querySelector('.cookie-notice_m').style.display = 'none';
+            // Set a cookie to remember the user's choice
+            document.cookie = "cookieConsent=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+        }
+
+        function checkCookie() {
+            // Extract the filename from the URL
+            var pathArray = window.location.pathname.split('/');
+            var currentPage = pathArray[pathArray.length - 1];
+
+            // Check if the current page is index.html
+            if (currentPage === "index.html") {
+                var consentCookie = getCookie("cookieConsent");
+                if (consentCookie === "" || consentCookie === "false") {
+                    document.getElementById("cookieNotice").style.display = "block";
+                    document.getElementById("cookieNotice_m").style.display = "block";
+                }
+            }
+        }
+
+        // Function to retrieve a specific cookie value
+        function getCookie(name) {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return "";
+        }
+
+        // Call checkCookie() when the page loads
+        window.onload = checkCookie;
+
+
+        function redirectToGameweek() {
+            var selectElement = document.getElementById("previousGameweeks");
+            var selectElement_m = document.getElementById("previousGameweeks_m");
+            var selectedValue = selectElement.value;
+            var selectedValue_m = selectElement_m.value;
+            if (selectedValue) {
+                window.location.href = selectedValue;
+            }
+            if (selectedValue_m) {
+                window.location.href = selectedValue_m;
+            }
+        }
+
+        function openSelectDropdown() {
+            var selectWrapper = document.querySelector('.select-wrapper');
+            var selectWrapper_m = document.querySelector('.select-wrapper_m');
+            selectWrapper.classList.add('highlight-red')
+            selectWrapper_m.classList.add('highlight-red')
+        }
+
+        function closeIntroductionBox() {
+            document.getElementById("introductionBox").style.display = "none";
+            document.getElementById("introductionBox_m").style.display = "none";
+            document.getElementById("emptyspace").style.display = "none";
+            document.getElementById("emptyspace2").style.display = "none";
+            document.getElementById("emptyspace_m").style.display = "none";
+            document.getElementById("emptyspace2_m").style.display = "none";
+        }
+
+
+    </script>
+
+    <style>
+        .highlight-red {
+                background-color: salmon;
+        }
+
+        .intro{
+                    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: left; /* Center align the content */
+            max-width: 2000px;
+
+        }
+
+        .in-text-a{
+
+        }
+
+
+        .introduction-box {
+            position: relative; /* Add relative positioning */
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0 auto; /* Center the box horizontally */
+            max-width: 50%; /* Limit the width to about half of the page */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .introduction-box h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .introduction-box p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+            @media (max-width: 768px){
+
+       .introduction-box {
+            position: relative; /* Add relative positioning */
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            margin: 0 auto; /* Center the box horizontally */
+            max-width: 80%; /* Limit the width to about half of the page */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .introduction-box h2 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .introduction-box p {
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        }
+        /* Hide mobile body by default */
+        .mobile-body {
+            display: none;
+        }
+
+        /* Media query to switch bodies based on screen size */
+        @media screen and (max-width: 768px) {
+            .desktop-body {
+                display: none; /* Hide desktop body on small screens */
+            }
+            .mobile-body {
+                display: block; /* Show mobile body on small screens */
+            }
+
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="desktop-body">
+<div><div id="common-snippet">
+    <ul>
+        <li><a class="paypal" href="index.html"> <img src="AIGoalieblack.webp" alt="Logo of the AI Goalie football webpage" width="98" height="76"> </a></li>
+        
+        <li><a href="index.html">All</a></li>
+        
+        <li><a href="Mar29.html">29 Mar</a></li>
+        <li><a href="Mar30.html">30 Mar</a></li>
+        <li><a href="Mar31.html">31 Mar</a></li>
+        <li><a href="Apr1.html">1 Apr</a></li>
+        <li><select class="select-wrapper" id="previousGameweeks" onchange="redirectToGameweek()">
+            <option value="" disabled selected>Select Gameweek</option>
+            <option value="index.html">Current</option>
+            <option value="Mar15-Mar17.html">15-17 Mar</option>
+            <option value="Mar8-Mar11.html">8-11 Mar</option>
+            <option value="Feb28-Mar4.html">1-4 Mar</option>
+            <option value="Feb23-26.html">23-26 Feb</option>
+            <option value="Feb16-19.html">16-19 Feb</option>
+        </select></li>
+        <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee_resized.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="74"> </a></li>
+        <li> <a class="contact" href="contact.html"> Contact <br>&#9993;</br> </a> </li>
+    </ul>
+</div></div>
+
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Fixture<span class="tooltip-info"> <sup><img width="12" height="12" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
+        <th>Odds<span class="tooltip-info">  <sup><img width="12" height="12" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"> Pre-match odds of the selected team winning. </span> </span></th>
+        <th>Confidence<span class="tooltip-info"> <sup><img width="12" height="12" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that the selected team will win. </span> </span></th>
+        <th>Result<span class="tooltip-info">  <sup><img width="12" height="12" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
+        <th>GP<span class="tooltip-info"> <sup><img width="12" height="12" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that the selected team will win. </span> </span></th>
+        <th>Alerts Home<span class="tooltip-info"> <sup><img width="12" height="12" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+        <th>Alerts Away<span class="tooltip-info"> <sup><img width="12" height="12" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Darmstadt</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Darmstadt.webp" alt="Darmstadt logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:5</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Bayern Munich.webp" alt="Bayern Munich logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Bayern Munich</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Hornby</li><li class="li-collaps">&#127973; Mehlem</li><li class="li-collaps">&#127973; Riedel</li><li class="li-collaps">&#127973; Nürnberger</li><li class="li-collaps">&#127973; Maglica</li><li class="li-collaps">&#127973; Franjic</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Buchmann</li><li class="li-collaps">&#127973; Sarr</li><li class="li-collaps">&#127973; Guerreiro</li><li class="li-collaps">&#127973; Pavlovic</li><li class="li-collaps">&#127973; Boey</li><li class="li-collaps">&#127973; Neuer</li></ul></div></div><div></div></td>
+        <td class="certainty">-3.82 vs 2.59</td>
+        <td class="odds">1.47</td>
+        <td class="total-color">85.93%</td>
+        <td class="correct">1</td>
+        <td class="gp">93%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                    
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="1"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Hoffenheim</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Hoffenheim.webp" alt="Hoffenheim logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>0:3</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Stuttgart.webp" alt="Stuttgart logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Stuttgart</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; John</li><li class="li-collaps">&#127973; Berisha</li><li class="li-collaps">&#127973; Prömel</li><li class="li-collaps">&#127973; Brooks</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Zagadou</li><li class="li-collaps">&#127973; Nartey</li><li class="li-collaps">&#127973; Rouault</li><li class="li-collaps">&#127973; Karazor</li><li class="li-collaps">&#127973; Bredlow</li></ul></div></div><div></div></td>
+        <td class="certainty">-1.59 vs 0.64</td>
+        <td class="odds">1.3</td>
+        <td class="total-color">55.62%</td>
+        <td class="correct">1</td>
+        <td class="gp">75%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="2"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Frosinone</div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Frosinone.webp" alt="Frosinone logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:3</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Lazio.webp" alt="Lazio logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Lazio</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kalaj</li><li class="li-collaps">&#127973; Marchizza</li><li class="li-collaps">&#127973; Oyono</li><li class="li-collaps">&#127973; Lusuardi</li><li class="li-collaps">&#127973; Harroui</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Rovella</li><li class="li-collaps">&#127973; Provedel</li><li class="li-collaps">&#127973; Pellegrini</li><li class="li-collaps">&#127973; Lazzari</li><li class="li-collaps">&#127973; Pellegrini</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Pedro</li><li class="li-collaps">&#127973; Cup</li></ul></div></div><div></div></td>
+        <td class="certainty">-1.45 vs 0.57</td>
+        <td class="odds">3.2</td>
+        <td class="total-color">52.85%</td>
+        <td class="correct">1</td>
+        <td class="gp">62%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="3"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Monza</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Monza.webp" alt="Monza logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:0</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Cagliari.webp" alt="Cagliari logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Cagliari</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Caprari</li><li class="li-collaps">&#127973; Vignato</li><li class="li-collaps">&#127973; D'Ambrosio</li><li class="li-collaps">&#127973; Bettella</li><li class="li-collaps">&#127973; Bondo</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Gómez</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Mancosu</li><li class="li-collaps">&#127973; Pavoletti</li><li class="li-collaps">&#127973; Petagna</li><li class="li-collaps">&#127973; Gaetano</li><li class="li-collaps">&#127973; Mina</li></ul></div></div><div></div></td>
+        <td class="certainty">0.17 vs -1.21</td>
+        <td class="odds">4.9</td>
+        <td class="total-color">23.71%</td>
+        <td class="correct">1</td>
+        <td class="gp">49%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="4"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>For Sittard</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/NL1/For Sittard.webp" alt="For Sittard logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>3:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/NL1/Zwolle.webp" alt="Zwolle logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Zwolle</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Siovas</li><li class="li-collaps">&#127973; Pinto</li><li class="li-collaps">&#127973; Dijks</li><li class="li-collaps">&#127973; Rosier</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lagsir</li><li class="li-collaps">&#127973; Thomas</li><li class="li-collaps">&#127973; Buurmeester</li><li class="li-collaps">&#127973; Fichtinger</li><li class="li-collaps">&#127973; Druijf</li></ul></div></div><div></div></td>
+        <td class="certainty">0.1 vs -1.13</td>
+        <td class="odds">3.3</td>
+        <td class="total-color">17.85%</td>
+        <td class="correct">1</td>
+        <td class="gp">59%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="5"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Vitesse</div><div class="home-team-logo"><img width="14" height="18" src="./logos/NL1/Vitesse.webp" alt="Vitesse logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/NL1/Almere City.webp" alt="Almere City logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Almere City</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Jonathans</li><li class="li-collaps">&#127973; Pröpper</li><li class="li-collaps">&#127973; Boutrah</li><li class="li-collaps">&#127973; Fofana</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Robinet</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.75 vs 0.08</td>
+        <td class="odds">1.47</td>
+        <td class="total-color">16.39%</td>
+        <td class="correct">0.5</td>
+        <td class="gp">45%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="6"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Union Berlin</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Union Berlin.webp" alt="Union Berlin logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Werder Bremen.webp" alt="Werder Bremen logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Werder Bremen</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Hollerbach</li><li class="li-collaps">&#127973; Schäfer</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Stark</li><li class="li-collaps">&#127973; Kownacki</li><li class="li-collaps">&#127973; Njinmah</li><li class="li-collaps">&#127973; Pieper</li><li class="li-collaps">&#127973; DFB-Pokal</li><li class="li-collaps">&#127973; Weiser</li><li class="li-collaps">&#127973; Stage</li><li class="li-collaps">&#127973; Lynen</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.05 vs -1.18</td>
+        <td class="odds">3.9</td>
+        <td class="total-color">9.05%</td>
+        <td class="correct">1</td>
+        <td class="gp">26%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="7"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Fulham</div><div class="home-team-logo"><img width="14" height="18" src="./logos/GB1/Fulham.webp" alt="Fulham logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>3:0</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/GB1/Tottenham.webp" alt="Tottenham logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Tottenham</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Solomon</li><li class="li-collaps">&#127973; Sessegnon</li><li class="li-collaps">&#127973; Forster</li><li class="li-collaps">&#127973; Ven</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.59 vs -0.07</td>
+        <td class="odds">1.24</td>
+        <td class="total-color">8.65%</td>
+        <td class="correct">0</td>
+        <td class="gp">79%</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                    
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="8"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Wolfsburg</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Wolfsburg.webp" alt="Wolfsburg logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:3</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Augsburg.webp" alt="Augsburg logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Augsburg</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Llanez</li><li class="li-collaps">&#127973; Nmecha</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Oxford</li><li class="li-collaps">&#127973; Framberger</li><li class="li-collaps">&#127973; Dorsch</li><li class="li-collaps">&#127973; Gumny</li><li class="li-collaps">&#127973; Demirovic</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.96 vs -0.12</td>
+        <td class="odds">1.82</td>
+        <td class="total-color">7.51%</td>
+        <td class="correct">1</td>
+        <td class="gp">52%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="9"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Udinese</div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Udinese.webp" alt="Udinese logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>0:2</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Torino.webp" alt="Torino logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Torino</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Deulofeu</li><li class="li-collaps">&#127973; Ebosse</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Schuurs</li><li class="li-collaps">&#127973; Ilić</li><li class="li-collaps">&#127973; Djidji</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.78 vs -0.15</td>
+        <td class="odds">1.9</td>
+        <td class="total-color">6.9%</td>
+        <td class="correct">1</td>
+        <td class="gp">33%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="10"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Luton</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/GB1/Luton.webp" alt="Luton logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/GB1/Nott'm Forest.webp" alt="Nott'm Forest logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Nott'm Forest</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lockyer</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Sangaré</li><li class="li-collaps">&#127973; Aina</li><li class="li-collaps">&#127973; Boly</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.22 vs -0.54</td>
+        <td class="odds">13.0</td>
+        <td class="total-color">5.57%</td>
+        <td class="correct">0.5</td>
+        <td class="gp">77%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="11"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Salernitana</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Salernitana.webp" alt="Salernitana logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>0:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Lecce.webp" alt="Lecce logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Lecce</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gyömbér</li><li class="li-collaps">&#127973; Coulibaly</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Dermaku</li><li class="li-collaps">&#127973; Kaba</li><li class="li-collaps">&#127973; Corfitzen</li><li class="li-collaps">&#127973; Banda</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.24 vs -0.54</td>
+        <td class="odds">12.0</td>
+        <td class="total-color">5.18%</td>
+        <td class="correct">0</td>
+        <td class="gp">46%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="12"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Excelsior</div><div class="home-team-logo"><img width="14" height="18" src="./logos/NL1/Excelsior.webp" alt="Excelsior logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/NL1/Waalwijk.webp" alt="Waalwijk logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Waalwijk</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Donkor</li><li class="li-collaps">&#127973; Hartjes</li><li class="li-collaps">&#127973; Smeulers</li><li class="li-collaps">&#127973; Seymor</li><li class="li-collaps">&#127973; Pierie</li><li class="li-collaps">&#127973; Parrott</li><li class="li-collaps">&#127973; Alblas</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Seuntjens</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.78 vs -0.31</td>
+        <td class="odds">2.9</td>
+        <td class="total-color">3.72%</td>
+        <td class="correct">0.5</td>
+        <td class="gp">47%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="13"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Mainz</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Mainz.webp" alt="Mainz logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:0</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Bochum.webp" alt="Bochum logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Bochum</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Weiper</li><li class="li-collaps">&#127973; Bell</li><li class="li-collaps">&#127973; Kohr</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Esser</li><li class="li-collaps">&#127973; Kwarteng</li><li class="li-collaps">&#127973; Tolba</li><li class="li-collaps">&#127973; Antwi-Adjei</li><li class="li-collaps">&#127973; Thiede</li><li class="li-collaps">&#127973; Bero</li><li class="li-collaps">&#127973; Oermann</li><li class="li-collaps">&#127973; Kwarteng</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.39 vs -0.63</td>
+        <td class="odds">8.6</td>
+        <td class="total-color">2.3%</td>
+        <td class="correct">1</td>
+        <td class="gp">35%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="14"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Burnley</div><div class="home-team-logo"><img width="14" height="18" src="./logos/GB1/Burnley.webp" alt="Burnley logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/GB1/Brentford.webp" alt="Brentford logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Brentford</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Koleosho</li><li class="li-collaps">&#127973; Beyer</li><li class="li-collaps">&#127973; Gudmundsson</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Trevitt</li><li class="li-collaps">&#127973; Henry</li><li class="li-collaps">&#127973; Schade</li><li class="li-collaps">&#127973; Hickey</li><li class="li-collaps">&#127973; Mee</li><li class="li-collaps">&#127973; Konak</li><li class="li-collaps">&#127973; Dasilva</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.57 vs -0.52</td>
+        <td class="odds">3.15</td>
+        <td class="total-color">0%</td>
+        <td class="correct">0</td>
+        <td class="gp">56%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+    <tr class="match">
+        <td class="date">Mar 16</td>
+        <td class="team" data-match-index="15"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Heidenheim</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Heidenheim.webp" alt="Heidenheim logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/M'gladbach.webp" alt="M'gladbach logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>M'gladbach</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Qenaj</li><li class="li-collaps">&#127973; Keller</li><li class="li-collaps">&#127973; Maloney</li><li class="li-collaps">&#127973; Beste</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Walde</li><li class="li-collaps">&#127973; Doucouré</li><li class="li-collaps">&#127973; Koné</li><li class="li-collaps">&#127973; Ngoumou</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.71 vs -0.56</td>
+        <td class="odds">2.38</td>
+        <td class="total-color">0%</td>
+        <td class="correct">0.5</td>
+        <td class="gp">52%</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has MAJOR injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+</table>
+<div class="left">
+    Last updated 14:00:23 2024-03-30
+</div>
+<div class="center">
+   <a href="privacy-policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html">Terms</a>
+</div>
+
+
+</div>
+
+<div class="mobile-body">
+
+    <div><div id="common-snippet">
+    <ul>
+        <li><a class="paypal" href="index.html"> <img src="AIGoalieblack.webp" alt="Logo of the AI Goalie football webpage" width="48" height="37"> </a></li>
+        
+        <li><a href="index.html">All</a></li>
+        
+        <li><a href="Mar29.html">29 Mar</a></li>
+        <li><a href="Mar30.html">30 Mar</a></li>
+        <li><a href="Mar31.html">31 Mar</a></li>
+        <li><a href="Apr1.html">1 Apr</a></li>
+        <li><select aria-label="State" class="select-wrapper_m" id="previousGameweeks_m" onchange="redirectToGameweek()">
+            <option value="" disabled selected>Select Gameweek</option>
+            <option value="index.html">Current</option>
+            <option value="Mar15-Mar17.html">15-17 Mar</option>
+            <option value="Mar8-Mar11.html">8-11 Mar</option>
+            <option value="Feb28-Mar4.html">1-4 Mar</option>
+            <option value="Feb23-26.html">23-26 Feb</option>
+            <option value="Feb16-19.html">16-19 Feb</option>
+        </select></li>
+    </ul>
+
+</div></div>
+
+
+
+<table>
+    <tr>
+        <th>Fixture<span class="tooltip-info"> <sup><img width="8" height="8" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
+        <th>Conf.<span class="tooltip-info"> <sup><img width="8" height="8" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that the selected team will win. </span> </span></th>
+        <th>Res.<span class="tooltip-info">  <sup><img width="8" height="8" alt="information icon" src="info.webp"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Darmstadt</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Darmstadt.webp" alt="Darmstadt logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:5</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Bayern Munich.webp" alt="Bayern Munich logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Bayern Munich</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Hornby</li><li class="li-collaps">&#127973; Mehlem</li><li class="li-collaps">&#127973; Riedel</li><li class="li-collaps">&#127973; Nürnberger</li><li class="li-collaps">&#127973; Maglica</li><li class="li-collaps">&#127973; Franjic</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 1.47</div><div class="li-collaps">&nbsp;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Buchmann</li><li class="li-collaps">&#127973; Sarr</li><li class="li-collaps">&#127973; Guerreiro</li><li class="li-collaps">&#127973; Pavlovic</li><li class="li-collaps">&#127973; Boey</li><li class="li-collaps">&#127973; Neuer</li></ul></div></div></td>
+        <td class="certainty">-3.82 vs 2.59</td>
+        <td class="total-color">86%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="1"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Hoffenheim</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Hoffenheim.webp" alt="Hoffenheim logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>0:3</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Stuttgart.webp" alt="Stuttgart logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Stuttgart</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; John</li><li class="li-collaps">&#127973; Berisha</li><li class="li-collaps">&#127973; Prömel</li><li class="li-collaps">&#127973; Brooks</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 1.3</div><div class="li-collaps">&#127973;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Zagadou</li><li class="li-collaps">&#127973; Nartey</li><li class="li-collaps">&#127973; Rouault</li><li class="li-collaps">&#127973; Karazor</li><li class="li-collaps">&#127973; Bredlow</li></ul></div></div></td>
+        <td class="certainty">-1.59 vs 0.64</td>
+        <td class="total-color">56%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="2"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Frosinone</div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Frosinone.webp" alt="Frosinone logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:3</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Lazio.webp" alt="Lazio logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Lazio</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kalaj</li><li class="li-collaps">&#127973; Marchizza</li><li class="li-collaps">&#127973; Oyono</li><li class="li-collaps">&#127973; Lusuardi</li><li class="li-collaps">&#127973; Harroui</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 3.2</div><div class="li-collaps">&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Rovella</li><li class="li-collaps">&#127973; Provedel</li><li class="li-collaps">&#127973; Pellegrini</li><li class="li-collaps">&#127973; Lazzari</li><li class="li-collaps">&#127973; Pellegrini</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Pedro</li><li class="li-collaps">&#127973; Cup</li></ul></div></div></td>
+        <td class="certainty">-1.45 vs 0.57</td>
+        <td class="total-color">53%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="3"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Monza</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Monza.webp" alt="Monza logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:0</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Cagliari.webp" alt="Cagliari logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Cagliari</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 4.9</div><div class="li-collaps">&#127973;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Caprari</li><li class="li-collaps">&#127973; Vignato</li><li class="li-collaps">&#127973; D'Ambrosio</li><li class="li-collaps">&#127973; Bettella</li><li class="li-collaps">&#127973; Bondo</li><li class="li-collaps">&#127973; A</li><li class="li-collaps">&#127973; Gómez</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973&#127973;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Mancosu</li><li class="li-collaps">&#127973; Pavoletti</li><li class="li-collaps">&#127973; Petagna</li><li class="li-collaps">&#127973; Gaetano</li><li class="li-collaps">&#127973; Mina</li></ul></div></div></td>
+        <td class="certainty">0.17 vs -1.21</td>
+        <td class="total-color">24%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="4"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>For Sittard</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/NL1/For Sittard.webp" alt="For Sittard logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>3:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/NL1/Zwolle.webp" alt="Zwolle logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Zwolle</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 3.3</div><div class="li-collaps">&#127973;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Siovas</li><li class="li-collaps">&#127973; Pinto</li><li class="li-collaps">&#127973; Dijks</li><li class="li-collaps">&#127973; Rosier</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lagsir</li><li class="li-collaps">&#127973; Thomas</li><li class="li-collaps">&#127973; Buurmeester</li><li class="li-collaps">&#127973; Fichtinger</li><li class="li-collaps">&#127973; Druijf</li></ul></div></div></td>
+        <td class="certainty">0.1 vs -1.13</td>
+        <td class="total-color">18%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="5"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Vitesse</div><div class="home-team-logo"><img width="14" height="18" src="./logos/NL1/Vitesse.webp" alt="Vitesse logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/NL1/Almere City.webp" alt="Almere City logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Almere City</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Jonathans</li><li class="li-collaps">&#127973; Pröpper</li><li class="li-collaps">&#127973; Boutrah</li><li class="li-collaps">&#127973; Fofana</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 1.47</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Robinet</li></ul></div></div></td>
+        <td class="certainty">-0.75 vs 0.08</td>
+        <td class="total-color">16%</td>
+        <td class="correct">0.5</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="6"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Union Berlin</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Union Berlin.webp" alt="Union Berlin logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Werder Bremen.webp" alt="Werder Bremen logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Werder Bremen</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 3.9</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Hollerbach</li><li class="li-collaps">&#127973; Schäfer</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Stark</li><li class="li-collaps">&#127973; Kownacki</li><li class="li-collaps">&#127973; Njinmah</li><li class="li-collaps">&#127973; Pieper</li><li class="li-collaps">&#127973; DFB-Pokal</li><li class="li-collaps">&#127973; Weiser</li><li class="li-collaps">&#127973; Stage</li><li class="li-collaps">&#127973; Lynen</li></ul></div></div></td>
+        <td class="certainty">-0.05 vs -1.18</td>
+        <td class="total-color">9%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="7"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Fulham</div><div class="home-team-logo"><img width="14" height="18" src="./logos/GB1/Fulham.webp" alt="Fulham logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>3:0</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/GB1/Tottenham.webp" alt="Tottenham logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Tottenham</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&nbsp;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 1.24</div><div class="li-collaps">&nbsp;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Solomon</li><li class="li-collaps">&#127973; Sessegnon</li><li class="li-collaps">&#127973; Forster</li><li class="li-collaps">&#127973; Ven</li></ul></div></div></td>
+        <td class="certainty">-0.59 vs -0.07</td>
+        <td class="total-color">9%</td>
+        <td class="correct">0</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="8"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Wolfsburg</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Wolfsburg.webp" alt="Wolfsburg logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:3</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Augsburg.webp" alt="Augsburg logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Augsburg</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Llanez</li><li class="li-collaps">&#127973; Nmecha</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 1.82</div><div class="li-collaps">&#127973&#127973;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Oxford</li><li class="li-collaps">&#127973; Framberger</li><li class="li-collaps">&#127973; Dorsch</li><li class="li-collaps">&#127973; Gumny</li><li class="li-collaps">&#127973; Demirovic</li></ul></div></div></td>
+        <td class="certainty">-0.96 vs -0.12</td>
+        <td class="total-color">8%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="9"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Udinese</div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Udinese.webp" alt="Udinese logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>0:2</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Torino.webp" alt="Torino logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Torino</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Deulofeu</li><li class="li-collaps">&#127973; Ebosse</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 1.9</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Schuurs</li><li class="li-collaps">&#127973; Ilić</li><li class="li-collaps">&#127973; Djidji</li></ul></div></div></td>
+        <td class="certainty">-0.78 vs -0.15</td>
+        <td class="total-color">7%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="10"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Luton</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/GB1/Luton.webp" alt="Luton logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/GB1/Nott'm Forest.webp" alt="Nott'm Forest logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Nott'm Forest</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 13.0</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lockyer</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Sangaré</li><li class="li-collaps">&#127973; Aina</li><li class="li-collaps">&#127973; Boly</li></ul></div></div></td>
+        <td class="certainty">-0.22 vs -0.54</td>
+        <td class="total-color">6%</td>
+        <td class="correct">0.5</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="11"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Salernitana</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/IT1/Salernitana.webp" alt="Salernitana logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>0:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/IT1/Lecce.webp" alt="Lecce logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Lecce</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 12.0</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gyömbér</li><li class="li-collaps">&#127973; Coulibaly</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Dermaku</li><li class="li-collaps">&#127973; Kaba</li><li class="li-collaps">&#127973; Corfitzen</li><li class="li-collaps">&#127973; Banda</li></ul></div></div></td>
+        <td class="certainty">-0.24 vs -0.54</td>
+        <td class="total-color">5%</td>
+        <td class="correct">0</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="12"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Excelsior</div><div class="home-team-logo"><img width="14" height="18" src="./logos/NL1/Excelsior.webp" alt="Excelsior logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/NL1/Waalwijk.webp" alt="Waalwijk logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Waalwijk</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Donkor</li><li class="li-collaps">&#127973; Hartjes</li><li class="li-collaps">&#127973; Smeulers</li><li class="li-collaps">&#127973; Seymor</li><li class="li-collaps">&#127973; Pierie</li><li class="li-collaps">&#127973; Parrott</li><li class="li-collaps">&#127973; Alblas</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 2.9</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Seuntjens</li></ul></div></div></td>
+        <td class="certainty">-0.78 vs -0.31</td>
+        <td class="total-color">4%</td>
+        <td class="correct">0.5</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="13"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Mainz</strong></u></div></div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Mainz.webp" alt="Mainz logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:0</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/Bochum.webp" alt="Bochum logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team">Bochum</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 8.6</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Weiper</li><li class="li-collaps">&#127973; Bell</li><li class="li-collaps">&#127973; Kohr</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Esser</li><li class="li-collaps">&#127973; Kwarteng</li><li class="li-collaps">&#127973; Tolba</li><li class="li-collaps">&#127973; Antwi-Adjei</li><li class="li-collaps">&#127973; Thiede</li><li class="li-collaps">&#127973; Bero</li><li class="li-collaps">&#127973; Oermann</li><li class="li-collaps">&#127973; Kwarteng</li></ul></div></div></td>
+        <td class="certainty">-0.39 vs -0.63</td>
+        <td class="total-color">2%</td>
+        <td class="correct">1</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="14"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Burnley</div><div class="home-team-logo"><img width="14" height="18" src="./logos/GB1/Burnley.webp" alt="Burnley logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/GB1/Brentford.webp" alt="Brentford logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Brentford</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Koleosho</li><li class="li-collaps">&#127973; Beyer</li><li class="li-collaps">&#127973; Gudmundsson</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 3.15</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Trevitt</li><li class="li-collaps">&#127973; Henry</li><li class="li-collaps">&#127973; Schade</li><li class="li-collaps">&#127973; Hickey</li><li class="li-collaps">&#127973; Mee</li><li class="li-collaps">&#127973; Konak</li><li class="li-collaps">&#127973; Dasilva</li></ul></div></div></td>
+        <td class="certainty">-0.57 vs -0.52</td>
+        <td class="total-color">0%</td>
+        <td class="correct">0</td>
+
+    </tr>
+    
+    <tr class="match">
+        <td class="team" data-match-index="15"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Heidenheim</div><div class="home-team-logo"><img width="14" height="18" src="./logos/L1/Heidenheim.webp" alt="Heidenheim logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img width="14" height="18" src="./logos/L1/M'gladbach.webp" alt="M'gladbach logo"  style="vertical-align: middle; margin-top: 1px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>M'gladbach</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#127973&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Qenaj</li><li class="li-collaps">&#127973; Keller</li><li class="li-collaps">&#127973; Maloney</li><li class="li-collaps">&#127973; Beste</li></ul></div></div><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 2.38</div><div class="li-collaps">&#127973; &#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Walde</li><li class="li-collaps">&#127973; Doucouré</li><li class="li-collaps">&#127973; Koné</li><li class="li-collaps">&#127973; Ngoumou</li></ul></div></div></td>
+        <td class="certainty">-0.71 vs -0.56</td>
+        <td class="total-color">0%</td>
+        <td class="correct">0.5</td>
+
+    </tr>
+    
+</table>
+<div class="left">
+    Last updated 14:00:23 2024-03-30
+</div>
+
+<ul class="ul-bottom">
+    <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee_resized.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="75" height="37"> </a></li>
+    <li> <a class="contact" href="contact.html"> Contact <br>&#9993;</br> </a> </li>
+</ul>
+
+
+<div class="center">
+   <a href="privacy-policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html">Terms</a>
+</div>
+
+
+
+
+</div>
+
+
+</body>
+</html>

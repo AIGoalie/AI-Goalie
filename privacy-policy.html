@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<meta name="description" content="AIGoalie is a football prediction model that uses machine learning, statistical analysis, large data, and human expertise to provide user-friendly soccer / football betting tips, predictions, and information globally for all leagues around the world.">
+<meta name="keywords" content="AI, artificial intelligence, Football, Soccer, Machine Learning, Prediction, Confidence Scores, Betting, Tips, Over, Win">
+    <title>AIGoalie - Daily AI football predictions and betting tips!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+ crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SEQD8XTNBW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SEQD8XTNBW');
+</script>
+    <style>
+
+      .select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        overflow: hidden;
+          text-align: center;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .select-wrapper select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+        .certainty {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+        /* Add some basic styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+                /* Define specific widths for each column */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 5%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 15%;
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 5%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 5%;
+        }
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 5%;
+        }
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 5%;
+        }
+                th:nth-child(7),
+        td:nth-child(7) {
+            width: 5%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Define classes for different color ranges */
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .odds {
+            text-align: center; /* Centering the content of Odds column */
+        }
+
+        .warnings {
+            text-align: center; /* Centering the content of Odds column */
+        }
+        ul:not(.lissy) {
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            width: 100%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+
+        }
+
+        .lissy {
+
+
+        }
+        .disclaimer{
+                    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: left; /* Center align the content */
+            max-width: 2000px;
+
+        }
+        li {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: center; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+
+        }
+        .contact{
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 20px 1px;
+            text-decoration: none;
+            font-size: 16px;
+
+        }
+
+        .paypal {
+            padding: 1px 1px;
+
+
+        }
+        li a:not(.paypal):not(.contact):not(.disclaimer){
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 30px 1px;
+            text-decoration: none;
+            font-size: 16px; /* Adjust font size */
+
+        }
+
+
+        li a:hover:not(.paypal):not(.contact):not(.disclaimer) {
+            background-color: #ddd;
+        }
+          .active {
+            background-color: #ccc;
+            font-weight : bold;
+        }
+        .left {
+            width: 100%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+            padding: 5px; /* Add padding for spacing */
+
+        }
+        .center {
+            width: 20%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .container {
+            display: flex;
+            align-items:center;
+        }
+        .ali {
+           text-align: center;
+            flex: 1;
+            margin: 0 -15px;
+        }
+    </style>
+    <script>
+ </script>
+
+
+</head>
+<body>
+<div><a href="index.html"> <header style="text-align: center">
+    <img src="banner-dark.webp" alt="Banner Image" style="max-width:50%; height:auto;">
+</header></a>
+<div id="common-snippet" >
+    <ul style="background-color: #cccccc">
+        
+        <li><a href="index.html">Home</a></li>
+        
+        <li><select class="select-wrapper" id="previousGameweeks" onchange="redirectToGameweek()">
+            <option value="" disabled selected>All weeks</option>
+            
+                <option value="week-05.07.2024-08.07.2024.html">(v1) This week</option>
+            
+                <option value="week-28.06.2024-04.07.2024.html">(v1) 28 June-04 July</option>
+            
+                <option value="week-21.06.2024-27.06.2024.html">(v1) 21-27 June</option>
+            
+                <option value="week-14.06.2024-20.06.2024.html">(v1) 14-20 June</option>
+            
+                <option value="May17-May19.html">(v0) 17-19 May</option>
+            
+                <option value="May10-May13.html">(v0) 10-13 May</option>
+            
+                <option value="May3-May6.html">(v0) 3-6 May</option>
+            
+                <option value="Apr26-Apr30.html">(v0) 26-30 Apr</option>
+            
+                <option value="Apr23-Apr25.html">(v0) 23-25 Apr</option>
+            
+                <option value="Apr19-Apr22.html">(v0) 19-22 Apr</option>
+            
+                <option value="Apr12-Apr15.html">(v0) 12-15 Apr</option>
+            
+                <option value="Apr5-Apr8.html">(v0) 5-8 Apr</option>
+            
+                <option value="Apr2-Apr4.html">(v0) 2-4 Apr</option>
+            
+                <option value="Mar29-Apr1.html">(v0) 29 Mar-1 Apr</option>
+            
+                <option value="Mar15-Mar17.html">(v0) 15-17 Mar</option>
+            
+                <option value="Mar8-Mar11.html">(v0) 8-11 Mar</option>
+            
+                <option value="Feb28-Mar4.html">(v0) 1-4 Mar</option>
+            
+                <option value="Feb23-26.html">(v0) 23-26 Feb</option>
+            
+                <option value="Feb16-19.html">(v0) 16-19 Feb</option>
+            
+        </select></li>
+        <li style="max-height:75px;"><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE" > <img style="margin-top: -25px;" src="donate_heart.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="150"> </a></li>
+        <li> <a class="contact" href="contact.html"> Contact <br>&#9993;</br> </a> </li>
+    </ul>
+</div>
+
+
+<style>
+
+.text-bubble {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px; /* Adjust width as needed */
+       /* Add some basic styling for the table */
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+
+}
+
+</style></div>
+
+<!--<ul>-->
+<!--    <li><a class="paypal" href="index.html"> <img src="AIGoalieblack.webp" alt="Logo of the AI Goalie football webpage" width="98" height="78"> </a></li>-->
+
+<!--    <li><a class="active" href="index.html">All</a></li>-->
+
+<!--    <li><a href="Mar8.html">Yesterday</a></li>-->
+<!--    <li><a href="Mar9.html">Today</a></li>-->
+<!--    <li><a href="Mar10.html">Tomorrow</a></li>-->
+<!--    <li><a href="Mar11.html">Mon 11 Mar</a></li>-->
+<!--    <select id="previousGameweeks" onchange="redirectToGameweek()">-->
+<!--        <option value="" disabled selected>Select Gameweek</option>-->
+<!--        <option value="index.html">Current</option>-->
+<!--        <option value="Feb28-Mar4.html" selected>1-4 Mar</option>-->
+<!--        <option value="Feb23-26.html">23-26 Feb</option>-->
+<!--        <option value="Feb16-19.html">16-19 Feb</option>-->
+<!--    </select>-->
+
+
+
+<!--    <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="78"> </a></li>-->
+<!--    <li> <a class="contact" href="mailto:ai.goalie.mail@gmail.com"> Contact <br>&#9993;</br> </a> </li>-->
+<!--</ul>-->
+
+    <h1>AIGoalie Privacy Policy</h1>
+
+    <h2>Introduction</h2>
+    <p>At AIGoalie, accessible from https://aigoalie.github.io, one of our top priorities is the privacy of our visitors. This Privacy Policy document outlines the types of information collected and recorded by AIGoalie and how we use it.</p>
+
+    <h2>General Data Protection Regulation (GDPR)</h2>
+    <p>We are a Data Controller of your information.</p>
+    <p>AIGoalie's legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Information we collect and the specific context in which we collect the information:</p>
+    <ul class="lissy">
+        <li>AIGoalie needs to perform a contract with you.</li>
+        <li>You have given AIGoalie permission to do so.</li>
+        <li>Processing your personal information is in AIGoalie's legitimate interests.</li>
+        <li>AIGoalie needs to comply with the law.</li>
+    </ul>
+    <p>AIGoalie will retain your personal information only for as long as necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.</p>
+    <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. If you wish to be informed what Personal Information we hold about you and if you want it to be removed from our systems, please contact us.</p>
+    <p>In certain circumstances, you have the following data protection rights:</p>
+    <ul class="lissy">
+        <li>The right to access, update or to delete the information we have on you.</li>
+        <li>The right of rectification.</li>
+        <li>The right to object.</li>
+        <li>The right of restriction.</li>
+        <li>The right to data portability</li>
+        <li>The right to withdraw consent</li>
+    </ul>
+
+    <h2>Log Files</h2>
+    <p>AIGoalie follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.</p>
+
+    <h2>Cookies and Web Beacons</h2>
+    <p>Like many other websites, AIGoalie utilizes 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the user experience by customizing our web page content based on visitors' browser type and/or other information.</p>
+
+    <h2>Analytics</h2>
+    <p>We make use of Google Analytics for analytic services, their privacy policy can be found here: https://policies.google.com/privacy</p>
+
+    <h2>Advertising Partner</h2>
+    <p>Some of advertisers on our site may use cookies and web beacons. Our advertising partners are listed below. Each of our advertising partners has their own Privacy Policy for their policies on user data. For easier access, we hyperlinked to their Privacy Policies below.</p>
+    <p>Google https://policies.google.com/technologies/ads</p>
+
+    <h2>Children's Information</h2>
+    <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>
+    <p>AIGoalie does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+
+    <h2>Online Privacy Policy Only</h2>
+    <p>Our Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in AIGoalie. This policy is not applicable to any information collected offline or via channels other than this website.</p>
+
+    <h2>Consent</h2>
+       <p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
+
+
+
+<div class="center">
+   <a href="privacy-policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html">Terms</a>
+</div>
+
+</body>
+</html>

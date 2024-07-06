@@ -1,0 +1,37 @@
+<a href="index.html"> <header style="text-align: center">
+    <img src="banner-dark.webp" alt="Banner Image" width="100%" height="auto">
+</header></a>
+<div id="common-snippet">
+    <ul style="background-color: #cccccc">
+<!--        <li><a class="paypal" href="index.html"> <img src="Logo-Text.webp" alt="Logo of the AI Goalie football webpage" width="48" height="48"> </a></li>-->
+        {%if 'index' in filename%}
+        <li><a class="active" href="index.html">Home</a></li>
+        {%else%}
+        <li><a href="index.html">Home</a></li>
+        {%endif%}
+        <br>
+<!--        <li><a href="Apr1.html">1 Apr</a></li>-->
+        <li><select aria-label="State" class="select-wrapper_m" id="previousGameweeks_m" onchange="redirectToGameweek()">
+            <option value="" disabled selected>All weeks</option>
+            {% for week in weeks %}
+                <option value="{{week[0]}}">{{week[1]}}</option>
+            {% endfor %}
+        </select></li>
+    </ul>
+
+</div>
+<style>
+
+.text-bubble {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px; /* Adjust width as needed */
+       /* Add some basic styling for the table */
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+
+}
+
+</style>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165"></script>
+<!-- Google tag (gtag.js) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AIGoalie is a football prediction model that uses machine learning, statistical analysis, large data, and human expertise to provide user-friendly soccer / football betting tips, predictions, and information globally for all leagues around the world.">
+<meta name="keywords" content="AI, artificial intelligence, Football, Soccer, Machine Learning, Prediction, Confidence Scores, Betting, Tips, Over, Win">
+    <title>AIGoalie - Daily AI football predictions and betting tips!</title>
+<meta http-equiv="Cache-Control" content="max-age=3600" />
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"-->
+<!-- crossorigin="anonymous"></script>-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SEQD8XTNBW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SEQD8XTNBW');
+
+</script>
+
+    <style>
+
+     .select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        height: 50px; /* Adjust width as needed */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        overflow: hidden;
+          text-align: center;
+          top: 15px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .select-wrapper select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+        .certainty {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+        /* Add some basic styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+                /* Define specific widths for each column */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 5%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 15%;
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 5%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 5%;
+        }
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 5%;
+        }
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 5%;
+        }
+                th:nth-child(7),
+        td:nth-child(7) {
+            width: 5%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Define classes for different color ranges */
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .odds {
+            text-align: center; /* Centering the content of Odds column */
+        }
+
+        .warnings {
+            text-align: center; /* Centering the content of Odds column */
+        }
+        ul {
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            width: 100%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+
+        }
+        .disclaimer{
+                    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: left; /* Center align the content */
+            max-width: 2000px;
+
+        }
+        li {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: center; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+
+        }
+        .contact{
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 20px 1px;
+            text-decoration: none;
+            font-size: 16px;
+
+        }
+
+        .paypal {
+            padding: 1px 1px;
+
+
+        }
+        li a:not(.paypal):not(.contact):not(.disclaimer){
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 30px 1px;
+            text-decoration: none;
+            font-size: 16px; /* Adjust font size */
+
+        }
+
+
+        li a:hover:not(.paypal):not(.contact):not(.disclaimer) {
+            background-color: #ddd;
+        }
+        .active {
+            background-color: #ccc;
+            font-weight : bold;
+        }
+        .left {
+            width: 100%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+            padding: 5px; /* Add padding for spacing */
+
+        }
+        .center {
+            width: 20%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .container {
+            display: flex;
+            align-items:center;
+        }
+        .ali {
+           text-align: center;
+            flex: 1;
+            margin: 0 -15px;
+        }
+
+      .select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        overflow: hidden;
+          text-align: center;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .select-wrapper select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+    </style>
+    <script>
+ </script>
+
+
+</head>
+<body>
+<div><a href="index.html"> <header style="text-align: center">
+    <img src="banner-dark.webp" alt="Banner Image" style="max-width:50%; height:auto;">
+</header></a>
+<div id="common-snippet" >
+    <ul style="background-color: #cccccc">
+        
+        <li><a href="index.html">Home</a></li>
+        
+        <li><select class="select-wrapper" id="previousGameweeks" onchange="redirectToGameweek()">
+            <option value="" disabled selected>All weeks</option>
+            
+                <option value="week-05.07.2024-08.07.2024.html">(v1) This week</option>
+            
+                <option value="week-28.06.2024-04.07.2024.html">(v1) 28 June-04 July</option>
+            
+                <option value="week-21.06.2024-27.06.2024.html">(v1) 21-27 June</option>
+            
+                <option value="week-14.06.2024-20.06.2024.html">(v1) 14-20 June</option>
+            
+                <option value="May17-May19.html">(v0) 17-19 May</option>
+            
+                <option value="May10-May13.html">(v0) 10-13 May</option>
+            
+                <option value="May3-May6.html">(v0) 3-6 May</option>
+            
+                <option value="Apr26-Apr30.html">(v0) 26-30 Apr</option>
+            
+                <option value="Apr23-Apr25.html">(v0) 23-25 Apr</option>
+            
+                <option value="Apr19-Apr22.html">(v0) 19-22 Apr</option>
+            
+                <option value="Apr12-Apr15.html">(v0) 12-15 Apr</option>
+            
+                <option value="Apr5-Apr8.html">(v0) 5-8 Apr</option>
+            
+                <option value="Apr2-Apr4.html">(v0) 2-4 Apr</option>
+            
+                <option value="Mar29-Apr1.html">(v0) 29 Mar-1 Apr</option>
+            
+                <option value="Mar15-Mar17.html">(v0) 15-17 Mar</option>
+            
+                <option value="Mar8-Mar11.html">(v0) 8-11 Mar</option>
+            
+                <option value="Feb28-Mar4.html">(v0) 1-4 Mar</option>
+            
+                <option value="Feb23-26.html">(v0) 23-26 Feb</option>
+            
+                <option value="Feb16-19.html">(v0) 16-19 Feb</option>
+            
+        </select></li>
+        <li style="max-height:75px;"><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE" > <img style="margin-top: -25px;" src="donate_heart.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="150"> </a></li>
+        <li> <a class="contact" href="contact.html"> Contact <br>&#9993;</br> </a> </li>
+    </ul>
+</div>
+
+
+<style>
+
+.text-bubble {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px; /* Adjust width as needed */
+       /* Add some basic styling for the table */
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+
+}
+
+</style></div>
+
+<!--<ul>-->
+<!--    <li><a class="paypal" href="index.html"> <img src="AIGoalieblack.webp" alt="Logo of the AI Goalie football webpage" width="98" height="78"> </a></li>-->
+
+<!--    <li><a class="active" href="index.html">All</a></li>-->
+
+<!--    <li><a href="Mar8.html">Yesterday</a></li>-->
+<!--    <li><a href="Mar9.html">Today</a></li>-->
+<!--    <li><a href="Mar10.html">Tomorrow</a></li>-->
+<!--    <li><a href="Mar11.html">Mon 11 Mar</a></li>-->
+<!--    <select id="previousGameweeks" onchange="redirectToGameweek()">-->
+<!--        <option value="" disabled selected>Select Gameweek</option>-->
+<!--        <option value="index.html">Current</option>-->
+<!--        <option value="Feb28-Mar4.html" selected>1-4 Mar</option>-->
+<!--        <option value="Feb23-26.html">23-26 Feb</option>-->
+<!--        <option value="Feb16-19.html">16-19 Feb</option>-->
+<!--    </select>-->
+
+
+
+<!--    <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="78"> </a></li>-->
+<!--    <li> <a class="contact" href="mailto:ai.goalie.mail@gmail.com"> Contact <br>&#9993;</br> </a> </li>-->
+<!--</ul>-->
+
+<h1>Disclaimer</h1>
+
+<h3>1. Terms</h3>
+<p>By accessing this Website, accessible from https://aigoalie.com/, you are agreeing to be bound by these Website Terms and Conditions of Use and agree that you are responsible for the agreement with any applicable local laws. If you disagree with any of these terms, you are prohibited from accessing this site. The materials contained in this Website are protected by copyright and trade mark law.</p>
+
+<h3>2. Use License</h3>
+<p>Permission is granted to temporarily download one copy of the materials on AIGoalie's Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+<ol class="disclaimer">
+    <li class="disclaimer">Modify or copy the materials;</li>
+    <li class="disclaimer">Use the materials for any commercial purpose or for any public display;</li>
+    <li class="disclaimer">Attempt to reverse engineer any software contained on AIGoalie's Website;</li>
+    <li class="disclaimer">Remove any copyright or other proprietary notations from the materials; or</li>
+    <li class="disclaimer">Transferring the materials to another person or "mirror" the materials on any other server.</li>
+</ol>
+<p>This will let AIGoalie to terminate upon violations of any of these restrictions. Upon termination, your viewing right will also be terminated and you should destroy any downloaded materials in your possession whether it is printed or electronic format.</p>
+
+<h3>3. Disclaimer</h3>
+    <p>The predictions provided on this webpage are generated by an AI model based on historical data, statistical analysis, and other relevant factors. However, it's important to understand that these predictions are for informational purposes only and should not be considered as guaranteed outcomes.</p>
+    <ol class="disclaimer">
+        <li class="disclaimer"><strong>Use at Your Own Risk:</strong> Users of this webpage are advised to use the predictions and odds presented here at their own discretion. We do not take responsibility for any financial losses or other consequences resulting from decisions made based on the information provided on this webpage.</li>
+        <li class="disclaimer"><strong>No Gambling Advice:</strong> The predictions and odds displayed on this webpage should not be construed as gambling advice. We do not encourage or endorse any form of gambling or betting activity based solely on the information provided here.</li>
+        <li class="disclaimer"><strong>Educational and Entertainment Purposes:</strong> This webpage is intended for educational and entertainment purposes only. While we strive to provide valuable insights into football matches, users should not rely solely on this information for making financial or betting decisions.</li>
+        <li class="disclaimer"><strong>Subject to Change:</strong> Predictions and odds may be updated periodically based on new data and developments. Users are encouraged to check back regularly for the latest information.</li>
+    </ol>
+    <p>By accessing and using this webpage, you acknowledge that you have read, understood, and agree to the terms of this disclaimer. If you do not agree with these terms, you should refrain from using this webpage.</p>
+
+<h3>4. Limitations</h3>
+<p>AIGoalie or its suppliers will not be hold accountable for any damages that will arise with the use or inability to use the materials on AIGoalie's Website, even if AIGoalie or an authorize representative of this Website has been notified, orally or written, of the possibility of such damage. Some jurisdiction does not allow limitations on implied warranties or limitations of liability for incidental damages, these limitations may not apply to you.</p>
+
+<h3>5. Revisions and Errata</h3>
+<p>The materials appearing on AIGoalie's Website may include technical, typographical, or photographic errors. AIGoalie will not promise that any of the materials in this Website are accurate, complete, or current. AIGoalie may change the materials contained on its Website at any time without notice. AIGoalie does not make any commitment to update the materials.</p>
+
+<h3>6. Links</h3>
+<p>AIGoalie has not reviewed all of the sites linked to its Website and is not responsible for the contents of any such linked site. The presence of any link does not imply endorsement by AIGoalie of the site. The use of any linked website is at the user's own risk.</p>
+
+<h3>7. Site Terms of Use Modifications</h3>
+<p>AIGoalie may revise these Terms of Use for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.</p>
+
+<h3>8. Your Privacy</h3>
+<p>Please read our <a href="#">Privacy Policy</a>.</p>
+
+<h3>9. Governing Law</h3>
+<p>Any claim related to AIGoalie's Website shall be governed by the laws of us without regards to its conflict of law provisions.</p>
+<div class="center">
+   <a href="privacy-policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html">Terms</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,3212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Google tag (gtag.js) -->
+<meta name="description" content="AIGoalie is a brand new football prediction model that uses machine learning, statistical analysis, large data, and human expertise to provide user-friendly and interpretable confidence score predictions for all top european league soccer matches.">
+<meta name="keywords" content="AI, Football, Soccer, Machine Learning, Prediction, Confidence Scores">
+    <title>AIGoalie - Weekly AI-driven football predictions!</title>
+<meta http-equiv="Cache-Control" content="max-age=3600" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.webp">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.webp">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.webp">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165"></script>
+<meta name="theme-color" content="#ffffff">
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"-->
+<!-- crossorigin="anonymous"></script>-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SEQD8XTNBW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SEQD8XTNBW');
+</script>
+    <style>
+     .select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        height: 50px; /* Adjust width as needed */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        overflow: hidden;
+          text-align: center;
+          top: 15px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .select-wrapper select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+        .certainty {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+        /* Add some basic styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+                /* Define specific widths for each column */
+        /* Define specific widths for each column */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 3%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 20%;
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 3%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 3%;
+        }
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 3%;
+        }
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 10%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Define classes for different color ranges */
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .odds {
+            text-align: center; /* Centering the content of Odds column */
+        }
+
+        .warnings {
+            text-align: center; /* Centering the content of Odds column */
+        }
+        ul {
+            list-style-type: none; /* Remove default bullet points */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            width: 100%; /* Set width to 100% to stretch across the page */
+            display: flex; /* Use flexbox layout */
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+
+        }
+        li {
+            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+            text-align: center; /* Center align the content */
+            max-width: 500px; /* Set maximum width for each tab */
+
+        }
+
+        .paypal {
+            padding: 1px 1px;
+
+
+        }
+        li a:not(.paypal){
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 30px 1px;
+            text-decoration: none;
+            font-size: 16px; /* Adjust font size */
+
+        }
+
+
+        li a:hover:not(.paypal) {
+            background-color: #ddd;
+        }
+        .active {
+            background-color: #ccc;
+            font-weight : bold;
+        }
+        .left {
+            width: 100%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+            padding: 5px; /* Add padding for spacing */
+
+        }
+        .center {
+            width: 20%; /* Specify the width of the div */
+            margin: 0 auto; /* Set margin to auto for horizontal centering */
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .container {
+            display: flex;
+            align-items:center;
+        }
+        .ali {
+           text-align: center;
+            flex: 1;
+            margin: 0 -15px;
+        }
+
+
+                /* Style for the arrow */
+        .arrow::before {
+
+            content: '\25B6'; /* Right-pointing triangle */
+            display: inline-block;
+                       text-align: left;
+
+            /*margin-right: 90px;*/
+            transform: rotate(0deg); /* Initially rotated 90 degrees */
+            transition: transform 0.3s ease; /* Smooth transition for rotation */
+        }
+
+        /* When the row is expanded, rotate the arrow to point down */
+        .expanded .arrow::before {
+            transform: rotate(90deg);
+        }
+
+        /* Hide the content of the collapsible row by default */
+        .collapsible-content {
+            display: none;
+
+
+        }
+        .collapsible-container {
+            display: flex;
+            justify-content: space-between;
+                margin-left: 65 px; /* Adjust the left margin as needed */
+    margin-right: -100px;
+        }
+        /* Show the content when the row is expanded */
+        .expanded .collapsible-content {
+            display: table-cell;
+           text-align: center;
+            flex: 1;
+        }
+    </style>
+<script>
+window.addEventListener("DOMContentLoaded", (event) => {
+  // Get all the elements with class "total-color"
+  const totalCells = document.querySelectorAll(".total-color");
+
+  // Loop through each "Total" cell and set background color based on the value gradient
+  totalCells.forEach((cell) => {
+    const value = parseFloat(cell.textContent);
+    const gradientColor = calculateGradientColor(value);
+    cell.style.backgroundColor = gradientColor;
+  });
+
+  // Get all the elements with class "team"
+  const teamCells = document.querySelectorAll(".team");
+  const certaintyCells = document.querySelectorAll(".certainty");
+
+    // Loop through each "Team" cell and make the team with the largest certainty value bold
+    teamCells.forEach((cell, index) => {
+        // Get the certainty value by index
+        const certaintyCell = certaintyCells[index];
+        const [certainty1, certainty2] = certaintyCell.textContent.split(" vs ");
+
+
+    // Extract values from certainty
+    const value1 = parseFloat(certainty1);
+    const value2 = parseFloat(certainty2);
+
+    // Determine which team has the largest value and make it bold
+    if (value1 > value2) {
+        cell.innerHTML = `<strong>${cell.textContent.split(' vs ')[0]}</strong> vs ${cell.textContent.split(' vs ')[1]}`;
+    } else if (value2 > value1) {
+        cell.innerHTML = `${cell.textContent.split(' vs ')[0]} vs <strong>${cell.textContent.split(' vs ')[1]}</strong>`;
+    }
+  })
+
+
+  // Get all the elements with class "result"
+  const correctCells = document.querySelectorAll(".correct");
+  // Loop through each "Result" cell and display checkmarks and crosses based on the result value
+    correctCells.forEach((cell, index) => {
+    const correctValue = parseFloat(cell.textContent);
+    if (correctValue === 1.0) {
+      cell.innerHTML = `<span class="green">&#10003;</span>`;
+    } else if (correctValue === 0.0) {
+      cell.innerHTML = `<span>&#10060;</span>`
+    } else if (correctValue === 0.5) {
+      cell.innerHTML = `<span style="color: orange; font-size: 36px;">&#x2043;</span>`; // Set the color to dark yellow using rgb
+    } else {
+       cell.innerHTML = `<span class="black"; font-size: 36px;>&#x2043;</span>`;
+    }
+  });
+  // Function to calculate the gradient color
+  function calculateGradientColor(value) {
+    if (value <= 0) {
+      return "red";
+    } else if (value >= 2) {
+      return "green";
+    } else if (value < 0.7) {
+      const red = 255;
+      const green = 255 * (value * 2);
+      return `rgb(${red}, ${green}, 0)`;
+    } else if ((value >= 0.7) && (value<1.5)) {
+      const red = 255 * (1 - (value - 0.7));
+      const green = 255;
+      return `rgb(${red}, ${green}, 0)`;
+    } else if (value >= 1.5) {
+        const green = 255 * (1 - (value - 1.5));
+        return `rgb(0, ${green}, 0)`;
+    }
+  }
+});
+window.addEventListener("DOMContentLoaded", (event) => {
+  // Get all the tabs
+  const tabs = document.querySelectorAll("ul li a");
+
+  // Function to handle tab click
+  const handleTabClick = (event) => {
+    // Remove "active" class from all tabs
+    tabs.forEach(t => t.classList.remove("active"));
+    // Add "active" class to the clicked tab
+    event.target.classList.add("active");
+  };
+
+  // Loop through each tab
+  tabs.forEach(tab => {
+    // Add click event listener to each tab
+    tab.addEventListener("click", handleTabClick);
+    // Check if this tab should be active based on the current URL
+    if (tab.href === window.location.href) {
+      // If yes, add "active" class to the tab
+      tab.classList.add("active");
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const collapsibles = document.querySelectorAll('.collapsible');
+
+    collapsibles.forEach(collapsible => {
+        const header = collapsible.querySelector('.collapsible-header');
+        const content = collapsible.querySelector('.collapsible-content-tab');
+
+        // Add a click event listener to the header
+        header.addEventListener('click', function(event) {
+            // Prevent the default action of the anchor element
+            event.preventDefault();
+
+            // Toggle the 'expanded' class on the collapsible
+            collapsible.classList.toggle('expanded');
+
+            // Toggle the display of content based on the expanded state
+            if (collapsible.classList.contains('expanded')) {
+                content.style.display = 'none'; // Show content when expanded
+            } else {
+                content.style.display = 'block'; // Hide content when collapsed
+            }
+        });
+
+        // Initially set the collapsed state if the collapsible does not have the 'expanded' class
+        if (!collapsible.classList.contains('expanded')) {
+            content.style.display = 'block';
+        } else {
+            content.style.display = 'none'; // Ensure content is displayed when expanded initially
+        }
+    });
+});
+
+        function redirectToGameweek() {
+    var selectElement = document.getElementById("previousGameweeks");
+    var selectedValue = selectElement.value;
+    if (selectedValue) {
+        window.location.href = selectedValue;
+    }
+}
+</script>
+
+
+
+</head>
+<body>
+<div><a href="index.html"> <header style="text-align: center">
+    <img src="banner-dark.webp" alt="Banner Image" style="max-width:50%; height:auto;">
+</header></a>
+<div id="common-snippet" >
+    <ul style="background-color: #cccccc">
+        
+        <li><a href="index.html">Home</a></li>
+        
+        <li><select class="select-wrapper" id="previousGameweeks" onchange="redirectToGameweek()">
+            <option value="" disabled selected>All weeks</option>
+            
+                <option value="week-05.07.2024-08.07.2024.html">(v1) This week</option>
+            
+                <option value="week-28.06.2024-04.07.2024.html">(v1) 28 June-04 July</option>
+            
+                <option value="week-21.06.2024-27.06.2024.html">(v1) 21-27 June</option>
+            
+                <option value="week-14.06.2024-20.06.2024.html">(v1) 14-20 June</option>
+            
+                <option value="May17-May19.html">(v0) 17-19 May</option>
+            
+                <option value="May10-May13.html">(v0) 10-13 May</option>
+            
+                <option value="May3-May6.html">(v0) 3-6 May</option>
+            
+                <option value="Apr26-Apr30.html">(v0) 26-30 Apr</option>
+            
+                <option value="Apr23-Apr25.html">(v0) 23-25 Apr</option>
+            
+                <option value="Apr19-Apr22.html">(v0) 19-22 Apr</option>
+            
+                <option value="Apr12-Apr15.html">(v0) 12-15 Apr</option>
+            
+                <option value="Apr5-Apr8.html">(v0) 5-8 Apr</option>
+            
+                <option value="Apr2-Apr4.html">(v0) 2-4 Apr</option>
+            
+                <option value="Mar29-Apr1.html">(v0) 29 Mar-1 Apr</option>
+            
+                <option value="Mar15-Mar17.html">(v0) 15-17 Mar</option>
+            
+                <option value="Mar8-Mar11.html">(v0) 8-11 Mar</option>
+            
+                <option value="Feb28-Mar4.html">(v0) 1-4 Mar</option>
+            
+                <option value="Feb23-26.html">(v0) 23-26 Feb</option>
+            
+                <option value="Feb16-19.html">(v0) 16-19 Feb</option>
+            
+        </select></li>
+        <li style="max-height:75px;"><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE" > <img style="margin-top: -25px;" src="donate_heart.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="150"> </a></li>
+        <li> <a class="contact" href="contact.html"> Contact <br>&#9993;</br> </a> </li>
+    </ul>
+</div>
+
+
+<style>
+
+.text-bubble {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px; /* Adjust width as needed */
+       /* Add some basic styling for the table */
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+
+}
+
+</style></div>
+    &nbsp;
+
+    <div class="container">
+        <div class="text-bubble">
+            You are viewing <span id="filenameDisplay">Feb16-19</span>!
+        </div>
+    </div>
+    &nbsp;
+<!--<ul>-->
+<!--    <li><a class="paypal" href="index.html"> <img src="AIGoalieblack.webp" alt="Logo of the AI Goalie football webpage" width="98" height="78"> </a></li>-->
+
+<!--    <li><a class="active" href="index.html">All</a></li>-->
+
+<!--    <li><a href="Mar8.html">Yesterday</a></li>-->
+<!--    <li><a href="Mar9.html">Today</a></li>-->
+<!--    <li><a href="Mar10.html">Tomorrow</a></li>-->
+<!--    <li><a href="Mar11.html">Mon 11 Mar</a></li>-->
+<!--    <select id="previousGameweeks" onchange="redirectToGameweek()">-->
+<!--        <option value="" disabled selected>Select Gameweek</option>-->
+<!--        <option value="index.html">Current</option>-->
+<!--        <option value="Feb28-Mar4.html" selected>1-4 Mar</option>-->
+<!--        <option value="Feb23-26.html">23-26 Feb</option>-->
+<!--        <option value="Feb16-19.html">16-19 Feb</option>-->
+<!--    </select>-->
+
+
+
+<!--    <li><a  class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img src="donateeee.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="78"> </a></li>-->
+<!--    <li> <a class="contact" href="mailto:ai.goalie.mail@gmail.com"> Contact <br>&#9993;</br> </a> </li>-->
+<!--</ul>-->
+
+
+<table>
+  <tr>
+    <th>Date</th>
+
+    <th>Fixture</th>
+
+
+    <th>Certainty</th>
+
+
+
+
+
+      <th>Result</th>
+        <th>Score</th>
+    <th>Favourite Team Alerts (Beta)</th>
+
+
+  </tr>
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="0">Inter vs Salernitana</td>
+      <td class="certainty">3.0 vs -3.7</td>
+
+      <td class="total-color">3.0 (91%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">4:0</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="1">Benfica vs Vizela</td>
+      <td class="certainty">2.94 vs -3.49</td>
+
+      <td class="total-color">2.94 (90%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">6:1</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="2">PSV Eindhoven vs Heracles</td>
+      <td class="certainty">2.68 vs -3.56</td>
+
+      <td class="total-color">2.68 (92%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:0</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="3">Feyenoord vs Waalwijk</td>
+      <td class="certainty">2.21 vs -3.07</td>
+
+      <td class="total-color">2.21 (88%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:0</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="4">Porto vs Estrela</td>
+      <td class="certainty">1.92 vs -2.63</td>
+
+      <td class="total-color">1.92 (77%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="5">Bochum vs Bayern Munich</td>
+      <td class="certainty">-2.65 vs 1.82</td>
+
+      <td class="total-color">1.82 (81%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">3:2</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="6">Vallecano vs Real Madrid</td>
+      <td class="certainty">-3.15 vs 1.71</td>
+
+      <td class="total-color">1.71 (80%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="7">Ankaragucu vs Galatasaray</td>
+      <td class="certainty">-2.73 vs 1.69</td>
+
+      <td class="total-color">1.69 (77%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:3</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="8">Nantes vs Paris SG</td>
+      <td class="certainty">-2.45 vs 1.68</td>
+
+      <td class="total-color">1.68 (77%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:2</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="9">Verona vs Juventus</td>
+      <td class="certainty">-2.35 vs 1.57</td>
+
+      <td class="total-color">1.57 (71%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">2:2</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="10">Burnley vs Arsenal</td>
+      <td class="certainty">-2.42 vs 1.5</td>
+
+      <td class="total-color">1.5 (77%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:5</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="11">Atalanta vs Sassuolo</td>
+      <td class="certainty">1.4 vs -2.16</td>
+
+      <td class="total-color">1.4 (72%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">3:0</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="12">Genk vs RWD Molenbeek</td>
+      <td class="certainty">1.28 vs -1.95</td>
+
+      <td class="total-color">1.28 (73%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">3:1</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 19</td>
+    <td class="team" data-match-index="13">Moreirense vs Sp Lisbon</td>
+      <td class="certainty">-2.17 vs 1.25</td>
+
+      <td class="total-color">1.25 (70%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:2</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="14">Heidenheim vs Leverkusen</td>
+      <td class="certainty">-1.95 vs 1.22</td>
+
+      <td class="total-color">1.22 (74%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="15">Celta vs Barcelona</td>
+      <td class="certainty">-2.07 vs 1.22</td>
+
+      <td class="total-color">1.22 (67%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="16">Darmstadt vs Stuttgart</td>
+      <td class="certainty">-2.26 vs 1.15</td>
+
+      <td class="total-color">1.15 (74%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="17">RB Leipzig vs M'gladbach</td>
+      <td class="certainty">1.12 vs -2.22</td>
+
+      <td class="total-color">1.12 (68%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="18">Rizespor vs Fenerbahce</td>
+      <td class="certainty">-2.48 vs 1.12</td>
+
+      <td class="total-color">1.12 (76%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:3</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="19">Kortrijk vs St. Gilloise</td>
+      <td class="certainty">-2.25 vs 1.11</td>
+
+      <td class="total-color">1.11 (75%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:3</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="20">Anderlecht vs St Truiden</td>
+      <td class="certainty">1.08 vs -1.76</td>
+
+      <td class="total-color">1.08 (68%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">4:1</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="21">Monaco vs Toulouse</td>
+      <td class="certainty">1.06 vs -2.06</td>
+
+      <td class="total-color">1.06 (68%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="22">Monza vs Milan</td>
+      <td class="certainty">-2.05 vs 1.01</td>
+
+      <td class="total-color">1.01 (64%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">4:2</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 19</td>
+    <td class="team" data-match-index="23">Besiktas vs Konyaspor</td>
+      <td class="certainty">1.0 vs -2.0</td>
+
+      <td class="total-color">1.0 (68%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:0</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="24">Osasuna vs Cadiz</td>
+      <td class="certainty">0.97 vs -1.58</td>
+
+      <td class="total-color">0.97 (61%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="25">Napoli vs Genoa</td>
+      <td class="certainty">0.92 vs -1.52</td>
+
+      <td class="total-color">0.92 (57%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="26">Antwerp vs Mechelen</td>
+      <td class="certainty">0.91 vs -1.66</td>
+
+      <td class="total-color">0.91 (66%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">0:1</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="27">Antalyaspor vs Istanbulspor</td>
+      <td class="certainty">0.86 vs -1.52</td>
+
+      <td class="total-color">0.86 (66%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">2:2</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="28">Man City vs Chelsea</td>
+      <td class="certainty">0.8 vs -1.85</td>
+
+      <td class="total-color">0.8 (65%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="29">Sp Braga vs Farense</td>
+      <td class="certainty">0.8 vs -1.79</td>
+
+      <td class="total-color">0.8 (61%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="30">Luton vs Man United</td>
+      <td class="certainty">-1.66 vs 0.79</td>
+
+      <td class="total-color">0.79 (54%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:2</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="31">Frosinone vs Roma</td>
+      <td class="certainty">-1.61 vs 0.78</td>
+
+      <td class="total-color">0.78 (61%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:3</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="32">Lille vs Le Havre</td>
+      <td class="certainty">0.78 vs -1.31</td>
+
+      <td class="total-color">0.78 (59%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">3:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="33">Twente vs Utrecht</td>
+      <td class="certainty">0.74 vs -1.59</td>
+
+      <td class="total-color">0.74 (64%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">0:1</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="34">Ath Madrid vs Las Palmas</td>
+      <td class="certainty">0.74 vs -1.45</td>
+
+      <td class="total-color">0.74 (56%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">5:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="35">Ajax vs Nijmegen</td>
+      <td class="certainty">0.71 vs -1.56</td>
+
+      <td class="total-color">0.71 (56%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">2:2</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="36">Rennes vs Clermont</td>
+      <td class="certainty">0.67 vs -1.5</td>
+
+      <td class="total-color">0.67 (62%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">3:1</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 19</td>
+    <td class="team" data-match-index="37">Everton vs Crystal Palace</td>
+      <td class="certainty">0.64 vs -1.31</td>
+
+      <td class="total-color">0.64 (59%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="38">Valencia vs Sevilla</td>
+      <td class="certainty">0.55 vs -1.46</td>
+
+      <td class="total-color">0.55 (54%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">0:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="39">Brentford vs Liverpool</td>
+      <td class="certainty">-2.04 vs 0.52</td>
+
+      <td class="total-color">0.52 (66%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:4</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="40">Tottenham vs Wolves</td>
+      <td class="certainty">0.51 vs -1.5</td>
+
+      <td class="total-color">0.51 (55%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="41">Sparta Rotterdam vs Excelsior</td>
+      <td class="certainty">0.46 vs -1.08</td>
+
+      <td class="total-color">0.46 (51%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">4:2</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="42">Torino vs Lecce</td>
+      <td class="certainty">0.38 vs -1.46</td>
+
+      <td class="total-color">0.38 (62%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:0</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="43">Eupen vs Gent</td>
+      <td class="certainty">-1.18 vs 0.38</td>
+
+      <td class="total-color">0.38 (57%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:2</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="44">Lyon vs Nice</td>
+      <td class="certainty">-0.94 vs 0.35</td>
+
+      <td class="total-color">0.35 (52%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="45">Kasimpasa vs Karagumruk</td>
+      <td class="certainty">0.34 vs -1.2</td>
+
+      <td class="total-color">0.34 (52%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="46">Fulham vs Aston Villa</td>
+      <td class="certainty">-1.37 vs 0.33</td>
+
+      <td class="total-color">0.33 (54%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="47">For Sittard vs AZ Alkmaar</td>
+      <td class="certainty">-1.02 vs 0.33</td>
+
+      <td class="total-color">0.33 (56%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="48">Mallorca vs Sociedad</td>
+      <td class="certainty">-1.08 vs 0.3</td>
+
+      <td class="total-color">0.3 (51%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="49">Wolfsburg vs Dortmund</td>
+      <td class="certainty">-1.14 vs 0.29</td>
+
+      <td class="total-color">0.29 (57%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="50">Pendikspor vs Trabzonspor</td>
+      <td class="certainty">-1.17 vs 0.29</td>
+
+      <td class="total-color">0.29 (49%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:2</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 19</td>
+    <td class="team" data-match-index="51">Buyuksehyr vs Kayserispor</td>
+      <td class="certainty">0.28 vs -1.22</td>
+
+      <td class="total-color">0.28 (55%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">2:3</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="52">Brest vs Marseille</td>
+      <td class="certainty">0.18 vs -1.09</td>
+
+      <td class="total-color">0.18 (50%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">1:0</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="53">Strasbourg vs Lorient</td>
+      <td class="certainty">0.16 vs -0.7</td>
+
+      <td class="total-color">0.16 (48%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:3</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="54">Newcastle vs Bournemouth</td>
+      <td class="certainty">0.15 vs -1.36</td>
+
+      <td class="total-color">0.15 (61%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">2:2</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="55">Portimonense vs Guimaraes</td>
+      <td class="certainty">-0.99 vs 0.14</td>
+
+      <td class="total-color">0.14 (56%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="56">Empoli vs Fiorentina</td>
+      <td class="certainty">-1.01 vs 0.12</td>
+
+      <td class="total-color">0.12 (50%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="57">Sheffield United vs Brighton</td>
+      <td class="certainty">-0.98 vs 0.12</td>
+
+      <td class="total-color">0.12 (56%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:5</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="58">Estoril vs Gil Vicente</td>
+      <td class="certainty">0.09 vs -0.8</td>
+
+      <td class="total-color">0.09 (49%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:3</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="59">Famalicao vs Rio Ave</td>
+      <td class="certainty">0.06 vs -0.91</td>
+
+      <td class="total-color">0.06 (50%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:1</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="60">Mainz vs Augsburg</td>
+      <td class="certainty">-0.87 vs 0.01</td>
+
+      <td class="total-color">0.01 (44%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:0</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="61">Cercle Brugge vs Club Brugge</td>
+      <td class="certainty">-0.99 vs 0.01</td>
+
+      <td class="total-color">0.01 (47%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="62">Hoffenheim vs Union Berlin</td>
+      <td class="certainty">0.0 vs -1.01</td>
+
+      <td class="total-color">0.0 (55%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">0:1</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="63">Betis vs Alaves</td>
+      <td class="certainty">-0.01 vs -0.98</td>
+
+      <td class="total-color">-0.01 (53%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">0:0</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="64">Oud-Heverlee Leuven vs Charleroi</td>
+      <td class="certainty">-0.02 vs -1.09</td>
+
+      <td class="total-color">-0.02 (48%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">0:0</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="65">Casa Pia vs Arouca</td>
+      <td class="certainty">-0.79 vs -0.02</td>
+
+      <td class="total-color">-0.02 (50%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:0</td>
+      <td class="warnings"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="66">Granada vs Almeria</td>
+      <td class="certainty">-0.06 vs -0.74</td>
+
+      <td class="total-color">-0.06 (48%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 19</td>
+    <td class="team" data-match-index="67">Ath Bilbao vs Girona</td>
+      <td class="certainty">-0.41 vs -0.11</td>
+
+      <td class="total-color">-0.11 (37%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">3:2</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="68">Zwolle vs Almere City</td>
+      <td class="certainty">-0.15 vs -0.78</td>
+
+      <td class="total-color">-0.15 (51%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">0:1</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="69">Lazio vs Bologna</td>
+      <td class="certainty">-0.16 vs -0.77</td>
+
+      <td class="total-color">-0.16 (40%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">1:2</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="70">Montpellier vs Metz</td>
+      <td class="certainty">-0.16 vs -0.64</td>
+
+      <td class="total-color">-0.16 (45%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">3:0</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="71">Udinese vs Cagliari</td>
+      <td class="certainty">-0.21 vs -0.82</td>
+
+      <td class="total-color">-0.21 (47%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="72">Westerlo vs Standard</td>
+      <td class="certainty">-0.27 vs -0.72</td>
+
+      <td class="total-color">-0.27 (43%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:1</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="73">Villarreal vs Getafe</td>
+      <td class="certainty">-0.78 vs -0.27</td>
+
+      <td class="total-color">-0.27 (41%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="74">Nott'm Forest vs West Ham</td>
+      <td class="certainty">-0.95 vs -0.28</td>
+
+      <td class="total-color">-0.28 (42%)</td>
+
+
+
+
+      <td class="correct">0</td>
+      <td class="result">2:0</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 16</td>
+    <td class="team" data-match-index="75">FC Koln vs Werder Bremen</td>
+      <td class="certainty">-1.01 vs -0.28</td>
+
+      <td class="total-color">-0.28 (49%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:1</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="76">Vitesse vs Volendam</td>
+      <td class="certainty">-0.28 vs -0.78</td>
+
+      <td class="total-color">-0.28 (41%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="77">Heerenveen vs Go Ahead Eagles</td>
+      <td class="certainty">-0.37 vs -0.35</td>
+
+      <td class="total-color">-0.35 (45%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">0:2</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="78">Reims vs Lens</td>
+      <td class="certainty">-0.36 vs -0.41</td>
+
+      <td class="total-color">-0.36 (36%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="79">Hatayspor vs Sivasspor</td>
+      <td class="certainty">-0.5 vs -0.38</td>
+
+      <td class="total-color">-0.38 (38%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="80">Alanyaspor vs Ad. Demirspor</td>
+      <td class="certainty">-0.38 vs -0.74</td>
+
+      <td class="total-color">-0.38 (37%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">3:3</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="81">Freiburg vs Ein Frankfurt</td>
+      <td class="certainty">-0.48 vs -0.68</td>
+
+      <td class="total-color">-0.48 (35%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">3:3</td>
+      <td class="warnings">&#127973 MAJOR Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 17</td>
+    <td class="team" data-match-index="82">Chaves vs Boavista</td>
+      <td class="certainty">-0.49 vs -0.51</td>
+
+      <td class="total-color">-0.49 (32%)</td>
+
+
+
+
+      <td class="correct">1</td>
+      <td class="result">2:1</td>
+      <td class="warnings">&#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <tr class="match">
+
+
+    <td class="date">Feb 18</td>
+    <td class="team" data-match-index="83">Gaziantep vs Samsunspor</td>
+      <td class="certainty">-0.71 vs -0.54</td>
+
+      <td class="total-color">-0.54 (34%)</td>
+
+
+
+
+      <td class="correct">0.5</td>
+      <td class="result">1:1</td>
+      <td class="warnings">&#127973 Injuries &#127973; + &#128201; Form Dip &#128201;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+<div class="center">
+   <a href="privacy-policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html"> Liability Disclaimer</a>
+</div>
+</body>
+</html>
