@@ -840,45 +840,6 @@ select {
             margin: 0 auto;
 }
 
-.readmore.expand{
-  max-height: 5000px !important;
-  transition:max-height 0.35s ease-in-out;
-}
-
-.readmore-link{
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  display: block;
-  width:100%;
-  text-align: center;
-  font-weight:bold;
-  font-size:16px;
-  padding-top:40px;
-  background-image: linear-gradient(to bottom, transparent, white);
-  cursor: pointer;
-    font-weight: bold;
-
-}
-   @media screen and (max-width: 768px) {
-       .readmore-link{
-     font-size: 10px;
-           }
- }
-.readmore-link.expand {
-  position: relative;
-  background-image: none;
-  padding-top:10px;
-  height:20px;
-}
-
-.readmore-link:after {
-  content:"Show more";
-}
-.readmore-link.expand:after{
-  content:"Show less";
-}
-
 .search-container {
     display: flex;
     position: relative;
@@ -982,7 +943,7 @@ a {
     text-decoration: none; /* Removes underline from links */
 }
 
-#prevDay, #nextDay, #prevDay_m, #nextDay_m {
+#prevDay, #nextDay, #prevDay_m, #nextDay_m{
     background: none;
     border: none;
     cursor: pointer;
@@ -993,15 +954,32 @@ a {
     margin: 0 15px; /* Adds space around the buttons */
 }
 
-#prevDay svg, #nextDay svg, #prevDay_m svg, #nextDay_m svg {
+#prevDay svg, #nextDay svg, #prevDay_m svg, #nextDay_m {
     width: 32px;
     height: 32px;
     fill: currentColor;
     transition: fill 0.3s;
 }
 
-#prevDay:hover svg, #nextDay:hover svg, #prevDay_m:hover svg, #nextDay_m:hover svg {
+#prevDay:hover svg, #nextDay:hover svg, #prevDay_m:hover svg, #nextDay_m:hover svg, #qm_m:hover svg, #qm:hover svg {
     fill: #c0392b;
+}
+
+#qm_m, #qm {
+    margin: 0 15px; /* Adds space around the buttons */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    height: auto;
+}
+
+#qm_m svg, #qm svg {
+    width: 24px; /* Keeps the question mark icon small */
+    height: 24px;
+    fill: currentColor;
+    transition: fill 0.3s;
 }
 
 
@@ -1135,7 +1113,7 @@ a {
             border-radius: 10px;
             padding: 20px;
             margin: 0 auto; /* Center the box horizontally */
-            /*max-width: 50%; !* Limit the width to about half of the page *!*/
+            max-width: 90%; /* Limit the width to about half of the page */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -1149,6 +1127,7 @@ a {
             line-height: 1.5;
         }
 
+
         .close-btn {
             background: none;
             border: none;
@@ -1160,16 +1139,18 @@ a {
         }
 
             @media (max-width: 768px){
-
+        .text-bubble {
+            font-size:12px;
+        }
        .introduction-box {
             position: relative; /* Add relative positioning */
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
-            /*width: 80%;*/
+            width: 80%;
             margin: 0 auto; /* Center the box horizontally */
-            /*max-width: 80%; !* Limit the width to about half of the page *!*/
+            max-width: 80%; /* Limit the width to about half of the page */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
