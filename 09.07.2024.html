@@ -332,7 +332,553 @@
 
 &nbsp;
 <div class="view-button-container">
-    <button class="view-button" id="view_button" onClick="switchView()">&#127757; Global View</button>
+    <button class="view-button" id="view_button" onClick="switchView()">&#127942; League View</button>
+</div>
+<!--    <div class="view-button-container">-->
+<!--    <button class="view-button" id="view_button" onClick="switchView()">&#127757; Global View</button>-->
+<!--</div>-->
+
+
+        <div id="global_view" style="display: block;">
+
+<div>&nbsp;</div>
+<div class="slider-container">
+    <div id="time-range-slider" name="time-range"> </div>
+</div>
+                            <div class="search-dropdown-container">
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchTable()" style="width:500px;" placeholder="&#128269; Search for team or league, e.g. 'Euro 2024'">
+    <div class="dropdown-content" id="leaguesContainer"></div>
+    </div>
+</div>
+        <div class="table-container">
+
+    <div class="table-title-global">
+    <h1>&#127757; Global</h1>
+</div>
+
+<table id="myTable">
+    <tr>
+        <th>Date</th>
+        <th>Fixture<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
+        <th>Odds<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Pre-match odds of the selected team winning. Note that odds are fetched once per day at 00:00 GMT, meaning some matches may have live odds. </span> </span></th>
+        <th onclick="sortTable(4)">Win<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win.</u> Low confidence indicates unpredictability of the match. </span> </span><span class="sort-arrow">▼</span></th>
+        <th>Result<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
+        <th onclick="sortTable(6)">Over<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">The minimum number of goals predicted by AIGoalie. <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ... </span> </span> </span> </span> <span class="sort-arrow">►</span></th>
+        <th>Alerts Home<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+        <th>Alerts Away<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+
+    </tr>
+    
+        <tr class="match" data-league="EURO 2024" data-home="Spain" data-away="France" data-time="20:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Spain</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/spanien_3375.webp" alt="Spain logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img src="./new_logos/frankreich_3377.webp" alt="France logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">France</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pedri</li><li class="li-collaps">&#127973; Carvajal</li><li class="li-collaps">&#127973; Normand</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">0.63 vs 0.11</td>
+        <td class="odds">2.84</td>
+        <td style="background-color: rgb(255, 255, 0)">55%</td>
+        <td class="correct"><span class="green">&#10003;</span></td>
+        <td class="gp">&#9917;<br>1.98</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="K League 1" data-home="Gimcheon Sangmu" data-away="Suwon FC" data-time="11:30">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="1"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Gimcheon Sangmu</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/gimcheon-sangmu_6505.webp" alt="Gimcheon Sangmu logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:3</strong></div><div class="away-team-logo"><img src="./new_logos/suwon-fc_31622.webp" alt="Suwon FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Suwon FC</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lee</li><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Goo</li><li class="li-collaps">&#127973; Kim</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lee</li><li class="li-collaps">&#127973; Kim</li></ul></div></div><div></div></td>
+        <td class="certainty">0.61 vs -1.15</td>
+        <td class="odds">2.22</td>
+        <td style="background-color: rgb(255, 255, 0)">54%</td>
+        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
+        <td class="gp">&#9917;&#9917;<br>2.12</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                    
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="UEFA Champions League Qualifying" data-home="Hamrun Spartans" data-away="Lincoln Red Imps FC" data-time="17:45">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="2"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Hamrun Spartans</div><div class="home-team-logo"><img src="./new_logos/hamrun-spartans_17149.webp" alt="Hamrun Spartans logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:1</strong></div><div class="away-team-logo"><img src="./new_logos/lincoln-red-imps-fc_38204.webp" alt="Lincoln Red Imps FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Lincoln Red Imps FC</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">0.14 vs 0.59</td>
+        <td class="odds"></td>
+        <td style="background-color: rgb(255, 255, 0)">53%</td>
+        <td class="correct"><span class="green">&#10003;</span></td>
+        <td class="gp">&#9917;&#9917;<br>2.36</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                    
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="UEFA Champions League Qualifying" data-home="The New Saints" data-away="FK Decic Tuzi" data-time="19:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="3"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>The New Saints</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/the-new-saints-fc_10734.webp" alt="The New Saints logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>3:0</strong></div><div class="away-team-logo"><img src="./new_logos/fk-decic-tuzi_11065.webp" alt="FK Decic Tuzi logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">FK Decic Tuzi</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Astles</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">0.49 vs -0.32</td>
+        <td class="odds">1.44</td>
+        <td style="background-color: rgb(255, 255, 0)">50%</td>
+        <td class="correct"><span class="green">&#10003;</span></td>
+        <td class="gp">&#9917;<br>1.64</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="Liga 2" data-home="Comerciantes FC" data-away="Deportivo Binacional" data-time="21:15">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="4"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Comerciantes FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/fc-comerciantes-loreto_88406.webp" alt="Comerciantes FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>6:1</strong></div><div class="away-team-logo"><img src="./new_logos/deportivo-binacional_41054.webp" alt="Deportivo Binacional logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Deportivo Binacional</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Navarro</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">0.36 vs -1.08</td>
+        <td class="odds">1.71</td>
+        <td style="background-color: rgb(255, 214, 0)">42%</td>
+        <td class="correct"><span class="green">&#10003;</span></td>
+        <td class="gp">&#9917;<br>1.72</td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="UEFA Champions League Qualifying" data-home="AC Virtus Acquaviva" data-away="FCSB" data-time="20:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="5"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">AC Virtus Acquaviva</div><div class="home-team-logo"><img src="./new_logos/ss-virtus-acquaviva_10613.webp" alt="AC Virtus Acquaviva logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:7</strong></div><div class="away-team-logo"><img src="./new_logos/fcsb_301.webp" alt="FCSB logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>FCSB</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gori</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pantea</li><li class="li-collaps">&#127973; Popescu</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.38 vs 0.28</td>
+        <td class="odds">1.07</td>
+        <td style="background-color: rgb(255, 189, 0)">37%</td>
+        <td class="correct"><span class="green">&#10003;</span></td>
+        <td class="gp">&#9917;<br>1.03</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="UEFA Champions League Qualifying" data-home="UE Santa Coloma" data-away="FC Ballkani" data-time="19:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="6"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>UE Santa Coloma</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/ue-santa-coloma_28633.webp" alt="UE Santa Coloma logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:2</strong></div><div class="away-team-logo"><img src="./new_logos/kf-ballkani_28082.webp" alt="FC Ballkani logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">FC Ballkani</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">0.13 vs -0.65</td>
+        <td class="odds"></td>
+        <td style="background-color: rgb(255, 143, 0)">28%</td>
+        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
+        <td class="gp">&#128564;<br>0.86</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="Campeonato Brasileiro Série B" data-home="Avaí FC" data-away="Grêmio Novorizontino" data-time="00:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="7"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Avaí FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/avai-fc-sc-_2035.webp" alt="Avaí FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:1</strong></div><div class="away-team-logo"><img src="./new_logos/gremio-novorizontino-sp-_37474.webp" alt="Grêmio Novorizontino logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Grêmio Novorizontino</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">-0.19 vs -0.8</td>
+        <td class="odds">2.2</td>
+        <td style="background-color: rgb(255, 82, 0)">16%</td>
+        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
+        <td class="gp">&#9917;<br>1.39</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="Campeonato Brasileiro Série B" data-home="Amazonas FC" data-away="Vila Nova Futebol Clube (GO)" data-time="01:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="8"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Amazonas FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/amazonas-fc_87727.webp" alt="Amazonas FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:2</strong></div><div class="away-team-logo"><img src="./new_logos/vila-nova-futebol-clube-go-_5677.webp" alt="Vila Nova Futebol Clube (GO) logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Vila Nova Futebol Clube (GO)</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Ermel</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">-0.24 vs -0.77</td>
+        <td class="odds">1.38</td>
+        <td style="background-color: rgb(255, 76, 0)">15%</td>
+        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
+        <td class="gp">&#9917;<br>1.21</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &nbsp;
+                <span class="tooltiptext">
+                    
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="Campeonato Brasileiro Série A" data-home="Cuiabá Esporte Clube (MT)" data-away="Esporte Clube Juventude" data-time="23:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="9"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Cuiabá Esporte Clube (MT)</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/cuiaba-ec-mt-_28022.webp" alt="Cuiabá Esporte Clube (MT) logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score">postponed</div><div class="away-team-logo"><img src="./new_logos/esporte-clube-juventude_10492.webp" alt="Esporte Clube Juventude logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Esporte Clube Juventude</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Romércio</li><li class="li-collaps">&#127973; Carioca</li><li class="li-collaps">&#127973; Marcelinho</li><li class="li-collaps">&#127973; Gabriel</li><li class="li-collaps">&#127973; Marcos</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.27 vs -1.48</td>
+        <td class="odds"></td>
+        <td style="background-color: rgb(255, 76, 0)">15%</td>
+        <td class="correct"><span class="black";></span></td>
+        <td class="gp">&#9917;<br>1.81</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="Campeonato Brasileiro Série A" data-home="Red Bull Bragantino" data-away="Sport Club Internacional" data-time="23:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="10"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Red Bull Bragantino</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/red-bull-bragantino_8793.webp" alt="Red Bull Bragantino logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score">postponed</div><div class="away-team-logo"><img src="./new_logos/sc-internacional-porto-alegre_6600.webp" alt="Sport Club Internacional logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Sport Club Internacional</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Mosquera</li><li class="li-collaps">&#127973; Hurtado</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Ivan</li><li class="li-collaps">&#127973; Mauricio</li><li class="li-collaps">&#127973; Fernando</li><li class="li-collaps">&#127973; Bustos</li><li class="li-collaps">&#127973; Borré</li><li class="li-collaps">&#127973; Rochet</li><li class="li-collaps">&#127973; Valencia</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.44 vs -0.96</td>
+        <td class="odds"></td>
+        <td style="background-color: rgb(255, 56, 0)">11%</td>
+        <td class="correct"><span class="black";></span></td>
+        <td class="gp">&#9917;<br>1.99</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973&#127973;
+                <span class="tooltiptext">
+                    
+                        Away team has MAJOR injuries
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+        <tr class="match" data-league="Campeonato Brasileiro Série A" data-home="Red Bull Bragantino" data-away="Sport Club Internacional" data-time="23:00">
+        <td class="date"></td>
+        <td>
+              <div style="display: flex; justify-content: center; max-width: 95%; margin: 0 auto;">
+    <div style="width: 300px;">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+            crossorigin="anonymous"></script>
+        <!-- horizontal-mobile-300-50 -->
+        <ins class="adsbygoogle"
+            style="display:block; width: 100%; height: auto; min-height: 50px; max-height: 100px;"
+            data-ad-client="ca-pub-9761499603663107"
+            data-ad-slot="1840052782"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+              </div>
+        </td>
+        <td class="certainty"></td>
+        <td class="odds"></td>
+        <td></td>
+        <td class="correct"></td>
+        <td class="gp"></td>
+        <td class="warnings">
+        </td>
+        <td class="warnings">
+        </td>
+    </tr>
+
+    
+
+    
+        <tr class="match" data-league="UEFA Champions League Qualifying" data-home="FK Panevezys" data-away="HJK Helsinki" data-time="16:30">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="11"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">FK Panevezys</div><div class="home-team-logo"><img src="./new_logos/fk-panevezys_49149.webp" alt="FK Panevezys logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>3:0</strong></div><div class="away-team-logo"><img src="./new_logos/hjk-helsinki_1008.webp" alt="HJK Helsinki logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>HJK Helsinki</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Smith</li><li class="li-collaps">&#127973; Svedkauskas</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">-0.79 vs -0.5</td>
+        <td class="odds">1.56</td>
+        <td style="background-color: rgb(255, 56, 0)">11%</td>
+        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
+        <td class="gp">&#9917;<br>1.75</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="UEFA Champions League Qualifying" data-home="Víkingur Reykjavík" data-away="Shamrock Rovers" data-time="19:45">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="12"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Víkingur Reykjavík</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/vikingur-reykjavik_5849.webp" alt="Víkingur Reykjavík logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:0</strong></div><div class="away-team-logo"><img src="./new_logos/shamrock-rovers_3258.webp" alt="Shamrock Rovers logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Shamrock Rovers</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gaffney</li><li class="li-collaps">&#127973; Burke</li><li class="li-collaps">&#127973; McEneff</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.56 vs -1.12</td>
+        <td class="odds">1.83</td>
+        <td style="background-color: rgb(255, 51, 0)">10%</td>
+        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
+        <td class="gp">&#9917;<br>1.61</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="Liga Pro Serie B" data-home="San Antonio FC" data-away="CSD Vargas Torres" data-time="21:00">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="13"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>San Antonio FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/san-antonio-fc_47242.webp" alt="San Antonio FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:0</strong></div><div class="away-team-logo"><img src="./new_logos/csd-vargas-torres_25589.webp" alt="CSD Vargas Torres logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">CSD Vargas Torres</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Díaz</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+        <td class="certainty">-0.7 vs -1.04</td>
+        <td class="odds">1.91</td>
+        <td style="background-color: rgb(255, 36, 0)">7%</td>
+        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
+        <td class="gp">&#128564;<br>0.71</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="K League 1" data-home="Daegu FC" data-away="Incheon United" data-time="11:30">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="14"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Daegu FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/daegu-fc_6504.webp" alt="Daegu FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:0</strong></div><div class="away-team-logo"><img src="./new_logos/incheon-united_2996.webp" alt="Incheon United logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Incheon United</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Barcelos</li><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Yoshino</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Gerso</li><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Park</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.74 vs -1.45</td>
+        <td class="odds">2.3</td>
+        <td style="background-color: rgb(255, 31, 0)">6%</td>
+        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
+        <td class="gp">&#9917;<br>1.25</td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+        <tr class="match" data-league="Liga 2" data-home="Deportivo Municipal" data-away="Universidad San Martín de Porres" data-time="21:15">
+        <td class="date">Tue. 09 Jul.</td>
+        <td class="team" data-match-index="15"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Deportivo Municipal</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/deportivo-municipal_17974.webp" alt="Deportivo Municipal logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img src="./new_logos/universidad-san-martin-de-porres_11622.webp" alt="Universidad San Martín de Porres logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Universidad San Martín de Porres</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; López</li><li class="li-collaps">&#127973; Cavagna</li><li class="li-collaps">&#127973; Yáñez</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; García</li><li class="li-collaps">&#127973; Bazán</li><li class="li-collaps">&#127973; Arroé</li><li class="li-collaps">&#127973; Rossi</li><li class="li-collaps">&#127973; Arteaga</li></ul></div></div><div></div></td>
+        <td class="certainty">-0.86 vs -1.17</td>
+        <td class="odds">1.04</td>
+        <td style="background-color: rgb(255, 20, 0)">4%</td>
+        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
+        <td class="gp">&#9917;<br>1.97</td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                
+                    Home team has considerable injuries and a dip in form recently
+                
+                </span>
+            </span>
+        </td>
+        <td class="warnings">
+            <span class="tooltip"> &#127973; &#128201;
+                <span class="tooltiptext">
+                    
+                        Away team has considerable injuries and a dip in form recently
+                    
+                </span>
+            </span>
+        </td>
+    </tr>
+    
+
+    
+</table>
+
+            </div>
+
 </div>
 
 
@@ -569,6 +1115,76 @@
     <div class="table-container">
 
         <div class="table-title">
+            <h1>&#127942;  International -  EURO 2024</h1>
+        </div>
+            <table id="" class="league_table">
+                <tr>
+                    <th>Date</th>
+                    <th>Fixture<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
+                    <th>Odds<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Pre-match odds of the selected team winning. Note that odds are fetched once per day at 00:00 GMT, meaning some matches may have live odds. Also odds may not be available for all leagues. </span> </span></th>
+                    <th onclick="sortTable(4)">Win<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win.</u> Low confidence indicates unpredictability of the match. </span> </span><span class="sort-arrow">▼</span></th>
+                    <th>Result<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
+                    <th onclick="sortTable(6)">Over<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">The minimum number of goals predicted by AIGoalie. <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ... </span> </span> </span> </span> <span class="sort-arrow">►</span></th>
+                    <th>Alerts Home<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+                    <th>Alerts Away<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
+
+                </tr>
+
+                
+
+
+                        <tr class="match" data-league="EURO 2024" data-home="Spain" data-away="France">
+                                <td class="date">Tue. 09 Jul.</td>
+                                <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Spain</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/spanien_3375.webp" alt="Spain logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img src="./new_logos/frankreich_3377.webp" alt="France logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">France</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pedri</li><li class="li-collaps">&#127973; Carvajal</li><li class="li-collaps">&#127973; Normand</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
+                                <td class="certainty">0.63 vs 0.11</td>
+                                <td class="odds">2.84</td>
+                                <td style="background-color: rgb(255, 255, 0)">55%</td>
+                                <td class="correct"><span class="green">&#10003;</span></td>
+                                <td class="gp">&#9917;<br>1.98</td>
+                                <td class="warnings">
+                                    <span class="tooltip"> &nbsp;
+                                        <span class="tooltiptext">
+                                        
+                                        
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="warnings">
+                                    <span class="tooltip"> &#128201;
+                                        <span class="tooltiptext">
+                                            
+                                                Away team has a dip in form recently
+                                            
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                
+            </table>
+        </div>
+       
+
+    
+      &nbsp;
+  <div style="display: flex; justify-content: center; max-width: 95%; margin: 0 auto;">
+          <div style="width: 300px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+     crossorigin="anonymous"></script>
+<!-- mobile square -->
+<ins class="adsbygoogle"
+     style="display:block; width: 100%; height: auto; min-height: 250px; max-height: 300px;"
+     data-ad-client="ca-pub-9761499603663107"
+     data-ad-slot="1802795276"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+          </div>
+</div>
+    
+
+    <div class="table-container">
+
+        <div class="table-title">
             <h1>&#127942;  International -  UEFA Champions League Qualifying</h1>
         </div>
             <table id="" class="league_table">
@@ -773,60 +1389,6 @@
     <div class="table-container">
 
         <div class="table-title">
-            <h1>&#127942;  International -  EURO 2024</h1>
-        </div>
-            <table id="" class="league_table">
-                <tr>
-                    <th>Date</th>
-                    <th>Fixture<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
-                    <th>Odds<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Pre-match odds of the selected team winning. Note that odds are fetched once per day at 00:00 GMT, meaning some matches may have live odds. Also odds may not be available for all leagues. </span> </span></th>
-                    <th onclick="sortTable(4)">Win<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win.</u> Low confidence indicates unpredictability of the match. </span> </span><span class="sort-arrow">▼</span></th>
-                    <th>Result<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
-                    <th onclick="sortTable(6)">Over<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">The minimum number of goals predicted by AIGoalie. <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ... </span> </span> </span> </span> <span class="sort-arrow">►</span></th>
-                    <th>Alerts Home<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
-                    <th>Alerts Away<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
-
-                </tr>
-
-                
-
-
-                        <tr class="match" data-league="EURO 2024" data-home="Spain" data-away="France">
-                                <td class="date">Tue. 09 Jul.</td>
-                                <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Spain</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/spanien_3375.webp" alt="Spain logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img src="./new_logos/frankreich_3377.webp" alt="France logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">France</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pedri</li><li class="li-collaps">&#127973; Carvajal</li><li class="li-collaps">&#127973; Normand</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-                                <td class="certainty">0.63 vs 0.11</td>
-                                <td class="odds">2.84</td>
-                                <td style="background-color: rgb(255, 255, 0)">55%</td>
-                                <td class="correct"><span class="green">&#10003;</span></td>
-                                <td class="gp">&#9917;<br>1.98</td>
-                                <td class="warnings">
-                                    <span class="tooltip"> &nbsp;
-                                        <span class="tooltiptext">
-                                        
-                                        
-                                        </span>
-                                    </span>
-                                </td>
-                                <td class="warnings">
-                                    <span class="tooltip"> &#128201;
-                                        <span class="tooltiptext">
-                                            
-                                                Away team has a dip in form recently
-                                            
-                                        </span>
-                                    </span>
-                                </td>
-                            </tr>
-                
-            </table>
-        </div>
-       
-
-    
-
-    <div class="table-container">
-
-        <div class="table-title">
             <h1><img src="./new_logos/peru_3584.webp" alt="Peru logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;">  Peru -  Liga 2</h1>
         </div>
             <table id="" class="league_table">
@@ -994,485 +1556,6 @@
 
 <div>&nbsp;</div>
 
-        <div id="global_view" style="display: none;">
-
-<div>&nbsp;</div>
-<div class="slider-container">
-    <div id="time-range-slider" name="time-range"> </div>
-</div>
-                            <div class="search-dropdown-container">
-    <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchTable()" style="width:500px;" placeholder="&#128269; Search for team or league, e.g. 'Euro 2024'">
-    <div class="dropdown-content" id="leaguesContainer"></div>
-    </div>
-</div>
-        <div class="table-container">
-
-    <div class="table-title-global">
-    <h1>&#127757; Global</h1>
-</div>
-
-<table id="myTable">
-    <tr>
-        <th>Date</th>
-        <th>Fixture<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
-        <th>Odds<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Pre-match odds of the selected team winning. Note that odds are fetched once per day at 00:00 GMT, meaning some matches may have live odds. </span> </span></th>
-        <th onclick="sortTable(4)">Win<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win.</u> Low confidence indicates unpredictability of the match. </span> </span><span class="sort-arrow">▼</span></th>
-        <th>Result<span class="tooltip-info">  <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
-        <th onclick="sortTable(6)">Over<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">The minimum number of goals predicted by AIGoalie. <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ... </span> </span> </span> </span> <span class="sort-arrow">►</span></th>
-        <th>Alerts Home<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
-        <th>Alerts Away<span class="tooltip-info"> <sup><img  alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br><br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span></th>
-
-    </tr>
-    
-<tr class="match" data-league="EURO 2024" data-home="Spain" data-away="France" data-time="20:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Spain</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/spanien_3375.webp" alt="Spain logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img src="./new_logos/frankreich_3377.webp" alt="France logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">France</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pedri</li><li class="li-collaps">&#127973; Carvajal</li><li class="li-collaps">&#127973; Normand</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">0.63 vs 0.11</td>
-        <td class="odds">2.84</td>
-        <td style="background-color: rgb(255, 255, 0)">55%</td>
-        <td class="correct"><span class="green">&#10003;</span></td>
-        <td class="gp">&#9917;<br>1.98</td>
-        <td class="warnings">
-            <span class="tooltip"> &nbsp;
-                <span class="tooltiptext">
-                
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="K League 1" data-home="Gimcheon Sangmu" data-away="Suwon FC" data-time="11:30">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="1"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Gimcheon Sangmu</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/gimcheon-sangmu_6505.webp" alt="Gimcheon Sangmu logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:3</strong></div><div class="away-team-logo"><img src="./new_logos/suwon-fc_31622.webp" alt="Suwon FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Suwon FC</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lee</li><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Goo</li><li class="li-collaps">&#127973; Kim</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Lee</li><li class="li-collaps">&#127973; Kim</li></ul></div></div><div></div></td>
-        <td class="certainty">0.61 vs -1.15</td>
-        <td class="odds">2.22</td>
-        <td style="background-color: rgb(255, 255, 0)">54%</td>
-        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
-        <td class="gp">&#9917;&#9917;<br>2.12</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &nbsp;
-                <span class="tooltiptext">
-                    
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="UEFA Champions League Qualifying" data-home="Hamrun Spartans" data-away="Lincoln Red Imps FC" data-time="17:45">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="2"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">Hamrun Spartans</div><div class="home-team-logo"><img src="./new_logos/hamrun-spartans_17149.webp" alt="Hamrun Spartans logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:1</strong></div><div class="away-team-logo"><img src="./new_logos/lincoln-red-imps-fc_38204.webp" alt="Lincoln Red Imps FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>Lincoln Red Imps FC</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">0.14 vs 0.59</td>
-        <td class="odds"></td>
-        <td style="background-color: rgb(255, 255, 0)">53%</td>
-        <td class="correct"><span class="green">&#10003;</span></td>
-        <td class="gp">&#9917;&#9917;<br>2.36</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &nbsp;
-                <span class="tooltiptext">
-                    
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="UEFA Champions League Qualifying" data-home="The New Saints" data-away="FK Decic Tuzi" data-time="19:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="3"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>The New Saints</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/the-new-saints-fc_10734.webp" alt="The New Saints logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>3:0</strong></div><div class="away-team-logo"><img src="./new_logos/fk-decic-tuzi_11065.webp" alt="FK Decic Tuzi logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">FK Decic Tuzi</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Astles</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">0.49 vs -0.32</td>
-        <td class="odds">1.44</td>
-        <td style="background-color: rgb(255, 255, 0)">50%</td>
-        <td class="correct"><span class="green">&#10003;</span></td>
-        <td class="gp">&#9917;<br>1.64</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="Liga 2" data-home="Comerciantes FC" data-away="Deportivo Binacional" data-time="21:15">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="4"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Comerciantes FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/fc-comerciantes-loreto_88406.webp" alt="Comerciantes FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>6:1</strong></div><div class="away-team-logo"><img src="./new_logos/deportivo-binacional_41054.webp" alt="Deportivo Binacional logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Deportivo Binacional</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Navarro</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">0.36 vs -1.08</td>
-        <td class="odds">1.71</td>
-        <td style="background-color: rgb(255, 214, 0)">42%</td>
-        <td class="correct"><span class="green">&#10003;</span></td>
-        <td class="gp">&#9917;<br>1.72</td>
-        <td class="warnings">
-            <span class="tooltip"> &nbsp;
-                <span class="tooltiptext">
-                
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="UEFA Champions League Qualifying" data-home="AC Virtus Acquaviva" data-away="FCSB" data-time="20:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="5"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">AC Virtus Acquaviva</div><div class="home-team-logo"><img src="./new_logos/ss-virtus-acquaviva_10613.webp" alt="AC Virtus Acquaviva logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:7</strong></div><div class="away-team-logo"><img src="./new_logos/fcsb_301.webp" alt="FCSB logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>FCSB</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gori</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pantea</li><li class="li-collaps">&#127973; Popescu</li></ul></div></div><div></div></td>
-        <td class="certainty">-0.38 vs 0.28</td>
-        <td class="odds">1.07</td>
-        <td style="background-color: rgb(255, 189, 0)">37%</td>
-        <td class="correct"><span class="green">&#10003;</span></td>
-        <td class="gp">&#9917;<br>1.03</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="UEFA Champions League Qualifying" data-home="UE Santa Coloma" data-away="FC Ballkani" data-time="19:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="6"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>UE Santa Coloma</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/ue-santa-coloma_28633.webp" alt="UE Santa Coloma logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:2</strong></div><div class="away-team-logo"><img src="./new_logos/kf-ballkani_28082.webp" alt="FC Ballkani logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">FC Ballkani</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">0.13 vs -0.65</td>
-        <td class="odds"></td>
-        <td style="background-color: rgb(255, 143, 0)">28%</td>
-        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
-        <td class="gp">&#128564;<br>0.86</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="Campeonato Brasileiro Série B" data-home="Avaí FC" data-away="Grêmio Novorizontino" data-time="00:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="7"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Avaí FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/avai-fc-sc-_2035.webp" alt="Avaí FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:1</strong></div><div class="away-team-logo"><img src="./new_logos/gremio-novorizontino-sp-_37474.webp" alt="Grêmio Novorizontino logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Grêmio Novorizontino</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">-0.19 vs -0.8</td>
-        <td class="odds">2.2</td>
-        <td style="background-color: rgb(255, 82, 0)">16%</td>
-        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
-        <td class="gp">&#9917;<br>1.39</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="Campeonato Brasileiro Série B" data-home="Amazonas FC" data-away="Vila Nova Futebol Clube (GO)" data-time="01:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="8"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Amazonas FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/amazonas-fc_87727.webp" alt="Amazonas FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:2</strong></div><div class="away-team-logo"><img src="./new_logos/vila-nova-futebol-clube-go-_5677.webp" alt="Vila Nova Futebol Clube (GO) logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Vila Nova Futebol Clube (GO)</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Ermel</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">-0.24 vs -0.77</td>
-        <td class="odds">1.38</td>
-        <td style="background-color: rgb(255, 76, 0)">15%</td>
-        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
-        <td class="gp">&#9917;<br>1.21</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &nbsp;
-                <span class="tooltiptext">
-                    
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="Campeonato Brasileiro Série A" data-home="Cuiabá Esporte Clube (MT)" data-away="Esporte Clube Juventude" data-time="23:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="9"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Cuiabá Esporte Clube (MT)</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/cuiaba-ec-mt-_28022.webp" alt="Cuiabá Esporte Clube (MT) logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score">postponed</div><div class="away-team-logo"><img src="./new_logos/esporte-clube-juventude_10492.webp" alt="Esporte Clube Juventude logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Esporte Clube Juventude</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Romércio</li><li class="li-collaps">&#127973; Carioca</li><li class="li-collaps">&#127973; Marcelinho</li><li class="li-collaps">&#127973; Gabriel</li><li class="li-collaps">&#127973; Marcos</li></ul></div></div><div></div></td>
-        <td class="certainty">-0.27 vs -1.48</td>
-        <td class="odds"></td>
-        <td style="background-color: rgb(255, 76, 0)">15%</td>
-        <td class="correct"><span class="black";></span></td>
-        <td class="gp">&#9917;<br>1.81</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="Campeonato Brasileiro Série A" data-home="Red Bull Bragantino" data-away="Sport Club Internacional" data-time="23:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="10"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Red Bull Bragantino</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/red-bull-bragantino_8793.webp" alt="Red Bull Bragantino logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score">postponed</div><div class="away-team-logo"><img src="./new_logos/sc-internacional-porto-alegre_6600.webp" alt="Sport Club Internacional logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Sport Club Internacional</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Mosquera</li><li class="li-collaps">&#127973; Hurtado</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Ivan</li><li class="li-collaps">&#127973; Mauricio</li><li class="li-collaps">&#127973; Fernando</li><li class="li-collaps">&#127973; Bustos</li><li class="li-collaps">&#127973; Borré</li><li class="li-collaps">&#127973; Rochet</li><li class="li-collaps">&#127973; Valencia</li></ul></div></div><div></div></td>
-        <td class="certainty">-0.44 vs -0.96</td>
-        <td class="odds"></td>
-        <td style="background-color: rgb(255, 56, 0)">11%</td>
-        <td class="correct"><span class="black";></span></td>
-        <td class="gp">&#9917;<br>1.99</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#127973&#127973;
-                <span class="tooltiptext">
-                    
-                        Away team has MAJOR injuries
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="UEFA Champions League Qualifying" data-home="FK Panevezys" data-away="HJK Helsinki" data-time="16:30">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="11"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team">FK Panevezys</div><div class="home-team-logo"><img src="./new_logos/fk-panevezys_49149.webp" alt="FK Panevezys logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>3:0</strong></div><div class="away-team-logo"><img src="./new_logos/hjk-helsinki_1008.webp" alt="HJK Helsinki logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team"><div class="arrow-above-away"><u><strong>HJK Helsinki</strong></u></div></div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Smith</li><li class="li-collaps">&#127973; Svedkauskas</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">-0.79 vs -0.5</td>
-        <td class="odds">1.56</td>
-        <td style="background-color: rgb(255, 56, 0)">11%</td>
-        <td class="correct"><span style="font-size: 6px">&#10060;</span></td>
-        <td class="gp">&#9917;<br>1.75</td>
-        <td class="warnings">
-            <span class="tooltip"> &#127973; &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has considerable injuries and a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="UEFA Champions League Qualifying" data-home="Víkingur Reykjavík" data-away="Shamrock Rovers" data-time="19:45">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="12"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Víkingur Reykjavík</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/vikingur-reykjavik_5849.webp" alt="Víkingur Reykjavík logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:0</strong></div><div class="away-team-logo"><img src="./new_logos/shamrock-rovers_3258.webp" alt="Shamrock Rovers logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Shamrock Rovers</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Gaffney</li><li class="li-collaps">&#127973; Burke</li><li class="li-collaps">&#127973; McEneff</li></ul></div></div><div></div></td>
-        <td class="certainty">-0.56 vs -1.12</td>
-        <td class="odds">1.83</td>
-        <td style="background-color: rgb(255, 51, 0)">10%</td>
-        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
-        <td class="gp">&#9917;<br>1.61</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#127973; &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has considerable injuries and a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="Liga Pro Serie B" data-home="San Antonio FC" data-away="CSD Vargas Torres" data-time="21:00">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="13"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>San Antonio FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/san-antonio-fc_47242.webp" alt="San Antonio FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:0</strong></div><div class="away-team-logo"><img src="./new_logos/csd-vargas-torres_25589.webp" alt="CSD Vargas Torres logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">CSD Vargas Torres</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Díaz</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div><div></div></td>
-        <td class="certainty">-0.7 vs -1.04</td>
-        <td class="odds">1.91</td>
-        <td style="background-color: rgb(255, 36, 0)">7%</td>
-        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
-        <td class="gp">&#128564;<br>0.71</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="K League 1" data-home="Daegu FC" data-away="Incheon United" data-time="11:30">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="14"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Daegu FC</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/daegu-fc_6504.webp" alt="Daegu FC logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>0:0</strong></div><div class="away-team-logo"><img src="./new_logos/incheon-united_2996.webp" alt="Incheon United logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Incheon United</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Barcelos</li><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Yoshino</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: red;">L</span></strong><strong><span style="color: red;">L</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Gerso</li><li class="li-collaps">&#127973; Kim</li><li class="li-collaps">&#127973; Park</li></ul></div></div><div></div></td>
-        <td class="certainty">-0.74 vs -1.45</td>
-        <td class="odds">2.3</td>
-        <td style="background-color: rgb(255, 31, 0)">6%</td>
-        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
-        <td class="gp">&#9917;<br>1.25</td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-<tr class="match" data-league="Liga 2" data-home="Deportivo Municipal" data-away="Universidad San Martín de Porres" data-time="21:15">
-        <td class="date">Tue. 09 Jul.</td>
-        <td class="team" data-match-index="15"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Deportivo Municipal</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/deportivo-municipal_17974.webp" alt="Deportivo Municipal logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>1:1</strong></div><div class="away-team-logo"><img src="./new_logos/universidad-san-martin-de-porres_11622.webp" alt="Universidad San Martín de Porres logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">Universidad San Martín de Porres</div></div><div class="collapsible-container"><div class="collapsible-content"><div></div><div></div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; López</li><li class="li-collaps">&#127973; Cavagna</li><li class="li-collaps">&#127973; Yáñez</li></ul></div></div><div></div><div class="collapsible-content"><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: #B8860B;">D</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; García</li><li class="li-collaps">&#127973; Bazán</li><li class="li-collaps">&#127973; Arroé</li><li class="li-collaps">&#127973; Rossi</li><li class="li-collaps">&#127973; Arteaga</li></ul></div></div><div></div></td>
-        <td class="certainty">-0.86 vs -1.17</td>
-        <td class="odds">1.04</td>
-        <td style="background-color: rgb(255, 20, 0)">4%</td>
-        <td class="correct"><span style="color: orange;">&#x2043;</span></td>
-        <td class="gp">&#9917;<br>1.97</td>
-        <td class="warnings">
-            <span class="tooltip"> &#127973; &#128201;
-                <span class="tooltiptext">
-                
-                    Home team has considerable injuries and a dip in form recently
-                
-                </span>
-            </span>
-        </td>
-        <td class="warnings">
-            <span class="tooltip"> &#127973; &#128201;
-                <span class="tooltiptext">
-                    
-                        Away team has considerable injuries and a dip in form recently
-                    
-                </span>
-            </span>
-        </td>
-    </tr>
-    
-</table>
-
-            </div>
-
-</div>
     &nbsp;
 
     <div style="margin: 0 auto; max-width: 95%; text-align: center;">
@@ -1490,7 +1573,7 @@
     &nbsp;
 
 <div class="left" style="margin: 0 auto; border-collapse: collapse; width: 95%;">
-    Last updated 16:21:03 2024-07-16
+    Last updated 16:23:41 2024-07-16
 </div>
 <div class="center">
    <a href="privacy-policy.html"> Privacy Policy</a>  - 18+. Gamble Responsibly. -  <a href="disclaimer.html">Terms</a>
@@ -1822,6 +1905,50 @@
     <div class="table-container">
 
         <div class="table-title">
+            <h1>&#127942;  International -  EURO 2024</h1>
+        </div>
+            <table id="" class="league_table">
+            <tr>
+                <th style="font-size:8px;">Fixture<span class="tooltip-info"> <sup><img width="5" height="5" alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
+                <th onclick="sortTable_m(2) " style="font-size:8px;" class="underline">Win<span class="tooltip-info"> <sup><img width="5" height="5" alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win </u> (click to sort). </span> </span></th>
+                <th style="font-size:8px;">Res</th>
+                <th onclick="sortTable_m(4)"style="font-size:8px;">Over<span class="tooltip-info"> <sup><img width="5" height="5" alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> The minimum number of goals predicted by AIGoalie (click to sort). <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ...  </span> </span></th>
+            </tr>
+
+                
+                    <tr class="match" data-league="EURO 2024" data-home="Spain" data-away="France">
+                        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Spain</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/spanien_3375.webp" alt="Spain logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img src="./new_logos/frankreich_3377.webp" alt="France logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">France</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 2.84</div><div class="li-collaps">&nbsp;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pedri</li><li class="li-collaps">&#127973; Carvajal</li><li class="li-collaps">&#127973; Normand</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div></td>
+                        <td class="certainty">0.63 vs 0.11</td>
+                        <td style="background-color: rgb(255, 255, 0)">55%</td>
+                        <td class="correct"><span class="green">&#10003;</span></td>
+                        <td class="gp">&#9917;<br>1.98</td>
+
+                    </tr>
+                
+            </table>
+        </div>
+       
+
+    
+      &nbsp;
+  <div style="display: flex; justify-content: center; max-width: 95%; margin: 0 auto;">
+          <div style="width: 300px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+     crossorigin="anonymous"></script>
+<!-- mobile square -->
+<ins class="adsbygoogle"
+     style="display:block; width: 100%; height: auto; min-height: 250px; max-height: 300px;"
+     data-ad-client="ca-pub-9761499603663107"
+     data-ad-slot="1802795276"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+          </div>
+</div>
+    
+    <div class="table-container">
+
+        <div class="table-title">
             <h1>&#127942;  International -  UEFA Champions League Qualifying</h1>
         </div>
             <table id="" class="league_table">
@@ -1884,34 +2011,6 @@
                         <td style="background-color: rgb(255, 51, 0)">10%</td>
                         <td class="correct"><span style="color: orange;">&#x2043;</span></td>
                         <td class="gp">&#9917;<br>1.61</td>
-
-                    </tr>
-                
-            </table>
-        </div>
-       
-
-    
-    <div class="table-container">
-
-        <div class="table-title">
-            <h1>&#127942;  International -  EURO 2024</h1>
-        </div>
-            <table id="" class="league_table">
-            <tr>
-                <th style="font-size:8px;">Fixture<span class="tooltip-info"> <sup><img width="5" height="5" alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span></th>
-                <th onclick="sortTable_m(2) " style="font-size:8px;" class="underline">Win<span class="tooltip-info"> <sup><img width="5" height="5" alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win </u> (click to sort). </span> </span></th>
-                <th style="font-size:8px;">Res</th>
-                <th onclick="sortTable_m(4)"style="font-size:8px;">Over<span class="tooltip-info"> <sup><img width="5" height="5" alt="information icon" src="infoo.webp"></sup>  <span class="tooltiptext"> The minimum number of goals predicted by AIGoalie (click to sort). <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ...  </span> </span></th>
-            </tr>
-
-                
-                    <tr class="match" data-league="EURO 2024" data-home="Spain" data-away="France">
-                        <td class="team" data-match-index="0"><div class="container"><div class="ali-left"><span class="arrow"></span></div><div class="home-team"><div class="arrow-above-home"><u><strong>Spain</strong></u></div></div><div class="home-team-logo"><img src="./new_logos/spanien_3375.webp" alt="Spain logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="score"><strong>2:1</strong></div><div class="away-team-logo"><img src="./new_logos/frankreich_3377.webp" alt="France logo"  loading="lazy" style="vertical-align: middle; margin-top: 1px; border-radius:8px;"></div><div class="away-team">France</div></div><div class="collapsible-container"><div class="collapsible-content"><div class="li-collaps"><strong>Odd:</strong> 2.84</div><div class="li-collaps">&nbsp;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong></div><div class="li-collaps><ul class="ul-colaps"><li class="li-collaps">&#127973; Pedri</li><li class="li-collaps">&#127973; Carvajal</li><li class="li-collaps">&#127973; Normand</li></ul></div></div><div class="collapsible-content"><div class="li-collaps">&nbsp;</div><div class="li-collaps">&#128201;</div><div class="li-collaps"><strong>Form: </strong><strong><span style="color: #B8860B;">D</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: green;">W</span></strong><strong><span style="color: red;">L</span></strong></div><div class="li-collaps><ul class="ul-colaps"></ul></div></div></td>
-                        <td class="certainty">0.63 vs 0.11</td>
-                        <td style="background-color: rgb(255, 255, 0)">55%</td>
-                        <td class="correct"><span class="green">&#10003;</span></td>
-                        <td class="gp">&#9917;<br>1.98</td>
 
                     </tr>
                 
@@ -2191,7 +2290,7 @@
     &nbsp;
 
 <div class="left">
-    Last updated 16:21:03 2024-07-16
+    Last updated 16:23:41 2024-07-16
 </div>
 
 <ul class="ul-bottom">
@@ -2210,6 +2309,15 @@
 </div>
 </body>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById("global_view").style.display = "block";
+        document.getElementById("league_view").style.display = "block";
+
+        // Set a timeout to hide the second table after a few seconds
+        setTimeout(function() {
+            document.getElementById("league_view").style.display = "none";
+        }, 2000);  // 2000 milliseconds = 2 seconds
+    });
 
     function switchView(){
         var globalView = document.getElementById('global_view');
