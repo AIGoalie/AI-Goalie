@@ -229,6 +229,80 @@ display: none;
         transform: translateY(-50%);
         pointer-events: none;
     }
+
+
+  .select-wrapper_m-boug {
+      font-size: 12px;
+    display: block;
+    width: 100%;
+    /*padding: 10px 5px; !* Same padding as li a *!*/
+      margin-top: 7.5px;
+    background-color: #300000; /* Same background as li */
+    color: white; /* Same text color */
+    text-align: center; /* Center the text inside the select */
+    cursor: pointer;
+    border: none;
+    position: relative; /* Needed for positioning the arrow pseudo-element */
+}
+
+.select-wrapper_m-boug select {
+    width: 100%;
+
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: white; /* Ensuring the text color is white */
+    cursor: pointer;
+    appearance: none; /* Remove default styling */
+}
+
+.select-wrapper_m-boug::after {
+
+    content: '\25BC'; /* Unicode character for down arrow */
+    position: absolute;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensures the arrow doesn't interfere with click events */
+    color: white; /* Arrow color */
+}
+
+      .select-wrapper-boug {
+
+        position: relative;
+        display: inline-block;
+        width: 200px; /* Adjust width as needed */
+        height: 50px; /* Adjust width as needed */
+        overflow: hidden;
+          border: none;
+          text-align: center;
+                margin-top: 15px;
+
+          color:white;
+        background-color: #300000;
+        /*border: 1px solid #ccc;*/
+    }
+
+    .select-wrapper-boug select {
+
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    .select-wrapper-boug::after {
+
+        content: '\25BC'; /* Unicode character for down arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+
+
 select {
     font-weight: bold;
 }
@@ -394,10 +468,10 @@ select {
         }
 
         li a:hover:not(.paypal):not(.contact):not(.intro):not(.in-text-a) {
-            background-color: #c0392b;
+            background-color: #730607 ;
         }
         .active {
-            background-color: #c0392b;
+            background-color: #730607 ;
             font-weight : bold;
         }
         .left {
@@ -981,6 +1055,20 @@ th {
 a {
     text-decoration: none; /* Removes underline from links */
 }
+a {
+    text-decoration: none; /* Removes underline from links */
+    color: #0056b3; /* Default link color */
+    font-weight: bold;
+}
+
+/* Adjust colors for different states to ensure contrast */
+a:link, a:visited {
+    color: #0056b3; /* Ensure this color has a contrast ratio of at least 3:1 with the background */
+}
+
+a:hover, a:focus, a:active {
+    color: #004494; /* Ensure this color has a contrast ratio of at least 3:1 with the background */
+}
 
 #prevDay, #nextDay, #prevDay_m, #nextDay_m{
     background: none;
@@ -1024,6 +1112,7 @@ a {
     color: white;
     font-size: 24px;
     height: auto;
+
 }
 
 #qm_m {
@@ -1034,6 +1123,7 @@ a {
     color: white;
     font-size: 18px;
     height: auto;
+
 }
 #qm {
     display: flex;
