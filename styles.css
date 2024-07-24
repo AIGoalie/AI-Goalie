@@ -1,8 +1,7 @@
-
-    @font-face {
+@font-face {
     font-family: 'Montserrat';
     src: url('fonts/Montserrat-Regular.woff2') format('woff2'),
-         url('fonts/Montserrat-Regular.woff') format('woff');
+    url('fonts/Montserrat-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -11,7 +10,7 @@
 @font-face {
     font-family: 'Montserrat';
     src: url('fonts/Montserrat-Bold.woff2') format('woff2'),
-         url('fonts/Montserrat-Bold.woff') format('woff');
+    url('fonts/Montserrat-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -20,7 +19,7 @@
 @font-face {
     font-family: 'Montserrat';
     src: url('fonts/Montserrat-Italic.woff2') format('woff2'),
-         url('fonts/Montserrat-Italic.woff') format('woff');
+    url('fonts/Montserrat-Italic.woff') format('woff');
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -29,27 +28,28 @@
 @font-face {
     font-family: 'Montserrat';
     src: url('fonts/Montserrat-BoldItalic.woff2') format('woff2'),
-         url('fonts/Montserrat-BoldItalic.woff') format('woff');
+    url('fonts/Montserrat-BoldItalic.woff') format('woff');
     font-weight: 700;
     font-style: italic;
     font-display: swap;
 }
+/* High contrast mode for better accessibility */
+@media (prefers-contrast: more) {
+    a {
+        color: #0000ff; /* Bright blue for better contrast */
+    }
+}
 
-    /* High contrast mode for better accessibility */
-    @media (prefers-contrast: more) {
-        a {
-            color: #0000ff; /* Bright blue for better contrast */
-        }
-    }
-    .slider-container {
-        width:50%;
-        margin: 20px auto; /* Top and bottom margin 20px, left and right auto centers it */
-    }
+
+.slider-container {
+    width: 50%;
+    margin: 20px auto; /* Top and bottom margin 20px, left and right auto centers it */
+}
 
 
 /* Styles for the slider base */
 .noUi-target, .noUi-target * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -58,9 +58,11 @@
     user-select: none;
     box-sizing: border-box;
 }
+
 .noUi-handle:before, .noUi-handle:after {
-display: none;
+    display: none;
 }
+
 .noUi-base {
     width: 100%;
     height: 40px; /* Set the overall height of the slider */
@@ -68,17 +70,20 @@ display: none;
     z-index: 1;
 
 }
+
 .noUi-horizontal .noUi-handle {
     width: 19px;
     height: 17px;
     right: -7px;
     top: 3px;
 }
+
 .noUi-connects {
     height: 6px; /* Adjust the height of the selected range */
     top: 17px; /* Centers the bar vertically */
     background-color: white; /* Set the color of the selected range */
 }
+
 .noUi-connect {
     background-color: #300000;
 }
@@ -92,7 +97,7 @@ display: none;
     background-color: #FFF; /* Handle background color */
     border-radius: 50%; /* Rounded corners for the handle */
     cursor: pointer; /* Cursor on hover */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Shadow for 3D effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Shadow for 3D effect */
 }
 
 /* Styles for the tooltip */
@@ -107,65 +112,70 @@ display: none;
 .noUi-active {
     box-shadow: inset 0 0 1px #FFF; /* Shadow effect for active state */
 }
-        .body {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-            font-style: normal;
-        }
-        .arrow-above-home {
-            position: relative;
-            display: inline-block;
-            /*text-align: center;*/
-            flex: 1;
-            /*margin: 0 -15px;*/
-        }
 
-        .sort-arrow {
-            font-size: 10px;
-        }
-      .sort-arrow_m {
-            font-size: 6px;
-        }
-        .arrow-above-home::before {
-            content: '^'; /* This is the default arrow, you can replace it with any other character */
-            position: absolute;
-            top: -10px; /* Adjust this value to position the arrow properly */
-            left: 50%; /* Position arrow in the middle */
-            transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
-            font-size: 0px;
-                font-weight: bold;
-        }
+.body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.arrow-above-home {
+    position: relative;
+    display: inline-block;
+    /*text-align: center;*/
+    flex: 1;
+    /*margin: 0 -15px;*/
+}
+
+.sort-arrow {
+    font-size: 10px;
+}
+
+.sort-arrow_m {
+    font-size: 6px;
+}
+
+.arrow-above-home::before {
+    content: '^'; /* This is the default arrow, you can replace it with any other character */
+    position: absolute;
+    top: -10px; /* Adjust this value to position the arrow properly */
+    left: 50%; /* Position arrow in the middle */
+    transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
+    font-size: 0px;
+    font-weight: bold;
+}
 
 
-        .arrow-above-away {
-            position: relative;
-            display: inline-block;
-            /*text-align: center;*/
-            flex: 1;
-            /*margin: 0 -15px;*/
-        }
-        .arrow-above-away::before {
-            content: '^'; /* This is the default arrow, you can replace it with any other character */
-            position: absolute;
-            top: -10px; /* Adjust this value to position the arrow properly */
-            left: 50%; /* Position arrow in the middle */
-            transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
-            font-size: 0px;
-                font-weight: bold; /* Add this line to make the arrow bold */
-        }
+.arrow-above-away {
+    position: relative;
+    display: inline-block;
+    /*text-align: center;*/
+    flex: 1;
+    /*margin: 0 -15px;*/
+}
 
-  .accept-btn {
+.arrow-above-away::before {
+    content: '^'; /* This is the default arrow, you can replace it with any other character */
+    position: absolute;
+    top: -10px; /* Adjust this value to position the arrow properly */
+    left: 50%; /* Position arrow in the middle */
+    transform: translateX(-50%) rotate(180deg); /* Rotate the arrow upside down */
+    font-size: 0px;
+    font-weight: bold; /* Add this line to make the arrow bold */
+}
+
+.accept-btn {
     background-color: #fff;
     color: #333;
     border: none;
-  }
+}
 
-  .select-wrapper_m {
-      font-size: 12px;
+.select-wrapper_m {
+    font-size: 12px;
     display: block;
     width: 100%;
     /*padding: 10px 5px; !* Same padding as li a *!*/
-      margin-top: 7.5px;
+    margin-top: 7.5px;
     background-color: #990000; /* Same background as li */
     color: white; /* Same text color */
     text-align: center; /* Center the text inside the select */
@@ -194,50 +204,50 @@ display: none;
     color: white; /* Arrow color */
 }
 
-      .select-wrapper {
+.select-wrapper {
 
-        position: relative;
-        display: inline-block;
-        width: 200px; /* Adjust width as needed */
-        height: 50px; /* Adjust width as needed */
-        overflow: hidden;
-          border: none;
-          text-align: center;
-                margin-top: 15px;
+    position: relative;
+    display: inline-block;
+    width: 200px; /* Adjust width as needed */
+    height: 50px; /* Adjust width as needed */
+    overflow: hidden;
+    border: none;
+    text-align: center;
+    margin-top: 15px;
 
-          color:white;
-        background-color: #990000;
-        /*border: 1px solid #ccc;*/
-    }
+    color: white;
+    background-color: #990000;
+    /*border: 1px solid #ccc;*/
+}
 
-    .select-wrapper select {
+.select-wrapper select {
 
-        width: 100%;
-        padding: 10px;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        appearance: none;
-    }
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+}
 
-    .select-wrapper::after {
+.select-wrapper::after {
 
-        content: '\25BC'; /* Unicode character for down arrow */
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        pointer-events: none;
-    }
+    content: '\25BC'; /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
 
 
-  .select-wrapper_m-boug {
-      font-size: 12px;
+.select-wrapper_m-boug {
+    font-size: 12px;
     display: block;
     width: 100%;
     padding: 10px; /* Same padding as li a */
-      margin-top: 10px;
-    margin-left:-15px;
+    margin-top: 10px;
+    margin-left: -15px;
     background-color: #300000; /* Same background as li */
     color: white; /* Same text color */
     text-align: center; /* Center the text inside the select */
@@ -267,721 +277,455 @@ display: none;
     color: white; /* Arrow color */
 }
 
-      .select-wrapper-boug {
+.select-wrapper-boug {
 
-        position: relative;
-        display: inline-block;
-        width: 200px; /* Adjust width as needed */
-        height: 50px; /* Adjust width as needed */
-        overflow: hidden;
-          border: none;
-          text-align: center;
-                margin-top: 15px;
+    position: relative;
+    display: inline-block;
+    width: 200px; /* Adjust width as needed */
+    height: 50px; /* Adjust width as needed */
+    overflow: hidden;
+    border: none;
+    text-align: center;
+    margin-top: 15px;
 
-          color:white;
-        background-color: #300000;
-        /*border: 1px solid #ccc;*/
-    }
+    color: white;
+    background-color: #300000;
+    /*border: 1px solid #ccc;*/
+}
 
-    .select-wrapper-boug select {
+.select-wrapper-boug select {
 
-        width: 100%;
-        padding: 10px;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        appearance: none;
-    }
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+}
 
-    .select-wrapper-boug::after {
+.select-wrapper-boug::after {
 
-        content: '\25BC'; /* Unicode character for down arrow */
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        pointer-events: none;
-    }
-
+    content: '\25BC'; /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
 
 
 select {
     font-weight: bold;
 }
-  .reject-btn {
+
+.reject-btn {
     background-color: transparent;
     color: #ccc;
     border: 1px solid #ccc;
-  }
-        .certainty {
-            display: none;
-        }
-              .gp {
-            text-align: center;
-        }
-        .hidden {
-            display: none;
-        }
-        /* Add some basic styling for the table */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            table-layout: fixed;
-            margin: 0 auto; /* Add this line to center the table horizontally */
-        }
-
-        /* Define specific widths for each column */
-        th:nth-child(1),
-        td:nth-child(1) {
-            width: 3%;
-        }
-
-        th:nth-child(2),
-        td:nth-child(2) {
-            width: 20%;
-        }
-        th:nth-child(3),
-        td:nth-child(3) {
-            width: 3%;
-        }
-
-
-            th:nth-child(4),
-            td:nth-child(4) {
-                width: 3%;
-            }
-
-            th:nth-child(5),
-            td:nth-child(5) {
-                width: 3%;
-            }
-
-            th:nth-child(6),
-            td:nth-child(6) {
-                width: 3%;
-            }
-
-            th:nth-child(7),
-            td:nth-child(7) {
-                width: 4%;
-            }
-            th:nth-child(8),
-            td:nth-child(8) {
-                width: 4%;
-            }
-
-        th, td {
-            border: 1px solid #ddd;
-            text-align: center;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        /* Define classes for different color ranges */
-        .red {
-            background-color: red;
-            color: white;
-        }
-
-        .green {
-            background-color: green;
-            color: white;
-        }
-
-        .odds {
-            text-align: center; /* Centering the content of Odds column */
-        }
-
-        .warnings {
-            text-align: center; /* Centering the content of Odds column */
-        }
-        .ul-colaps {
-            width: 50%;
-        }
-
-        .lissy {
-        }
-
-
-        .ul-bottom {
-            list-style-type: none; /* Remove default bullet points */
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            /*background-color: #f1f1f1;*/
-            width: 100%; /* Set width to 100% to stretch across the page */
-            display: flex; /* Use flexbox layout */
-            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
-        }
-
-        ul:not(.ul-colaps):not(.lissy):not(.ul-bottom) {
-            list-style-type: none; /* Remove default bullet points */
-            margin: 0 auto; /* Add this line to center the table horizontally */
-            padding: 0;
-            overflow: hidden;
-            background-color: #f1f1f1;
-            width: 95%; /* Set width to 100% to stretch across the page */
-            display: flex; /* Use flexbox layout */
-            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
-            border-radius: 20px;
-
-        }
-
-
-        li {
-            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
-            text-align: center; /* Center align the content */
-            max-width: 500px; /* Set maximum width for each tab */
-            max-height:75px;
-        }
-
-
-        .li-collaps {
-            flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
-            text-align: left; /* Center align the content */
-            max-width: 500px; /* Set maximum width for each tab */
-            font-size: 12px;
-        }
-        .contact{
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 20px 1px;
-            text-decoration: none;
-            font-size: 16px;
-
-        }
-
-
-
-
-
-        li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a):not(.logo){
-            display: block;
-            color: black;
-            text-align: center;
-    padding: 30px 5px; /* Adds padding inside the title container */
-            text-decoration: none;
-            font-size: 16px; /* Adjust font size */
-
-        }
-
-        li a:hover:not(.paypal):not(.contact):not(.intro):not(.in-text-a):not(.logo) {
-            background-color: #730607 ;
-        }
-        .logo {
-            display: block;
-            color: black;
-            text-align: center;
-            text-decoration: none;
-                     padding: 5px 5px;
-
-                 font-size: 12px;
-        }
-        .logo-img{
-            height:50px;
-            width:50px;
-        }
-
-        .active {
-            background-color: #730607 ;
-            font-weight : bold;
-        }
-        .left {
-            width: 100%; /* Specify the width of the div */
-            margin: 0 auto; /* Set margin to auto for horizontal centering */
-            padding: 5px; /* Add padding for spacing */
-        }
-    .center {
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    }
-
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted black;
-        }
-        .tooltip-info{
-            position: relative;
-            display: inline-block
-        }
-        .tooltip-info .tooltiptext {
-            visibility: hidden;
-            width: 250px;
-            background-color: #555;
-            color: #fff;
-            text-align: left;
-            border-radius: 6px;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 1;
-            /*bottom: 125%;*/
-            /*left: 50%;*/
-            margin-left: -250px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip-info:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 250px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 1;
-            /*bottom: 125%;*/
-            /*left: 50%;*/
-            margin-left: -250px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        .container {
-            display: flex;
-            align-items:center;
-
-        }
-        .ali {
-            text-align: center;
-            flex: 1;
-            margin: 0 -15px;
-        }
-        .ali-left{
-            text-align: left;
-            /*flex: 1;*/
-        }
-
-        .home-team{
-            text-align: right;
-                        flex: 1;
-                overflow: hidden; /* Hide any content that exceeds the specified width */
-    /*white-space: nowrap;*/
-            text-overflow: ellipsis;
-        }
-        .away-team{
-            text-align: left;
-                        flex: 1;
-                overflow: hidden; /* Hide any content that exceeds the specified width */
-    /*white-space: nowrap;*/
-            text-overflow: ellipsis;
-        }
-        .score{
-            text-align: center;
-            flex: 1;
-        }
-        .home-team-logo{
-            text-align: right;
-                        flex: 0;
-
-            margin-left: 10px;
-        }
-        .away-team-logo{
-            text-align: left;
-                        flex: 0;
-            margin-right: 10px;
-
-        }
-
-
-
-
-        /* Style for the arrow */
-        .arrow::before {
-            content: '\25B6'; /* Right-pointing triangle */
-            font-size: 10px;
-            display: inline-block;
-            text-align: left;
-
-            /*margin-right: 90px;*/
-            transform: rotate(0deg); /* Initially rotated 90 degrees */
-            transition: transform 0.3s ease; /* Smooth transition for rotation */
-        }
-
-        /* When the row is expanded, rotate the arrow to point down */
-        .expanded .arrow::before {
-            transform: rotate(90deg);
-        }
-
-        /* Hide the content of the collapsible row by default */
-        .collapsible-content {
-            display: none;
-
-
-        }
-        .collapsible-container {
-            display: flex;
-            justify-content: space-between;
-            margin-left: 200px;
-            margin-right: -50px;
-            margin-top: 2px;
-        }
-
-
-
-        /* Show the content when the row is expanded */
-        .expanded .collapsible-content {
-            display: table-cell;
-            text-align: center;
-            flex: 1;
-        }
-
-        @media screen and (max-width: 768px) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Styles for the slider base */
-.noUi-target, .noUi-target * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    box-sizing: border-box;
-
 }
 
-.noUi-base {
+.certainty {
+    display: none;
+}
+
+.gp {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Add some basic styling for the table */
+table {
+    border-collapse: collapse;
     width: 100%;
-    height: 20px; /* Set the overall height of the slider */
+    table-layout: fixed;
+    margin: 0 auto; /* Add this line to center the table horizontally */
+}
+
+/* Define specific widths for each column */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 3%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 20%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 3%;
+}
+
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 3%;
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    width: 3%;
+}
+
+th:nth-child(6),
+td:nth-child(6) {
+    width: 3%;
+}
+
+th:nth-child(7),
+td:nth-child(7) {
+    width: 4%;
+}
+
+th:nth-child(8),
+td:nth-child(8) {
+    width: 4%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Define classes for different color ranges */
+.red {
+    background-color: red;
+    color: white;
+}
+
+.green {
+    background-color: green;
+    color: white;
+}
+
+.odds {
+    text-align: center; /* Centering the content of Odds column */
+}
+
+.warnings {
+    text-align: center; /* Centering the content of Odds column */
+}
+
+.ul-colaps {
+    width: 50%;
+}
+
+.lissy {
+}
+
+
+.ul-bottom {
+    list-style-type: none; /* Remove default bullet points */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /*background-color: #f1f1f1;*/
+    width: 100%; /* Set width to 100% to stretch across the page */
+    display: flex; /* Use flexbox layout */
+    flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+}
+
+ul:not(.ul-colaps):not(.lissy):not(.ul-bottom) {
+    list-style-type: none; /* Remove default bullet points */
+    margin: 0 auto; /* Add this line to center the table horizontally */
+    padding: 0;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    width: 95%; /* Set width to 100% to stretch across the page */
+    display: flex; /* Use flexbox layout */
+    flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+    border-radius: 20px;
+
+}
+
+
+li {
+    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+    text-align: center; /* Center align the content */
+    max-width: 500px; /* Set maximum width for each tab */
+    max-height: 75px;
+}
+
+
+.li-collaps {
+    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+    text-align: left; /* Center align the content */
+    max-width: 500px; /* Set maximum width for each tab */
+    font-size: 12px;
+}
+
+.contact {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 20px 1px;
+    text-decoration: none;
+    font-size: 16px;
+
+}
+
+
+li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a):not(.logo) {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 30px 5px; /* Adds padding inside the title container */
+    text-decoration: none;
+    font-size: 16px; /* Adjust font size */
+
+}
+
+li a:hover:not(.paypal):not(.contact):not(.intro):not(.in-text-a):not(.logo) {
+    background-color: #730607;
+}
+
+.logo {
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 5px;
+
+    font-size: 12px;
+}
+
+.logo-img {
+    height: 50px;
+    width: 50px;
+}
+
+.active {
+    background-color: #730607;
+    font-weight: bold;
+}
+
+.left {
+    width: 100%; /* Specify the width of the div */
+    margin: 0 auto; /* Set margin to auto for horizontal centering */
+    padding: 5px; /* Add padding for spacing */
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+.tooltip {
     position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip-info {
+    position: relative;
+    display: inline-block
+}
+
+.tooltip-info .tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: #555;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
     z-index: 1;
+    /*bottom: 125%;*/
+    /*left: 50%;*/
+    margin-left: -250px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-info:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    /*bottom: 125%;*/
+    /*left: 50%;*/
+    margin-left: -250px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.container {
+    display: flex;
+    align-items: center;
 
 }
 
-.noUi-connects {
-    height: 6px; /* Adjust the height of the selected range */
-    top: 17px; /* Centers the bar vertically */
-    background-color: white; /* Set the color of the selected range */
-}
-.noUi-connect {
-    height: 5px;
-    background-color: #300000;
+.ali {
+    text-align: center;
+    flex: 1;
+    margin: 0 -15px;
 }
 
-.noUi-handle {
-    width: 34px; /* Handle width */
-    height: 34px; /* Handle height */
-    right: -17px; /* Offset from the edge of the slider base */
-    top: 3px; /* Top position to center vertically */
-    border: 1px solid #300000; /* Border properties */
-    background-color: #FFF; /* Handle background color */
-    border-radius: 50%; /* Rounded corners for the handle */
-    cursor: pointer; /* Cursor on hover */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Shadow for 3D effect */
+.ali-left {
+    text-align: left;
+    /*flex: 1;*/
 }
 
-.noUi-horizontal .noUi-handle {
-    width: 16px;
-    height: 14px;
-    right: -7px;
-    top: 3px;
-}
-/* Styles for the tooltip */
-.noUi-tooltip {
-    font-size: 9px; /* Tooltip font size */
-    color: white; /* Tooltip text color */
-    background-color: #300000; /* Tooltip background */
-    padding: 5px; /* Tooltip padding */
-    border-radius: 3px; /* Rounded corners for the tooltip */
+.home-team {
+    text-align: right;
+    flex: 1;
+    overflow: hidden; /* Hide any content that exceeds the specified width */
+    /*white-space: nowrap;*/
+    text-overflow: ellipsis;
 }
 
-.noUi-active {
-    box-shadow: inset 0 0 1px #FFF; /* Shadow effect for active state */
+.away-team {
+    text-align: left;
+    flex: 1;
+    overflow: hidden; /* Hide any content that exceeds the specified width */
+    /*white-space: nowrap;*/
+    text-overflow: ellipsis;
+}
+
+.score {
+    text-align: center;
+    flex: 1;
+}
+
+.home-team-logo {
+    text-align: right;
+    flex: 0;
+
+    margin-left: 10px;
+}
+
+.away-team-logo {
+    text-align: left;
+    flex: 0;
+    margin-right: 10px;
+
 }
 
 
-
-
-
-
-                    th, td {
-                 font-size: 10px;
-        }
-
-
-            /* Define specific widths for each column */
-            th:nth-child(1),
-            td:nth-child(1) {
-                    width: 70%
-            }
-
-            th:nth-child(2),
-            td:nth-child(2) {
-                    width: 10%
-            }
-
-            th:nth-child(3),
-            td:nth-child(3) {
-                    width: 7.5%
-            }
-
-
-            th:nth-child(4),
-            td:nth-child(4) {
-                    width: 12.5%
-            }
-
-
-        .li-collaps {
-                 font-size: 8px;
-        }
-        .contact{
-                 padding: 8px 1px;
-
-                 font-size: 8px;
-                 width: 80%;
-
-
-        }
-
-        li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a):not(.logo){
-                 padding: 10px 5px;
-
-                 font-size: 12px;
-
-
-        }
-
-
-        .left {
-                    font-size: 8px;
-
-        }
-        .center {
-            width: 80%;
-            font-size: 8px;
-        }
-      .tooltip-info .tooltiptext {
-            visibility: hidden;
-            width: 250px;
-                 width: 100px;
-
-                 margin-left: -50px;
-
-                 font-size: 8px;
-
-        }
-
-
-
-        /* Style for the arrow */
-        .arrow::before {
-                 font-size: 8px;
-        }
-
-
-           .collapsible-container {
-                 margin-left: 0px;
-
-                 margin-right: -70px;
-
-        }
-
-
-            .nav a {
-                float: none;
-                display: block;
-                text-align: left;
-            }
-
-        }
-
-
-
-        @media screen and (max-width: 768px) {
-
-
-
-            th, td {
-                font-size: 10px;
-            }
-
-
-            /* Define specific widths for each column */
-            th:nth-child(1),
-            td:nth-child(1) {
-                width: 70%
-            }
-
-            th:nth-child(2),
-            td:nth-child(2) {
-                width: 10%
-            }
-
-            th:nth-child(3),
-            td:nth-child(3) {
-                width: 5%
-            }
-
-
-            th:nth-child(4),
-            td:nth-child(4) {
-                width: 12.5%
-            }
-
-
-            .li-collaps {
-                font-size: 8px;
-            }
-
-            .contact {
-                padding: 8px 1px;
-
-                font-size: 16px;
-                width: 80%;
-
-
-            }
-
-
-            .left {
-                font-size: 8px;
-
-            }
-
-            .center {
-                width: 80%;
-                font-size: 8px;
-            }
-
-            .tooltip-info .tooltiptext {
-                visibility: hidden;
-                width: 250px;
-                width: 100px;
-
-                margin-left: -50px;
-
-                font-size: 8px;
-
-            }
-
-
-            /* Style for the arrow */
-            .arrow::before {
-                font-size: 8px;
-            }
-
-
-            .collapsible-container {
-                margin-left: 0px;
-
-                margin-right: -70px;
-
-            }
-
-
-            .nav a {
-                float: none;
-                display: block;
-                text-align: left;
-            }
-
-        }
+/* Style for the arrow */
+.arrow::before {
+    content: '\25B6'; /* Right-pointing triangle */
+    font-size: 10px;
+    display: inline-block;
+    text-align: left;
+
+    /*margin-right: 90px;*/
+    transform: rotate(0deg); /* Initially rotated 90 degrees */
+    transition: transform 0.3s ease; /* Smooth transition for rotation */
+}
+
+/* When the row is expanded, rotate the arrow to point down */
+.expanded .arrow::before {
+    transform: rotate(90deg);
+}
+
+/* Hide the content of the collapsible row by default */
+.collapsible-content {
+    display: none;
+
+
+}
+
+.collapsible-container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 200px;
+    margin-right: -50px;
+    margin-top: 2px;
+}
+
+
+/* Show the content when the row is expanded */
+.expanded .collapsible-content {
+    display: table-cell;
+    text-align: center;
+    flex: 1;
+}
 
 
 .readmore {
 
-  position: relative;
-  max-height: 100px;
-  overflow: hidden;
-  width:80%;
-  padding: 10px;
+    position: relative;
+    max-height: 100px;
+    overflow: hidden;
+    width: 80%;
+    padding: 10px;
 
-  transition:max-height 0.15s ease-out;
-            margin: 0 auto;
+    transition: max-height 0.15s ease-out;
+    margin: 0 auto;
 }
 
 .search-container {
     display: flex;
     position: relative;
     font-size: 300px;
-   @media screen and (max-width: 768px) {
-
-     font-size: 500px;
-
- }
 }
 
 .view-button-container {
-  display: flex;
+    display: flex;
     /*margin: 0 auto;*/
-  justify-content: space-around;
-  align-items: flex-start;
-        border-collapse: collapse;
-            width: 35%;
-            margin: 0 auto;
-   @media screen and (max-width: 768px) {
-            width:90%;
-        font-size: 12px;
-    height: 30px;
- }
+    justify-content: space-around;
+    align-items: flex-start;
+    border-collapse: collapse;
+    width: 35%;
+    margin: 0 auto;
+
 }
 
 .view-button {
-        background-color: #300000;
-        color: white;
-        border-color: #333333;
-        border-width: 5px;
-        border-radius:7.5px;
-        font-size: 16px;
-            width:75%;
+    background-color: #300000;
+    color: white;
+    border-color: #333333;
+    border-width: 5px;
+    border-radius: 7.5px;
+    font-size: 16px;
+    width: 75%;
     height: 40px;
     font-weight: bold;
-   @media screen and (max-width: 768px) {
-            width:65%;
-        font-size: 12px;
-    height: 30px;
- }
+
 }
+
 .icon-button {
-        background-color: #300000;
-        color: white;
-        border-color: #333333;
-        border-width: 5px;
-        border-radius:7.5px;
-            width:10%;
+    background-color: #300000;
+    color: white;
+    border-color: #333333;
+    border-width: 5px;
+    border-radius: 7.5px;
+    width: 10%;
     height: 40px;
     font-weight: bold;
-   @media screen and (max-width: 768px) {
-            width:12.5%;
-    height: 30px;
- }
+
 }
-.icon-button svg
-{
+
+.icon-button svg {
     width: 75%;
     height: 75%;
     fill: currentColor;
@@ -1018,87 +762,70 @@ select {
     background-color: #fff; /* Optional: Set a background color for the navbar */
 
 }
-  tr, td  {
 
-        font-size : 12px;
-
-           @media screen and (max-width: 768px) {
-                        font-size : 10px;
-
-        }
+tr, td {
+    font-size: 12px;
 }
+
 th {
-           font-size : 10px;
+    font-size: 10px;
 
-           @media screen and (max-width: 768px) {
-                        font-size : 8px;
-
-        }
 }
+
 .table-title h1, .table-title-global h1 {
     text-align: left; /* Centers the title */
     font-size: 12px; /* Large font size for visibility */
     color: white; /* White text for contrast against the red background */
     background-color: #300000; /* A strong, sophisticated red */
-            border-collapse: collapse;
-            width: 95%;
-            table-layout: fixed;
-            margin: 0 auto; /* Add this line to center the table horizontally */
-       @media screen and (max-width: 768px) {
+    border-collapse: collapse;
+    width: 95%;
+    table-layout: fixed;
+    margin: 0 auto; /* Add this line to center the table horizontally */
 
-     font-size: 10px;
-            width: 93%;
-
- }
 }
 
 
 .table-container {
-    border-radius: 7.5px;  /* Adjust the radius as needed */
-    overflow: hidden;    /* Ensures the rounded corners are clean */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Optional shadow for better aesthetics */
+    border-radius: 7.5px; /* Adjust the radius as needed */
+    overflow: hidden; /* Ensures the rounded corners are clean */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better aesthetics */
     border: 1px solid #ccc; /* Optional border for clarity */
-    width:95%;
+    width: 95%;
     background-color: #300000;
     margin: 20px auto; /* Top and bottom margin 20px, left and right auto centers it */
 }
 
 #current_day {
-    flex-grow: 1;            /* Allows the current day to take up any remaining space */
-    text-align: center;      /* Ensures text is centered within the space it occupies */
-    display: flex;           /* Enable flexbox for vertical alignment */
-    align-items: center;     /* Center items vertically */
+    flex-grow: 1; /* Allows the current day to take up any remaining space */
+    text-align: center; /* Ensures text is centered within the space it occupies */
+    display: flex; /* Enable flexbox for vertical alignment */
+    align-items: center; /* Center items vertically */
     justify-content: center; /* Center items horizontally */
-    font-size: 16px;         /* Adjust font size */
+    font-size: 16px; /* Adjust font size */
 }
- #current_day_m {
-    flex-grow: 1;            /* Allows the current day to take up any remaining space */
-    text-align: center;      /* Ensures text is centered within the space it occupies */
-    display: flex;           /* Enable flexbox for vertical alignment */
-    align-items: center;     /* Center items vertically */
+
+#current_day_m {
+    flex-grow: 1; /* Allows the current day to take up any remaining space */
+    text-align: center; /* Ensures text is centered within the space it occupies */
+    display: flex; /* Enable flexbox for vertical alignment */
+    align-items: center; /* Center items vertically */
     justify-content: center; /* Center items horizontally */
-    font-size: 12px;         /* Adjust font size */
+    font-size: 12px; /* Adjust font size */
 }
-.day-nav  h1 {
+
+.day-nav h1 {
     text-align: center; /* Centers the title */
     font-size: 16px; /* Large font size for visibility */
-    /*margin-bottom: 10px; !* Adds space between the title and the table *!*/
-    /*padding: 5px; !* Adds padding inside the title container *!*/
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); !* Adds a subtle shadow for depth *!*/
-    /*border: 1px solid #b03228; !* Darker red border for slight contrast *!*/
-            border-collapse: collapse;
-            table-layout: fixed;
-            margin: 0 auto; /* Add this line to center the table horizontally */
-        display: flex;           /* Enables flexbox */
-
-       @media screen and (max-width: 768px) {
-     font-size: 12px;
-
- }
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: 0 auto; /* Add this line to center the table horizontally */
+    display: flex; /* Enables flexbox */
 }
+
 a {
     text-decoration: none; /* Removes underline from links */
 }
+
 a {
     text-decoration: none; /* Removes underline from links */
     color: #0056b3; /* Default link color */
@@ -1114,7 +841,7 @@ a:hover, a:focus, a:active {
     color: #004494; /* Ensure this color has a contrast ratio of at least 3:1 with the background */
 }
 
-#prevDay, #nextDay, #prevDay_m, #nextDay_m{
+#prevDay, #nextDay, #prevDay_m, #nextDay_m {
     background: none;
     border: none;
     cursor: pointer;
@@ -1126,20 +853,21 @@ a:hover, a:focus, a:active {
 }
 
 
-#prevDay svg, #nextDay svg{
+#prevDay svg, #nextDay svg {
     width: 24px;
     height: 24px;
     fill: currentColor;
     transition: fill 0.3s;
 }
 
- #prevDay_m svg, #nextDay_m svg {
+#prevDay_m svg, #nextDay_m svg {
     width: 20px;
     height: 20px;
     fill: currentColor;
     transition: fill 0.3s;
 }
-#prevDay_m, #nextDay_m{
+
+#prevDay_m, #nextDay_m {
     /*margin-bottom: -5px;*/
 
 
@@ -1148,7 +876,8 @@ a:hover, a:focus, a:active {
 #prevDay:hover svg, #nextDay:hover svg, #prevDay_m:hover svg, #nextDay_m:hover svg, #qm_m:hover svg, #qm:hover svg {
     fill: #c0392b;
 }
-    #qm {
+
+#qm {
     margin: 0 15px; /* Adds space around the buttons */
     background: none;
     border: none;
@@ -1168,6 +897,7 @@ a:hover, a:focus, a:active {
     height: auto;
 
 }
+
 #qm {
     display: flex;
     align-items: center; /* Vertically center the SVG within the button */
@@ -1196,7 +926,7 @@ a:hover, a:focus, a:active {
 
 
 .league_table th {
-        background-color: #300000; /* A darker shade of red for the header rows */
+    background-color: #300000; /* A darker shade of red for the header rows */
     color: white; /* White text for readability */
     padding: 8px; /* Comfortable padding within headers */
 
@@ -1209,18 +939,20 @@ a:hover, a:focus, a:active {
 
 
 }
+
 .league_table td {
     padding: 8px; /* Ensures content within table cells is not cramped */
     text-align: center; /* Centers text in cells for uniformity */
     border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
 
 }
+
 .league_table tr:nth-child(odd) {
-    background-color: #ffffff;  /* White for odd rows */
+    background-color: #ffffff; /* White for odd rows */
 }
 
 .league_table tr:nth-child(even) {
-    background-color: #e0e0e0;  /* Light grey for even rows */
+    background-color: #e0e0e0; /* Light grey for even rows */
 }
 
 /* Update table header to match or complement the title background */
@@ -1230,6 +962,7 @@ a:hover, a:focus, a:active {
     padding: 8px; /* Comfortable padding within headers */
 
 }
+
 #myTable_euros td {
     padding: 8px; /* Ensures content within table cells is not cramped */
     text-align: center; /* Centers text in cells for uniformity */
@@ -1243,6 +976,7 @@ a:hover, a:focus, a:active {
     color: white; /* White text for readability */
     padding: 8px; /* Comfortable padding within headers */
 }
+
 #myTable_euros_m td {
     text-align: center; /* Centers text in cells for uniformity */
     border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
@@ -1250,11 +984,11 @@ a:hover, a:focus, a:active {
 
 /* Alternating row colors */
 #myTable_euros, #myTable_euros_m, #myTable, #myTable_m tr:nth-child(odd) {
-    background-color: #ffffff;  /* White for odd rows */
+    background-color: #ffffff; /* White for odd rows */
 }
 
 #myTable_euros, #myTable_euros_m, #myTable, #myTable_m tr:nth-child(even) {
-    background-color: #e0e0e0;  /* Light grey for even rows */
+    background-color: #e0e0e0; /* Light grey for even rows */
 }
 
 
@@ -1264,6 +998,7 @@ a:hover, a:focus, a:active {
     color: white; /* White text for readability */
     padding: 8px; /* Comfortable padding within headers */
 }
+
 #myTable td {
     padding: 8px; /* Ensures content within table cells is not cramped */
     text-align: center; /* Centers text in cells for uniformity */
@@ -1277,6 +1012,7 @@ a:hover, a:focus, a:active {
     color: white; /* White text for readability */
     padding: 8px; /* Comfortable padding within headers */
 }
+
 #myTable_m td {
     padding: 8px; /* Ensures content within table cells is not cramped */
     text-align: center; /* Centers text in cells for uniformity */
@@ -1284,9 +1020,9 @@ a:hover, a:focus, a:active {
 }
 
 
-  .underline {
+.underline {
     text-decoration: underline;
-  }
+}
 
 
 /* Update table header to match or complement the title background */
@@ -1296,6 +1032,7 @@ a:hover, a:focus, a:active {
     padding: 8px; /* Comfortable padding within headers */
 
 }
+
 #myTable_copa td {
     padding: 8px; /* Ensures content within table cells is not cramped */
     text-align: center; /* Centers text in cells for uniformity */
@@ -1309,6 +1046,7 @@ a:hover, a:focus, a:active {
     color: white; /* White text for readability */
     padding: 8px; /* Comfortable padding within headers */
 }
+
 #myTable_copa_m td {
     text-align: center; /* Centers text in cells for uniformity */
     border-bottom: 1px solid #ccc; /* Adds a subtle line between rows for clarity */
@@ -1316,11 +1054,11 @@ a:hover, a:focus, a:active {
 
 /* Alternating row colors */
 #myTable_copa, #myTable_copa_m, #myTable, #myTable_m tr:nth-child(odd) {
-    background-color: #ffffff;  /* White for odd rows */
+    background-color: #ffffff; /* White for odd rows */
 }
 
 #myTable_copa, #myTable_copa_m, #myTable, #myTable_m tr:nth-child(even) {
-    background-color: #e0e0e0;  /* Light grey for even rows */
+    background-color: #e0e0e0; /* Light grey for even rows */
 }
 
 #loadMoreBtn {
@@ -1328,169 +1066,458 @@ a:hover, a:focus, a:active {
 }
 
 
+.highlight-red {
+    background-color: salmon;
+}
 
-    
-        .highlight-red {
-                background-color: salmon;
-        }
+.intro {
+    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
+    text-align: left; /* Center align the content */
+    max-width: 2000px;
 
-        .intro{
-                    flex-grow: 1; /* Allow the list items to grow and fill the available space equally */
-            text-align: left; /* Center align the content */
-            max-width: 2000px;
+}
 
-        }
+.in-text-a {
 
-        .in-text-a{
-
-        }
+}
 
 
-        .introduction-box {
-            position: relative; /* Add relative positioning */
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 0 auto; /* Center the box horizontally */
-            max-width: 90%; /* Limit the width to about half of the page */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.introduction-box {
+    position: relative; /* Add relative positioning */
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto; /* Center the box horizontally */
+    max-width: 90%; /* Limit the width to about half of the page */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        .introduction-box h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+.introduction-box h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
 
-        .introduction-box p {
-            font-size: 16px;
-            line-height: 1.5;
-        }
+.introduction-box p {
+    font-size: 16px;
+    line-height: 1.5;
+}
 
 
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-        }
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
 
-            @media (max-width: 768px){
-        .text-bubble {
-            font-size:12px;
-        }
-       .introduction-box {
-            position: relative; /* Add relative positioning */
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-            width: 80%;
-            margin: 0 auto; /* Center the box horizontally */
-            max-width: 80%; /* Limit the width to about half of the page */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
 
-        .introduction-box h2 {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
+/* Hide mobile body by default */
+.mobile-body {
+    display: none;
+}
 
-        .introduction-box p {
-            font-size: 10px;
-            line-height: 1.5;
-        }
 
-        }
-        /* Hide mobile body by default */
-        .mobile-body {
-            display: none;
-        }
+.search-dropdown-container {
 
-        /* Media query to switch bodies based on screen size */
-        @media screen and (max-width: 768px) {
-            .desktop-body {
-                display: none; /* Hide desktop body on small screens */
-            }
-            .mobile-body {
-                display: block; /* Show mobile body on small screens */
-            }
-
-        }
-    
-
-    .search-dropdown-container {
-
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-        border-collapse: collapse;
-            width: 95%;
-            margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    border-collapse: collapse;
+    width: 95%;
+    margin: 0 auto;
 }
 
 .search-dropdown-container input[type="text"] {
 }
-  .dropdown {
-            margin-right: 15px; /* Adjust margin between search input and dropdown button */
- /* Add this line to center the table horizontally */
-  }
 
-  .dropbtn {
+.dropdown {
+    margin-right: 15px; /* Adjust margin between search input and dropdown button */
+    /* Add this line to center the table horizontally */
+}
+
+.dropbtn {
     background-color: #f1f1f1;
     color: black;
     padding: 10px;
     font-size: 16px;
     border: none;
     cursor: pointer;
-  }
-  .dropbtn_m {
+}
+
+.dropbtn_m {
     background-color: #f1f1f1;
     color: black;
     padding: 10px;
     font-size: 16px;
     border: none;
     cursor: pointer;
-  }
-  .dropdown-content {
+}
+
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-      padding: 10px;
+    padding: 10px;
     /*min-width: 200px; !* Adjust as needed *!*/
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  top: 100%; /* Adjust the distance as needed */
+    top: 100%; /* Adjust the distance as needed */
+    font-size: 16px;
+}
 
-      font-size: 16px;
-              @media screen and (max-width: 768px) {
-      font-size: 12px;
-              }
-
-  }
-
-  .checkbox-container {
+.checkbox-container {
     display: flex;
     align-items: center;
-  }
+}
 
-  .checkbox-container input[type="checkbox"] {
+.checkbox-container input[type="checkbox"] {
     margin-right: 5px;
-  }
+}
 
-  .dropdown-content input+label {
+.dropdown-content input + label {
     margin-left: 5px;
-  }
+}
 
-  .dropdown-content input:checked+label {
+.dropdown-content input:checked + label {
     font-weight: bold;
-  }
+}
 
-  /* Add this new style */
-  .dropdown-content {
+/* Add this new style */
+.dropdown-content {
     display: none;
-  }
+}
 
+@media screen and (max-width: 768px) {
+    .text-bubble {
+    font-size: 12px;
+    }
+
+    .introduction-box {
+    position: relative; /* Add relative positioning */
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto; /* Center the box horizontally */
+    max-width: 80%; /* Limit the width to about half of the page */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .introduction-box h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    }
+
+    .introduction-box p {
+    font-size: 10px;
+    line-height: 1.5;
+    }
+
+    .dropdown-content {
+            font-size: 12px;
+    }
+
+
+
+
+    .day-nav h1 {
+        font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+    .desktop-body {
+        display: none; /* Hide desktop body on small screens */
+    }
+
+    .mobile-body {
+        display: block; /* Show mobile body on small screens */
+    }
+
+    /* Styles for the slider base */
+    .noUi-target, .noUi-target * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        box-sizing: border-box;
+
+    }
+
+    .noUi-base {
+        width: 100%;
+        height: 20px; /* Set the overall height of the slider */
+        position: relative;
+        z-index: 1;
+
+    }
+
+    .noUi-connects {
+        height: 6px; /* Adjust the height of the selected range */
+        top: 17px; /* Centers the bar vertically */
+        background-color: white; /* Set the color of the selected range */
+    }
+
+    .noUi-connect {
+        height: 5px;
+        background-color: #300000;
+    }
+
+    .noUi-handle {
+        width: 34px; /* Handle width */
+        height: 34px; /* Handle height */
+        right: -17px; /* Offset from the edge of the slider base */
+        top: 3px; /* Top position to center vertically */
+        border: 1px solid #300000; /* Border properties */
+        background-color: #FFF; /* Handle background color */
+        border-radius: 50%; /* Rounded corners for the handle */
+        cursor: pointer; /* Cursor on hover */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Shadow for 3D effect */
+    }
+
+    .noUi-horizontal .noUi-handle {
+        width: 16px;
+        height: 14px;
+        right: -7px;
+        top: 3px;
+    }
+
+    /* Styles for the tooltip */
+    .noUi-tooltip {
+        font-size: 9px; /* Tooltip font size */
+        color: white; /* Tooltip text color */
+        background-color: #300000; /* Tooltip background */
+        padding: 5px; /* Tooltip padding */
+        border-radius: 3px; /* Rounded corners for the tooltip */
+    }
+
+    .noUi-active {
+        box-shadow: inset 0 0 1px #FFF; /* Shadow effect for active state */
+    }
+
+
+    th {
+        font-size: 8px;
+    }
+
+
+tr, td {
+        font-size: 10px;
+
+}
+
+
+.table-title h1, .table-title-global h1 {
+
+        font-size: 10px;
+        width: 93%;
+
+}
+
+    /* Define specific widths for each column */
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 70%
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 10%
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 7.5%
+    }
+
+
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 12.5%
+    }
+
+
+    .li-collaps {
+        font-size: 8px;
+    }
+
+    .contact {
+        padding: 8px 1px;
+
+        font-size: 8px;
+        width: 80%;
+
+
+    }
+
+    li a:not(.paypal):not(.contact):not(.intro):not(.in-text-a):not(.logo) {
+        padding: 10px 5px;
+
+        font-size: 12px;
+
+
+    }
+
+
+    .left {
+        font-size: 8px;
+
+    }
+
+    .center {
+        width: 80%;
+        font-size: 8px;
+    }
+
+    .tooltip-info .tooltiptext {
+        visibility: hidden;
+        width: 250px;
+        width: 100px;
+
+        margin-left: -50px;
+
+        font-size: 8px;
+
+    }
+
+
+    /* Style for the arrow */
+    .arrow::before {
+        font-size: 8px;
+    }
+
+
+    .collapsible-container {
+        margin-left: 0px;
+
+        margin-right: -70px;
+
+    }
+
+
+    .nav a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+
+
+    th, td {
+        font-size: 10px;
+    }
+
+
+    /* Define specific widths for each column */
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 70%
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 10%
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 5%
+    }
+
+
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 12.5%
+    }
+
+
+    .li-collaps {
+        font-size: 8px;
+    }
+
+    .contact {
+        padding: 8px 1px;
+
+        font-size: 16px;
+        width: 80%;
+
+
+    }
+
+
+    .left {
+        font-size: 8px;
+
+    }
+
+    .center {
+        width: 80%;
+        font-size: 8px;
+    }
+
+    .tooltip-info .tooltiptext {
+        visibility: hidden;
+        width: 250px;
+        width: 100px;
+
+        margin-left: -50px;
+
+        font-size: 8px;
+
+    }
+
+
+    /* Style for the arrow */
+    .arrow::before {
+        font-size: 8px;
+    }
+
+
+    .collapsible-container {
+        margin-left: 0px;
+
+        margin-right: -70px;
+
+    }
+
+
+    .nav a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+
+
+
+.view-button-container {
+        width: 90%;
+        font-size: 12px;
+        height: 30px;
+}
+
+.view-button {
+        width: 65%;
+        font-size: 12px;
+        height: 30px;
+}
+
+.icon-button {
+        width: 12.5%;
+        height: 30px;
+}
+
+}
