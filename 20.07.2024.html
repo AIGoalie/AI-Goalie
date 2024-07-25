@@ -14477,7 +14477,7 @@
     &nbsp;
 
     <div class="left" style="margin: 0 auto; border-collapse: collapse; width: 95%;">
-        Last updated 11:59:31 2024-07-25
+        Last updated 12:19:16 2024-07-25
     </div>
     <div class="center">
         <a href="privacy-policy.html"> Privacy Policy</a> - 18+. Gamble Responsibly. - <a
@@ -20178,7 +20178,7 @@
     </div>
     &nbsp;
     <div class="left">
-        Last updated 11:59:31 2024-07-25
+        Last updated 12:19:16 2024-07-25
     </div>
     <ul class="ul-bottom">
         <li><a class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img
@@ -20276,6 +20276,7 @@
 
     function setupTabsAndMatches() {
         const tabs = document.querySelectorAll("ul li a:not(.paypal):not(.contact)");
+        console.log(tabs)
         tabs.forEach(tab => {
             tab.addEventListener("click", (e) => {
                 tabs.forEach(t => t.classList.remove("active"));
@@ -20301,7 +20302,7 @@
     }
 
     function checkActiveTabs() {
-        if (window.location.href.endsWith('/') || window.location.href.endsWith('index.html') || window.location.href.endsWith('index.html#')) {
+        if (!window.location.pathname.includes('week')) {
             document.getElementById('current_day').classList.add('active');
             document.getElementById('current_day_m').classList.add('active');
         } else {
