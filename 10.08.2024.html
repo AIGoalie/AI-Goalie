@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AIGoalie - Daily AI football predictions and betting tips!</title>
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css" as="style"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <script defer src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
+    <script defer src="https://cloud.umami.is/script.js"
+            data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="max-age=3600"/>
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description"
+          content="AIGoalie is a free AI football prediction model that uses machine learning to provide the best predictions and user-friendly soccer and football betting tips for goals and winners, covering matches in Europe and all leagues around the world. It includes match previews, forecasts, and analysis for today and the whole week to predict results. All results are available since it became available.">
+    <meta name="keywords"
+          content="AI, artificial intelligence, Football, Soccer, Machine Learning, Prediction, Confidence Scores, Betting, Tips, Over, Win">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.webp">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="stylesheet" href="styles.css">
+
+
+</head>
+<body class="body">
+<div class="desktop-body">
+    &nbsp;
+    
+    &nbsp;
+    <div>
+<a href="index.html"> <header style="text-align: center">
+    <img src="banner-dark_m.webp" alt="Banner Image" style="max-width:50%; height:auto;">
+</header></a>
+&nbsp;
+<div id="common-snippet">
+    <ul style="background-color: #0B4200;">
+<!--        <li><a class="active" id="all_tab" href="index.html" style="color:white;" >This week</a></li>-->
+
+<li><div class="day-nav">
+    <h1>
+        <button title="Previous Day" id="prevDay">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="currentColor">
+            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+            </svg>
+        </button>
+        <a href="#" id="current_day"  style="color:white;" ></a>
+<!--        <button id="nextDay" title="Next Day"><i class="fas fa-arrow-right" ></i></button>-->
+        <button id="nextDay" title="Next Day">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="currentColor">
+        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+    </svg>
+        </button>
+    </h1>
+</div>
+</li>
+        <li><select class="select-wrapper-forest" aria-label="State" id="previousGameweeks" onchange="redirectToGameweek('previousGameweeks')">
+            <option aria-label="All weeks" value="" disabled selected>View per Week</option>
+            
+                <option aria-label="" value="week-09.08.2024-10.08.2024.html">(v1) 09-10 August</option>
+            
+                <option aria-label="" value="week-02.08.2024-08.08.2024.html">(v1) This week</option>
+            
+                <option aria-label="" value="week-26.07.2024-01.08.2024.html">(v1) 26 July-01 August</option>
+            
+                <option aria-label="" value="week-19.07.2024-25.07.2024.html">(v1) 19-25 July</option>
+            
+                <option aria-label="" value="week-12.07.2024-18.07.2024.html">(v1) 12-18 July</option>
+            
+                <option aria-label="" value="week-05.07.2024-11.07.2024.html">(v1) 05-11 July</option>
+            
+                <option aria-label="" value="week-28.06.2024-04.07.2024.html">(v1) 28 June-04 July</option>
+            
+                <option aria-label="" value="week-21.06.2024-27.06.2024.html">(v1) 21-27 June</option>
+            
+                <option aria-label="" value="week-14.06.2024-20.06.2024.html">(v1) 14-20 June</option>
+            
+                <option aria-label="" value="May17-May19.html">(v0) 17-19 May</option>
+            
+                <option aria-label="" value="May10-May13.html">(v0) 10-13 May</option>
+            
+                <option aria-label="" value="May3-May6.html">(v0) 3-6 May</option>
+            
+                <option aria-label="" value="Apr26-Apr30.html">(v0) 26-30 Apr</option>
+            
+                <option aria-label="" value="Apr23-Apr25.html">(v0) 23-25 Apr</option>
+            
+                <option aria-label="" value="Apr19-Apr22.html">(v0) 19-22 Apr</option>
+            
+                <option aria-label="" value="Apr12-Apr15.html">(v0) 12-15 Apr</option>
+            
+                <option aria-label="" value="Apr5-Apr8.html">(v0) 5-8 Apr</option>
+            
+                <option aria-label="" value="Apr2-Apr4.html">(v0) 2-4 Apr</option>
+            
+                <option aria-label="" value="Mar29-Apr1.html">(v0) 29 Mar-1 Apr</option>
+            
+                <option aria-label="" value="Mar15-Mar17.html">(v0) 15-17 Mar</option>
+            
+                <option aria-label="" value="Mar8-Mar11.html">(v0) 8-11 Mar</option>
+            
+                <option aria-label="" value="Feb28-Mar4.html">(v0) 1-4 Mar</option>
+            
+                <option aria-label="" value="Feb23-26.html">(v0) 23-26 Feb</option>
+            
+                <option aria-label="" value="Feb16-19.html">(v0) 16-19 Feb</option>
+            
+        </select></li>
+
+        <li > <a  href="contact.html"  style="color:white;" > <strong> &#9993; Contact </strong></a> </li>
+        <li ><a  href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE" > <img style="margin-top: -57px;" src="donate_heart.webp" alt="Donation button for AI Goalie football webpage through  paypal" width="150" height="150"> </a> </li>
+        <li>      <button id="qm" onClick="openIntroductionBox('introductionBox')" title="About"  style="margin-top:17px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24" fill="white">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/>
+                </svg>
+            </button></li>
+    </ul>
+</div>
+
+<style>
+
+.text-bubble {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px; /* Adjust width as needed */
+       /* Add some basic styling for the table */
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+
+}
+
+</style></div>
+    &nbsp;
+    <div id="introductionBox" style="display:none">
+        &nbsp;
+
+        <div class="introduction-box">
+            <button class="close-btn" onclick="closeIntroductionBox('introductionBox')">&#10006;</button>
+
+            <h2>What is AIGoalie?</h2>
+
+            <p class="intro">&#129302; An <strong>Artificial Intelligence (AI) model</strong> that predicts the winner
+                of football matches and how many goals will be scored.</p>
+            <p class="intro">&#127947; Trained on <strong>a lot of football data</strong> from many seasons and many
+                leagues.</p>
+            <p class="intro">&#128218; <strong>Continues to learn and improve</strong> as more matches are played
+                throughout the season, 24/7.</p>
+            <p class="intro">&#127757; Presents you the most confident to the least confident predictions across all the
+                leagues <strong> in the world </strong> .</p>
+            <p class="intro">&#128680; Gives you additional <strong>important information</strong>, such as important
+                player injuries.</p>
+            <p class="intro">&#127919; Check out <a class="in-text-a" href="#" onclick="openSelectDropdown()"><strong>
+                previous gameweeks </strong></a> to see how AIGoalie performed so far.</p>
+
+            <p>Let AIGoalie help you <b>save</b> time, <b>keep</b> you ahead of the game, and <b>assist</b> you in
+                making informed decisions, completely free!</p>
+
+            <p>Please report any bugs or feature requests through our <a href="contact.html"> contact form! </a></p>
+        </div>
+        &nbsp;
+
+    </div>
+
+    &nbsp;
+    <div style="display: flex; justify-content: center; max-width: 95%; margin: 0 auto;">
+        <div style="width: 300px;">
+            <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+                    crossorigin="anonymous"></script>
+            <!-- mobile square -->
+            <ins class="adsbygoogle"
+                 style="display:block; width: 100%; height: auto; min-height: 250px; max-height: 300px; border-radius: 8px;"
+                 data-ad-client="ca-pub-9761499603663107"
+                 data-ad-slot="1802795276"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    <div>&nbsp;</div>
+    &nbsp;
+    <div class="view-button-container">
+        <button aria-label="Show search bar" class="icon-button" id="search_button" onClick="showSearch('search')">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+        </button>
+        <button aria-label="Switch views" class="view-button" id="view_button" onClick="switchView('global_view', 'league_view', 'view_button', 'search_button', 'time_button')">
+            &#127942; Switch to League View
+        </button>
+        <button aria-label="Show time slider" class="icon-button" id="time_button" onClick="showTimeSlider('slider')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><path fill="#ffffff" d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>
+        </button>
+    </div>
+
+    <div id="global_view" style="display: block;">
+
+        <div>&nbsp;</div>
+        <div class="slider-container" id="slider" style="display:none;">
+            <div id="time-range-slider" name="time-range"></div>
+        </div>
+        <div class="search-dropdown-container" id="search" style="display:none;">
+            <div class="search-container">
+                <input aria-label="search bar" type="text" id="searchInput" onkeyup="searchTable('searchInput', 'myTable')" style="width:500px;"
+                       placeholder="&#128269; Search for team or league, e.g. 'Euro 2024'">
+            </div>
+        </div>
+        <div class="table-container">
+
+            <div class="table-title-global">
+                <h1>&#127757; Global</h1>
+            </div>
+
+            <table id="myTable">
+                <tr>
+                    <th>Date</th>
+                    <th>Fixture <span class="tooltip-info"> <img alt="information icon" src="infoo.webp">  <span
+                            class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span>
+                    </th>
+                    <th>Odds <span class="tooltip-info">  <img alt="information icon" src="infoo.webp">  <span
+                            class="tooltiptext"> Pre-match odds of the selected team winning. Note that odds are fetched once per day at 00:00 GMT, meaning some matches may have live odds. </span> </span>
+                    </th>
+                    <th onclick="sortTable(4, 'myTable')">Win <span class="tooltip-info"> <img alt="information icon"
+                                                                                               src="infoo.webp">  <span
+                            class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win.</u> Low confidence indicates unpredictability of the match. </span> </span><span
+                            class="sort-arrow">▼</span></th>
+                    <th>Result <span class="tooltip-info">  <img alt="information icon" src="infoo.webp">  <span
+                            class="tooltiptext"> Whether the selected team won, drew, or lost. </span> </span></th>
+                    <th onclick="sortTable(6, 'myTable')">Over <span class="tooltip-info"> <img alt="information icon"
+                                                                                                src="infoo.webp">  <span
+                            class="tooltiptext">The minimum number of goals predicted by AIGoalie. <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ... </span> </span> </span> </span>
+                        <span class="sort-arrow">►</span></th>
+<!--                     <th onclick="sortTable(7, 'myTable')">BTTS-->
+<!--                        <span class="sort-arrow">►</span></th>-->
+                    <th>Alerts Home <span class="tooltip-info"> <img alt="information icon" src="infoo.webp">  <span
+                            class="tooltiptext"><br> &#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br>
+                        <br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span>
+                    </th>
+                    <th>Alerts Away <span class="tooltip-info"> <img alt="information icon" src="infoo.webp">  <span
+                            class="tooltiptext"> <br>&#127973 = Considerable injuries</br><br>&#127973&#127973 = Major injuries</br>
+                        <br>&#128201 = Dip in form</br> <br> Note, you may see injuries when expanding match but no alert here, meaning the model does not consider them important. </br></span> </span>
+                    </th>
+
+                </tr>
+                
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div>&nbsp;</div>
+
+
+    <div id="league_view" style="display: block;">
+
+        
+
+    </div>
+
+
+    &nbsp;
+
+    <div style="margin: 0 auto; max-width: 95%; text-align: center;">
+        <script async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+                crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:800px;height:220px"
+             data-ad-client="ca-pub-9761499603663107"
+             data-ad-slot="5118605207"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
+    </div>
+    &nbsp;
+
+    <div class="left" style="margin: 0 auto; border-collapse: collapse; width: 95%;">
+        Last updated 00:10:41 2024-08-08
+    </div>
+    <div class="center">
+        <a href="privacy-policy.html"> Privacy Policy</a> - 18+. Gamble Responsibly. - <a
+            href="disclaimer.html">Terms</a>
+    </div>
+    &nbsp;
+
+</div>
+
+<div class="mobile-body">
+
+    
+    <div><!--    <link rel="preload" href="banner-dark_m.webp" as="image">-->
+
+<!--<a href="index.html"> <header style="text-align: center">-->
+<!--    <img src="banner-dark_m.webp" alt="Banner Image" style="max-width:50%; height:auto;">-->
+<!--</header></a>-->
+    &nbsp;
+<div id="common-snippet">
+    <ul style="background-color: #0B4200;">
+        <li><a class="logo" href="https://ai-goalie.com"> <img src="logo_mm.webp" alt="Banner Image" class="logo-img"></a></li>
+                <li>
+        <select style="min-width: 200px" aria-label="State" class="select-wrapper_m-forest" id="previousGameweeks_m" onchange="redirectToGameweek('previousGameweeks_m')">
+            <option aria-label="All weeks" value="" disabled selected>View per Week</option>
+            
+                <option aria-label="" value="week-09.08.2024-10.08.2024.html">(v1) 09-10 August</option>
+            
+                <option aria-label="" value="week-02.08.2024-08.08.2024.html">(v1) This week</option>
+            
+                <option aria-label="" value="week-26.07.2024-01.08.2024.html">(v1) 26 July-01 August</option>
+            
+                <option aria-label="" value="week-19.07.2024-25.07.2024.html">(v1) 19-25 July</option>
+            
+                <option aria-label="" value="week-12.07.2024-18.07.2024.html">(v1) 12-18 July</option>
+            
+                <option aria-label="" value="week-05.07.2024-11.07.2024.html">(v1) 05-11 July</option>
+            
+                <option aria-label="" value="week-28.06.2024-04.07.2024.html">(v1) 28 June-04 July</option>
+            
+                <option aria-label="" value="week-21.06.2024-27.06.2024.html">(v1) 21-27 June</option>
+            
+                <option aria-label="" value="week-14.06.2024-20.06.2024.html">(v1) 14-20 June</option>
+            
+                <option aria-label="" value="May17-May19.html">(v0) 17-19 May</option>
+            
+                <option aria-label="" value="May10-May13.html">(v0) 10-13 May</option>
+            
+                <option aria-label="" value="May3-May6.html">(v0) 3-6 May</option>
+            
+                <option aria-label="" value="Apr26-Apr30.html">(v0) 26-30 Apr</option>
+            
+                <option aria-label="" value="Apr23-Apr25.html">(v0) 23-25 Apr</option>
+            
+                <option aria-label="" value="Apr19-Apr22.html">(v0) 19-22 Apr</option>
+            
+                <option aria-label="" value="Apr12-Apr15.html">(v0) 12-15 Apr</option>
+            
+                <option aria-label="" value="Apr5-Apr8.html">(v0) 5-8 Apr</option>
+            
+                <option aria-label="" value="Apr2-Apr4.html">(v0) 2-4 Apr</option>
+            
+                <option aria-label="" value="Mar29-Apr1.html">(v0) 29 Mar-1 Apr</option>
+            
+                <option aria-label="" value="Mar15-Mar17.html">(v0) 15-17 Mar</option>
+            
+                <option aria-label="" value="Mar8-Mar11.html">(v0) 8-11 Mar</option>
+            
+                <option aria-label="" value="Feb28-Mar4.html">(v0) 1-4 Mar</option>
+            
+                <option aria-label="" value="Feb23-26.html">(v0) 23-26 Feb</option>
+            
+                <option aria-label="" value="Feb16-19.html">(v0) 16-19 Feb</option>
+            
+        </select>
+        </li>
+        <li>
+                            <button id="qm_m" onClick="openIntroductionBox('introductionBox_m')" title="About" style="margin-top:15px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="white">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/>
+                </svg>
+            </button>
+        </li>
+        <li><div style="min-width: 200px" class="day-nav">
+    <h1>
+
+        <button id="prevDay_m" title="Previous Day">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+            </svg>
+        </button>
+        <a href="#" id="current_day_m" style="color:white;"></a>
+        <button id="nextDay_m" title="Next Day">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+    </svg>
+        </button>
+    </h1>
+</div>
+</li>
+<!--            <li><a class="active" id="all_tab_m" href="index.html" style="color:white; min-width: 150px" >This week</a></li>-->
+
+
+    </ul>
+
+</div>
+<style>
+
+.text-bubble {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px; /* Adjust width as needed */
+       /* Add some basic styling for the table */
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto; /* Add this line to center the table horizontally */
+
+}
+
+</style></div>
+
+    <div id="introductionBox_m" style="display:none">
+        &nbsp;
+
+        <div class="introduction-box">
+            <button class="close-btn" onclick="closeIntroductionBox('introductionBox_m')">&#10006;</button>
+            <h2><u>What is AIGoalie?</u></h2>
+
+            <p class="intro">&#129302; An <strong>Artificial Intelligence (AI) model</strong> that predicts the winner
+                of football matches and how many goals will be scored.</p>
+            <p class="intro">&#127947; Trained on <strong>a lot of football data</strong> from many seasons and many
+                leagues.</p>
+            <p class="intro">&#128218; <strong>Continues to learn and improve</strong> as more matches are played
+                throughout the season, 24/7.</p>
+            <p class="intro">&#127757; Presents you the most confident to the least confident predictions across all the
+                leagues <strong> in the world </strong> .</p>
+            <p class="intro">&#128680; Gives you additional <strong>important information</strong>, such as important
+                player injuries.</p>
+            <p class="intro">&#127919; Check out <a class="in-text-a" href="#" onclick="openSelectDropdown()"><strong>
+                previous gameweeks </strong></a> to see how AIGoalie performed so far.</p>
+
+            <p>Let AIGoalie help you <b>save</b> time, <b>keep</b> you ahead of the game, and <b>assist</b> you in
+                making informed decisions, completely free!</p>
+
+            <p>Please report any bugs or feature requests through our <a href="contact.html"> contact form! </a></p>
+        </div>
+        &nbsp;
+
+    </div>
+    &nbsp;
+    <div style="display: flex; justify-content: center; max-width: 95%; margin: 0 auto;">
+        <div style="width: 300px;">
+            <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+                    crossorigin="anonymous"></script>
+            <!-- mobile square -->
+            <ins class="adsbygoogle"
+                 style="display:block; width: 100%; height: auto; min-height: 250px; max-height: 300px; border-radius: 8px;"
+                 data-ad-client="ca-pub-9761499603663107"
+                 data-ad-slot="1802795276"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    &nbsp;
+
+    <div class="view-button-container">
+            <button aria-label="Show search bar" class="icon-button" id="search_button_m" onClick="showSearch('search_m')">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><path fill="#ffffff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+        </button>
+        <button aria-label="Switch view" class="view-button" id="view_button_m"
+                onClick="switchView('global_view_m', 'league_view_m', 'view_button_m', 'search_button_m', 'time_button_m')">&#127942; Switch to League View
+        </button>
+            <button aria-label="Show time slider" class="icon-button" id="time_button_m" onClick="showTimeSlider('slider_m')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><path fill="#ffffff" d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>
+        </button>
+    </div>
+    &nbsp;
+
+
+    <div id="global_view_m" , style="display: block;">
+
+
+        <div class="slider-container", id="slider_m", style="display:none;">
+            <div id="time-range-slider_m" name="time-range_m"></div>
+        </div>
+        <div class="search-dropdown-container" id="search_m" style="display:none;">
+            <div class="search-container">
+                <input type="text" id="searchInput_m" onkeyup="searchTable('searchInput_m', 'myTable_m')"
+                       style="width:300px" placeholder="&#128269; Search for team or league, e.g. 'Euro 2024'">
+                <div class="dropdown-content" id="leaguesContainer_m">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+
+            <div class="table-title-global">
+                <h1>&#127757; Global</h1>
+            </div>
+
+            <table id="myTable_m">
+                <tr>
+                    <th>Fixture <span class="tooltip-info"> <img width="5" height="5" alt="information icon"
+                                                                 src="infoo.webp">  <span class="tooltiptext">  <strong>Bold-faced team</strong> is selected by AIGoalie to win. </span> </span>
+                    </th>
+                    <th onclick="sortTable(2, 'myTable_m') " class="underline">Win <span class="tooltip-info"> <img
+                            width="5" height="5" alt="information icon" src="infoo.webp">  <span class="tooltiptext"> How confident AIGoalie is that <u>the selected team will win </u> (click to sort). </span> </span>
+                    </th>
+                    <th>Res</th>
+                    <th onclick="sortTable(4, 'myTable_m')">Over <span class="tooltip-info"> <img width="5" height="5"
+                                                                                                  alt="information icon"
+                                                                                                  src="infoo.webp">  <span
+                            class="tooltiptext"> The minimum number of goals predicted by AIGoalie (click to sort). <br> &#9917; = over 0.5 <br> &#9917;&#9917; = over 1.5 <br> &#9917;&#9917;&#9917; = over 2.5 <br> ...  </span> </span>
+                    </th>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+    &nbsp;
+    <div id="league_view_m" style="display: block;">
+        
+    </div>
+    <div style="display: flex; justify-content: center; max-width: 95%; margin: 0 auto;">
+        <div style="width: 300px;">
+            <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9761499603663107"
+                    crossorigin="anonymous"></script>
+            <!-- mobile square -->
+            <ins class="adsbygoogle"
+                 style="display:block; width: 100%; height: auto; min-height: 250px; max-height: 300px; border-radius: 8px;"
+                 data-ad-client="ca-pub-9761499603663107"
+                 data-ad-slot="1802795276"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    &nbsp;
+    <div class="left">
+        Last updated 00:10:41 2024-08-08
+    </div>
+    <ul class="ul-bottom">
+        <li><a class="paypal" href="https://www.paypal.com/donate/?hosted_button_id=97FSH2FUWA4VE"> <img
+                src="donate_heart_m.webp" style="margin-top: -20px;"
+                alt="Donation button for AI Goalie football webpage through  paypal"> </a></li>
+        <li><a class="contact" href="contact.html"><strong> &#9993; Contact </strong></a></li>
+    </ul>
+    <div class="center">
+        <a href="privacy-policy.html"> Privacy Policy</a> - 18+. Gamble Responsibly. - <a
+            href="disclaimer.html">Terms</a>
+    </div>
+</div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Setup day link elements
+        const linkElement = document.getElementById('current_day');
+        const linkElement_m = document.getElementById('current_day_m');
+        linkElement.innerHTML = `Sat 10 August`;
+        linkElement_m.innerHTML = `Sat 10 August`;
+        linkElement.href = `10.08.2024.html`;
+        linkElement_m.href = `10.08.2024.html`;
+        // Initialize views
+        var globalView = document.getElementById('global_view');
+        var leagueView = document.getElementById('league_view');
+        var globalView_m = document.getElementById('global_view_m');
+        var leagueView_m = document.getElementById('league_view_m');
+        globalView.style.display = 'block';
+        leagueView.style.display = 'none';
+        globalView_m.style.display = 'block';
+        leagueView_m.style.display = 'none';
+        // Initialize sliders
+        initializeSlider('time-range-slider');
+        initializeSlider('time-range-slider_m');
+        // Tab and match interactions
+        setupTabsAndMatches();
+        // Check active tabs based on URL
+        checkActiveTabs();
+        document.getElementById('prevDay').addEventListener('click', () => adjustDate(-1));
+        document.getElementById('nextDay').addEventListener('click', () => adjustDate(1));
+        document.getElementById('prevDay_m').addEventListener('click', () => adjustDate(-1));
+        document.getElementById('nextDay_m').addEventListener('click', () => adjustDate(1));
+    });
+
+    function filterTableByTime(startHour, endHour, sliderId) {
+        document.querySelectorAll('tr.match').forEach(function (row) {
+            var timeAttr = row.getAttribute('data-time');
+            if (timeAttr) {
+                var matchHour = parseInt(timeAttr.split(':')[0]);
+                if (matchHour >= startHour && matchHour <= endHour) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    function initializeSlider(sliderId) {
+        var slider = document.getElementById(sliderId);
+        noUiSlider.create(slider, {
+            start: [0, 24],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 24
+            },
+            step: 1,
+            tooltips: [true, true],
+            format: {
+                to: function (value) {
+                    return parseInt(value) + ':00';
+                },
+                from: function (value) {
+                    return Number(value.replace(':00', ''));
+                }
+            }
+        });
+        slider.noUiSlider.on('update', function (values, handle) {
+            filterTableByTime(parseInt(values[0]), parseInt(values[1]), sliderId);
+        });
+        addAriaAttributesToSliderHandles(slider);
+    }
+
+    function addAriaAttributesToSliderHandles(slider) {
+        var handles = slider.getElementsByClassName('noUi-handle');
+        for (var i = 0; i < handles.length; i++) {
+            handles[i].setAttribute('role', 'slider');
+            handles[i].setAttribute('aria-orientation', 'horizontal');
+            handles[i].setAttribute('aria-valuemin', '0');
+            handles[i].setAttribute('aria-valuemax', '24');
+            handles[i].setAttribute('aria-label', 'Time slider handle ' + (i + 1));
+        }
+    }
+
+    function setupTabsAndMatches() {
+        const tabs = document.querySelectorAll("ul li a:not(.paypal):not(.contact)");
+        console.log(tabs)
+        tabs.forEach(tab => {
+            tab.addEventListener("click", (e) => {
+                tabs.forEach(t => t.classList.remove("active"));
+                e.target.classList.add("active");
+            });
+            if (tab.href === window.location.href && tab.getAttribute("href").endsWith(".html")) {
+                tab.classList.add("active");
+            }
+        });
+        document.querySelectorAll('.match .team').forEach(team => {
+            team.addEventListener('click', function () {
+                this.closest('.match').classList.toggle('expanded');
+            });
+        });
+        document.querySelectorAll('.collapsible .collapsible-header').forEach(header => {
+            header.addEventListener('click', function () {
+                const collapsible = this.closest('.collapsible');
+                const content = collapsible.querySelector('.collapsible-content');
+                collapsible.classList.toggle('expanded');
+                content.style.display = collapsible.classList.contains('expanded') ? 'block' : 'none';
+            });
+        });
+    }
+
+    function checkActiveTabs() {
+        if (!window.location.pathname.includes('week')) {
+            document.getElementById('current_day').classList.add('active');
+            document.getElementById('current_day_m').classList.add('active');
+        } else {
+            document.getElementById('current_day').classList.remove('active');
+            document.getElementById('current_day_m').classList.remove('active');
+        }
+    }
+
+
+    function searchTable(searchID, tableID) {
+        var uniqueLeagues = [];
+        var input = document.getElementById(searchID);
+        var filter = input.value.toUpperCase();
+        var tr = document.getElementById(tableID).getElementsByTagName("tr");
+
+        if (filter) {
+            uniqueLeagues.forEach(function (league) {
+                if (league.indexOf(filter) > -1) {
+                    var leagueElement = document.createElement("div");
+                    leagueElement.textContent = league;
+                    leagueElement.onclick = function () {
+                        input.value = league; // Set input value to the selected suggestion
+                        searchTable(); // Refilter table based on the selected suggestion
+                    };
+                }
+            });
+        }
+
+        // Existing filtering logic for table rows
+        for (var i = 1; i < tr.length; i++) {
+            var matchLeague = tr[i].getAttribute("data-league") ? tr[i].getAttribute("data-league").toUpperCase() : "";
+            var matchHome = tr[i].getAttribute("data-home") ? tr[i].getAttribute("data-home").toUpperCase() : "";
+            var matchAway = tr[i].getAttribute("data-away") ? tr[i].getAttribute("data-away").toUpperCase() : "";
+
+            if (matchLeague.indexOf(filter) > -1 || matchHome.indexOf(filter) > -1 || matchAway.indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+    // Receive dates from Jinja rendering
+    const validDates = `['14.06.2024', '15.06.2024', '16.06.2024', '17.06.2024', '18.06.2024', '19.06.2024', '20.06.2024', '21.06.2024', '22.06.2024', '23.06.2024', '24.06.2024', '25.06.2024', '26.06.2024', '27.06.2024', '28.06.2024', '29.06.2024', '30.06.2024', '01.07.2024', '02.07.2024', '03.07.2024', '04.07.2024', '05.07.2024', '06.07.2024', '07.07.2024', '08.07.2024', '09.07.2024', '10.07.2024', '11.07.2024', '12.07.2024', '13.07.2024', '14.07.2024', '15.07.2024', '16.07.2024', '17.07.2024', '18.07.2024', '19.07.2024', '20.07.2024', '21.07.2024', '22.07.2024', '23.07.2024', '24.07.2024', '25.07.2024', '26.07.2024', '27.07.2024', '28.07.2024', '29.07.2024', '30.07.2024', '31.07.2024', '01.08.2024', '02.08.2024', '03.08.2024', '04.08.2024', '05.08.2024', '06.08.2024', '07.08.2024', '08.08.2024', '09.08.2024', '10.08.2024']`;
+
+    // Utility function to parse the current date from the URL
+    function parseDateFromURL() {
+        const path = window.location.pathname;
+        const filename = path.split('/').pop().replace('.html', '');
+        return filename.match(/\d{2}\.\d{2}\.\d{4}/) ? new Date(filename.split('.').reverse().join('-')) : new Date();
+    }
+
+    // Formats a date object into a string format
+    function formatDate(date) {
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+    }
+
+    function navigateToDate(date) {
+        const formattedDate = formatDate(date);
+        if (validDates.includes(formattedDate)) {
+            window.location.href = formattedDate + '.html';
+        } else {
+            alert('No data available for ' + formattedDate);
+        }
+    }
+
+    function adjustDate(days) {
+        let currentDate = parseDateFromURL();
+        // If the currentDate is invalid, use today's date
+        if (isNaN(currentDate.getTime())) {
+            currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0); // Normalize the date
+        }
+        currentDate.setDate(currentDate.getDate() + days); // Adjust the date
+        navigateToDate(currentDate);
+
+    }
+
+    function redirectToGameweek(id) {
+        var selectElement = document.getElementById(id);
+        var selectedValue = selectElement.value;
+        if (selectedValue) {
+            window.location.href = selectedValue;
+        }
+    }
+
+    function openSelectDropdown(id) {
+        document.getElementById(id).classList.add('highlight-red')
+    }
+
+    function closeIntroductionBox(id) {
+        document.getElementById(id).style.display = "none";
+        document.getElementById(id).style.display = "none";
+    }
+
+    function openIntroductionBox(id) {
+        if (document.getElementById(id).style.display === "block") {
+            document.getElementById(id).style.display = "none";
+        } else {
+            document.getElementById(id).style.display = "block";
+        }
+    }
+
+    function sortTable(n, id) {
+        console.log(id)
+        var table = document.getElementById(id);
+        var rows = Array.from(table.rows).slice(1); // Convert HTMLCollection to Array and skip header row
+        var headers = table.querySelectorAll("th");
+        console.log(headers);
+        var dir = headers[n - 1].classList.contains('sorted-asc') ? 'desc' : 'asc';
+
+        // Update sort direction classes on headers
+        headers.forEach(header => {
+            header.classList.remove('sorted-asc', 'sorted-desc');
+        });
+        headers[n - 1].classList.add(dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+
+        // Sort rows based on the text content of the cells
+        rows.sort((a, b) => {
+            var aContent = parseTableCellContent(a.cells[n].innerHTML);
+            var bContent = parseTableCellContent(b.cells[n].innerHTML);
+            return dir === 'asc' ? aContent - bContent : bContent - aContent;
+        });
+
+        // Re-add rows to the table in new order
+        var tbody = table.querySelector("tbody");
+        rows.forEach(row => tbody.appendChild(row));
+        if (!id.endsWith('_m')) {
+            // Update visual sort indicators if needed
+            updateSortIndicator(n - 1, dir, headers);
+        }
+    }
+
+    function parseTableCellContent(content) {
+        // Check if content contains percentage
+        if (content.includes("%")) {
+            var numericPart = content.replace("%", "");
+            return parseFloat(numericPart);
+        } else {
+            var numericPart = content.split("<br>")[content.split("<br>").length - 1];
+            return parseFloat(numericPart);
+        }
+    }
+
+    function updateSortIndicator(columnIndex, direction, headers) {
+        headers.forEach((header, index) => {
+            header.querySelectorAll('.sort-arrow').forEach(arrow => arrow.remove()); // Clean up existing arrows
+            if (index === columnIndex) {
+                const arrow = document.createElement('span');
+                arrow.className = 'sort-arrow';
+                arrow.textContent = direction === 'asc' ? ' ▲' : ' ▼';
+                header.appendChild(arrow);
+            }
+        });
+    }
+
+    function switchView(global_id, league_id, button_id, search_id, time_id) {
+        var globalView = document.getElementById(global_id);
+        var leagueView = document.getElementById(league_id);
+        var button = document.getElementById(button_id);
+        var search = document.getElementById(search_id);
+        var time = document.getElementById(time_id);
+
+        if (globalView.style.display === 'none') {
+            globalView.style.display = 'block';
+            leagueView.style.display = 'none';
+            search.style.display = 'block';
+            time.style.display = 'block';
+            button.innerHTML = '&#127942; Switch to League View';
+        } else {
+            globalView.style.display = 'none';
+            leagueView.style.display = 'block';
+            search.style.display = 'none';
+            time.style.display = 'none';
+            button.innerHTML = '&#127757; Switch to Global View';
+        }
+    }
+
+    function showSearch(search_id) {
+        var search = document.getElementById(search_id);
+        if (search.style.display === 'none') {
+            search.style.display = 'flex';
+        } else {
+            search.style.display = 'none';
+        }
+    }
+
+    function showTimeSlider(slider_id) {
+        var slider = document.getElementById(slider_id);
+        if (slider.style.display === 'none') {
+            slider.style.display = 'block';
+        } else {
+            slider.style.display = 'none';
+        }
+    }
+</script>
+</html>
