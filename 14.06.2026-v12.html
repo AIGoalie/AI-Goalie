@@ -190,6 +190,242 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{font-size:11px;min-width:32px;padding:3px 6px}
 }
 
+
+/* ===== AIGoalie v12 final cleanup pass =====
+   Goals:
+   - one-line mobile navbar
+   - neutral match rows, confidence only in win pill
+   - fixed center score/time slot
+   - cleaner FotMob-like league sections
+   - more stable mobile text alignment
+*/
+
+/* Do not use row-left confidence color; the win pill already carries confidence. */
+.mrow.tier-high,
+.mrow.tier-lean,
+.mrow.tier-low,
+.wc-section .mrow.tier-high{
+  border-left:1px solid var(--line);
+}
+
+/* Fixed middle slot: times and final scores have identical width/alignment. */
+.fixrow{
+  grid-template-columns:minmax(0,1fr) 62px minmax(0,1fr);
+}
+.center{
+  min-width:62px;
+}
+.center .ko{
+  min-width:62px;
+  height:32px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  line-height:1.15;
+  padding:3px 6px;
+}
+
+/* Cleaner fixture row typography/alignment. */
+.side .nm{
+  max-width:100%;
+  line-height:1.18;
+}
+.side.home .nm{text-align:right}
+.side.away .nm{text-align:left}
+
+/* Shared FotMob-like league box. */
+.league-section{
+  border:1px solid var(--line);
+  border-radius:18px;
+  margin:18px 0 14px;
+  overflow:hidden;
+  background:rgba(16,29,23,.78);
+}
+.league-section .league-head{
+  margin:0;
+  padding:13px 15px;
+  border-bottom:1px solid var(--line-soft);
+  background:rgba(255,255,255,.035);
+}
+.league-section .league-head .lname{
+  font-size:15px;
+  font-weight:800;
+}
+.league-section .league-head .lsub{
+  color:var(--muted);
+  font-size:13px;
+}
+.league-section .mrow,
+.wc-section .mrow{
+  margin:0;
+  border-radius:0;
+  border-left:0;
+  border-right:0;
+  border-top:0;
+  border-bottom:1px solid var(--line-soft);
+  background:transparent;
+}
+.league-section .mrow:last-child,
+.wc-section .mrow:last-child{
+  border-bottom:0;
+}
+.league-section .mrow:hover,
+.wc-section .mrow:hover{
+  background:rgba(255,255,255,.025);
+  border-color:var(--line-soft);
+}
+.league-section .mhead,
+.wc-section .mhead{
+  min-height:64px;
+}
+
+/* Keep the World Cup special, but make it behave like a grouped list. */
+.wc-section{
+  padding:0;
+}
+.wc-head{
+  padding:15px 16px 13px;
+  background:rgba(255,255,255,.035);
+  border-bottom:1px solid rgba(244,199,82,.18);
+}
+
+/* Mobile navbar: keep logo, hamburger, language, Pro, account on one line. */
+@media(max-width:680px){
+  header.top{
+    flex-wrap:nowrap;
+    gap:7px;
+    padding:8px 0 10px;
+  }
+  header.top .logo{
+    font-size:17px;
+    flex:0 0 auto;
+  }
+  .navtoggle{
+    display:grid;
+    place-items:center;
+    flex:0 0 44px;
+    width:44px;
+    height:44px;
+    padding:0;
+  }
+  header.top nav{
+    display:none;
+    position:absolute;
+    top:54px;
+    left:14px;
+    right:14px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:8px;
+    flex-direction:column;
+    z-index:50;
+  }
+  header.top nav.show{display:flex}
+  header.top nav a{padding:9px}
+  .acct{
+    margin-left:auto;
+    min-width:0;
+    gap:6px;
+    flex:1 1 auto;
+    justify-content:flex-end;
+  }
+  .language-select{
+    min-width:0;
+    max-width:52px;
+    flex:0 0 52px;
+    height:46px;
+    padding:0;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .language-select select{
+    width:52px;
+    min-width:52px;
+    height:44px;
+    padding:0 0 0 8px;
+    font-size:0; /* hide long label on collapsed mobile selector */
+    color:transparent;
+  }
+  .language-select select option{
+    font-size:13px;
+    color:var(--text);
+  }
+  .language-select::before{
+    content:"🌐";
+    position:absolute;
+    pointer-events:none;
+    font-size:18px;
+  }
+  .btn.pro{
+    padding:8px 10px;
+    font-size:13px;
+    height:46px;
+  }
+  .account-btn{
+    padding:8px 10px;
+    min-width:48px;
+    height:46px;
+    font-size:13px;
+  }
+}
+
+/* Mobile row polish. */
+@media(max-width:560px){
+  .wrap{padding:0 10px 48px}
+  .fixrow{
+    grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr);
+    gap:7px;
+  }
+  .center{min-width:54px}
+  .center .ko{
+    min-width:54px;
+    height:30px;
+    font-size:12px;
+    padding:3px 5px;
+  }
+  .side .nm{
+    font-size:13px;
+    white-space:normal;
+    overflow:hidden;
+    text-overflow:clip;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+  }
+  .mhead{
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:8px;
+    padding:11px 11px;
+  }
+  .winwrap{gap:6px}
+  .resmark{width:18px;height:18px;flex:0 0 18px}
+  .win-pill{
+    font-size:12px;
+    min-width:48px;
+    padding:4px 7px;
+  }
+  .chev{width:20px;height:20px;font-size:10px}
+  .league-section .mhead,
+  .wc-section .mhead{
+    min-height:72px;
+  }
+}
+
+@media(max-width:430px){
+  .side .nm{
+    font-size:12px;
+    max-width:94px;
+  }
+  .crest{width:20px;height:20px;padding:1.5px}
+  .fixrow{
+    grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);
+  }
+  .center{min-width:52px}
+  .center .ko{min-width:52px}
+}
+
 </style>
 </head>
 <body>
@@ -2063,7 +2299,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>1:2'</span></b></div>
+          <div class="ko live"><b><span style='color: #b30000;'>2:2'</span></b></div>
         </div>
         <div class="side away">
           
@@ -4412,7 +4648,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>2:0'</span></b></div>
+          <div class="ko live"><b><span style='color: #b30000;'>2:1'</span></b></div>
         </div>
         <div class="side away">
           
@@ -6804,13 +7040,14 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Argentina - Primera Nacional</span>
+          <span class="lsub">7 matches</span>
+        </div>
         
-        <span class="lname">Argentina - Primera Nacional</span>
-        <span class="lsub">7 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -6829,7 +7066,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>1:2'</span></b></div>
+          <div class="ko live"><b><span style='color: #b30000;'>2:2'</span></b></div>
         </div>
         <div class="side away">
           
@@ -6888,8 +7125,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-deportivo-madryn-vs-san-miguel">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -6967,8 +7204,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-temperley-vs-club-atletico-guemes">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -7046,8 +7283,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-deportivo-maipu-vs-tristan-suarez">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -7066,7 +7303,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>2:0'</span></b></div>
+          <div class="ko live"><b><span style='color: #b30000;'>2:1'</span></b></div>
         </div>
         <div class="side away">
           
@@ -7125,8 +7362,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-ca-estudiantes-vs-all-boys">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -7226,8 +7463,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-almirante-brown-vs-godoy-cruz">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -7305,8 +7542,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-patronato-vs-atletico-de-rafaela">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -7384,18 +7621,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-racing-cordoba-vs-chaco-for-ever">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Belarus - Premier League</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Belarus - Premier League</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -7495,18 +7734,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-fc-dnepr-mogilev-vs-arsenal">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Bolivia - Primera División</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">Bolivia - Primera División</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -7584,8 +7825,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-aurora-vs-oriente-petrolero">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -7663,18 +7904,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-blooming-vs-real-tomayapo">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Brazil - Serie B</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">Brazil - Serie B</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -7774,8 +8017,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-juventude-vs-ponte-preta">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -7853,18 +8096,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-cuiaba-vs-vila-nova">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Chile - Primera División</span>
+          <span class="lsub">3 matches</span>
+        </div>
         
-        <span class="lname">Chile - Primera División</span>
-        <span class="lsub">3 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -7942,8 +8187,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-u-catolica-vs-universidad-de-concepcion">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -8021,8 +8266,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-union-la-calera-vs-universidad-de-chile">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -8122,18 +8367,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-nublense-vs-huachipato">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">China - League One</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">China - League One</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -8233,8 +8480,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-wuxi-wugou-vs-meizhou-kejia">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -8334,18 +8581,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-nantong-zhiyun-vs-yanbian-longding">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Estonia - Meistriliiga</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Estonia - Meistriliiga</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -8445,18 +8694,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-kalju-nomme-vs-paide">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Estonia - Esiliiga A</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Estonia - Esiliiga A</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -8556,18 +8807,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-fci-levadia-ii-vs-viimsi">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Ethiopia - Premier League</span>
+          <span class="lsub">3 matches</span>
+        </div>
         
-        <span class="lname">Ethiopia - Premier League</span>
-        <span class="lsub">3 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -8667,8 +8920,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-ethiopian-medhin-vs-dire-dawa-kenema">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -8768,8 +9021,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-kedus-giorgis-vs-mekelakeya">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -8869,18 +9122,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-ethiopia-bunna-vs-sidama-bunna">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Faroe Islands - Meistaradeildin</span>
+          <span class="lsub">3 matches</span>
+        </div>
         
-        <span class="lname">Faroe Islands - Meistaradeildin</span>
-        <span class="lsub">3 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -8980,8 +9235,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-skala-vs-ki-klaksvik">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -9081,8 +9336,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-ab-vs-hb-torshavn">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -9182,18 +9437,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-eb-streymur-vs-b68">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Georgia - Erovnuli Liga</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Georgia - Erovnuli Liga</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -9293,18 +9550,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-gagra-vs-dinamo-tbilisi">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Iceland - Úrvalsdeild</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">Iceland - Úrvalsdeild</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -9404,8 +9663,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-thor-akureyri-vs-ibv-vestmannaeyjar">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -9505,18 +9764,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-keflavik-vs-fh-hafnarfjordur">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Kazakhstan - Premier League</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">Kazakhstan - Premier League</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -9616,8 +9877,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-aktobe-vs-altay">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -9717,18 +9978,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-yelimay-semey-vs-ordabasy">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Latvia - 1. Liga</span>
+          <span class="lsub">3 matches</span>
+        </div>
         
-        <span class="lname">Latvia - 1. Liga</span>
-        <span class="lsub">3 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -9828,8 +10091,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-marupe-vs-jfk-ventspils">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -9929,8 +10192,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-riga-fc-ii-vs-smiltene">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10030,18 +10293,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-rigas-fs-ii-vs-rezekne-fa">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Morocco - Botola Pro</span>
+          <span class="lsub">3 matches</span>
+        </div>
         
-        <span class="lname">Morocco - Botola Pro</span>
-        <span class="lsub">3 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -10141,8 +10406,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-raja-casablanca-vs-uts-rabat">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10242,8 +10507,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-hassania-agadir-vs-renaissance-berkane">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10343,18 +10608,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-far-rabat-vs-wydad-ac">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Norway - 1. Division</span>
+          <span class="lsub">6 matches</span>
+        </div>
         
-        <span class="lname">Norway - 1. Division</span>
-        <span class="lsub">6 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -10454,8 +10721,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-stromsgodset-vs-raufoss">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10555,8 +10822,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-stabaek-vs-egersund">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10656,8 +10923,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-haugesund-vs-ranheim">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10757,8 +11024,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-hodd-vs-kongsvinger">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10858,8 +11125,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-sogndal-vs-moss">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -10959,18 +11226,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-lyn-vs-bryne">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Peru - Copa De La Liga</span>
+          <span class="lsub">3 matches</span>
+        </div>
         
-        <span class="lname">Peru - Copa De La Liga</span>
-        <span class="lsub">3 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -11048,8 +11317,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-cesar-vallejo-vs-alianza-lima">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -11127,8 +11396,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-alianza-universidad-vs-sport-huancayo">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -11228,18 +11497,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-deportivo-binacional-vs-cienciano">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Russia - Second League A - Division A Silver</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Russia - Second League A - Division A Silver</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -11339,18 +11610,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-tyumen-vs-alaniya-vladikavkaz">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Spain - Segunda División</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Spain - Segunda División</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -11428,18 +11701,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-malaga-vs-almeria">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Sweden - Superettan</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Sweden - Superettan</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -11539,18 +11814,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-sandviken-vs-ik-brage">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Tajikistan - Vysshaya Liga</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Tajikistan - Vysshaya Liga</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -11650,18 +11927,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-istaravshan-vs-istiqlol">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">United States - USL Championship</span>
+          <span class="lsub">8 matches</span>
+        </div>
         
-        <span class="lname">United States - USL Championship</span>
-        <span class="lsub">8 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -11761,8 +12040,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-tampa-bay-rowdies-vs-hartford-athletic">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -11862,8 +12141,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-new-mexico-united-vs-orange-county-sc">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -11963,8 +12242,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-birmingham-legion-vs-las-vegas-lights">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -12064,8 +12343,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-colorado-springs-vs-sacramento-republic">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -12165,8 +12444,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-oakland-roots-vs-miami-fc">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -12266,8 +12545,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-el-paso-locomotive-vs-phoenix-rising">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -12367,8 +12646,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-charleston-battery-vs-fc-tulsa">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -12468,18 +12747,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-pittsburgh-riverhounds-vs-indy-eleven">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Uruguay - Segunda División</span>
+          <span class="lsub">3 matches</span>
+        </div>
         
-        <span class="lname">Uruguay - Segunda División</span>
-        <span class="lsub">3 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -12579,8 +12860,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-ca-river-plate-vs-cerrito">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -12658,8 +12939,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-atenas-vs-la-luz">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -12759,7 +13040,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-14-oriental-vs-rentistas">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
   </div>
@@ -12902,8 +13184,9 @@ function renderLeague(){
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),'wc'+i)).join("") + `</div>`;
     } else {
       const fl = l.flag?`<img class="flag" src="https://media.api-sports.io/flags/${l.flag}.svg" alt="">`:'';
-      html += `<div class="league-head">${fl}<span class="lname">${esc(l.key)}</span><span class="lsub">${l.matches.length} matches</span></div>`;
+      html += `<section class="league-section"><div class="league-head">${fl}<span class="lname">${esc(l.key)}</span><span class="lsub">${l.matches.length} matches</span></div>`;
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),i)).join("");
+      html += `</section>`;
     }
   });
   document.getElementById("leagueView").innerHTML = html;

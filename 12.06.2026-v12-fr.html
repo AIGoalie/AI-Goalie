@@ -190,6 +190,242 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{font-size:11px;min-width:32px;padding:3px 6px}
 }
 
+
+/* ===== AIGoalie v12 final cleanup pass =====
+   Goals:
+   - one-line mobile navbar
+   - neutral match rows, confidence only in win pill
+   - fixed center score/time slot
+   - cleaner FotMob-like league sections
+   - more stable mobile text alignment
+*/
+
+/* Do not use row-left confidence color; the win pill already carries confidence. */
+.mrow.tier-high,
+.mrow.tier-lean,
+.mrow.tier-low,
+.wc-section .mrow.tier-high{
+  border-left:1px solid var(--line);
+}
+
+/* Fixed middle slot: times and final scores have identical width/alignment. */
+.fixrow{
+  grid-template-columns:minmax(0,1fr) 62px minmax(0,1fr);
+}
+.center{
+  min-width:62px;
+}
+.center .ko{
+  min-width:62px;
+  height:32px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  line-height:1.15;
+  padding:3px 6px;
+}
+
+/* Cleaner fixture row typography/alignment. */
+.side .nm{
+  max-width:100%;
+  line-height:1.18;
+}
+.side.home .nm{text-align:right}
+.side.away .nm{text-align:left}
+
+/* Shared FotMob-like league box. */
+.league-section{
+  border:1px solid var(--line);
+  border-radius:18px;
+  margin:18px 0 14px;
+  overflow:hidden;
+  background:rgba(16,29,23,.78);
+}
+.league-section .league-head{
+  margin:0;
+  padding:13px 15px;
+  border-bottom:1px solid var(--line-soft);
+  background:rgba(255,255,255,.035);
+}
+.league-section .league-head .lname{
+  font-size:15px;
+  font-weight:800;
+}
+.league-section .league-head .lsub{
+  color:var(--muted);
+  font-size:13px;
+}
+.league-section .mrow,
+.wc-section .mrow{
+  margin:0;
+  border-radius:0;
+  border-left:0;
+  border-right:0;
+  border-top:0;
+  border-bottom:1px solid var(--line-soft);
+  background:transparent;
+}
+.league-section .mrow:last-child,
+.wc-section .mrow:last-child{
+  border-bottom:0;
+}
+.league-section .mrow:hover,
+.wc-section .mrow:hover{
+  background:rgba(255,255,255,.025);
+  border-color:var(--line-soft);
+}
+.league-section .mhead,
+.wc-section .mhead{
+  min-height:64px;
+}
+
+/* Keep the World Cup special, but make it behave like a grouped list. */
+.wc-section{
+  padding:0;
+}
+.wc-head{
+  padding:15px 16px 13px;
+  background:rgba(255,255,255,.035);
+  border-bottom:1px solid rgba(244,199,82,.18);
+}
+
+/* Mobile navbar: keep logo, hamburger, language, Pro, account on one line. */
+@media(max-width:680px){
+  header.top{
+    flex-wrap:nowrap;
+    gap:7px;
+    padding:8px 0 10px;
+  }
+  header.top .logo{
+    font-size:17px;
+    flex:0 0 auto;
+  }
+  .navtoggle{
+    display:grid;
+    place-items:center;
+    flex:0 0 44px;
+    width:44px;
+    height:44px;
+    padding:0;
+  }
+  header.top nav{
+    display:none;
+    position:absolute;
+    top:54px;
+    left:14px;
+    right:14px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:8px;
+    flex-direction:column;
+    z-index:50;
+  }
+  header.top nav.show{display:flex}
+  header.top nav a{padding:9px}
+  .acct{
+    margin-left:auto;
+    min-width:0;
+    gap:6px;
+    flex:1 1 auto;
+    justify-content:flex-end;
+  }
+  .language-select{
+    min-width:0;
+    max-width:52px;
+    flex:0 0 52px;
+    height:46px;
+    padding:0;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .language-select select{
+    width:52px;
+    min-width:52px;
+    height:44px;
+    padding:0 0 0 8px;
+    font-size:0; /* hide long label on collapsed mobile selector */
+    color:transparent;
+  }
+  .language-select select option{
+    font-size:13px;
+    color:var(--text);
+  }
+  .language-select::before{
+    content:"🌐";
+    position:absolute;
+    pointer-events:none;
+    font-size:18px;
+  }
+  .btn.pro{
+    padding:8px 10px;
+    font-size:13px;
+    height:46px;
+  }
+  .account-btn{
+    padding:8px 10px;
+    min-width:48px;
+    height:46px;
+    font-size:13px;
+  }
+}
+
+/* Mobile row polish. */
+@media(max-width:560px){
+  .wrap{padding:0 10px 48px}
+  .fixrow{
+    grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr);
+    gap:7px;
+  }
+  .center{min-width:54px}
+  .center .ko{
+    min-width:54px;
+    height:30px;
+    font-size:12px;
+    padding:3px 5px;
+  }
+  .side .nm{
+    font-size:13px;
+    white-space:normal;
+    overflow:hidden;
+    text-overflow:clip;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+  }
+  .mhead{
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:8px;
+    padding:11px 11px;
+  }
+  .winwrap{gap:6px}
+  .resmark{width:18px;height:18px;flex:0 0 18px}
+  .win-pill{
+    font-size:12px;
+    min-width:48px;
+    padding:4px 7px;
+  }
+  .chev{width:20px;height:20px;font-size:10px}
+  .league-section .mhead,
+  .wc-section .mhead{
+    min-height:72px;
+  }
+}
+
+@media(max-width:430px){
+  .side .nm{
+    font-size:12px;
+    max-width:94px;
+  }
+  .crest{width:20px;height:20px;padding:1.5px}
+  .fixrow{
+    grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);
+  }
+  .center{min-width:52px}
+  .center .ko{min-width:52px}
+}
+
 </style>
 </head>
 <body>
@@ -2734,13 +2970,14 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Australia - New South Wales NPL</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Australia - New South Wales NPL</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -2840,18 +3077,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-manly-united-vs-sydney-united">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Belarus - Premier League</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Belarus - Premier League</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -2951,18 +3190,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-belshina-vs-bate-borisov">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Georgia - Erovnuli Liga</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Georgia - Erovnuli Liga</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -3062,18 +3303,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-dinamo-batumi-vs-dila">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Iceland - Cup</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Iceland - Cup</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -3173,18 +3416,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-ia-akranes-vs-vikingur-reykjavik">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Iceland - 1. Deild</span>
+          <span class="lsub">1 matches</span>
+        </div>
         
-        <span class="lname">Iceland - 1. Deild</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -3284,18 +3529,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-throttur-reykjavik-vs-hk-kopavogur">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Ireland - Premier Division</span>
+          <span class="lsub">5 matches</span>
+        </div>
         
-        <span class="lname">Ireland - Premier Division</span>
-        <span class="lsub">5 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -3395,8 +3642,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-shelbourne-vs-shamrock-rovers">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -3496,8 +3743,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-st-patrick-s-athl-vs-drogheda-united">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -3597,8 +3844,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-derry-city-vs-bohemians">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -3698,8 +3945,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-galway-united-vs-dundalk">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -3799,18 +4046,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-waterford-vs-sligo-rovers">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Ireland - First Division</span>
+          <span class="lsub">4 matches</span>
+        </div>
         
-        <span class="lname">Ireland - First Division</span>
-        <span class="lsub">4 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -3910,8 +4159,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-wexford-vs-cork-city">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -4011,8 +4260,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-kerry-vs-athlone-town">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -4112,8 +4361,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-treaty-united-vs-bray-wanderers">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -4213,18 +4462,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-finn-harps-vs-ucd">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Kazakhstan - 1. Division</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">Kazakhstan - 1. Division</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -4324,8 +4575,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-khan-tengri-vs-shakhter-karagandy">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -4425,18 +4676,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-ekibastuz-vs-arys">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Latvia - Virsliga</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">Latvia - Virsliga</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -4536,8 +4789,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-fk-liepaja-vs-super-nova">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -4637,18 +4890,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-tukums-vs-bfc-daugavpils">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
       
       
-      <div class="league-head">
+      <section class="league-section">
+        <div class="league-head">
+          
+          <span class="lname">Lithuania - A Lyga</span>
+          <span class="lsub">2 matches</span>
+        </div>
         
-        <span class="lname">Lithuania - A Lyga</span>
-        <span class="lsub">2 matches</span>
-      </div>
-      
-      
+        
   
   
   
@@ -4748,8 +5003,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-panevezys-vs-transinvest-vilnius">Full prediction & analysis →</a>
     </div>
   </div>
-      
-      
+        
+        
   
   
   
@@ -4849,7 +5104,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <a class="matchlink" href="/match/2026-06-12-dziugas-telsiai-vs-siauliai">Full prediction & analysis →</a>
     </div>
   </div>
-      
+        
+      </section>
       
     
   </div>
@@ -4992,8 +5248,9 @@ function renderLeague(){
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),'wc'+i)).join("") + `</div>`;
     } else {
       const fl = l.flag?`<img class="flag" src="https://media.api-sports.io/flags/${l.flag}.svg" alt="">`:'';
-      html += `<div class="league-head">${fl}<span class="lname">${esc(l.key)}</span><span class="lsub">${l.matches.length} matches</span></div>`;
+      html += `<section class="league-section"><div class="league-head">${fl}<span class="lname">${esc(l.key)}</span><span class="lsub">${l.matches.length} matches</span></div>`;
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),i)).join("");
+      html += `</section>`;
     }
   });
   document.getElementById("leagueView").innerHTML = html;
