@@ -586,6 +586,9 @@ function updateProUI(isPro) {
     if (isPro) el.classList.remove('locked');
     else el.classList.add('locked');
   });
+  document.querySelectorAll('.pro-tag').forEach(el => {
+    el.style.display = isPro ? 'none' : '';
+  });
   const accountBtn = document.getElementById('accountBtn');
   if (accountBtn) accountBtn.textContent = isPro ? 'Pro' : (window.__auth?.currentUser ? 'Account' : 'Sign in');
   document.getElementById('manageBilling')?.style.setProperty('display', isPro ? 'block' : 'none');
