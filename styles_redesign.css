@@ -1,0 +1,182 @@
+/* =====================================================================
+   AIGoalie — Broadcast redesign  ·  stylesheet for vis_gp_redesign.html
+   Load AFTER styles_darkmode.css. Namespaced .ag-* so it won't collide
+   with your existing rules; also restyles preserved hooks (.win-pill,
+   .pro, .result-indicator) and the navbar.
+   ===================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#0A1310; --surface:#101D17; --surface-2:#16271E;
+  --line:#21372B; --line-soft:#1a2c22;
+  --green:#27D27A; --green-bright:#46F08F; --lime:#BFE34A;
+  --amber:#FFB13D; --gold:#F4C752;
+  --text:#E9F1EB; --muted:#85A091; --muted-2:#5f7a6c; --loss:#E96A6A;
+  --radius:14px; --maxw:1080px;
+}
+body{background:radial-gradient(1200px 600px at 50% -10%, #112a1f 0%, rgba(17,42,31,0) 60%), var(--bg) !important;
+  color:var(--text) !important; font-family:"Inter",system-ui,-apple-system,sans-serif !important;
+  font-feature-settings:"tnum" 1; -webkit-font-smoothing:antialiased;}
+.eyebrow{font-family:"Archivo";text-transform:uppercase;letter-spacing:.16em;font-weight:700;font-size:11px;color:var(--muted)}
+.eyebrow.gold{color:var(--gold)}
+
+/* ---------- Navbar (your markup) ---------- */
+.navbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;list-style:none;margin:0;padding:10px 16px;
+  background:rgba(10,19,16,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+.navbar > li{margin:0}.logo-img{height:34px;width:auto}
+.navbar a[data-buy-pro]{background:linear-gradient(135deg,#F4C752,#E0A92e) !important;color:#1a1407 !important;
+  border-radius:999px;padding:8px 15px;font-weight:800;font-family:"Archivo";text-decoration:none;margin-right:10px}
+.account-btn{width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);display:grid;place-items:center;cursor:pointer}
+.account-dropdown{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.5);overflow:hidden}
+.dropdown-item{color:var(--text) !important;padding:10px 14px;display:block;text-decoration:none}.dropdown-item:hover{background:var(--surface-2)}
+.select-wrapper_m-forest,select[id^="langSwitcher"]{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:600}
+.day-nav h1{display:flex;align-items:center;gap:10px;margin:0}
+.day-nav a{font-family:"Archivo";font-size:15px;font-weight:700;color:var(--text) !important;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:9px 18px;text-decoration:none}
+.day-nav button{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer;display:grid;place-items:center}
+.day-nav button:hover{border-color:var(--green)}
+
+/* ---------- Layout ---------- */
+.ag-wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px 64px}
+h1,h2,h3{font-family:"Archivo";font-weight:900;letter-spacing:-.01em;color:var(--text)}
+
+/* ---------- Hero ---------- */
+.ag-hero{margin-top:18px;display:grid;grid-template-columns:1fr auto;gap:18px;padding:22px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:radial-gradient(600px 240px at 85% -40%, rgba(39,210,122,.14), transparent 70%), linear-gradient(180deg,#0f1f18,#0c1813)}
+.ag-hero-tag{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.ag-hero-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--green-bright);box-shadow:0 0 10px var(--green-bright)}
+.ag-hero-teams{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.ag-hero-team{display:flex;align-items:center;gap:11px}
+.ag-hero-name{font-family:"Archivo";font-weight:800;font-size:22px;letter-spacing:-.01em;color:var(--muted)}
+.ag-hero-team.pick .ag-hero-name{color:var(--green-bright)}
+.ag-crest{width:26px;height:26px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);object-fit:contain;padding:2px}
+.ag-crest.lg{width:38px;height:38px;border-radius:9px}
+.ag-pickflag{font-family:"Archivo";font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);border:1px solid var(--green);border-radius:6px;padding:2px 7px;font-weight:700;margin-left:auto}
+.ag-hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600;color:var(--text)}
+.chip.win{color:#0c1813;background:linear-gradient(135deg,var(--green-bright),var(--green));border:none;font-weight:800}
+.ag-gauge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:190px}
+.ag-gauge .track{fill:none;stroke:var(--line);stroke-width:14;stroke-linecap:round}
+.ag-gauge .fill{fill:none;stroke:var(--green-bright);stroke-width:14;stroke-linecap:round}
+.ag-gauge-num{font-family:"Archivo";font-weight:900;font-size:44px;line-height:1;margin-top:-46px}
+.ag-gauge-lbl{font-family:"Archivo";text-transform:uppercase;letter-spacing:.18em;font-size:10px;color:var(--muted);margin-top:10px}
+@media(max-width:640px){.ag-hero{grid-template-columns:1fr}.ag-gauge{order:-1;align-items:flex-start}.ag-hero-name{font-size:19px}}
+
+/* ---------- Controls ---------- */
+.ag-controls{display:flex;align-items:center;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
+.ag-seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:4px}
+.ag-seg button{border:none;background:transparent;color:var(--muted);font-family:"Archivo";font-weight:700;font-size:13px;padding:7px 15px;border-radius:8px;cursor:pointer}
+.ag-seg button.on{background:var(--surface-2);color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
+.ag-note{color:var(--muted-2);font-size:12.5px;margin-left:auto}
+
+/* ---------- League heads ---------- */
+.ag-league-head{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
+.ag-league-head h3{font-size:14px;letter-spacing:.02em}
+.ag-league-head .ll{color:var(--muted-2);font-size:12px;font-weight:600}
+.ag-league-head img{height:18px;width:auto;border-radius:3px}
+.ag-empty{color:var(--muted);padding:24px;text-align:center;border:1px dashed var(--line);border-radius:var(--radius)}
+
+/* ---------- Match card ---------- */
+.ag-card{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:14px 16px;margin-bottom:10px;
+  opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease,border-color .2s}
+.ag-card.in{opacity:1;transform:none}
+.ag-card:hover{border-color:#2c4a39}
+.ag-card-top{display:flex;align-items:center;gap:12px;cursor:pointer}
+.ag-ko{width:50px;flex:none;text-align:center;display:flex;flex-direction:column;gap:4px}
+.ag-date{font-family:"Archivo";font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted-2)}
+.ag-score{font-family:"Archivo";font-weight:700;font-size:13px;color:var(--text);background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:3px 0}
+.ag-teams{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.ag-row{display:flex;align-items:center;gap:9px;min-width:0}
+.ag-name{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ag-row.pick .ag-name{color:var(--green-bright);font-weight:700}
+.ag-form{display:inline-flex;gap:3px;margin-left:auto;flex:none}
+.f{width:15px;height:15px;border-radius:4px;font-size:9px;font-weight:800;display:grid;place-items:center;font-family:"Archivo";font-style:normal}
+.f-W{background:rgba(39,210,122,.16);color:var(--green-bright)}.f-D{background:var(--surface-2);color:var(--muted)}.f-L{background:rgba(233,106,106,.14);color:var(--loss)}
+.ag-row.pick .ag-pickflag{margin-left:8px}
+.ag-conf{flex:none;width:92px;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.win-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;border-radius:999px;padding:5px 12px;font-family:"Archivo";font-weight:900;font-size:15px;color:#06120c !important}
+.ag-meter{width:100%;height:5px;border-radius:99px;background:var(--line);overflow:hidden}
+.ag-meter i{display:block;height:100%;border-radius:99px;background:var(--green-bright);width:0;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.ag-card.in .ag-meter i{width:var(--w)}
+.tier-lean .ag-meter i{background:var(--lime)}.tier-low .ag-meter i{background:var(--amber)}
+.ag-conf-lbl{font-size:9px;color:var(--muted-2);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.ag-arrow{color:var(--muted-2);transition:transform .2s;flex:none}
+.ag-card.open .ag-arrow{transform:rotate(180deg)}
+
+.ag-card-foot{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft);flex-wrap:wrap}
+.ag-stat{font-size:12.5px;color:var(--muted);font-weight:600}
+.ag-over{color:var(--text);font-family:"Archivo";font-weight:700}
+.result-indicator{width:22px;height:22px;display:inline-grid;place-items:center}
+.result-indicator svg{width:20px;height:20px;fill:none;stroke-width:2}
+.result-w svg{stroke:var(--green-bright)}.result-d svg{stroke:var(--muted)}.result-l svg{stroke:var(--loss)}
+.ag-alert{color:var(--amber);font-size:14px}
+.ag-pro-hint{margin-left:auto;color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;border:1px dashed rgba(244,199,82,.4);border-radius:999px;padding:4px 11px;background:rgba(244,199,82,.05)}
+.ag-pro-hint:hover{background:rgba(244,199,82,.1)}
+
+.ag-detail{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.ag-card.open .ag-detail{max-height:200px;margin-top:12px}
+.ag-detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ag-detail-grid > div{display:flex;flex-direction:column;gap:5px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px}
+.ag-detail-grid .dl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-2)}
+.pro{color:var(--gold) !important;font-weight:800;font-family:"Archivo"}
+@media(max-width:520px){.ag-detail-grid{grid-template-columns:repeat(2,1fr)}.ag-form{display:none}.ag-conf{width:74px}}
+
+/* ---------- Pro panel ---------- */
+.ag-pro-panel{margin:30px 0;border-radius:var(--radius);border:1px solid rgba(244,199,82,.28);padding:24px;
+  background:radial-gradient(500px 200px at 90% 0%, rgba(244,199,82,.12), transparent 70%), var(--surface)}
+.ag-pro-panel h2{font-size:22px;margin:8px 0 4px}.ag-pro-panel .sub{color:var(--muted);font-size:14px;max-width:48ch}
+.ag-pro-feats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 22px;margin:18px 0 22px}
+.ag-pro-feats .pf{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.ag-pro-feats .ic{color:var(--gold);flex:none;margin-top:1px}.ag-pro-feats b{display:block}.ag-pro-feats span{color:var(--muted);font-size:12.5px}
+.ag-pro-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ag-pro-cta .navbar-pro-btn{background:linear-gradient(135deg,#F4C752,#E0A92e);color:#1a1407;border-radius:999px;padding:11px 20px;font-weight:800;font-family:"Archivo";text-decoration:none}
+.ag-pro-cta .price{font-family:"Archivo";font-weight:900;font-size:20px}.ag-pro-cta .price small{font-size:13px;color:var(--muted);font-weight:600}
+@media(max-width:520px){.ag-pro-feats{grid-template-columns:1fr}}
+
+/* ---------- Trust ---------- */
+.ag-trust{margin:34px 0 10px}.ag-trust h2{font-size:18px;margin-bottom:14px}
+.ag-trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ag-trust .ts{border:1px solid var(--line);background:var(--surface);border-radius:13px;padding:16px}
+.ag-trust .n{font-family:"Archivo";font-weight:900;font-size:30px;line-height:1;color:var(--green-bright)}
+.ag-trust .l{color:var(--muted);font-size:12.5px;margin-top:7px}
+.ag-trust .verify a{color:var(--green-bright);text-decoration:none;border-bottom:1px solid rgba(70,240,143,.4);font-size:13px}
+@media(max-width:560px){.ag-trust-grid{grid-template-columns:repeat(2,1fr)}}
+
+:focus-visible{outline:2px solid var(--green-bright);outline-offset:2px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}.ag-card{opacity:1;transform:none}}
+
+/* ---------- Card scoreboard (the fixture blob inside .ag-fixture) ---------- */
+.ag-date-top{font-family:"Archivo";font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2);margin-bottom:8px}
+.ag-fixture{flex:1;min-width:0}
+.ag-fixture .container{display:flex;align-items:center;gap:8px;justify-content:flex-start}
+.ag-fixture .ali-left,.ag-fixture .arrow{display:none !important}
+.ag-fixture .collapsible-container{display:none}  /* hidden until JS relocates it into .ag-detail */
+.ag-fixture .home-team,.ag-fixture .away-team{flex:1;min-width:0;font-weight:600;font-size:15px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ag-fixture .home-team{text-align:right}.ag-fixture .away-team{text-align:left}
+.ag-fixture .arrow-above-home u,.ag-fixture .arrow-above-away u{text-decoration:none}
+.ag-fixture .arrow-above-home strong,.ag-fixture .arrow-above-away strong{color:var(--green-bright);font-weight:700}
+.ag-fixture .home-team-logo,.ag-fixture .away-team-logo{flex:0 0 auto;margin:0 4px}
+.ag-fixture .home-team-logo img,.ag-fixture .away-team-logo img{width:24px !important;height:24px !important;border-radius:6px !important;background:var(--surface-2);padding:2px;object-fit:contain;margin:0 !important}
+.ag-fixture .score{flex:0 0 auto;min-width:48px;text-align:center;font-family:"Archivo";font-weight:700;font-size:12px;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:3px 6px}
+@media(max-width:520px){.ag-fixture .home-team,.ag-fixture .away-team{font-size:14px}.ag-fixture .score{min-width:42px;font-size:11px}}
+
+
+/* ---------- Relocated Form / injuries block (free-tier info, kept) ---------- */
+.ag-detail .ag-extra{display:block;margin-top:10px;padding:10px 12px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:10px}
+.ag-detail .ag-extra .collapsible-content{display:block;margin:0 0 6px;color:var(--muted);font-size:13px}
+.ag-detail .ag-extra .collapsible-content:last-child{margin-bottom:0}
+.ag-detail .ag-extra strong{color:var(--text);font-weight:700}
+.ag-detail .ag-extra .li-collaps{display:inline;color:var(--muted)}
+.ag-detail .ag-extra ul{display:inline;margin:0;padding:0;list-style:none}
+.ag-detail .ag-extra ul .li-collaps{display:inline-block;margin-right:8px;font-size:12.5px;color:var(--amber)}
+
+/* goal_prob renders on one line inside the card foot */
+.ag-over br{display:none}
+.ag-over{display:inline-flex;align-items:center;gap:4px}
+
+.ag-matchlink{color:var(--green-bright);text-decoration:none;font-weight:700}
+.ag-matchlink:hover{text-decoration:underline}
+
+.ag-score-final{font-family:"Archivo";font-weight:800;color:var(--text)}
+.ag-score-final strong{font-weight:800}
