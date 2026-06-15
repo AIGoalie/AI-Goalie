@@ -171,20 +171,21 @@ background:
 /* COMPACT teaser expansion */
 .mdetail{display:none;padding:0 15px 14px;border-top:1px solid var(--line-soft)}
 .mrow.open .mdetail{display:block}
-.pred-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.pred{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 8px;text-align:center}
+.pred-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}
+.pred{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:8px 8px;text-align:center}
 .pred .pl{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-2);margin-bottom:4px}
-.pred .pv{font-size:17px;font-weight:800}
+.pred .pv{font-size:15.5px;font-weight:800}
 .pred .pv.locked{filter:blur(5px);user-select:none}
 .pred .ps{font-size:9.5px;color:var(--muted);margin-top:2px}
 .pred .xg-teams{display:flex;justify-content:space-between;gap:6px;padding:0 2px}
 .pred .xg-teams span{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pred .pro-tag{font-size:9.5px;color:var(--gold);margin-top:2px}
-.accuracy-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}
-.accuracy-card{background:rgba(106,255,139,.055);border:1px solid rgba(106,255,139,.14);border-radius:10px;padding:9px 8px;text-align:center}
+.accuracy-title{margin-top:12px;color:var(--muted-2);font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.accuracy-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:6px}
+.accuracy-card{background:rgba(106,255,139,.055);border:1px solid rgba(106,255,139,.14);border-radius:10px;padding:8px 8px;text-align:center}
 .accuracy-card.pro-locked{background:rgba(255,213,102,.045);border-color:rgba(255,213,102,.14)}
 .accuracy-card .al{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-2);margin-bottom:3px}
-.accuracy-card .av{font-size:16px;font-weight:850;color:var(--text)}
+.accuracy-card .av{font-size:15.5px;font-weight:850;color:var(--text)}
 .accuracy-card .av.locked{filter:blur(5px);user-select:none}
 .accuracy-card .as{font-size:9.5px;color:var(--muted);margin-top:2px}
 .grade-summary{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:12px;color:var(--muted)}
@@ -193,8 +194,10 @@ background:
 .grade-summary .grade-meta{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .grade-summary .grade-conf{color:var(--muted-2);white-space:nowrap}
 .teaseline{color:var(--muted);font-size:12.5px;margin-top:11px;line-height:1.5}
-.matchlink{display:inline-flex;align-items:center;gap:5px;margin-top:11px;color:var(--green-bright);font-size:13px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--surface-2);padding:8px 13px;border-radius:9px}
+.detail-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}
+.matchlink{display:inline-flex;align-items:center;gap:5px;color:var(--green-bright);font-size:13px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--surface-2);padding:8px 13px;border-radius:9px}
 .matchlink:hover{border-color:var(--green)}
+.odds-mini{display:inline-flex;align-items:center;gap:4px;color:var(--muted);font-size:12px;border:1px solid var(--line-soft);background:rgba(255,255,255,.025);border-radius:999px;padding:5px 9px}
 
 .empty{text-align:center;color:var(--muted-2);padding:40px 0;font-size:14px}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}
@@ -676,7 +679,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>0:1'</span></b></div>
+          <div class="ko live"><b><span style='color: #b30000;'>1:1'</span></b></div>
         </div>
         <div class="side away">
           
@@ -717,36 +720,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.62</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">88%</div>
           <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -756,7 +749,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       
       
-      <a class="matchlink" href="/match/2026-06-15-belgium-vs-egypt">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-belgium-vs-egypt">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.62</span>
+      </div>
     </div>
   </div>
       
@@ -820,36 +816,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.1</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -870,7 +856,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">70% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-spain-vs-cape-verde-islands">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-spain-vs-cape-verde-islands">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.1</span>
+      </div>
     </div>
   </div>
       
@@ -934,36 +923,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">3.31</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -984,7 +963,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">66% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-ivory-coast-vs-ecuador">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ivory-coast-vs-ecuador">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 3.31</span>
+      </div>
     </div>
   </div>
       
@@ -1048,36 +1030,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.94</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1098,7 +1070,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">42% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-sweden-vs-tunisia">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-sweden-vs-tunisia">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.94</span>
+      </div>
     </div>
   </div>
       
@@ -1162,36 +1137,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.48</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1201,7 +1166,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       
       
-      <a class="matchlink" href="/match/2026-06-15-saudi-arabia-vs-uruguay">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-saudi-arabia-vs-uruguay">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.48</span>
+      </div>
     </div>
   </div>
       
@@ -1271,36 +1239,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.79</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1308,7 +1266,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">64%</div>
           <div class="as">22 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1328,7 +1286,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">57% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-mes-shahr-e-babak-vs-be-sat-kermanshah">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-mes-shahr-e-babak-vs-be-sat-kermanshah">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.79</span>
+      </div>
     </div>
   </div>
       
@@ -1392,36 +1353,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       3%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1429,7 +1380,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">58%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1449,7 +1400,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">50% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-mes-soongoun-vs-nassaji-mazandaran">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-mes-soongoun-vs-nassaji-mazandaran">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
       
@@ -1513,36 +1467,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       13%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.08</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">49%</div>
           <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1563,7 +1507,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">47% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-ifk-norrkoping-vs-varbergs-bois-fc">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ifk-norrkoping-vs-varbergs-bois-fc">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.08</span>
+      </div>
     </div>
   </div>
       
@@ -1627,30 +1574,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       4%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.92</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">50%</div>
           <div class="as">3998 graded calls · 20-29% confidence</div>
         </div>
@@ -1670,7 +1607,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">28% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-deportivo-garcilaso-vs-cusco">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-deportivo-garcilaso-vs-cusco">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.92</span>
+      </div>
     </div>
   </div>
       
@@ -1734,36 +1674,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.8</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">50%</div>
           <div class="as">3998 graded calls · 20-29% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">33%</div>
           <div class="as">43 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1784,7 +1714,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">27% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-ka-akureyri-vs-fram-reykjavik">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ka-akureyri-vs-fram-reykjavik">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.8</span>
+      </div>
     </div>
   </div>
       
@@ -1848,36 +1781,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       10%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">50%</div>
           <div class="as">3998 graded calls · 20-29% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1885,7 +1808,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">40%</div>
           <div class="as">20 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1905,7 +1828,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">20% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-pars-jonoubi-jam-vs-saipa">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-pars-jonoubi-jam-vs-saipa">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
       
@@ -1969,36 +1895,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.32</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">32%</div>
           <div class="as">59 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2006,7 +1922,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">7%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2026,7 +1942,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">14% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-arba-minch-kenema-vs-suhul-shire">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-arba-minch-kenema-vs-suhul-shire">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.32</span>
+      </div>
     </div>
   </div>
       
@@ -2090,36 +2009,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">32%</div>
           <div class="as">59 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2127,7 +2036,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">20%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2147,7 +2056,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">14% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-hadiya-hosaena-vs-fasil-ketema">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-hadiya-hosaena-vs-fasil-ketema">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
       
@@ -2211,36 +2123,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2261,7 +2163,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">13% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-naft-gachsaran-vs-niroye-zamini">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-naft-gachsaran-vs-niroye-zamini">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
       
@@ -2325,36 +2230,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       2%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.27</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2375,7 +2270,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">10% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-havadar-vs-mes-kerman">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-havadar-vs-mes-kerman">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.27</span>
+      </div>
     </div>
   </div>
       
@@ -2439,36 +2337,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       6%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.05</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">49%</div>
           <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2476,7 +2364,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">60%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2496,7 +2384,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">10% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-gif-sundsvall-vs-osters-if">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-gif-sundsvall-vs-osters-if">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.05</span>
+      </div>
     </div>
   </div>
       
@@ -2560,36 +2451,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       5%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">32%</div>
           <div class="as">59 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2597,7 +2478,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">27%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2617,7 +2498,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">8% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-adama-kenema-vs-ethiopia-nigd-bank">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-adama-kenema-vs-ethiopia-nigd-bank">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
       
@@ -2681,36 +2565,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       2%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.93</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2718,7 +2592,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">30%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2727,7 +2601,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       
       
-      <a class="matchlink" href="/match/2026-06-15-ario-eslamshahr-vs-naft-bandar-abbas">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ario-eslamshahr-vs-naft-bandar-abbas">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.93</span>
+      </div>
     </div>
   </div>
       
@@ -2765,7 +2642,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>0:1'</span></b></div>
+          <div class="ko live"><b><span style='color: #b30000;'>1:1'</span></b></div>
         </div>
         <div class="side away">
           
@@ -2806,36 +2683,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.62</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">88%</div>
           <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2845,7 +2712,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       
       
-      <a class="matchlink" href="/match/2026-06-15-belgium-vs-egypt">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-belgium-vs-egypt">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.62</span>
+      </div>
     </div>
   </div>
         
@@ -2909,36 +2779,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.1</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2959,7 +2819,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">70% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-spain-vs-cape-verde-islands">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-spain-vs-cape-verde-islands">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.1</span>
+      </div>
     </div>
   </div>
         
@@ -3023,36 +2886,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">3.31</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3073,7 +2926,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">66% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-ivory-coast-vs-ecuador">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ivory-coast-vs-ecuador">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 3.31</span>
+      </div>
     </div>
   </div>
         
@@ -3137,36 +2993,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.94</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3187,7 +3033,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">42% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-sweden-vs-tunisia">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-sweden-vs-tunisia">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.94</span>
+      </div>
     </div>
   </div>
         
@@ -3251,36 +3100,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.48</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3290,7 +3129,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       
       
-      <a class="matchlink" href="/match/2026-06-15-saudi-arabia-vs-uruguay">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-saudi-arabia-vs-uruguay">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.48</span>
+      </div>
     </div>
   </div>
         
@@ -3305,6 +3147,9 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/et.svg" alt="Ethiopia - Premier League flag">
           
           <span class="lname">Ethiopia - Premier League</span>
+          
+          
+          <span class="league-accuracy"><span>League accuracy all picks</span><span class="pro locked">32%</span><span class="pro-tag">🔒 Pro</span></span>
           
           <span class="lsub">3 matches</span>
         </div>
@@ -3369,36 +3214,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.32</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">32%</div>
           <div class="as">59 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3406,7 +3241,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">7%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3426,7 +3261,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">14% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-arba-minch-kenema-vs-suhul-shire">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-arba-minch-kenema-vs-suhul-shire">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.32</span>
+      </div>
     </div>
   </div>
         
@@ -3490,36 +3328,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">32%</div>
           <div class="as">59 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3527,7 +3355,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">20%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3547,7 +3375,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">14% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-hadiya-hosaena-vs-fasil-ketema">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-hadiya-hosaena-vs-fasil-ketema">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
         
@@ -3611,36 +3442,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       5%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">32%</div>
           <div class="as">59 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3648,7 +3469,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">27%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3668,7 +3489,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">8% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-adama-kenema-vs-ethiopia-nigd-bank">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-adama-kenema-vs-ethiopia-nigd-bank">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
         
@@ -3683,6 +3507,9 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/is.svg" alt="Iceland - Úrvalsdeild flag">
           
           <span class="lname">Iceland - Úrvalsdeild</span>
+          
+          
+          <span class="league-accuracy"><span>League accuracy all picks</span><span class="pro locked">33%</span><span class="pro-tag">🔒 Pro</span></span>
           
           <span class="lsub">1 matches</span>
         </div>
@@ -3747,36 +3574,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.8</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">50%</div>
           <div class="as">3998 graded calls · 20-29% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">33%</div>
           <div class="as">43 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3797,7 +3614,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">27% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-ka-akureyri-vs-fram-reykjavik">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ka-akureyri-vs-fram-reykjavik">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.8</span>
+      </div>
     </div>
   </div>
         
@@ -3812,6 +3632,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/ir.svg" alt="Iran - Azadegan League flag">
           
           <span class="lname">Iran - Azadegan League</span>
+          
           
           <span class="league-accuracy"><span>League accuracy ≥50%</span><span class="pro locked">54%</span><span class="pro-tag">🔒 Pro</span></span>
           
@@ -3878,36 +3699,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.79</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3915,7 +3726,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">64%</div>
           <div class="as">22 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3935,7 +3746,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">57% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-mes-shahr-e-babak-vs-be-sat-kermanshah">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-mes-shahr-e-babak-vs-be-sat-kermanshah">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.79</span>
+      </div>
     </div>
   </div>
         
@@ -3999,36 +3813,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       3%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4036,7 +3840,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">58%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4056,7 +3860,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">50% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-mes-soongoun-vs-nassaji-mazandaran">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-mes-soongoun-vs-nassaji-mazandaran">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
         
@@ -4120,36 +3927,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       10%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">50%</div>
           <div class="as">3998 graded calls · 20-29% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4157,7 +3954,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">40%</div>
           <div class="as">20 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4177,7 +3974,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">20% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-pars-jonoubi-jam-vs-saipa">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-pars-jonoubi-jam-vs-saipa">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
         
@@ -4241,36 +4041,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       1%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">—</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4291,7 +4081,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">13% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-naft-gachsaran-vs-niroye-zamini">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-naft-gachsaran-vs-niroye-zamini">Full prediction & analysis →</a>
+        
+      </div>
     </div>
   </div>
         
@@ -4355,36 +4148,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       2%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.27</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4405,7 +4188,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">10% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-havadar-vs-mes-kerman">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-havadar-vs-mes-kerman">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.27</span>
+      </div>
     </div>
   </div>
         
@@ -4469,36 +4255,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       2%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.93</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">42%</div>
           <div class="as">206 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4506,7 +4282,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">30%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4515,7 +4291,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       
       
-      <a class="matchlink" href="/match/2026-06-15-ario-eslamshahr-vs-naft-bandar-abbas">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ario-eslamshahr-vs-naft-bandar-abbas">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.93</span>
+      </div>
     </div>
   </div>
         
@@ -4530,6 +4309,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/pe.svg" alt="Peru - Copa De La Liga flag">
           
           <span class="lname">Peru - Copa De La Liga</span>
+          
           
           <span class="lsub">1 matches</span>
         </div>
@@ -4594,30 +4374,20 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       4%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">1.92</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">50%</div>
           <div class="as">3998 graded calls · 20-29% confidence</div>
         </div>
@@ -4637,7 +4407,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">28% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-deportivo-garcilaso-vs-cusco">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-deportivo-garcilaso-vs-cusco">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.92</span>
+      </div>
     </div>
   </div>
         
@@ -4652,6 +4425,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/se.svg" alt="Sweden - Superettan flag">
           
           <span class="lname">Sweden - Superettan</span>
+          
           
           <span class="league-accuracy"><span>League accuracy ≥50%</span><span class="pro locked">75%</span><span class="pro-tag">🔒 Pro</span></span>
           
@@ -4718,36 +4492,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       13%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.08</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">49%</div>
           <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4768,7 +4532,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">47% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-ifk-norrkoping-vs-varbergs-bois-fc">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-ifk-norrkoping-vs-varbergs-bois-fc">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.08</span>
+      </div>
     </div>
   </div>
         
@@ -4832,36 +4599,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
           <div class="pro-tag">🔒 Pro</div>
         </div>
       </div>
-      <div class="pred-strip">
-        <div class="pred">
-          <div class="pl">Opponent strength</div>
-          <div class="pv locked pro pro-opp">
+      <span class="pro pro-opp" style="display:none">
     
     
       6%
     
-  </div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Odds</div>
-          <div class="pv">2.05</div>
-          <div class="ps">Market odds</div>
-        </div>
-      </div>
+  </span>
       
       
       
       
+      <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Model accuracy at this confidence</div>
+          <div class="al">At this confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
+          <div class="al">Model accuracy in this league</div>
           <div class="av locked pro">49%</div>
           <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4869,7 +4626,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
+          <div class="al">Model accuracy for picked team</div>
           <div class="av locked pro">60%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4889,7 +4646,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="grade-conf">10% confidence</div>
       </div>
       
-      <a class="matchlink" href="/match/2026-06-15-gif-sundsvall-vs-osters-if">Full prediction & analysis →</a>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-06-15-gif-sundsvall-vs-osters-if">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 2.05</span>
+      </div>
     </div>
   </div>
         
@@ -5047,9 +4807,12 @@ function cardHTML(m,idx){
         <div class="pred"><div class="pl">Expected goals (per team)</div><div class="pv locked pro pro-xgh">${m.home_xg!=null&&m.away_xg!=null ? Number(m.home_xg).toFixed(1)+" - "+Number(m.away_xg).toFixed(1) : "—"}</div><div class="ps xg-teams"><span>${esc(shortName(m.home))}</span><span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="pred"><div class="pl">Total goals</div><div class="pv">${gb?gb.value:'—'}</div><div class="ps">${gb?gb.label:''}</div></div>
         <div class="pred"><div class="pl">Both to score</div><div class="pv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="pred"><div class="pl">Opponent strength</div><div class="pv locked pro pro-opp">${fmtThreatPct(m.opp_iso)}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
-      <a class="matchlink" href="/match/${slug(m)}">Full prediction & analysis →</a>
+      <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/${slug(m)}">Full prediction & analysis →</a>
+        ${m.odds ? `<span class="odds-mini">Odds ${esc(m.odds)}</span>` : ""}
+      </div>
     </div>
   </div>`;
 }
