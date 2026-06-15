@@ -176,7 +176,7 @@ background:
 .pred .xg-teams{display:flex;justify-content:space-between;gap:6px;padding:0 2px}
 .pred .xg-teams span{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pred .pro-tag{font-size:9.5px;color:var(--gold);margin-top:2px}
-.accuracy-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.accuracy-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}
 .accuracy-card{background:rgba(106,255,139,.055);border:1px solid rgba(106,255,139,.14);border-radius:10px;padding:9px 8px;text-align:center}
 .accuracy-card.pro-locked{background:rgba(255,213,102,.045);border-color:rgba(255,213,102,.14)}
 .accuracy-card .al{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-2);margin-bottom:3px}
@@ -693,9 +693,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.32</div>
-          <div class="ps">Austria</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.32</span>
+            -
+            <span class="pro-xga">0.44</span>
+          </div>
+          <div class="ps xg-teams"><span>Austria</span><span>Jordan</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -711,13 +715,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.44</div>
-          <div class="ps">Jordan</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -729,7 +727,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.33</div>
-          <div class="ps">&nbsp; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -738,22 +736,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">88%</div>
-          <div class="as">224 graded calls · 75-100%</div>
+          <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -801,9 +796,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.72</div>
-          <div class="ps">Argentina</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.72</span>
+            -
+            <span class="pro-xga">0.37</span>
+          </div>
+          <div class="ps xg-teams"><span>Argentina</span><span>Algeria</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -819,13 +818,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.37</div>
-          <div class="ps">Algeria</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -837,7 +830,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.38</div>
-          <div class="ps">&nbsp; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -846,22 +839,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">88%</div>
-          <div class="as">224 graded calls · 75-100%</div>
+          <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -909,9 +899,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.83</div>
-          <div class="ps">Portugal</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.83</span>
+            -
+            <span class="pro-xga">0.41</span>
+          </div>
+          <div class="ps xg-teams"><span>Portugal</span><span>Congo DR</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -927,13 +921,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.41</div>
-          <div class="ps">Congo DR</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -945,7 +933,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.29</div>
-          <div class="ps">&nbsp; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -954,22 +942,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">88%</div>
-          <div class="as">224 graded calls · 75-100%</div>
+          <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -1017,9 +1002,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.54</div>
-          <div class="ps">England</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.54</span>
+            -
+            <span class="pro-xga">0.23</span>
+          </div>
+          <div class="ps xg-teams"><span>England</span><span>Croatia</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1035,13 +1024,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.23</div>
-          <div class="ps">Croatia</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1053,7 +1036,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.73</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1062,22 +1045,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">76%</div>
-          <div class="as">2381 graded calls · 60-74%</div>
+          <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -1131,9 +1111,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.71</div>
-          <div class="ps">Kalju Nomme</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.71</span>
+            -
+            <span class="pro-xga">0.79</span>
+          </div>
+          <div class="ps xg-teams"><span>Kalju Nomme</span><span>Tammeka</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1149,13 +1133,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.79</div>
-          <div class="ps">Tammeka</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1167,7 +1145,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.33</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1176,22 +1154,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">76%</div>
-          <div class="as">2381 graded calls · 60-74%</div>
+          <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">70%</div>
           <div class="as">20 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -1239,9 +1221,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.73</div>
-          <div class="ps">Kairat Almaty</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.73</span>
+            -
+            <span class="pro-xga">0.41</span>
+          </div>
+          <div class="ps xg-teams"><span>Kairat Almaty</span><span>Kyzyl-Zhar</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1257,13 +1243,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.41</div>
-          <div class="ps">Kyzyl-Zhar</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1275,7 +1255,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.33</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1284,22 +1264,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">68%</div>
-          <div class="as">2216 graded calls · 50-59%</div>
+          <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">38 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">50%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -1347,9 +1331,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.19</div>
-          <div class="ps">Fortaleza EC</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.19</span>
+            -
+            <span class="pro-xga">0.71</span>
+          </div>
+          <div class="ps xg-teams"><span>Fortaleza EC</span><span>America Mineiro</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1365,13 +1353,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.71</div>
-          <div class="ps">America Mineiro</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1383,7 +1365,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1392,22 +1374,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">68%</div>
-          <div class="as">2216 graded calls · 50-59%</div>
+          <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">52%</div>
           <div class="as">31 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">37%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -1455,9 +1441,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.27</div>
-          <div class="ps">HJK Helsinki</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.27</span>
+            -
+            <span class="pro-xga">0.92</span>
+          </div>
+          <div class="ps xg-teams"><span>HJK Helsinki</span><span>Inter Turku</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1473,13 +1463,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.92</div>
-          <div class="ps">Inter Turku</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1491,7 +1475,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">2.45</div>
-          <div class="ps">&#128201; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1500,22 +1484,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">68%</div>
-          <div class="as">2216 graded calls · 50-59%</div>
+          <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">43%</div>
           <div class="as">14 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -1563,9 +1551,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.92</div>
-          <div class="ps">Torpedo Kutaisi</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.92</span>
+            -
+            <span class="pro-xga">1.22</span>
+          </div>
+          <div class="ps xg-teams"><span>Torpedo Kutaisi</span><span>Dinamo Batumi</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1581,13 +1573,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.22</div>
-          <div class="ps">Dinamo Batumi</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1599,7 +1585,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.51</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1608,22 +1594,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49%</div>
+          <div class="as">2221 graded calls · 40-49% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">50%</div>
           <div class="as">97 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">47%</div>
           <div class="as">17 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -1671,9 +1661,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.59</div>
-          <div class="ps">FC Slutsk</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.59</span>
+            -
+            <span class="pro-xga">1.05</span>
+          </div>
+          <div class="ps xg-teams"><span>FC Slutsk</span><span>Dinamo Minsk</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1689,13 +1683,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.05</div>
-          <div class="ps">Dinamo Minsk</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1707,7 +1695,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.19</div>
-          <div class="ps">&nbsp; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1716,22 +1704,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49%</div>
+          <div class="as">2221 graded calls · 40-49% confidence</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">74%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -1779,9 +1764,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.45</div>
-          <div class="ps">Gareji</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.45</span>
+            -
+            <span class="pro-xga">0.38</span>
+          </div>
+          <div class="ps xg-teams"><span>Gareji</span><span>Shturmi</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1797,13 +1786,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.38</div>
-          <div class="ps">Shturmi</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1815,7 +1798,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&nbsp; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1824,22 +1807,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">57%</div>
-          <div class="as">2887 graded calls · 30-39%</div>
+          <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -1887,9 +1867,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.89</div>
-          <div class="ps">Kauno Žalgiris</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.89</span>
+            -
+            <span class="pro-xga">0.45</span>
+          </div>
+          <div class="ps xg-teams"><span>Kauno Žalgiris</span><span>Banga</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -1905,13 +1889,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.45</div>
-          <div class="ps">Banga</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1923,7 +1901,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.44</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -1932,22 +1910,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">57%</div>
-          <div class="as">2887 graded calls · 30-39%</div>
+          <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">40%</div>
           <div class="as">62 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -1995,9 +1977,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.91</div>
-          <div class="ps">Grindavik</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.91</span>
+            -
+            <span class="pro-xga">2.08</span>
+          </div>
+          <div class="ps xg-teams"><span>Grindavik</span><span>Fylkir</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2013,13 +1999,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">2.08</div>
-          <div class="ps">Fylkir</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2031,7 +2011,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.83</div>
-          <div class="ps">&nbsp; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2040,22 +2020,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">57%</div>
-          <div class="as">2887 graded calls · 30-39%</div>
+          <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -2103,9 +2080,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.79</div>
-          <div class="ps">Paide</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.79</span>
+            -
+            <span class="pro-xga">1.18</span>
+          </div>
+          <div class="ps xg-teams"><span>Paide</span><span>Laagri</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2121,13 +2102,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.18</div>
-          <div class="ps">Laagri</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2139,7 +2114,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.48</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2148,22 +2123,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">67%</div>
           <div class="as">18 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -2211,9 +2190,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.84</div>
-          <div class="ps">Tukums</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.84</span>
+            -
+            <span class="pro-xga">1.53</span>
+          </div>
+          <div class="ps xg-teams"><span>Tukums</span><span>Auda</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2229,13 +2212,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.53</div>
-          <div class="ps">Auda</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2247,7 +2224,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.69</div>
-          <div class="ps">&#128201; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2256,22 +2233,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">60%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -2319,9 +2300,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.12</div>
-          <div class="ps">Gnistan</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.12</span>
+            -
+            <span class="pro-xga">1.28</span>
+          </div>
+          <div class="ps xg-teams"><span>Gnistan</span><span>Lahti</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2337,13 +2322,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.28</div>
-          <div class="ps">Lahti</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2355,7 +2334,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">2.5</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2364,22 +2343,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -2427,9 +2403,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.54</div>
-          <div class="ps">Molodechno-DYuSSh 4</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.54</span>
+            -
+            <span class="pro-xga">0.49</span>
+          </div>
+          <div class="ps xg-teams"><span>Molodechno-DYuSSh 4</span><span>Bate Borisov</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2445,13 +2425,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.49</div>
-          <div class="ps">Bate Borisov</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2463,7 +2437,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">4.81</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2472,22 +2446,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -2535,9 +2499,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.58</div>
-          <div class="ps">IR Reykjavik</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.58</span>
+            -
+            <span class="pro-xga">1.53</span>
+          </div>
+          <div class="ps xg-teams"><span>IR Reykjavik</span><span>Grotta</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2553,13 +2521,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.53</div>
-          <div class="ps">Grotta</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2571,7 +2533,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.74</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2580,22 +2542,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -2643,9 +2602,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.66</div>
-          <div class="ps">Aragvi Dusheti</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.66</span>
+            -
+            <span class="pro-xga">0.46</span>
+          </div>
+          <div class="ps xg-teams"><span>Aragvi Dusheti</span><span>Sioni</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2661,13 +2624,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.46</div>
-          <div class="ps">Sioni</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2679,7 +2636,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2688,22 +2645,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -2751,9 +2705,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.45</div>
-          <div class="ps">Oakland Roots</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.45</span>
+            -
+            <span class="pro-xga">0.94</span>
+          </div>
+          <div class="ps xg-teams"><span>Oakland Roots</span><span>Birmingham Legion</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2769,13 +2727,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.94</div>
-          <div class="ps">Birmingham Legion</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2787,7 +2739,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2796,22 +2748,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">46%</div>
           <div class="as">160 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -2859,9 +2808,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.83</div>
-          <div class="ps">Zlin</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.83</span>
+            -
+            <span class="pro-xga">1.03</span>
+          </div>
+          <div class="ps xg-teams"><span>Zlin</span><span>Petržalka</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2877,13 +2830,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.03</div>
-          <div class="ps">Petržalka</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2895,7 +2842,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -2904,22 +2851,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -2967,9 +2904,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.90</div>
-          <div class="ps">FS Jelgava</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.90</span>
+            -
+            <span class="pro-xga">0.87</span>
+          </div>
+          <div class="ps xg-teams"><span>FS Jelgava</span><span>Ogre United</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -2985,13 +2926,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.87</div>
-          <div class="ps">Ogre United</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3003,7 +2938,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.67</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3012,22 +2947,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -3090,9 +3022,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.32</div>
-          <div class="ps">Austria</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.32</span>
+            -
+            <span class="pro-xga">0.44</span>
+          </div>
+          <div class="ps xg-teams"><span>Austria</span><span>Jordan</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3108,13 +3044,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.44</div>
-          <div class="ps">Jordan</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3126,7 +3056,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.33</div>
-          <div class="ps">&nbsp; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3135,22 +3065,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">88%</div>
-          <div class="as">224 graded calls · 75-100%</div>
+          <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -3198,9 +3125,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.72</div>
-          <div class="ps">Argentina</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.72</span>
+            -
+            <span class="pro-xga">0.37</span>
+          </div>
+          <div class="ps xg-teams"><span>Argentina</span><span>Algeria</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3216,13 +3147,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.37</div>
-          <div class="ps">Algeria</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3234,7 +3159,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.38</div>
-          <div class="ps">&nbsp; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3243,22 +3168,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">88%</div>
-          <div class="as">224 graded calls · 75-100%</div>
+          <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -3306,9 +3228,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.83</div>
-          <div class="ps">Portugal</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.83</span>
+            -
+            <span class="pro-xga">0.41</span>
+          </div>
+          <div class="ps xg-teams"><span>Portugal</span><span>Congo DR</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3324,13 +3250,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.41</div>
-          <div class="ps">Congo DR</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3342,7 +3262,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.29</div>
-          <div class="ps">&nbsp; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3351,22 +3271,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">88%</div>
-          <div class="as">224 graded calls · 75-100%</div>
+          <div class="as">224 graded calls · 75%+ confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -3414,9 +3331,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.54</div>
-          <div class="ps">England</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.54</span>
+            -
+            <span class="pro-xga">0.23</span>
+          </div>
+          <div class="ps xg-teams"><span>England</span><span>Croatia</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3432,13 +3353,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.23</div>
-          <div class="ps">Croatia</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3450,7 +3365,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.73</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3459,22 +3374,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">76%</div>
-          <div class="as">2381 graded calls · 60-74%</div>
+          <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">12 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -3534,9 +3446,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.83</div>
-          <div class="ps">Zlin</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.83</span>
+            -
+            <span class="pro-xga">1.03</span>
+          </div>
+          <div class="ps xg-teams"><span>Zlin</span><span>Petržalka</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3552,13 +3468,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.03</div>
-          <div class="ps">Petržalka</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3570,7 +3480,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3579,22 +3489,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -3656,9 +3556,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.59</div>
-          <div class="ps">FC Slutsk</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.59</span>
+            -
+            <span class="pro-xga">1.05</span>
+          </div>
+          <div class="ps xg-teams"><span>FC Slutsk</span><span>Dinamo Minsk</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3674,13 +3578,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.05</div>
-          <div class="ps">Dinamo Minsk</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3692,7 +3590,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.19</div>
-          <div class="ps">&nbsp; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3701,22 +3599,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49%</div>
+          <div class="as">2221 graded calls · 40-49% confidence</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">74%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -3764,9 +3659,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.54</div>
-          <div class="ps">Molodechno-DYuSSh 4</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.54</span>
+            -
+            <span class="pro-xga">0.49</span>
+          </div>
+          <div class="ps xg-teams"><span>Molodechno-DYuSSh 4</span><span>Bate Borisov</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3782,13 +3681,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.49</div>
-          <div class="ps">Bate Borisov</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3800,7 +3693,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">4.81</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3809,22 +3702,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">This league</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -3886,9 +3769,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.19</div>
-          <div class="ps">Fortaleza EC</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.19</span>
+            -
+            <span class="pro-xga">0.71</span>
+          </div>
+          <div class="ps xg-teams"><span>Fortaleza EC</span><span>America Mineiro</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -3904,13 +3791,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.71</div>
-          <div class="ps">America Mineiro</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3922,7 +3803,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -3931,22 +3812,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">68%</div>
-          <div class="as">2216 graded calls · 50-59%</div>
+          <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">52%</div>
           <div class="as">31 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">37%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -4008,9 +3893,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.71</div>
-          <div class="ps">Kalju Nomme</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.71</span>
+            -
+            <span class="pro-xga">0.79</span>
+          </div>
+          <div class="ps xg-teams"><span>Kalju Nomme</span><span>Tammeka</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4026,13 +3915,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.79</div>
-          <div class="ps">Tammeka</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4044,7 +3927,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.33</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4053,22 +3936,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">76%</div>
-          <div class="as">2381 graded calls · 60-74%</div>
+          <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">70%</div>
           <div class="as">20 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -4116,9 +4003,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.79</div>
-          <div class="ps">Paide</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.79</span>
+            -
+            <span class="pro-xga">1.18</span>
+          </div>
+          <div class="ps xg-teams"><span>Paide</span><span>Laagri</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4134,13 +4025,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.18</div>
-          <div class="ps">Laagri</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4152,7 +4037,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.48</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4161,22 +4046,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">67%</div>
           <div class="as">18 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -4238,9 +4127,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.27</div>
-          <div class="ps">HJK Helsinki</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.27</span>
+            -
+            <span class="pro-xga">0.92</span>
+          </div>
+          <div class="ps xg-teams"><span>HJK Helsinki</span><span>Inter Turku</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4256,13 +4149,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.92</div>
-          <div class="ps">Inter Turku</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4274,7 +4161,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">2.45</div>
-          <div class="ps">&#128201; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4283,22 +4170,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">68%</div>
-          <div class="as">2216 graded calls · 50-59%</div>
+          <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">43%</div>
           <div class="as">14 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -4346,9 +4237,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.12</div>
-          <div class="ps">Gnistan</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.12</span>
+            -
+            <span class="pro-xga">1.28</span>
+          </div>
+          <div class="ps xg-teams"><span>Gnistan</span><span>Lahti</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4364,13 +4259,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.28</div>
-          <div class="ps">Lahti</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4382,7 +4271,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">2.5</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4391,22 +4280,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -4468,9 +4354,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.92</div>
-          <div class="ps">Torpedo Kutaisi</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.92</span>
+            -
+            <span class="pro-xga">1.22</span>
+          </div>
+          <div class="ps xg-teams"><span>Torpedo Kutaisi</span><span>Dinamo Batumi</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4486,13 +4376,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.22</div>
-          <div class="ps">Dinamo Batumi</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4504,7 +4388,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.51</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4513,22 +4397,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49%</div>
+          <div class="as">2221 graded calls · 40-49% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">50%</div>
           <div class="as">97 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">47%</div>
           <div class="as">17 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -4590,9 +4478,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.45</div>
-          <div class="ps">Gareji</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.45</span>
+            -
+            <span class="pro-xga">0.38</span>
+          </div>
+          <div class="ps xg-teams"><span>Gareji</span><span>Shturmi</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4608,13 +4500,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.38</div>
-          <div class="ps">Shturmi</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4626,7 +4512,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&nbsp; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4635,22 +4521,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">57%</div>
-          <div class="as">2887 graded calls · 30-39%</div>
+          <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -4698,9 +4581,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.66</div>
-          <div class="ps">Aragvi Dusheti</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.66</span>
+            -
+            <span class="pro-xga">0.46</span>
+          </div>
+          <div class="ps xg-teams"><span>Aragvi Dusheti</span><span>Sioni</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4716,13 +4603,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.46</div>
-          <div class="ps">Sioni</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4734,7 +4615,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4743,22 +4624,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -4820,9 +4698,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.91</div>
-          <div class="ps">Grindavik</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.91</span>
+            -
+            <span class="pro-xga">2.08</span>
+          </div>
+          <div class="ps xg-teams"><span>Grindavik</span><span>Fylkir</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4838,13 +4720,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">2.08</div>
-          <div class="ps">Fylkir</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4856,7 +4732,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.83</div>
-          <div class="ps">&nbsp; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4865,22 +4741,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">57%</div>
-          <div class="as">2887 graded calls · 30-39%</div>
+          <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -4928,9 +4801,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.58</div>
-          <div class="ps">IR Reykjavik</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.58</span>
+            -
+            <span class="pro-xga">1.53</span>
+          </div>
+          <div class="ps xg-teams"><span>IR Reykjavik</span><span>Grotta</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -4946,13 +4823,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.53</div>
-          <div class="ps">Grotta</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4964,7 +4835,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.74</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -4973,22 +4844,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -5050,9 +4918,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.73</div>
-          <div class="ps">Kairat Almaty</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.73</span>
+            -
+            <span class="pro-xga">0.41</span>
+          </div>
+          <div class="ps xg-teams"><span>Kairat Almaty</span><span>Kyzyl-Zhar</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -5068,13 +4940,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.41</div>
-          <div class="ps">Kyzyl-Zhar</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -5086,7 +4952,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.33</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -5095,22 +4961,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">68%</div>
-          <div class="as">2216 graded calls · 50-59%</div>
+          <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">42%</div>
           <div class="as">38 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">50%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -5172,9 +5042,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.84</div>
-          <div class="ps">Tukums</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.84</span>
+            -
+            <span class="pro-xga">1.53</span>
+          </div>
+          <div class="ps xg-teams"><span>Tukums</span><span>Auda</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -5190,13 +5064,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">1.53</div>
-          <div class="ps">Auda</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -5208,7 +5076,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.69</div>
-          <div class="ps">&#128201; &nbsp;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -5217,22 +5085,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">60%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -5280,9 +5152,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.90</div>
-          <div class="ps">FS Jelgava</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.90</span>
+            -
+            <span class="pro-xga">0.87</span>
+          </div>
+          <div class="ps xg-teams"><span>FS Jelgava</span><span>Ogre United</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -5298,13 +5174,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.87</div>
-          <div class="ps">Ogre United</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -5316,7 +5186,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.67</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -5325,22 +5195,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -5402,9 +5269,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">0.89</div>
-          <div class="ps">Kauno Žalgiris</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">0.89</span>
+            -
+            <span class="pro-xga">0.45</span>
+          </div>
+          <div class="ps xg-teams"><span>Kauno Žalgiris</span><span>Banga</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -5420,13 +5291,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.45</div>
-          <div class="ps">Banga</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -5438,7 +5303,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">1.44</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -5447,22 +5312,26 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">57%</div>
-          <div class="as">2887 graded calls · 30-39%</div>
+          <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">40%</div>
           <div class="as">62 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
+        
         <div class="accuracy-card pro-locked">
           <div class="al">Picked team</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
+        
       </div>
       
       
@@ -5524,9 +5393,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="mdetail">
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (home)</div>
-          <div class="pv locked pro pro-xgh">1.45</div>
-          <div class="ps">Oakland Roots</div>
+          <div class="pl">Expected goals (per team)</div>
+          <div class="pv locked pro">
+            <span class="pro-xgh">1.45</span>
+            -
+            <span class="pro-xga">0.94</span>
+          </div>
+          <div class="ps xg-teams"><span>Oakland Roots</span><span>Birmingham Legion</span></div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         <div class="pred">
@@ -5542,13 +5415,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Expected goals (away)</div>
-          <div class="pv locked pro pro-xga">0.94</div>
-          <div class="ps">Birmingham Legion</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="pred">
-          <div class="pl">Opponent threat</div>
+          <div class="pl">Opponent scoring chance</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -5560,7 +5427,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="pred">
           <div class="pl">Odds</div>
           <div class="pv">—</div>
-          <div class="ps">&#128201; &#128201;</div>
+          <div class="ps">Market odds</div>
         </div>
       </div>
       
@@ -5569,22 +5436,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">Similar confidence</div>
+          <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19%</div>
+          <div class="as">16532 graded calls · 0-19% confidence</div>
         </div>
+        
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
           <div class="av locked pro">46%</div>
           <div class="as">160 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
-        <div class="accuracy-card pro-locked">
-          <div class="al">Picked team</div>
-          <div class="av locked pro">—</div>
-          <div class="as">More history needed</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
+        
+        
       </div>
       
       
@@ -5746,7 +5610,7 @@ function cardHTML(m,idx){
         <div class="pred"><div class="pl">Expected goals (per team)</div><div class="pv locked pro pro-xgh">${m.home_xg!=null&&m.away_xg!=null ? Number(m.home_xg).toFixed(1)+" - "+Number(m.away_xg).toFixed(1) : "—"}</div><div class="ps xg-teams"><span>${esc(shortName(m.home))}</span><span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="pred"><div class="pl">Total goals</div><div class="pv">${gb?gb.value:'—'}</div><div class="ps">${gb?gb.label:''}</div></div>
         <div class="pred"><div class="pl">Both to score</div><div class="pv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="pred"><div class="pl">Opponent threat</div><div class="pv locked pro pro-opp">${fmtThreatPct(m.opp_iso)}</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="pred"><div class="pl">Opponent scoring chance</div><div class="pv locked pro pro-opp">${fmtThreatPct(m.opp_iso)}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <a class="matchlink" href="/match/${slug(m)}">Full prediction & analysis →</a>
     </div>

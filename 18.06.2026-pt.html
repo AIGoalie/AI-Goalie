@@ -176,7 +176,7 @@ background:
 .pred .xg-teams{display:flex;justify-content:space-between;gap:6px;padding:0 2px}
 .pred .xg-teams span{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pred .pro-tag{font-size:9.5px;color:var(--gold);margin-top:2px}
-.accuracy-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.accuracy-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}
 .accuracy-card{background:rgba(106,255,139,.055);border:1px solid rgba(106,255,139,.14);border-radius:10px;padding:9px 8px;text-align:center}
 .accuracy-card.pro-locked{background:rgba(255,213,102,.045);border-color:rgba(255,213,102,.14)}
 .accuracy-card .al{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-2);margin-bottom:3px}
@@ -802,7 +802,7 @@ function cardHTML(m,idx){
         <div class="pred"><div class="pl">Expected goals (per team)</div><div class="pv locked pro pro-xgh">${m.home_xg!=null&&m.away_xg!=null ? Number(m.home_xg).toFixed(1)+" - "+Number(m.away_xg).toFixed(1) : "—"}</div><div class="ps xg-teams"><span>${esc(shortName(m.home))}</span><span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="pred"><div class="pl">Total goals</div><div class="pv">${gb?gb.value:'—'}</div><div class="ps">${gb?gb.label:''}</div></div>
         <div class="pred"><div class="pl">Both to score</div><div class="pv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="pred"><div class="pl">Opponent threat</div><div class="pv locked pro pro-opp">${fmtThreatPct(m.opp_iso)}</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="pred"><div class="pl">Opponent scoring chance</div><div class="pv locked pro pro-opp">${fmtThreatPct(m.opp_iso)}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <a class="matchlink" href="/match/${slug(m)}">Full prediction & analysis →</a>
     </div>
