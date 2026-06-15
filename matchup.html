@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIGoalie Matchup Simulator — AI Football Predictions</title>
+<meta name="description" content="Select any two football teams and simulate an AI matchup prediction with winner, confidence, goals outlook and Pro advanced metrics.">
+<link rel="canonical" href="https://ai-goalie.com/matchup.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165"></script>
+<script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<style>
+:root{--bg:#0A1310;--surface:#101D17;--surface-2:#16271E;--line:#21372B;--line-soft:#1a2c22;--green:#27D27A;--green-bright:#46F08F;--gold:#F4C752;--text:#E9F1EB;--muted:#85A091;--muted-2:#5f7a6c;--loss:#E96A6A}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(900px 460px at 50% -10%,#112a1f 0%,rgba(17,42,31,0) 60%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 14px 64px} a{color:inherit}
+header.top{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line-soft)}
+header.top .logo{font-weight:700;font-size:17px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+header.top .logo img{width:25px;height:25px;border-radius:6px;object-fit:contain;flex:none} header.top .logo b{color:var(--green-bright)}
+header.top nav{display:flex;gap:4px;align-items:center;margin-left:6px;flex-wrap:wrap} header.top nav a{color:var(--muted);font-size:13px;padding:6px 9px;border-radius:8px;text-decoration:none} header.top nav a:hover,header.top nav a.active{background:var(--surface-2);color:var(--text)}
+.acct{margin-left:auto}.btn{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer;font-weight:700;white-space:nowrap;text-decoration:none}.btn.pro{background:rgba(39,210,122,.12);color:var(--green-bright);border-color:rgba(70,240,143,.45)}
+.hero{padding:34px 0 18px}.eyebrow{color:var(--green-bright);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}h1{font-size:36px;letter-spacing:-.035em;line-height:1.08;margin:0 0 10px}.lead{max-width:720px;color:var(--muted);font-size:16px}
+.sim{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin:18px 0}.field{display:flex;flex-direction:column;gap:7px}label{font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}input,select{width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:11px;color:var(--text);padding:11px 12px;font:inherit}.actions{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.submit{background:var(--green);border:1px solid var(--green);color:#04120b;border-radius:11px;padding:11px 15px;font-weight:900;cursor:pointer}.quota{font-size:12px;color:var(--muted)}
+.result{display:none;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(39,210,122,.07),transparent 55%),var(--surface);padding:18px;margin:18px 0}.scoreline{display:flex;align-items:center;justify-content:space-between;gap:12px}.team{flex:1;text-align:center}.team img{width:56px;height:56px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line);object-fit:contain;padding:5px}.team .name{font-weight:800;margin-top:7px}.team.pick .name{color:var(--green-bright)}.mid{text-align:center}.pill{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:#06130b;border-radius:12px;padding:8px 14px;font-size:24px;font-weight:950;min-width:86px}.sub{font-size:12px;color:var(--muted);margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.card{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:center}.card .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-2);font-weight:900}.card .v{font-size:22px;font-weight:900;margin-top:5px}.card .s{font-size:12px;color:var(--muted);margin-top:3px}.locked .v{filter:blur(5px);user-select:none}.pro-note{margin-top:12px;border:1px solid rgba(70,240,143,.28);background:rgba(39,210,122,.07);border-radius:12px;padding:11px 12px;color:var(--text);font-size:13px;display:flex;justify-content:space-between;gap:10px;align-items:center}.pro-note a{color:var(--green-bright);font-weight:900;text-decoration:none}.pro-unlocked .locked .v{filter:none;user-select:auto}.pro-unlocked .pro-note{display:none}.note{font-size:12px;color:var(--muted-2);margin-top:12px}.error{color:var(--loss);font-size:13px;font-weight:800}.navtoggle{display:none}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}footer a{color:var(--muted);text-decoration:none;margin:0 7px}
+@media(max-width:720px){header.top{flex-wrap:wrap}.navtoggle{display:block;background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 11px}header.top nav{display:none;position:absolute;top:54px;left:14px;right:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;flex-direction:column;z-index:50}header.top nav.show{display:flex}.acct{margin-left:0;width:100%;display:flex;justify-content:flex-end}.sim{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.scoreline{align-items:stretch}.team img{width:46px;height:46px}h1{font-size:29px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <a class="logo" href="index.html"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></a>
+  <button class="navtoggle" type="button" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="results.html">Track record</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+    <a class="active" href="matchup.html">Simulator</a>
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
+  </nav>
+  <div class="acct"><a class="btn pro" href="index.html?pro=1">Go Pro</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Hypothetical matchup simulator</div>
+    <h1>Pick any two teams. See what the model thinks.</h1>
+    <p class="lead">This is a model simulation, not a scheduled fixture prediction. It uses the latest team signals already in AIGoalie's dataset.</p>
+  </section>
+  <section class="sim">
+    <div class="field"><label for="homeTeam">Team A</label><input id="homeTeam" list="teamList" placeholder="Start typing a team…"></div>
+    <div class="field"><label for="awayTeam">Team B</label><input id="awayTeam" list="teamList" placeholder="Start typing another team…"></div>
+    <div class="field"><label for="venue">Venue assumption</label><select id="venue"><option value="neutral">Neutral venue</option><option value="home">Team A at home</option><option value="away">Team B at home</option></select></div>
+    <div class="actions"><button class="submit" id="simulateBtn">Simulate matchup</button><span class="quota" id="quotaText">Loading teams…</span><span class="error" id="err"></span></div>
+    <datalist id="teamList"></datalist>
+  </section>
+  <section class="result" id="result"></section>
+  <p class="note">Free simulations are limited in this browser. Pro unlocks unlimited simulations, exact xG, BTTS, draw probability and an ad-free site.</p>
+</main>
+<footer><a href="index.html">Home</a> · <a href="results.html">Track record</a> · <a href="matchup.html">Simulator</a> · <a href="privacy-policy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></footer>
+</div>
+<script>
+const PRO_API_BASE = "https://aigoalie-pro-1047692809091.europe-west1.run.app";
+const FIREBASE_CONFIG = { apiKey:"AIzaSyAaqlt7k7ELZV_WSLw-0uTL6Yhmg93uyTw", authDomain:"aigoalie-5286d.firebaseapp.com", projectId:"aigoalie-5286d", appId:"1:164078880718:web:710dec15b47cec22928d9f" };
+let TEAMS=[], LABELS=new Map(), IS_PRO=false, FREE_LIMIT=3, FREE_LOGIN_LIMIT=10;
+const todayKey=()=>new Date().toISOString().slice(0,10);
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function quota(){try{const raw=JSON.parse(localStorage.getItem("matchupQuota")||"{}");return raw.date===todayKey()?raw:{date:todayKey(),count:0};}catch(e){return {date:todayKey(),count:0};}}
+function saveQuota(q){try{localStorage.setItem("matchupQuota",JSON.stringify(q));}catch(e){}}
+function currentUser(){try{return window.firebase&&firebase.auth&&firebase.auth().currentUser?firebase.auth().currentUser:null;}catch(e){return null;}}
+function quotaLimit(){return IS_PRO?Infinity:(currentUser()?FREE_LOGIN_LIMIT:FREE_LIMIT);}
+function updateQuota(){const q=quota(), lim=quotaLimit();document.getElementById("quotaText").textContent=IS_PRO?"Pro active: unlimited simulations":`${Math.max(0,lim-q.count)} free simulations left today`;}
+function resolveTeam(value){const exact=LABELS.get(String(value||"").trim().toLowerCase());if(exact)return exact;const q=String(value||"").trim().toLowerCase();return TEAMS.find(t=>t.name.toLowerCase()===q)||TEAMS.find(t=>(t.name+" "+t.league).toLowerCase().includes(q));}
+function formRelative(team){
+  const hist=String(team.history||"").split("");
+  if(!hist.length) return 0;
+  const last15=hist.slice(-15);
+  const form=last15.reduce((s,x)=>s+(x==="W"?1:-1),0)/last15.length;
+  const last5=hist.slice(-5);
+  const penalty=last5.reduce((s,x)=>s+(x==="W"?1:(x==="L"?-1.25:-0.5)),0)/Math.max(1,last5.length);
+  return form+penalty;
+}
+function poolMaxValue(home,away){
+  const pools=new Set([home.league+"|"+home.country,away.league+"|"+away.country]);
+  const values=TEAMS.filter(t=>pools.has(t.league+"|"+t.country)).map(t=>Number(t.value)||0).filter(v=>v>0);
+  return Math.max(5,...values);
+}
+function leagueAvgConceded(home){
+  const peers=TEAMS.filter(t=>t.league===home.league&&t.country===home.country&&(Number(t.ga)||0)>0);
+  if(!peers.length) return Math.max(0.8,Number(home.ga)||1.2);
+  return peers.reduce((s,t)=>s+(Number(t.ga)||0),0)/peers.length;
+}
+function metricPair(home,away,venue){
+  const maxValue=poolMaxValue(home,away);
+  const hv=Number(home.value)>0?Number(home.value):0, av=Number(away.value)>0?Number(away.value):0;
+  const homeValuePenalty=(hv&&av)?(hv/maxValue-av/maxValue):0;
+  const awayValuePenalty=(hv&&av)?(av/maxValue-hv/maxValue):0;
+  const goalMetricHome=(Number(home.gf)||0)-(Number(home.ga)||0)-(Number(away.gf)||0)+(Number(away.ga)||0);
+  const goalMetricAway=(Number(away.gf)||0)-(Number(away.ga)||0)-(Number(home.gf)||0)+(Number(home.ga)||0);
+  const homeVenuePenalty=venue==="away"?-(Number(home.away_non_win)||0):0;
+  const awayVenuePenalty=venue==="home"?-(Number(away.away_non_win)||0):0;
+  return {
+    home:0.5*formRelative(home)+0.1*goalMetricHome+homeVenuePenalty+homeValuePenalty,
+    away:0.5*formRelative(away)+0.1*goalMetricAway+awayVenuePenalty+awayValuePenalty
+  };
+}
+function confidenceFromMetric(value){
+  if(value>=3)return 90+(value-3)*10;
+  if(value>=2)return 80+(value-2)*10;
+  if(value>=1)return 70+(value-1)*10;
+  if(value>=0.5)return 50+(value-0.5)*40;
+  if(value>=0)return 20+value*60;
+  if(value>=-0.5)return 10+Math.abs((value+0.5)*20);
+  if(value>=-1)return 1+Math.abs((value+1)*20);
+  return 1;
+}
+function probs(hm,am){const diff=hm-am;let ph=1/(1+Math.exp(-1.5*diff)),pa=1-ph,pd=clamp(Math.exp(-2.2*diff*diff),.05,.35),s=ph+pa+pd;return {home:ph/s,draw:pd/s,away:pa/s,diff};}
+function pct(v){return Math.round(v*100)+"%";}
+function band(total){return total<2.2?"Low scoring":total<3.0?"Around 2-3 goals":"High scoring";}
+function simulate(home,away,venue){const m=metricPair(home,away,venue),p=probs(m.home,m.away),pick=m.home>=m.away?home:away,conf=clamp(confidenceFromMetric(Math.max(m.home,m.away))/100,.01,.99);const avgConceded=Math.max(0.1,leagueAvgConceded(home));const rawTotal=Math.max(0,((Number(home.gf)||0)*(Number(away.ga)||0)/avgConceded)+((Number(away.gf)||0)*(Number(home.ga)||0)/avgConceded)-1);const scale=clamp(1+.25*(m.home-m.away),.8,1.2);let hxg=clamp(((Number(home.gf)||1.2)+(Number(away.ga)||1.2))/2*scale,.05,4.5),axg=clamp(((Number(away.gf)||1.2)+(Number(home.ga)||1.2))/2/scale,.05,4.5);const current=hxg+axg;if(rawTotal>0&&current>0){const factor=rawTotal/current;hxg=clamp(hxg*factor,.05,4.5);axg=clamp(axg*factor,.05,4.5);}const btts=(1-Math.exp(-hxg))*(1-Math.exp(-axg));return {home,away,pick,conf,p,hxg,axg,total:hxg+axg,btts,metrics:m};}
+function render(r){const locked=!IS_PRO;document.body.classList.toggle("pro-unlocked",IS_PRO);document.getElementById("result").style.display="block";document.getElementById("result").innerHTML=`
+<div class="scoreline">
+  <div class="team ${r.pick.id===r.home.id?"pick":""}">${r.home.logo?`<img src="${esc(r.home.logo)}" alt="${esc(r.home.name)} crest">`:""}<div class="name">${esc(r.home.name)}</div><div class="sub">${esc(r.home.form||"")} · ${esc(r.home.league||"")}</div></div>
+  <div class="mid"><div class="pill">${pct(r.conf)}</div><div class="sub">Model pick: ${esc(r.pick.name)}</div></div>
+  <div class="team ${r.pick.id===r.away.id?"pick":""}">${r.away.logo?`<img src="${esc(r.away.logo)}" alt="${esc(r.away.name)} crest">`:""}<div class="name">${esc(r.away.name)}</div><div class="sub">${esc(r.away.form||"")} · ${esc(r.away.league||"")}</div></div>
+</div>
+<div class="grid">
+  <div class="card"><div class="k">Public goals read</div><div class="v">${r.total.toFixed(2)}</div><div class="s">${band(r.total)}</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">Exact xG</div><div class="v">${r.hxg.toFixed(2)} - ${r.axg.toFixed(2)}</div><div class="s">${esc(r.home.name)} - ${esc(r.away.name)}</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">Both to score</div><div class="v">${pct(r.btts)}</div><div class="s">Advanced Pro estimate</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">${esc(r.home.name)} win</div><div class="v">${pct(r.p.home)}</div><div class="s">Venue-adjusted</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">Draw</div><div class="v">${pct(r.p.draw)}</div><div class="s">Simulation probability</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">${esc(r.away.name)} win</div><div class="v">${pct(r.p.away)}</div><div class="s">Venue-adjusted</div></div>
+</div>
+${locked?`<div class="pro-note"><span>Pro unlocks unlimited simulations and the advanced probability panel.</span><a href="index.html?pro=1">Go Pro</a></div>`:""}
+<p class="note">Hypothetical simulation based on current model signals. It does not include confirmed lineups, injuries or a scheduled venue unless shown.</p>`;}
+function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="Pick two teams from the list.";return;}if(h.id===a.id){err.textContent="Pick two different teams.";return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="Free simulations used today. Go Pro for unlimited.";return;}if(!IS_PRO){q.count+=1;saveQuota(q);}render(simulate(h,a,document.getElementById("venue").value));updateQuota();}
+async function loadTeams(){const res=await fetch("matchup_data.json",{cache:"no-store"});const data=await res.json();TEAMS=data.teams||[];const dl=document.getElementById("teamList");TEAMS.forEach(t=>{const label=`${t.name} — ${t.league||t.country||"Team"}`;LABELS.set(label.toLowerCase(),t);LABELS.set(t.name.toLowerCase(),t);const o=document.createElement("option");o.value=label;dl.appendChild(o);});updateQuota();}
+function initAuth(){if(!window.firebase)return updateQuota();try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){try{firebase.app();}catch(_){}}const auth=firebase.auth();auth.onAuthStateChanged(async user=>{try{if(!user){IS_PRO=false;updateQuota();return;}const tok=await user.getIdToken();const res=await fetch(PRO_API_BASE+"/me",{headers:{Authorization:"Bearer "+tok}});const j=res.ok?await res.json():null;IS_PRO=!!(j&&j.pro);updateQuota();}catch(e){IS_PRO=false;updateQuota();}});}
+document.getElementById("simulateBtn").addEventListener("click",run);
+loadTeams().catch(()=>{document.getElementById("quotaText").textContent="Could not load teams.";});
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initAuth);else initAuth();
+</script>
+</body>
+</html>
