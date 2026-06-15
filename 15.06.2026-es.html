@@ -99,6 +99,10 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .league-head img.flag{height:15px;width:21px;object-fit:cover;border-radius:2px;background:var(--surface-2)}
 .league-head .lname{font-weight:700;font-size:15px}
 .league-head .lsub{color:var(--muted-2);font-size:12px;margin-left:auto}
+.league-accuracy{display:inline-flex;align-items:center;gap:5px;margin-left:auto;border:1px solid rgba(255,213,102,.18);background:rgba(255,213,102,.055);color:var(--muted);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;white-space:nowrap}
+.league-accuracy .pro{color:var(--text)}
+.league-accuracy .pro.locked{filter:blur(4px);user-select:none}
+.league-accuracy .pro-tag{color:var(--gold);font-size:10px}
 
 .wc-section{border:1px solid var(--wc-line);border-radius:18px;padding:4px 13px 14px;margin:18px 0 10px;
 background:
@@ -672,7 +676,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko">20:00</div>
+          <div class="ko live"><b><span style='color: #b30000;'>0:1'</span></b></div>
         </div>
         <div class="side away">
           
@@ -715,7 +719,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -818,7 +822,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -932,7 +936,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1046,7 +1050,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1069,7 +1073,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49% confidence</div>
+          <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -1160,7 +1164,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1183,7 +1187,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -1269,7 +1273,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1390,7 +1394,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1468,7 +1472,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>2:0'</span></b></div>
+          <div class="ko"><strong>2:0</strong></div>
         </div>
         <div class="side away">
           
@@ -1480,7 +1484,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
   
         <span class="win-pill" style="background:rgb(216.75,203.15,0.0)">47%</span>
         <span class="chev" title="Tap for prediction">▾</span>
@@ -1511,7 +1515,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1534,19 +1538,30 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49% confidence</div>
+          <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
-          <div class="av locked pro">48%</div>
-          <div class="as">96 graded calls</div>
+          <div class="av locked pro">49%</div>
+          <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         
         
       </div>
       
+      
+      <div class="grade-summary">
+        <div class="grade-main">
+          
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+  
+          <span class="grade-title">Correct</span>
+          <span class="grade-meta"><strong>2:0</strong> · Pick: IFK Norrkoping</span>
+        </div>
+        <div class="grade-conf">47% confidence</div>
+      </div>
       
       <a class="matchlink" href="/match/2026-06-15-ifk-norrkoping-vs-varbergs-bois-fc">Full prediction & analysis →</a>
     </div>
@@ -1614,7 +1629,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1721,7 +1736,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1824,7 +1839,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1945,7 +1960,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -1968,7 +1983,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -2066,7 +2081,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2089,7 +2104,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -2187,7 +2202,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2210,7 +2225,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -2301,7 +2316,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2324,7 +2339,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -2372,7 +2387,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>0:4'</span></b></div>
+          <div class="ko"><strong>0:4</strong></div>
         </div>
         <div class="side away">
           
@@ -2384,7 +2399,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
   
         <span class="win-pill" style="background:rgb(216.75,43.35,0.0)">10%</span>
         <span class="chev" title="Tap for prediction">▾</span>
@@ -2415,7 +2430,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2438,19 +2453,37 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
-          <div class="av locked pro">48%</div>
-          <div class="as">96 graded calls</div>
+          <div class="av locked pro">49%</div>
+          <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         
         
+        <div class="accuracy-card pro-locked">
+          <div class="al">Picked team</div>
+          <div class="av locked pro">60%</div>
+          <div class="as">10 graded calls</div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
+        
       </div>
       
+      
+      <div class="grade-summary">
+        <div class="grade-main">
+          
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+  
+          <span class="grade-title">Correct</span>
+          <span class="grade-meta"><strong>0:4</strong> · Pick: Osters IF</span>
+        </div>
+        <div class="grade-conf">10% confidence</div>
+      </div>
       
       <a class="matchlink" href="/match/2026-06-15-gif-sundsvall-vs-osters-if">Full prediction & analysis →</a>
     </div>
@@ -2518,7 +2551,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2541,7 +2574,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -2639,7 +2672,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2662,7 +2695,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -2721,7 +2754,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko">20:00</div>
+          <div class="ko live"><b><span style='color: #b30000;'>0:1'</span></b></div>
         </div>
         <div class="side away">
           
@@ -2764,7 +2797,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2867,7 +2900,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -2981,7 +3014,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3095,7 +3128,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3118,7 +3151,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49% confidence</div>
+          <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -3209,7 +3242,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3232,7 +3265,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -3261,6 +3294,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/et.svg" alt="Ethiopia - Premier League flag">
           
           <span class="lname">Ethiopia - Premier League</span>
+          
           <span class="lsub">3 matches</span>
         </div>
         
@@ -3326,7 +3360,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3349,7 +3383,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -3447,7 +3481,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3470,7 +3504,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -3568,7 +3602,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3591,7 +3625,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -3638,6 +3672,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/is.svg" alt="Iceland - Úrvalsdeild flag">
           
           <span class="lname">Iceland - Úrvalsdeild</span>
+          
           <span class="lsub">1 matches</span>
         </div>
         
@@ -3703,7 +3738,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3755,6 +3790,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/ir.svg" alt="Iran - Azadegan League flag">
           
           <span class="lname">Iran - Azadegan League</span>
+          
           <span class="lsub">6 matches</span>
         </div>
         
@@ -3820,7 +3856,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -3941,7 +3977,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4062,7 +4098,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4183,7 +4219,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4206,7 +4242,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -4297,7 +4333,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4320,7 +4356,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -4411,7 +4447,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4434,7 +4470,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
@@ -4470,6 +4506,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/pe.svg" alt="Peru - Copa De La Liga flag">
           
           <span class="lname">Peru - Copa De La Liga</span>
+          
           <span class="lsub">1 matches</span>
         </div>
         
@@ -4535,7 +4572,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4591,6 +4628,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <img class="flag" src="https://media.api-sports.io/flags/se.svg" alt="Sweden - Superettan flag">
           
           <span class="lname">Sweden - Superettan</span>
+          
           <span class="lsub">2 matches</span>
         </div>
         
@@ -4613,7 +4651,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>2:0'</span></b></div>
+          <div class="ko"><strong>2:0</strong></div>
         </div>
         <div class="side away">
           
@@ -4625,7 +4663,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
   
         <span class="win-pill" style="background:rgb(216.75,203.15,0.0)">47%</span>
         <span class="chev" title="Tap for prediction">▾</span>
@@ -4656,7 +4694,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4679,19 +4717,30 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">61%</div>
-          <div class="as">2221 graded calls · 40-49% confidence</div>
+          <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
-          <div class="av locked pro">48%</div>
-          <div class="as">96 graded calls</div>
+          <div class="av locked pro">49%</div>
+          <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         
         
       </div>
       
+      
+      <div class="grade-summary">
+        <div class="grade-main">
+          
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+  
+          <span class="grade-title">Correct</span>
+          <span class="grade-meta"><strong>2:0</strong> · Pick: IFK Norrkoping</span>
+        </div>
+        <div class="grade-conf">47% confidence</div>
+      </div>
       
       <a class="matchlink" href="/match/2026-06-15-ifk-norrkoping-vs-varbergs-bois-fc">Full prediction & analysis →</a>
     </div>
@@ -4716,7 +4765,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko live"><b><span style='color: #b30000;'>0:4'</span></b></div>
+          <div class="ko"><strong>0:4</strong></div>
         </div>
         <div class="side away">
           
@@ -4728,7 +4777,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
   
         <span class="win-pill" style="background:rgb(216.75,43.35,0.0)">10%</span>
         <span class="chev" title="Tap for prediction">▾</span>
@@ -4759,7 +4808,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <div class="pred-strip">
         <div class="pred">
-          <div class="pl">Opponent scoring chance</div>
+          <div class="pl">Opponent strength</div>
           <div class="pv locked pro pro-opp">
     
     
@@ -4782,19 +4831,37 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="accuracy-card">
           <div class="al">Model accuracy at this confidence</div>
           <div class="av">45%</div>
-          <div class="as">16532 graded calls · 0-19% confidence</div>
+          <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
           <div class="al">This league</div>
-          <div class="av locked pro">48%</div>
-          <div class="as">96 graded calls</div>
+          <div class="av locked pro">49%</div>
+          <div class="as">98 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
         </div>
         
         
+        <div class="accuracy-card pro-locked">
+          <div class="al">Picked team</div>
+          <div class="av locked pro">60%</div>
+          <div class="as">10 graded calls</div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
+        
       </div>
       
+      
+      <div class="grade-summary">
+        <div class="grade-main">
+          
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+  
+          <span class="grade-title">Correct</span>
+          <span class="grade-meta"><strong>0:4</strong> · Pick: Osters IF</span>
+        </div>
+        <div class="grade-conf">10% confidence</div>
+      </div>
       
       <a class="matchlink" href="/match/2026-06-15-gif-sundsvall-vs-osters-if">Full prediction & analysis →</a>
     </div>
@@ -4823,7 +4890,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   <div class="pro-modal">
     <button aria-label="Close" class="close-btn" onclick="closeProBox('proBox')">×</button>
     <h2>Go Pro</h2>
-    <p style="color:var(--muted);margin-top:0">Unlock expected goals, BTTS, CSV export, opponent threat, and an ad-free site.</p>
+    <p style="color:var(--muted);margin-top:0">Unlock expected goals, BTTS, CSV export, opponent strength, and an ad-free site.</p>
     <div id="proTableContainer"></div>
   </div>
 </div>
@@ -4954,7 +5021,7 @@ function cardHTML(m,idx){
         <div class="pred"><div class="pl">Expected goals (per team)</div><div class="pv locked pro pro-xgh">${m.home_xg!=null&&m.away_xg!=null ? Number(m.home_xg).toFixed(1)+" - "+Number(m.away_xg).toFixed(1) : "—"}</div><div class="ps xg-teams"><span>${esc(shortName(m.home))}</span><span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="pred"><div class="pl">Total goals</div><div class="pv">${gb?gb.value:'—'}</div><div class="ps">${gb?gb.label:''}</div></div>
         <div class="pred"><div class="pl">Both to score</div><div class="pv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="pred"><div class="pl">Opponent scoring chance</div><div class="pv locked pro pro-opp">${fmtThreatPct(m.opp_iso)}</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="pred"><div class="pl">Opponent strength</div><div class="pv locked pro pro-opp">${fmtThreatPct(m.opp_iso)}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <a class="matchlink" href="/match/${slug(m)}">Full prediction & analysis →</a>
     </div>
