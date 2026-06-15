@@ -820,6 +820,15 @@ function setView(v){
 }
 function doSearch(q){ q=(q||"").trim().toLowerCase();
   document.querySelectorAll(".mrow").forEach(r=>{ r.style.display=(!q||r.getAttribute("data-search").includes(q))?"":"none"; });
+  openDefaultRows();
+}
+function openDefaultRows(){
+  ["globalView","leagueView"].forEach(id=>{
+    const root = document.getElementById(id);
+    if (!root) return;
+    const rows = Array.from(root.querySelectorAll(".mrow")).filter(r=>r.style.display!=="none");
+    if (rows.length && !rows.some(r=>r.classList.contains("open"))) rows[0].classList.add("open");
+  });
 }
 function toggleSort(){
   SORT_BY_CONF=!SORT_BY_CONF;
@@ -835,6 +844,7 @@ function toggleSort(){
 }
 
 document.getElementById("sortIcon").style.color="var(--green-bright)";
+openDefaultRows();
 </script>
 <script>
 const __memStore = {};
@@ -1109,6 +1119,7 @@ function renderV12MatchesFromApi(matches){
   if (lv) lv.innerHTML = lhtml || `<div class="empty">No Pro predictions available for this date yet.</div>`;
 
   doSearch(document.getElementById("search")?.value || "");
+  openDefaultRows();
 }
 
 async function loadProFullForDateV12(){
