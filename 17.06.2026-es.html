@@ -188,6 +188,7 @@ background:
 .accuracy-card .av{font-size:15.5px;font-weight:850;color:var(--text)}
 .accuracy-card .av.locked{filter:blur(5px);user-select:none}
 .accuracy-card .as{font-size:9.5px;color:var(--muted);margin-top:2px}
+.accuracy-card .pro-tag{font-size:9.5px;color:var(--gold);margin-top:2px}
 .grade-summary{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:12px;color:var(--muted)}
 .grade-summary .grade-main{display:flex;align-items:center;gap:7px;min-width:0}
 .grade-summary .grade-title{font-weight:800;color:var(--text);white-space:nowrap}
@@ -230,7 +231,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{font-size:12px;min-width:36px;padding:3px 7px}
   .chev{width:20px;height:20px;font-size:10px}
   .pred-strip{gap:6px}
-  .accuracy-strip{grid-template-columns:1fr;gap:6px}
+  .accuracy-strip{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .accuracy-card{padding:7px 4px}
+  .accuracy-card .al{font-size:8px;letter-spacing:.04em}
+  .accuracy-card .av{font-size:14px}
+  .accuracy-card .as{font-size:8px;line-height:1.25}
+  .accuracy-card .pro-tag{font-size:8px}
   .pred{padding:9px 5px}
   .pred .pl{font-size:8.5px}
   .pred .pv{font-size:14px}
@@ -733,13 +739,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">88%</div>
           <div class="as">225 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -829,13 +835,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">88%</div>
           <div class="as">225 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -925,13 +931,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">88%</div>
           <div class="as">225 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1021,13 +1027,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1123,13 +1129,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1137,7 +1143,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">70%</div>
           <div class="as">20 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1226,13 +1232,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">42%</div>
           <div class="as">38 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1240,7 +1246,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">50%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1329,13 +1335,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">52%</div>
           <div class="as">31 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1343,7 +1349,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">37%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1432,13 +1438,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1446,7 +1452,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">43%</div>
           <div class="as">14 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1535,13 +1541,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">50%</div>
           <div class="as">97 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1549,7 +1555,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">47%</div>
           <div class="as">17 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1638,14 +1644,14 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">74%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1734,13 +1740,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">57%</div>
           <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1830,13 +1836,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">57%</div>
           <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">40%</div>
           <div class="as">62 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1844,7 +1850,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -1933,13 +1939,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">57%</div>
           <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2029,13 +2035,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2043,7 +2049,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">67%</div>
           <div class="as">18 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2132,13 +2138,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2146,7 +2152,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">60%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2235,13 +2241,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2331,7 +2337,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
@@ -2420,13 +2426,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2516,13 +2522,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2612,13 +2618,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">46%</div>
           <div class="as">160 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2708,7 +2714,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
@@ -2797,13 +2803,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -2908,13 +2914,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">88%</div>
           <div class="as">225 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3004,13 +3010,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">88%</div>
           <div class="as">225 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3100,13 +3106,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">88%</div>
           <div class="as">225 graded calls · 75%+ confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3196,13 +3202,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">38%</div>
           <div class="as">13 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3306,7 +3312,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
@@ -3411,14 +3417,14 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">74%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3507,7 +3513,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
@@ -3614,13 +3620,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">52%</div>
           <div class="as">31 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3628,7 +3634,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">37%</div>
           <div class="as">19 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3735,13 +3741,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">76%</div>
           <div class="as">2381 graded calls · 60-74% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3749,7 +3755,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">70%</div>
           <div class="as">20 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3838,13 +3844,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">53%</div>
           <div class="as">30 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3852,7 +3858,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">67%</div>
           <div class="as">18 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3959,13 +3965,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -3973,7 +3979,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">43%</div>
           <div class="as">14 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4062,13 +4068,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">50%</div>
           <div class="as">32 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4176,13 +4182,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">61%</div>
           <div class="as">2222 graded calls · 40-49% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">50%</div>
           <div class="as">97 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4190,7 +4196,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">47%</div>
           <div class="as">17 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4297,13 +4303,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">57%</div>
           <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4393,13 +4399,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">42%</div>
           <div class="as">96 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4507,13 +4513,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">57%</div>
           <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4603,13 +4609,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4717,13 +4723,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">68%</div>
           <div class="as">2216 graded calls · 50-59% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">42%</div>
           <div class="as">38 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4731,7 +4737,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">50%</div>
           <div class="as">10 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4838,13 +4844,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4852,7 +4858,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">60%</div>
           <div class="as">15 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -4941,13 +4947,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">51%</div>
           <div class="as">87 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -5055,13 +5061,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">57%</div>
           <div class="as">2887 graded calls · 30-39% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">40%</div>
           <div class="as">62 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -5069,7 +5075,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy for picked team</div>
+          <div class="al">Picked team</div>
           <div class="av locked pro">48%</div>
           <div class="as">21 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
@@ -5176,13 +5182,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="accuracy-title">Model accuracy history</div>
       <div class="accuracy-strip">
         <div class="accuracy-card">
-          <div class="al">At this confidence</div>
+          <div class="al">Confidence</div>
           <div class="av">45%</div>
           <div class="as">16533 graded calls · 0-19% confidence</div>
         </div>
         
         <div class="accuracy-card pro-locked">
-          <div class="al">Model accuracy in this league</div>
+          <div class="al">League</div>
           <div class="av locked pro">46%</div>
           <div class="as">160 graded calls</div>
           <div class="pro-tag">🔒 Pro</div>
