@@ -61,6 +61,16 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .toolbar input[type=search]{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 12px;font-size:13px;min-width:170px}
 .toolbar .icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);cursor:pointer;font-size:15px}
 
+.matchup-teaser{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin:16px 0 14px;padding:16px;border:1px solid rgba(70,240,143,.28);border-radius:18px;background:linear-gradient(135deg,rgba(39,210,122,.10),rgba(244,199,82,.04) 58%,transparent),var(--surface)}
+.matchup-teaser .ey{color:var(--green-bright);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.matchup-teaser h2{font-size:20px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
+.matchup-teaser p{color:var(--muted);font-size:13px;margin:0}
+.matchup-teaser .quick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.matchup-teaser .chip{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:12px;white-space:nowrap}
+.matchup-teaser .cta{background:var(--green);border:1px solid var(--green);color:#04120b;border-radius:10px;padding:9px 12px;font-weight:900;text-decoration:none;white-space:nowrap}
+@media(max-width:680px){.matchup-teaser{grid-template-columns:1fr}.matchup-teaser .quick{justify-content:flex-start}}
+
+
 /* SECTION + LEAGUE HEADS */
 .league-head{display:flex;align-items:center;gap:9px;margin:22px 0 9px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
 .league-head img.flag{height:15px;width:21px;object-fit:cover;border-radius:2px;background:var(--surface-2)}
@@ -560,6 +570,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="day">Ayer</div>
     <button title="Next day" id="nextDay">›</button>
   </div>
+
+  <section class="matchup-teaser" aria-label="Matchup simulator">
+    <div>
+      <div class="ey">New simulator</div>
+      <h2>Simulate any football matchup</h2>
+      <p>Pick two teams and see what AIGoalie predicts. Pro unlocks unlimited simulations and exact xG.</p>
+    </div>
+    <div class="quick">
+      <span class="chip">Germany vs Brazil</span>
+      <span class="chip">Real Madrid vs Inter</span>
+      <a class="cta" href="matchup.html">Try it</a>
+    </div>
+  </section>
 
   <div class="toolbar">
     <div class="seg">
