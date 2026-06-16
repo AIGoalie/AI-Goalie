@@ -634,7 +634,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="quick">
       <span class="chip">Germany vs Brazil</span>
       <span class="chip">Real Madrid vs Inter</span>
-      <a class="cta" href="matchup.html">Try it</a>
+      <a class="cta" href="matchup.html" onclick="trackEvent('matchup_teaser_click')">Try it</a>
     </div>
   </section>
 
@@ -685,6 +685,31 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 </div>
 
 <script>
+function trackEvent(name, data){
+  try {
+    if (window.umami && typeof window.umami.track === "function") window.umami.track(name, data || {});
+  } catch(e){}
+}
+let __lastSearchTrack = { q: "", t: 0 };
+function trackSearch(q){
+  q = String(q || "").trim();
+  if (q.length < 2) return;
+  const now = Date.now();
+  if (q === __lastSearchTrack.q && now - __lastSearchTrack.t < 10000) return;
+  __lastSearchTrack = { q, t: now };
+  trackEvent("search", { length: q.length });
+}
+function toggleMatchRow(row){
+  if (!row) return;
+  const willOpen = !row.classList.contains("open");
+  row.classList.toggle("open");
+  if (willOpen) trackEvent("card_expand", {
+    league: row.dataset.league || "",
+    home: row.dataset.home || "",
+    away: row.dataset.away || ""
+  });
+}
+
 // ---- MOCK DATA: order of `leagues` mirrors server value-sort (WC flagged) ----
 const FLAGS = {"Chile":"cl","Uruguay":"uy","England":"gb-eng","Spain":"es","Germany":"de"};
 const LEAGUES = [
@@ -786,7 +811,7 @@ function cardHTML(m,idx){
   const hl=m.home_logo_url||logoURL(m.hid), al=m.away_logo_url||logoURL(m.aid);
   return `
   <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
-    <div class="mhead" onclick="this.parentNode.classList.toggle('open')">
+    <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
           <span class="nm ${pickHome?'pk':''}">${esc(m.home)}</span>
@@ -813,7 +838,7 @@ function cardHTML(m,idx){
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">
-        <a class="matchlink" href="/match/${slug(m)}">Full prediction & analysis →</a>
+        <a class="matchlink" href="/match/${slug(m)}" onclick="trackEvent('fixture_link_click', { league: this.closest('.mrow')?.dataset.league || '' })">Full prediction & analysis →</a>
         ${m.odds ? `<span class="odds-mini">Odds ${esc(m.odds)}</span>` : ""}
       </div>
     </div>
@@ -855,13 +880,14 @@ function renderLeague(){
   document.getElementById("leagueView").innerHTML = html;
 }
 function setView(v){
+  trackEvent("view_toggle", { view: v });
   document.getElementById("segGlobal").classList.toggle("on",v==="global");
   document.getElementById("segLeague").classList.toggle("on",v==="league");
   document.getElementById("globalView").style.display=v==="global"?"block":"none";
   document.getElementById("leagueView").style.display=v==="league"?"block":"none";
   doSearch(document.getElementById("search").value);
 }
-function doSearch(q){ q=(q||"").trim().toLowerCase();
+function doSearch(q){ trackSearch(q); q=(q||"").trim().toLowerCase();
   document.querySelectorAll(".mrow").forEach(r=>{ r.style.display=(!q||r.getAttribute("data-search").includes(q))?"":"none"; });
   openDefaultRows();
 }
@@ -875,6 +901,7 @@ function openDefaultRows(){
 }
 function toggleSort(){
   SORT_BY_CONF=!SORT_BY_CONF;
+  trackEvent("sort_toggle", { sort_by_confidence: SORT_BY_CONF });
   document.getElementById("sortIcon").style.color=SORT_BY_CONF?"var(--green-bright)":"";
   const root = document.querySelector("#globalView .all-section") || document.getElementById("globalView");
   const cards = Array.from(root.children).filter(el => el.classList && el.classList.contains("mrow"));
@@ -956,10 +983,11 @@ function adjustDate(days) {
   d.setDate(d.getDate() + days);
   navigateToDate(d);
 }
-document.getElementById('prevDay')?.addEventListener('click', () => adjustDate(-1));
-document.getElementById('nextDay')?.addEventListener('click', () => adjustDate(1));
+document.getElementById('prevDay')?.addEventListener('click', () => { trackEvent('day_nav', { direction: 'prev' }); adjustDate(-1); });
+document.getElementById('nextDay')?.addEventListener('click', () => { trackEvent('day_nav', { direction: 'next' }); adjustDate(1); });
 
 function switchLang(lng) {
+  trackEvent('language_change', { language: lng });
   try { SafeStore.set('LANG_PREF', lng); } catch(e){}
   const base = getRenderedPageDate();
   location.href = lng === 'en' ? `${base}${QA_SUFFIX}.html` : `${base}${QA_SUFFIX}-${lng}.html`;
@@ -981,9 +1009,10 @@ function csvHrefForCurrentDate() {
   return `csv/pro-${getRenderedPageDate()}.csv`;
 }
 async function downloadCSV() {
+  trackEvent('csv_export_click', { date: getRenderedPageDate() });
   try {
-    if (!window.__auth || !window.__auth.currentUser) { alert('Please log in to access CSV.'); return; }
-    if (window.__isPro !== true) { alert('Go Pro to download CSV.'); return; }
+    if (!window.__auth || !window.__auth.currentUser) { trackEvent('csv_export_blocked', { reason: 'signed_out' }); alert('Please log in to access CSV.'); return; }
+    if (window.__isPro !== true) { trackEvent('csv_export_blocked', { reason: 'not_pro' }); alert('Go Pro to download CSV.'); return; }
     const token = await window.getAuthToken?.();
     const headers = token ? { Authorization: 'Bearer ' + token } : {};
     const d = csvHrefForCurrentDate().match(/pro-(\d{2}\.\d{2}\.\d{4})\.csv/);
@@ -991,7 +1020,7 @@ async function downloadCSV() {
     const res = await fetch(`${PRO_API_BASE}/csv-url?date=${encodeURIComponent(date)}`, { headers });
     if (res.ok) {
       const j = await res.json();
-      if (j && j.url) { location.href = j.url; return; }
+      if (j && j.url) { trackEvent('csv_export_success', { date }); location.href = j.url; return; }
     }
     alert('Go Pro to download CSV.');
   } catch(e) {
@@ -1023,6 +1052,7 @@ function renderPricingTable(){
 }
 async function startCheckout(ev) {
   if (ev) ev.preventDefault();
+  trackEvent('go_pro_click', { source: ev && ev.currentTarget ? (ev.currentTarget.textContent || '').trim() : 'unknown' });
   if (window.__isPro === true) { alert('You are already Pro!'); return; }
   openProBox();
 }
