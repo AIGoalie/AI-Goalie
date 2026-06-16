@@ -238,6 +238,21 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .pred .xg-teams{font-size:8.5px}
   .toolbar{gap:6px}
   .toolbar input[type=search]{min-width:0;flex:1 1 100%;order:3}
+
+  .league-section .league-head{
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr) auto;
+    grid-template-areas:"flag name count" ". acc acc";
+    align-items:center;
+    gap:6px 8px;
+    padding:12px 13px;
+  }
+  .league-section .league-head img.flag{grid-area:flag;align-self:start;margin-top:2px}
+  .league-section .league-head .lname{grid-area:name;min-width:0;line-height:1.25;font-size:14px;overflow-wrap:anywhere}
+  .league-section .league-head .lsub{grid-area:count;margin-left:0;justify-self:end;text-align:right;font-size:11.5px;line-height:1.2;white-space:normal;max-width:54px}
+  .league-section .league-head .league-accuracy{grid-area:acc;margin-left:0;justify-self:start;max-width:100%;font-size:10px;padding:4px 7px}
+  .league-section .league-head .league-accuracy span:first-child{display:none}
+  .league-section .league-head .league-accuracy::before{content:"Accuracy"}
   .toolbar .seg{flex:1}
   .toolbar .seg button{flex:1;padding:8px 6px}
 }
