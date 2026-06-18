@@ -33,12 +33,12 @@ window.__gpp = window.__gpp || function(){ (window.__gpp.q = window.__gpp.q || [
 })();
 </script>
 <style>
-:root{--bg:#0A1310;--surface:#101D17;--surface-2:#16271E;--line:#21372B;--line-soft:#1a2c22;
---green:#27D27A;--green-bright:#46F08F;--lime:#BFE34A;--amber:#FFB13D;--gold:#F4C752;
---text:#E9F1EB;--muted:#85A091;--muted-2:#5f7a6c;--loss:#E96A6A;
---wc:#F4C752;--wc2:#46F08F;--wc-line:rgba(244,199,82,.4)}
+:root{--bg:#06120C;--surface:#0D1D14;--surface-2:#132A1C;--line:#254331;--line-soft:#193024;
+--green:#4EE879;--green-bright:#71F08B;--lime:#B7E85B;--amber:#FFB84D;--gold:#FFD35E;
+--text:#F4F6EF;--muted:#AEB8A9;--muted-2:#778578;--loss:#EF6F6C;
+--wc:#FFD35E;--wc2:#71F08B;--wc-line:rgba(255,211,94,.4)}
 *{box-sizing:border-box}
-body{background:radial-gradient(900px 460px at 50% -10%,#112a1f 0%,rgba(17,42,31,0) 60%),var(--bg);
+body{background:radial-gradient(780px 420px at 82% -8%,rgba(113,240,139,.16),transparent 62%),linear-gradient(135deg,#06120C,#0C2115 52%,#08120D),var(--bg);
 color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 margin:0;line-height:1.5;-webkit-font-smoothing:antialiased}
 .wrap{max-width:980px;margin:0 auto;padding:0 14px 60px}
@@ -66,8 +66,8 @@ header.top nav a:hover{background:var(--surface-2);color:var(--text)}
 .btn{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;
 padding:7px 12px;font-size:13px;cursor:pointer;font-weight:600;white-space:nowrap}
 .btn:hover{background:var(--surface-2)}
-.btn.pro{background:rgba(39,210,122,.12);color:var(--green-bright);border-color:rgba(70,240,143,.45)}
-.btn.pro:hover{background:rgba(39,210,122,.18);border-color:var(--green-bright)}
+.btn.pro{background:rgba(78,232,121,.12);color:var(--green-bright);border-color:rgba(113,240,139,.45)}
+.btn.pro:hover{background:rgba(78,232,121,.18);border-color:var(--green-bright)}
 .navtoggle{display:none;background:var(--surface);border:1px solid var(--line);color:var(--text);
 border-radius:9px;padding:7px 11px;font-size:15px;cursor:pointer}
 
@@ -86,7 +86,7 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .toolbar input[type=search]{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 12px;font-size:13px;min-width:170px}
 .toolbar .icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);cursor:pointer;font-size:15px}
 
-.matchup-teaser{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin:16px 0 14px;padding:16px;border:1px solid rgba(70,240,143,.28);border-radius:18px;background:linear-gradient(135deg,rgba(39,210,122,.10),rgba(244,199,82,.04) 58%,transparent),var(--surface)}
+.matchup-teaser{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin:16px 0 14px;padding:16px;border:1px solid rgba(113,240,139,.28);border-radius:18px;background:linear-gradient(135deg,rgba(78,232,121,.10),rgba(244,199,82,.04) 58%,transparent),var(--surface)}
 .matchup-teaser .ey{color:var(--green-bright);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
 .matchup-teaser h2{font-size:20px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
 .matchup-teaser p{color:var(--muted);font-size:13px;margin:0}
@@ -149,7 +149,7 @@ background:
   height:20px;
   flex:0 0 20px; /* reserve exact space */
 }
-.resmark.w{background:rgba(39,210,122,.16)} .resmark.w svg{stroke:var(--green-bright)}
+.resmark.w{background:rgba(78,232,121,.16)} .resmark.w svg{stroke:var(--green-bright)}
 .resmark.d{background:var(--surface-2)} .resmark.d svg{stroke:var(--muted)}
 .resmark.l{background:rgba(233,106,106,.14)} .resmark.l svg{stroke:var(--loss)}
 .resmark.empty{
@@ -437,10 +437,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     height:46px;
   }
   .account-btn{
-    padding:8px 10px;
-    min-width:48px;
+    width:46px;
+    min-width:46px;
     height:46px;
-    font-size:13px;
+    padding:0;
+    font-size:18px;
   }
 }
 
@@ -622,7 +623,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <button class="btn pro" data-buy-pro="1">Go Pro</button>
       <div class="account-menu" id="accountMenu">
-        <button class="btn account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleAccountDropdown('accountBtn')">Sign in</button>
+        <button class="btn account-btn" id="accountBtn" aria-label="Account" title="Account" aria-haspopup="true" aria-expanded="false" onclick="toggleAccountDropdown('accountBtn')">👤</button>
         <div class="account-dropdown" id="accountDropdown" role="menu">
           <a href="#" id="dd_signin" class="account-item" role="menuitem">Sign in</a>
           <a href="#" id="manageBilling" class="account-item" role="menuitem" style="display:none;">Manage billing</a>
@@ -5242,7 +5243,7 @@ function updateProUI(isPro) {
     el.style.display = isPro ? 'none' : '';
   });
   const accountBtn = document.getElementById('accountBtn');
-  if (accountBtn) accountBtn.textContent = isPro ? 'Pro' : (window.__auth?.currentUser ? 'Account' : 'Sign in');
+  if (accountBtn) { accountBtn.textContent = '👤'; accountBtn.setAttribute('aria-label', window.__auth?.currentUser ? (isPro ? 'Pro account' : 'Account') : 'Sign in'); accountBtn.title = accountBtn.getAttribute('aria-label'); }
   document.getElementById('manageBilling')?.style.setProperty('display', isPro ? 'block' : 'none');
   if (isPro) hideMoneytizerAds();
   if (isPro) setTimeout(loadProFullForDateV12, 0);
