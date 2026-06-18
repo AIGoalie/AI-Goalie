@@ -555,7 +555,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       </div>
       <button class="btn pro" data-buy-pro="1">✨ Go Pro</button>
       <div class="account-menu" id="accountMenu">
-        <button class="btn account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleAccountDropdown('accountBtn')">Sign in</button>
+        <button class="btn account-btn" id="accountBtn" aria-label="Account" title="Account" aria-haspopup="true" aria-expanded="false" onclick="toggleAccountDropdown('accountBtn')">👤</button>
         <div class="account-dropdown" id="accountDropdown" role="menu">
           <a href="#" id="dd_signin" class="account-item" role="menuitem">Sign in</a>
           <a href="#" id="manageBilling" class="account-item" role="menuitem" style="display:none;">Manage billing</a>
@@ -4234,7 +4234,7 @@ function updateProUI(isPro) {
     el.style.display = isPro ? 'none' : '';
   });
   const accountBtn = document.getElementById('accountBtn');
-  if (accountBtn) accountBtn.textContent = isPro ? 'Pro' : (window.__auth?.currentUser ? 'Account' : 'Sign in');
+  if (accountBtn) { accountBtn.textContent = '👤'; accountBtn.setAttribute('aria-label', window.__auth?.currentUser ? (isPro ? 'Pro account' : 'Account') : 'Sign in'); accountBtn.title = accountBtn.getAttribute('aria-label'); }
   document.getElementById('manageBilling')?.style.setProperty('display', isPro ? 'block' : 'none');
   if (isPro) setTimeout(loadProFullForDateV12, 0);
   else showFutureProGate();
