@@ -574,18 +574,19 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 
 
 
+
 <div class="wrap">
 
   <header class="top">
     <span class="logo"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></span>
     <button class="navtoggle" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
     <nav>
-      <a href="index.html">ホーム</a>
-      <a href="results.html">実績</a>
-      <a href="matchup.html">シミュレーター</a>
-      <a href="contact.html">お問い合わせ</a>
-      <a href="about.html">概要</a>
-      <a href="disclaimer.html">免責事項</a>
+      <a href="/ja/">ホーム</a>
+      <a href="/ja/results/">実績</a>
+      <a href="/ja/matchup/">シミュレーター</a>
+      <a href="/ja/contact/">お問い合わせ</a>
+      <a href="/ja/about/">概要</a>
+      <a href="/ja/disclaimer/">免責事項</a>
       <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
     </nav>
     <div class="acct">
@@ -620,7 +621,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="quick">
       <span class="chip">Germany vs Brazil</span>
       <span class="chip">Real Madrid vs Inter</span>
-      <a class="cta" href="matchup.html" onclick="trackEvent('matchup_teaser_click')">試す</a>
+      <a class="cta" href="/ja/matchup/" onclick="trackEvent('matchup_teaser_click')">試す</a>
     </div>
   </section>
 
@@ -651,10 +652,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 
   <footer>
     <div>
-      <a href="index.html">ホーム</a> · <a href="results.html">実績</a> ·
-      <a href="contact.html">お問い合わせ</a> · <a href="about.html">モデルについて</a> ·
+      <a href="/ja/">ホーム</a> · <a href="/ja/results/">実績</a> ·
+      <a href="/ja/contact/">お問い合わせ</a> · <a href="/ja/about/">モデルについて</a> ·
       <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a> ·
-      <a href="privacy-policy.html">プライバシー</a> · <a href="disclaimer.html">免責事項</a>
+      <a href="/ja/privacy-policy/">プライバシー</a> · <a href="/ja/disclaimer/">免責事項</a>
     </div>
     <div style="margin-top:8px">モデル出力であり保証ではありません。18歳以上・責任ある利用を。</div>
   </footer>
@@ -807,6 +808,7 @@ function slug(m){
   const iso = isoFromDisplayDate((m && m.date) || getRenderedPageDate());
   return `${iso}-${slugifyTeam(m && m.home)}-vs-${slugifyTeam(m && m.away)}`;
 }
+const MATCH_PATH_PREFIX = "/ja/match/";
 function cardHTML(m,idx){
   const tier=tierOf(m.conf), pickHome=m.pick==="home", gb=goalsBand(m.total_xg);
   const bg=`rgb(${m.bg[0]*0.85},${m.bg[1]*0.85},${m.bg[2]*0.85})`;
@@ -840,7 +842,7 @@ function cardHTML(m,idx){
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">
-        <a class="matchlink" href="/match/${slug(m)}" onclick="trackEvent('fixture_link_click', { league: this.closest('.mrow')?.dataset.league || '' })">詳しい予測と分析 →</a>
+        <a class="matchlink" href="${MATCH_PATH_PREFIX}${slug(m)}" onclick="trackEvent('fixture_link_click', { league: this.closest('.mrow')?.dataset.league || '' })">詳しい予測と分析 →</a>
         ${m.odds ? `<span class="odds-mini">${i18n('odds','Odds')} ${esc(m.odds)}</span>` : ""}
       </div>
     </div>
