@@ -754,6 +754,12 @@ function isLiveResult(m){ return m.status==="live" || /b30000|class="live"/.test
 function localKickoffLabel(utc){
   if(!utc || typeof Intl==="undefined") return "";
   try{
+    return new Intl.DateTimeFormat(undefined,{hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(utc));
+  }catch(e){ return ""; }
+}
+function localKickoffTitle(utc){
+  if(!utc || typeof Intl==="undefined") return "";
+  try{
     return new Intl.DateTimeFormat(undefined,{hour:"2-digit",minute:"2-digit",hour12:false,timeZoneName:"short"}).format(new Date(utc));
   }catch(e){ return ""; }
 }
@@ -770,7 +776,8 @@ function centerCell(m){
   }
   // upcoming: kickoff time
   const local = localKickoffLabel(m.kickoff_utc);
-  return `<div class="ko" data-kickoff-utc="${esc(m.kickoff_utc||"")}" title="${local ? "Local time: "+esc(local) : ""}">${esc(local || m.ko)}</div>`;
+  const title = localKickoffTitle(m.kickoff_utc);
+  return `<div class="ko" data-kickoff-utc="${esc(m.kickoff_utc||"")}" title="${title ? "Local time: "+esc(title) : ""}">${esc(local || m.ko)}</div>`;
 }
 function resMark(o){
   if(!["W","D","L"].includes(o)) return '<span class="resmark empty" aria-hidden="true"></span>';
@@ -1276,8 +1283,9 @@ function applyLocalKickoffTimes(){
     if (!utc || !/^\d{2}:\d{2}$/.test(current)) return;
     const local = localKickoffLabel(utc);
     if (!local) return;
-    el.textContent = local.replace(/\sGMT$/, '');
-    el.title = 'Local time: ' + local;
+    el.textContent = local;
+    const title = localKickoffTitle(utc);
+    el.title = title ? ('Local time: ' + title) : 'Local time';
   });
 }
 
