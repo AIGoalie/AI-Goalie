@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | AIGoalie</title>
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="AIGoalieへのお問い合わせページ。">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="v12_static.css">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>emailjs.init('acqvzgyZ5_Z_0XDg-');</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/ja/"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></a>
+    <button class="navtoggle" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
+    <nav>
+      <a href="/ja/">ホーム</a>
+      <a href="/ja/results/">実績</a>
+      <a href="/ja/matchup/">シミュレーター</a>
+      <a class="active" href="/ja/contact/">お問い合わせ</a>
+      <a href="/ja/about/">概要</a>
+      <a href="/ja/disclaimer/">免責事項</a>
+      <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
+    </nav>
+    <div class="acct">
+      <a class="btn pro" href="index.html?pro=1">Proにする</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="eyebrow">お問い合わせ</div>
+      <h1>AIGoalieへのお問い合わせ</h1>
+      <p class="lead">フィードバックの送信、不具合の報告、または日々のサッカー予測ページの改善アイデアの共有ができます。</p>
+    </section>
+
+    <section class="panel content">
+      <p>AIGoalieのご利用中に気づいたアイデア、ご提案、問題点はいつでも歓迎します。</p>
+      <p>返信をご希望の場合は、正しいメールアドレスをご入力ください。</p>
+      <form id="contact-form" class="form-grid">
+        <div>
+          <label for="name">お名前</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="email">メールアドレス</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="message">メッセージ</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button class="submit" type="submit">送信</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/ja/">ホーム</a> · <a href="/ja/results/">実績</a> ·
+    <a href="/ja/privacy-policy/">プライバシーポリシー</a> · <a href="/ja/disclaimer/">免責事項</a>
+    <div>モデル出力であり保証ではありません。18歳以上・責任ある利用を。</div>
+  </footer>
+</div>
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const serviceID = 'service_snnahm5';
+  const templateID = 'template_4d4oews';
+  emailjs.sendForm(serviceID, templateID, '#contact-form').then(function() {
+    alert('メッセージありがとうございます。追ってご連絡いたします。');
+  }, function(error) {
+    alert('申し訳ありません。問題が発生しました。後でもう一度お試しください。');
+    try { console.warn(error); } catch(e) {}
+  });
+});
+</script>
+</body>
+</html>
