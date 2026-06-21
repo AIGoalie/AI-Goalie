@@ -506,7 +506,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 }
 
 
-/* All matches view: group all non-World-Cup matches into one shared list box. */
+/* Shared non-World-Cup match list. */
 .all-section{
   border:1px solid var(--line);
   border-radius:18px;
@@ -751,7 +751,7 @@ function fmtThreatPct(v){
   return `${Math.round((Math.abs(n) < 1 ? n * 100 : n))}%`;
 }
 function shortName(n){ n=String(n||""); return n.length>10 ? n.slice(0,9)+"…" : n; }
-function goalsBand(tg){ if(!tg) return null; return {value:tg.toFixed(1),label: tg<2.2?i18n("under_25_likely","Under 2.5 likely"): tg<3.0?i18n("around_2_3_goals","Around 2-3 goals"):i18n("over_25_likely","Over 2.5 likely")}; }
+function goalsBand(tg){ if(!tg) return null; return {value:tg.toFixed(1),label: tg<2.2?i18n("under_25_likely","2.5\u70b9\u672a\u6e80\u306e\u53ef\u80fd\u6027"): tg<3.0?i18n("around_2_3_goals","2\u301c3\u70b9\u524d\u5f8c"):i18n("over_25_likely","2.5\u70b9\u4ee5\u4e0a\u306e\u53ef\u80fd\u6027")}; }
 function logoURL(id){ return id?`https://media.api-sports.io/football/teams/${id}.png`:""; }
 function isLiveResult(m){ return m.status==="live" || /b30000|class="live"/.test(String(m.ko||"")+String(m.result||"")); }
 function localKickoffLabel(utc){
