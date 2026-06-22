@@ -133,7 +133,7 @@ background:
 .wc-section .mrow.tier-high{border-left-color:var(--wc)}
 
 /* MATCH CARD */
-.mrow{border:1px solid var(--line);background:var(--surface);border-radius:14px;margin:9px 0;overflow:hidden;transition:border-color .15s}
+.mrow{border:1px solid var(--line);background:var(--surface);border-radius:14px;margin:9px 0;overflow:hidden;transition:border-color .15s;content-visibility:auto;contain-intrinsic-size:auto 76px}
 .mrow:hover{border-color:var(--green)}
 .mrow.tier-high{border-left:3px solid var(--green-bright)}
 .mrow.tier-lean{border-left:3px solid var(--amber)}
@@ -824,11 +824,11 @@ function cardHTML(m,idx){
       <div class="fixrow">
         <div class="side home">
           <span class="nm ${pickHome?'pk':''}">${esc(m.home)}</span>
-          ${hl?`<img class="crest" src="${hl}" alt="${esc(m.home)} football team crest" loading="lazy">`:'<span class="crest ph"></span>'}
+          ${hl?`<img class="crest" width="30" height="30" decoding="async" src="${hl}" alt="${esc(m.home)} football team crest" loading="lazy">`:'<span class="crest ph"></span>'}
         </div>
         <div class="center">${centerCell(m)}</div>
         <div class="side away">
-          ${al?`<img class="crest" src="${al}" alt="${esc(m.away)} football team crest" loading="lazy">`:'<span class="crest ph"></span>'}
+          ${al?`<img class="crest" width="30" height="30" decoding="async" src="${al}" alt="${esc(m.away)} football team crest" loading="lazy">`:'<span class="crest ph"></span>'}
           <span class="nm ${!pickHome?'pk':''}">${esc(m.away)}</span>
         </div>
       </div>
