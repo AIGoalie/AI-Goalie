@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AIGoalie 対戦シミュレーター | AIサッカー予測</title>
+<title>Simulador de enfrentamientos AIGoalie | Predicciones de fútbol con IA</title>
 <meta name="robots" content="noindex,follow">
-<meta name="description" content="好きな2チームを選んで、AIGoalieのAIサッカー予測をシミュレーションできます。">
-<link rel="canonical" href="https://ai-goalie.com/ja/matchup/">
+<meta name="description" content="Elige dos equipos y simula las predicciones de fútbol con IA de AIGoalie.">
+<link rel="canonical" href="https://ai-goalie.com/es/matchup/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -50,47 +50,47 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
 <body>
 <div class="wrap">
 <header class="top">
-  <a class="logo" href="/ja/"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></a>
+  <a class="logo" href="/es/"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></a>
   <button class="navtoggle" type="button" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
   <nav>
-    <a href="/ja/">ホーム</a>
-    <a href="/ja/results/">実績</a>
-    <a href="/ja/contact/">お問い合わせ</a>
-    <a href="/ja/about/">概要</a>
-    <a class="active" href="/ja/matchup/">シミュレーター</a>
-    <a href="/ja/disclaimer/">免責事項</a>
+    <a href="/es/">Inicio</a>
+    <a href="/es/results/">Historial</a>
+    <a href="/es/contact/">Contacto</a>
+    <a href="/es/about/">Acerca de</a>
+    <a class="active" href="/es/matchup/">Simulador</a>
+    <a href="/es/disclaimer/">Aviso legal</a>
     <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
   </nav>
   <div class="acct">
-    <span id="proState" class="pro-state">Pro確認中…</span>
-    <a class="btn pro" id="goProBtn" href="index.html?pro=1">Proにする</a>
+    <span id="proState" class="pro-state">Comprobando Pro…</span>
+    <a class="btn pro" id="goProBtn" href="index.html?pro=1">Hazte Pro</a>
     <div class="account-menu">
-      <button class="btn account-btn" id="accountBtn" type="button" aria-label="アカウント" title="アカウント" aria-haspopup="true" aria-expanded="false">👤</button>
+      <button class="btn account-btn" id="accountBtn" type="button" aria-label="Cuenta" title="Cuenta" aria-haspopup="true" aria-expanded="false">👤</button>
       <div class="account-dropdown" id="accountDropdown" role="menu">
-        <a href="#" id="signInBtn" role="menuitem">Googleでログイン</a>
-        <a href="#" id="signOutBtn" role="menuitem" style="display:none">ログアウト</a>
+        <a href="#" id="signInBtn" role="menuitem">Iniciar sesión con Google</a>
+        <a href="#" id="signOutBtn" role="menuitem" style="display:none">Cerrar sesión</a>
       </div>
     </div>
   </div>
 </header>
 <main>
   <section class="hero">
-    <div class="eyebrow">仮想対戦シミュレーター</div>
-    <h1>好きな2チームを選んで、モデルの予測を確認しましょう。</h1>
-    <p class="lead">これはモデルによるシミュレーションであり、予定された試合の予測ではありません。AIGoalieのデータセットにある最新のチームシグナルを使用します。</p>
+    <div class="eyebrow">Simulador de enfrentamientos hipotéticos</div>
+    <h1>Elige dos equipos cualesquiera. Mira qué opina el modelo.</h1>
+    <p class="lead">Esto es una simulación del modelo, no la predicción de un partido programado. Utiliza las señales de equipo más recientes que ya están en el conjunto de datos de AIGoalie.</p>
   </section>
   <section class="sim">
-    <div class="field"><label for="homeTeam">チームA</label><input id="homeTeam" list="teamList" placeholder="チーム名を入力…"></div>
-    <div class="field"><label for="awayTeam">チームB</label><input id="awayTeam" list="teamList" placeholder="別のチーム名を入力…"></div>
-    <div class="field"><label for="venue">会場の前提</label><select id="venue"><option value="neutral">中立地</option><option value="home">チームAがホーム</option><option value="away">チームBがホーム</option></select></div>
-    <div class="actions"><button class="submit" id="simulateBtn">対戦をシミュレート</button><span class="quota" id="quotaText">チームを読み込み中…</span><span class="error" id="err"></span></div>
+    <div class="field"><label for="homeTeam">Equipo A</label><input id="homeTeam" list="teamList" placeholder="Empieza a escribir un equipo…"></div>
+    <div class="field"><label for="awayTeam">Equipo B</label><input id="awayTeam" list="teamList" placeholder="Empieza a escribir otro equipo…"></div>
+    <div class="field"><label for="venue">Supuesto de campo</label><select id="venue"><option value="neutral">Campo neutral</option><option value="home">Equipo A en casa</option><option value="away">Equipo B en casa</option></select></div>
+    <div class="actions"><button class="submit" id="simulateBtn">Simular enfrentamiento</button><span class="quota" id="quotaText">Cargando equipos…</span><span class="error" id="err"></span></div>
     <datalist id="teamList"></datalist>
   </section>
   <section class="result" id="result"></section>
   <div id="128244-6" class="ad-container hidden" data-moneytizer-slot="6"></div>
-  <p class="note">無料シミュレーションはこのブラウザでは回数制限があります。Proでは無制限のシミュレーション、正確なxG、BTTS、引き分け確率、広告なしのサイトが利用できます。</p>
+  <p class="note">Las simulaciones gratuitas están limitadas en este navegador. Pro desbloquea simulaciones ilimitadas, xG exacto, BTTS, probabilidad de empate y un sitio sin anuncios.</p>
 </main>
-<footer><a href="/ja/">ホーム</a> · <a href="/ja/results/">実績</a> · <a href="/ja/matchup/">シミュレーター</a> · <a href="/ja/privacy-policy/">プライバシー</a> · <a href="/ja/disclaimer/">免責事項</a></footer>
+<footer><a href="/es/">Inicio</a> · <a href="/es/results/">Historial</a> · <a href="/es/matchup/">Simulador</a> · <a href="/es/privacy-policy/">Privacidad</a> · <a href="/es/disclaimer/">Aviso legal</a></footer>
 </div>
 <script>
 const PRO_API_BASE = "https://aigoalie-pro-1047692809091.europe-west1.run.app";
@@ -104,9 +104,9 @@ function quota(){try{const raw=JSON.parse(localStorage.getItem("matchupQuota")||
 function saveQuota(q){try{localStorage.setItem("matchupQuota",JSON.stringify(q));}catch(e){}}
 function currentUser(){try{return window.firebase&&firebase.auth&&firebase.auth().currentUser?firebase.auth().currentUser:null;}catch(e){return null;}}
 function quotaLimit(){return IS_PRO?Infinity:(currentUser()?FREE_LOGIN_LIMIT:FREE_LIMIT);}
-function updateQuota(){const q=quota(), lim=quotaLimit();document.getElementById("quotaText").textContent=IS_PRO?"Pro有効：無制限シミュレーション":`${Math.max(0,lim-q.count)} 回の無料シミュレーションが本日残っています`;}
+function updateQuota(){const q=quota(), lim=quotaLimit();document.getElementById("quotaText").textContent=IS_PRO?"Pro activo: simulaciones ilimitadas":`${Math.max(0,lim-q.count)} simulaciones gratuitas restantes hoy`;}
 function setProState(text){const el=document.getElementById("proState");if(el)el.textContent=text;}
-function updateAuthUI(user){const account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn"),goPro=document.getElementById("goProBtn");if(account){account.textContent="👤";account.setAttribute("aria-label",user?(IS_PRO?"Pro account":"アカウント"):"ログイン");account.title=account.getAttribute("aria-label");}if(signIn)signIn.style.display=user?"none":"block";if(signOut)signOut.style.display=user?"block":"none";if(goPro)goPro.style.display=IS_PRO?"none":"inline-flex";document.body.classList.toggle("pro-unlocked",IS_PRO);}
+function updateAuthUI(user){const account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn"),goPro=document.getElementById("goProBtn");if(account){account.textContent="👤";account.setAttribute("aria-label",user?(IS_PRO?"Pro account":"Cuenta"):"Iniciar sesión");account.title=account.getAttribute("aria-label");}if(signIn)signIn.style.display=user?"none":"block";if(signOut)signOut.style.display=user?"block":"none";if(goPro)goPro.style.display=IS_PRO?"none":"inline-flex";document.body.classList.toggle("pro-unlocked",IS_PRO);}
 function hideMoneytizerAds(){document.querySelectorAll(".ad-container").forEach(el=>el.classList.add("hidden"));}
 function loadMoneytizerAds(){try{if(window.__moneytizerLoaded||IS_PRO||location.protocol==="file:")return;const slot=document.getElementById("128244-6");if(!slot)return;slot.classList.remove("hidden");window.__moneytizerLoaded=true;const gen=document.createElement("script");gen.src="//ads.themoneytizer.com/s/gen.js?type=6";const req=document.createElement("script");req.src="//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6";slot.appendChild(gen);slot.appendChild(req);}catch(e){console.warn("AIGoalie: Moneytizer load failed.",e);}}
 function resolveTeam(value){const exact=LABELS.get(String(value||"").trim().toLowerCase());if(exact)return exact;const q=String(value||"").trim().toLowerCase();return TEAMS.find(t=>t.name.toLowerCase()===q)||TEAMS.find(t=>(t.name+" "+t.league).toLowerCase().includes(q));}
@@ -155,7 +155,7 @@ function confidenceFromMetric(value){
 }
 function probs(hm,am){const diff=hm-am;let ph=1/(1+Math.exp(-1.5*diff)),pa=1-ph,pd=clamp(Math.exp(-2.2*diff*diff),.05,.35),s=ph+pa+pd;return {home:ph/s,draw:pd/s,away:pa/s,diff};}
 function pct(v){return Math.round(v*100)+"%";}
-function band(total){return total<2.2?"低得点傾向":total<3.0?"2〜3点前後":"高得点傾向";}
+function band(total){return total<2.2?"Pocos goles":total<3.0?"Alrededor de 2-3 goles":"Muchos goles";}
 function simulate(home,away,venue){const m=metricPair(home,away,venue),p=probs(m.home,m.away),pick=m.home>=m.away?home:away,conf=clamp(confidenceFromMetric(Math.max(m.home,m.away))/100,.01,.99);const avgConceded=Math.max(0.1,leagueAvgConceded(home));const rawTotal=Math.max(0,((Number(home.gf)||0)*(Number(away.ga)||0)/avgConceded)+((Number(away.gf)||0)*(Number(home.ga)||0)/avgConceded)-1);const scale=clamp(1+.25*(m.home-m.away),.8,1.2);let hxg=clamp(((Number(home.gf)||1.2)+(Number(away.ga)||1.2))/2*scale,.05,4.5),axg=clamp(((Number(away.gf)||1.2)+(Number(home.ga)||1.2))/2/scale,.05,4.5);const current=hxg+axg;if(rawTotal>0&&current>0){const factor=rawTotal/current;hxg=clamp(hxg*factor,.05,4.5);axg=clamp(axg*factor,.05,4.5);}const btts=(1-Math.exp(-hxg))*(1-Math.exp(-axg));return {home,away,pick,conf,p,hxg,axg,total:hxg+axg,btts,metrics:m};}
 function render(r){const locked=!IS_PRO;document.body.classList.toggle("pro-unlocked",IS_PRO);document.getElementById("result").style.display="block";document.getElementById("result").innerHTML=`
 <div class="scoreline">
@@ -164,20 +164,20 @@ function render(r){const locked=!IS_PRO;document.body.classList.toggle("pro-unlo
   <div class="team ${r.pick.id===r.away.id?"pick":""}">${r.away.logo?`<img src="${esc(r.away.logo)}" alt="${esc(r.away.name)} crest">`:""}<div class="name">${esc(r.away.name)}</div><div class="sub">${esc(r.away.form||"")} · ${esc(r.away.league||"")}</div></div>
 </div>
 <div class="grid">
-  <div class="card"><div class="k">公開ゴール予想</div><div class="v">${r.total.toFixed(2)}</div><div class="s">${band(r.total)}</div></div>
-  <div class="card ${locked?"locked":""}"><div class="k">正確なxG</div><div class="v">${r.hxg.toFixed(2)} - ${r.axg.toFixed(2)}</div><div class="s">${esc(r.home.name)} - ${esc(r.away.name)}</div></div>
-  <div class="card ${locked?"locked":""}"><div class="k">両チーム得点</div><div class="v">${pct(r.btts)}</div><div class="s">Advanced Pro estimate</div></div>
-  <div class="card ${locked?"locked":""}"><div class="k">${esc(r.home.name)} 勝利</div><div class="v">${pct(r.p.home)}</div><div class="s">Venue-adjusted</div></div>
-  <div class="card ${locked?"locked":""}"><div class="k">引き分け</div><div class="v">${pct(r.p.draw)}</div><div class="s">Simulation probability</div></div>
-  <div class="card ${locked?"locked":""}"><div class="k">${esc(r.away.name)} 勝利</div><div class="v">${pct(r.p.away)}</div><div class="s">Venue-adjusted</div></div>
+  <div class="card"><div class="k">Lectura pública de goles</div><div class="v">${r.total.toFixed(2)}</div><div class="s">${band(r.total)}</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">xG exacto</div><div class="v">${r.hxg.toFixed(2)} - ${r.axg.toFixed(2)}</div><div class="s">${esc(r.home.name)} - ${esc(r.away.name)}</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">Ambos marcan</div><div class="v">${pct(r.btts)}</div><div class="s">Advanced Pro estimate</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">${esc(r.home.name)} gana</div><div class="v">${pct(r.p.home)}</div><div class="s">Venue-adjusted</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">Empate</div><div class="v">${pct(r.p.draw)}</div><div class="s">Simulation probability</div></div>
+  <div class="card ${locked?"locked":""}"><div class="k">${esc(r.away.name)} gana</div><div class="v">${pct(r.p.away)}</div><div class="s">Venue-adjusted</div></div>
 </div>
-${locked?`<div class="pro-note"><span>Proで無制限シミュレーションと詳細な確率パネルが利用できます。</span><a href="index.html?pro=1" onclick="trackEvent('go_pro_click',{source:'simulator_result'})">Proにする</a></div>`:""}
+${locked?`<div class="pro-note"><span>Pro desbloquea simulaciones ilimitadas y el panel de probabilidades avanzado.</span><a href="index.html?pro=1" onclick="trackEvent('go_pro_click',{source:'simulator_result'})">Hazte Pro</a></div>`:""}
 <p class="note">Hypothetical simulation based on current model signals. It does not include confirmed lineups, injuries or a scheduled venue unless shown.</p>`;}
-function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="リストから2チームを選んでください。";trackEvent("simulator_error",{reason:"missing_team"});return;}if(h.id===a.id){err.textContent="異なる2チームを選んでください。";trackEvent("simulator_error",{reason:"same_team"});return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="本日の無料シミュレーションを使い切りました。無制限はProで。";trackEvent("simulator_pro_limit_hit",{logged_in:!!currentUser(),limit:lim});return;}if(!IS_PRO){q.count+=1;saveQuota(q);}const venue=document.getElementById("venue").value;const result=simulate(h,a,venue);trackEvent("simulator_run",{venue,pro:IS_PRO,home_league:h.league||"",away_league:a.league||"",confidence:Math.round(result.conf*100)});render(result);updateQuota();}
+function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="Elige dos equipos de la lista.";trackEvent("simulator_error",{reason:"missing_team"});return;}if(h.id===a.id){err.textContent="Elige dos equipos distintos.";trackEvent("simulator_error",{reason:"same_team"});return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="Has usado las simulaciones gratuitas de hoy. Hazte Pro para tenerlas ilimitadas.";trackEvent("simulator_pro_limit_hit",{logged_in:!!currentUser(),limit:lim});return;}if(!IS_PRO){q.count+=1;saveQuota(q);}const venue=document.getElementById("venue").value;const result=simulate(h,a,venue);trackEvent("simulator_run",{venue,pro:IS_PRO,home_league:h.league||"",away_league:a.league||"",confidence:Math.round(result.conf*100)});render(result);updateQuota();}
 async function loadTeams(){const res=await fetch("matchup_data.json",{cache:"no-store"});const data=await res.json();TEAMS=data.teams||[];const dl=document.getElementById("teamList");TEAMS.forEach(t=>{const label=`${t.name} — ${t.league||t.country||"Team"}`;LABELS.set(label.toLowerCase(),t);LABELS.set(t.name.toLowerCase(),t);const o=document.createElement("option");o.value=label;dl.appendChild(o);});updateQuota();}
-function initAuth(){const menu=document.getElementById("accountDropdown"),account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn");document.getElementById("goProBtn")?.addEventListener("click",()=>trackEvent("go_pro_click",{source:"simulator_header"}));account&&account.addEventListener("click",()=>{menu&&menu.classList.toggle("show");account.setAttribute("aria-expanded",menu&&menu.classList.contains("show")?"true":"false");});document.addEventListener("click",ev=>{if(menu&&account&&!account.contains(ev.target)&&!menu.contains(ev.target))menu.classList.remove("show");});if(!window.firebase){IS_PRO=false;setProState("ログイン");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){try{firebase.app();}catch(_){}}const auth=firebase.auth();signIn&&signIn.addEventListener("click",async ev=>{ev.preventDefault();trackEvent("sign_in_click",{source:"simulator"});await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());});signOut&&signOut.addEventListener("click",async ev=>{ev.preventDefault();await auth.signOut();});auth.onAuthStateChanged(async user=>{try{if(!user){IS_PRO=false;setProState("ログイン");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}setProState("Pro確認中…");const tok=await user.getIdToken();const res=await fetch(PRO_API_BASE+"/me",{headers:{Authorization:"Bearer "+tok}});const j=res.ok?await res.json():null;IS_PRO=!!(j&&j.pro);setProState(IS_PRO?"Pro active":"無料アカウント");updateAuthUI(user);updateQuota();if(IS_PRO)hideMoneytizerAds();else loadMoneytizerAds();}catch(e){IS_PRO=false;setProState("無料アカウント");updateAuthUI(user);updateQuota();loadMoneytizerAds();}});}
+function initAuth(){const menu=document.getElementById("accountDropdown"),account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn");document.getElementById("goProBtn")?.addEventListener("click",()=>trackEvent("go_pro_click",{source:"simulator_header"}));account&&account.addEventListener("click",()=>{menu&&menu.classList.toggle("show");account.setAttribute("aria-expanded",menu&&menu.classList.contains("show")?"true":"false");});document.addEventListener("click",ev=>{if(menu&&account&&!account.contains(ev.target)&&!menu.contains(ev.target))menu.classList.remove("show");});if(!window.firebase){IS_PRO=false;setProState("Iniciar sesión");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){try{firebase.app();}catch(_){}}const auth=firebase.auth();signIn&&signIn.addEventListener("click",async ev=>{ev.preventDefault();trackEvent("sign_in_click",{source:"simulator"});await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());});signOut&&signOut.addEventListener("click",async ev=>{ev.preventDefault();await auth.signOut();});auth.onAuthStateChanged(async user=>{try{if(!user){IS_PRO=false;setProState("Iniciar sesión");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}setProState("Comprobando Pro…");const tok=await user.getIdToken();const res=await fetch(PRO_API_BASE+"/me",{headers:{Authorization:"Bearer "+tok}});const j=res.ok?await res.json():null;IS_PRO=!!(j&&j.pro);setProState(IS_PRO?"Pro active":"Cuenta gratuita");updateAuthUI(user);updateQuota();if(IS_PRO)hideMoneytizerAds();else loadMoneytizerAds();}catch(e){IS_PRO=false;setProState("Cuenta gratuita");updateAuthUI(user);updateQuota();loadMoneytizerAds();}});}
 document.getElementById("simulateBtn").addEventListener("click",run);
-loadTeams().catch(()=>{document.getElementById("quotaText").textContent="チームを読み込めませんでした。";});
+loadTeams().catch(()=>{document.getElementById("quotaText").textContent="No se pudieron cargar los equipos.";});
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initAuth);else initAuth();
 </script>
 </body>
