@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato | AIGoalie</title>
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Página de contato da AIGoalie.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="v12_static.css">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>emailjs.init('acqvzgyZ5_Z_0XDg-');</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/pt/"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></a>
+    <button class="navtoggle" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
+    <nav>
+      <a href="/pt/">Início</a>
+      <a href="/pt/results/">Histórico</a>
+      <a href="/pt/matchup/">Simulador</a>
+      <a class="active" href="/pt/contact/">Contato</a>
+      <a href="/pt/about/">Sobre</a>
+      <a href="/pt/disclaimer/">Aviso legal</a>
+      <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
+    </nav>
+    <div class="acct">
+      <a class="btn pro" href="index.html?pro=1">Assinar Pro</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="eyebrow">Contato</div>
+      <h1>Fale com a AIGoalie</h1>
+      <p class="lead">Envie comentários, relate problemas ou compartilhe ideias para melhorar as páginas diárias de palpites de futebol.</p>
+    </section>
+
+    <section class="panel content">
+      <p>Sempre recebemos bem ideias, sugestões ou observações sobre problemas que você encontrou ao usar a AIGoalie.</p>
+      <p>Informe seu endereço de e-mail correto se quiser receber uma resposta.</p>
+      <form id="contact-form" class="form-grid">
+        <div>
+          <label for="name">Nome</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="message">Mensagem</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button class="submit" type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/pt/">Início</a> · <a href="/pt/results/">Histórico</a> ·
+    <a href="/pt/privacy-policy/">Política de privacidade</a> · <a href="/pt/disclaimer/">Aviso legal</a>
+    <div>Resultados do modelo, não garantias. 18+ · Jogue com responsabilidade.</div>
+  </footer>
+</div>
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const serviceID = 'service_snnahm5';
+  const templateID = 'template_4d4oews';
+  emailjs.sendForm(serviceID, templateID, '#contact-form').then(function() {
+    alert('Obrigado pela sua mensagem! Retornaremos em breve.');
+  }, function(error) {
+    alert('Ops! Algo deu errado. Tente novamente mais tarde.');
+    try { console.warn(error); } catch(e) {}
+  });
+});
+</script>
+</body>
+</html>
