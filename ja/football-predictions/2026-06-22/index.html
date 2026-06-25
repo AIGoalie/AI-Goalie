@@ -10598,96 +10598,31 @@ async function downloadCSV() {
 }
 
 function closeProBox(id){ const el = document.getElementById(id); if (el) el.style.display = 'none'; document.body.style.overflow = ''; }
-const CHECKOUT_PENDING_KEY = 'AIGOALIE_CHECKOUT_PENDING';
 function openProBox(){
   const el = document.getElementById('proBox');
-  if (!el) return false;
-  if (!renderPricingTable()) return false;
+  if (!el) return;
+  renderPricingTable();
   el.style.display = 'block';
   document.body.style.overflow = 'hidden';
-  return true;
 }
 function renderPricingTable(){
   const c = document.getElementById('proTableContainer');
-  if (!c) return false;
-  const user = window.__auth && window.__auth.currentUser;
-  if (!user) return false;
-  const existing = c.querySelector('stripe-pricing-table');
-  if (existing) {
-    if (existing.getAttribute('client-reference-id') === (user.uid || '')) return true;
-    existing.remove();
-  }
+  if (!c || c.querySelector('stripe-pricing-table')) return;
   const el = document.createElement('stripe-pricing-table');
   el.id = 'stripe-pricing-table';
   el.setAttribute('pricing-table-id', 'prctbl_1S8h8iERwICTUWQvrZS0MrWr');
   el.setAttribute('publishable-key', 'pk_live_51S3zScERwICTUWQvX8xeapK4aSmUg6bZ47pJOWH4x1REGmFoNDjorBMCA6jOW3ScuHfgOlact3qC7IdHmlZ4LPIn002aflQ4x4');
-  el.setAttribute('client-reference-id', user.uid || '');
-  if (user.email) el.setAttribute('customer-email', user.email);
+  const user = window.__auth && window.__auth.currentUser;
+  if (user) {
+    el.setAttribute('client-reference-id', user.uid || '');
+    if (user.email) el.setAttribute('customer-email', user.email);
+  }
   c.appendChild(el);
-  return true;
-}
-function clearPricingTable(){
-  document.getElementById('proTableContainer')?.replaceChildren();
-}
-function waitForAuthReady(){
-  return new Promise(resolve => {
-    let tries = 0;
-    (function check(){
-      if (window.__auth) { resolve(window.__auth); return; }
-      if (++tries >= 40) { resolve(null); return; }
-      setTimeout(check, 100);
-    })();
-  });
-}
-function shouldUseRedirectSignIn(){
-  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '') ||
-    (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-}
-async function ensureSignedInForCheckout(){
-  const auth = await waitForAuthReady();
-  if (!auth || !window.firebase) {
-    alert(i18n('csv_login_alert','Please log in to continue.'));
-    return null;
-  }
-  if (auth.currentUser) return auth.currentUser;
-  SafeStore.set(CHECKOUT_PENDING_KEY, '1');
-  const provider = new firebase.auth.GoogleAuthProvider();
-  if (shouldUseRedirectSignIn()) {
-    await auth.signInWithRedirect(provider);
-    return null;
-  }
-  try {
-    await auth.signInWithPopup(provider);
-  } catch(e) {
-    if (e && /popup|redirect|operation-not-supported/i.test(String(e.code || e.message || ''))) {
-      await auth.signInWithRedirect(provider);
-      return null;
-    }
-    SafeStore.del(CHECKOUT_PENDING_KEY);
-    throw e;
-  }
-  return auth.currentUser;
-}
-function checkoutRequestedFromUrl(){
-  try { return new URLSearchParams(location.search).get('pro') === '1'; }
-  catch(e){ return false; }
-}
-function clearCheckoutUrlFlag(){
-  try {
-    const url = new URL(location.href);
-    if (!url.searchParams.has('pro')) return;
-    url.searchParams.delete('pro');
-    history.replaceState({}, '', url.pathname + (url.search ? url.search : '') + url.hash);
-  } catch(e){}
 }
 async function startCheckout(ev) {
   if (ev) ev.preventDefault();
   trackEvent('go_pro_click', { source: ev && ev.currentTarget ? (ev.currentTarget.textContent || '').trim() : 'unknown' });
   if (window.__isPro === true) { alert('You are already Pro!'); return; }
-  const user = await ensureSignedInForCheckout();
-  if (!user) return;
-  SafeStore.del(CHECKOUT_PENDING_KEY);
-  clearCheckoutUrlFlag();
   openProBox();
 }
 document.querySelectorAll('[data-buy-pro]').forEach(el => el.addEventListener('click', startCheckout));
@@ -10941,14 +10876,13 @@ function applyLocalKickoffTimes(){
       if (signin) signin.style.display = user ? 'none' : 'block';
       if (signout) signout.style.display = user ? 'block' : 'none';
       try {
-        if (!user) { updateProUI(false); clearPricingTable(); loadMoneytizerAds(); if (checkoutRequestedFromUrl()) setTimeout(startCheckout, 0); return; }
+        if (!user) { updateProUI(false); loadMoneytizerAds(); return; }
         const tok = await user.getIdToken();
         const res = await fetch(PRO_API_BASE + '/me', { headers: { Authorization: 'Bearer ' + tok } });
         const j = res.ok ? await res.json() : null;
         const isPro = !!(j && j.pro);
         updateProUI(isPro);
         if (!isPro) loadMoneytizerAds();
-        if (!isPro && (SafeStore.get(CHECKOUT_PENDING_KEY) === '1' || checkoutRequestedFromUrl())) { setTimeout(startCheckout, 0); }
       } catch(e) { updateProUI(false); loadMoneytizerAds(); }
     });
   });
