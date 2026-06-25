@@ -8462,10 +8462,35 @@ function cardHTML(m,idx){
     </div>
 
     <div class="mdetail">
-      <div class="pred-strip">
-        <div class="pred"><div class="pl">Expected goals (per team)</div><div class="pv locked pro pro-xgh">${m.home_xg!=null&&m.away_xg!=null ? Number(m.home_xg).toFixed(1)+" - "+Number(m.away_xg).toFixed(1) : "—"}</div><div class="ps xg-teams"><span>${esc(shortName(m.home))}</span><span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="pred"><div class="pl">Total goals</div><div class="pv">${gb?gb.value:'—'}</div><div class="ps">${gb?gb.label:''}</div></div>
-        <div class="pred"><div class="pl">Both to score</div><div class="pv locked pro pro-btts">🔒</div><div class="pro-tag">🔒 Pro</div></div>
+      <div class="metric-rail">
+        <div class="metric pro-metric">
+          <div class="ml">xG/team</div>
+          <div class="mv locked pro"><span class="pro-xgh">🔒</span> - <span class="pro-xga">🔒</span></div>
+          <div class="ms"></div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
+        <div class="metric">
+          <div class="ml">Goals</div>
+          <div class="mv">${gb?gb.value:'—'}</div>
+          <div class="ms"></div>
+        </div>
+        <div class="metric pro-metric">
+          <div class="ml">BTTS</div>
+          <div class="mv locked pro pro-btts">🔒</div>
+          <div class="ms"></div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
+        <div class="metric">
+          <div class="ml">Accuracy<br>at this %</div>
+          <div class="mv">—</div>
+          <div class="ms">More history needed</div>
+        </div>
+        <div class="metric pro-metric">
+          <div class="ml">League<br>accuracy</div>
+          <div class="mv locked pro">🔒</div>
+          <div class="ms">🔒 Pro</div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
       </div>
       <span class="pro pro-opp" style="display:none">🔒</span>
       <div class="detail-actions">
