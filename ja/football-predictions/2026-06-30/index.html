@@ -327,24 +327,15 @@ background:
 /* COMPACT teaser expansion */
 .mdetail{display:none;padding:0 15px 14px;border-top:1px solid var(--line-soft)}
 .mrow.open .mdetail{display:block}
-.pred-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}
-.pred{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:8px 8px;text-align:center}
-.pred .pl{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-2);margin-bottom:4px}
-.pred .pv{font-size:15.5px;font-weight:800}
-.pred .pv.locked{filter:blur(5px);user-select:none}
-.pred .ps{font-size:9.5px;color:var(--muted);margin-top:2px}
-.pred .xg-teams{display:flex;justify-content:space-between;gap:6px;padding:0 2px}
-.pred .xg-teams span{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pred .pro-tag{font-size:9.5px;color:var(--gold);margin-top:2px}
-.accuracy-title{margin-top:12px;color:var(--muted-2);font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
-.accuracy-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:6px}
-.accuracy-card{background:rgba(106,255,139,.055);border:1px solid rgba(106,255,139,.14);border-radius:10px;padding:8px 8px;text-align:center}
-.accuracy-card.pro-locked{background:rgba(255,213,102,.045);border-color:rgba(255,213,102,.14)}
-.accuracy-card .al{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-2);margin-bottom:3px}
-.accuracy-card .av{font-size:15.5px;font-weight:850;color:var(--text)}
-.accuracy-card .av.locked{filter:blur(5px);user-select:none}
-.accuracy-card .as{font-size:9.5px;color:var(--muted);margin-top:2px}
-.accuracy-card .pro-tag{font-size:9.5px;color:var(--gold);margin-top:2px}
+.metric-rail{display:grid;grid-template-columns:1.45fr .82fr .82fr 1.08fr 1.08fr;gap:7px;margin-top:11px}
+.metric{min-width:0;min-height:72px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:7px 5px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:2px;overflow:hidden}
+.metric.pro-metric{background:rgba(255,213,102,.045);border-color:rgba(255,213,102,.16)}
+.metric .ml{font-size:8px;text-transform:uppercase;letter-spacing:.055em;color:var(--muted-2);font-weight:850;line-height:1.08}
+.metric .mv{font-size:14px;font-weight:850;line-height:1.1;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.metric .mv.locked{filter:blur(5px);user-select:none}
+.metric .ms{font-size:8.5px;color:var(--muted);line-height:1.12;min-height:18px;display:flex;align-items:center;justify-content:center;overflow:hidden;text-overflow:ellipsis}
+.metric .ms span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.metric .pro-tag{font-size:8.5px;color:var(--gold);line-height:1.1}
 .teaseline{color:var(--muted);font-size:12.5px;margin-top:11px;line-height:1.5}
 .detail-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}
 .matchlink{display:inline-flex;align-items:center;gap:5px;color:var(--green-bright);font-size:13px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--surface-2);padding:8px 13px;border-radius:9px}
@@ -381,17 +372,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .winwrap{gap:6px}
   .win-pill{font-size:12px;min-width:36px;padding:3px 7px}
   .chev{width:20px;height:20px;font-size:10px}
-  .pred-strip{gap:6px}
-  .accuracy-strip{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-  .accuracy-card{padding:7px 4px}
-  .accuracy-card .al{font-size:8px;letter-spacing:.04em}
-  .accuracy-card .av{font-size:14px}
-  .accuracy-card .as{font-size:8px;line-height:1.25}
-  .accuracy-card .pro-tag{font-size:8px}
-  .pred{padding:9px 5px}
-  .pred .pl{font-size:8.5px}
-  .pred .pv{font-size:14px}
-  .pred .xg-teams{font-size:8.5px}
+  .metric-rail{gap:5px;grid-template-columns:1.48fr .78fr .78fr 1.08fr 1.08fr}
+  .metric{min-height:66px;padding:6px 3px;border-radius:9px}
+  .metric .ml{font-size:7.4px;letter-spacing:.035em}
+  .metric .mv{font-size:12.5px}
+  .metric .ms{font-size:7.4px;min-height:16px}
+  .metric .pro-tag{font-size:7.5px}
   .toolbar{gap:6px}
   .toolbar input[type=search]{min-width:0;flex:1 1 100%;order:3}
 
@@ -983,10 +969,12 @@ function cardHTML(m,idx){
     </div>
 
     <div class="mdetail">
-      <div class="pred-strip">
-        <div class="pred"><div class="pl">予想ゴール（チーム別）</div><div class="pv locked pro pro-xgh">${m.home_xg!=null&&m.away_xg!=null ? Number(m.home_xg).toFixed(1)+" - "+Number(m.away_xg).toFixed(1) : "—"}</div><div class="ps xg-teams"><span>${esc(shortName(m.home))}</span><span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="pred"><div class="pl">合計ゴール</div><div class="pv">${gb?gb.value:'—'}</div><div class="ps">${gb?gb.label:''}</div></div>
-        <div class="pred"><div class="pl">両チーム得点</div><div class="pv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="pro-tag">🔒 Pro</div></div>
+      <div class="metric-rail">
+        <div class="metric pro-metric"><div class="ml">xG/team</div><div class="mv locked pro"><span class="pro-xgh">${m.home_xg!=null ? Number(m.home_xg).toFixed(2) : "—"}</span> - <span class="pro-xga">${m.away_xg!=null ? Number(m.away_xg).toFixed(2) : "—"}</span></div><div class="ms"><span>${esc(shortName(m.home))}</span>&nbsp;·&nbsp;<span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="metric"><div class="ml">合計ゴール</div><div class="mv">${gb?gb.value:'—'}</div><div class="ms"></div></div>
+        <div class="metric pro-metric"><div class="ml">BTTS</div><div class="mv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="ms"></div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="metric"><div class="ml">Accuracy<br>at ${esc(m.total)}</div><div class="mv">—</div><div class="ms">履歴がまだ不足しています</div></div>
+        <div class="metric pro-metric"><div class="ml">League<br>accuracy</div><div class="mv locked pro">🔒</div><div class="ms">🔒 Pro</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">

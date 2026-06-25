@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AIGoalie - Daily AI football predictions and betting tips!</title>
-<meta name="description" content="AIGoalie is a free AI football prediction model that uses machine learning to provide the best predictions and user-friendly soccer and football betting tips for goals and winners, covering matches in Europe and all leagues around the world. It includes match previews, forecasts, and analysis for today and the whole week to predict results. All results are available since it became available.">
-<meta name="pro-api-base" content="https://aigoalie-pro-1047692809091.europe-west1.run.app">
-<script defer src="https://cloud.umami.is/script.js" data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165"></script>
-<script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+<meta content="AIGoalie is a free AI football prediction model that uses machine learning to provide the best predictions and user-friendly soccer and football betting tips for goals and winners, covering matches in Europe and all leagues around the world. It includes match previews, forecasts, and analysis for today and the whole week to predict results. All results are available since it became available." name="description"/>
+<meta content="https://aigoalie-pro-1047692809091.europe-west1.run.app" name="pro-api-base"/>
+<script data-website-id="b54a5b83-5988-4a32-98bb-c710d8d8c165" defer="" src="https://cloud.umami.is/script.js"></script>
+<script defer="" src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script defer="" src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script async="" src="https://js.stripe.com/v3/pricing-table.js"></script>
 <style>
 :root{--bg:#0A1310;--surface:#101D17;--surface-2:#16271E;--line:#21372B;--line-soft:#1a2c22;
 --green:#27D27A;--green-bright:#46F08F;--lime:#BFE34A;--amber:#FFB13D;--gold:#F4C752;
@@ -183,11 +184,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .winwrap{gap:6px}
   .win-pill{font-size:12px;min-width:36px;padding:3px 7px}
   .chev{width:20px;height:20px;font-size:10px}
-  .pred-strip{gap:6px}
-  .pred{padding:9px 5px}
-  .pred .pl{font-size:8.5px}
-  .pred .pv{font-size:14px}
-  .pred .xg-teams{font-size:8.5px}
+  .metric-rail{gap:5px;grid-template-columns:1.48fr .78fr .78fr 1.08fr 1.08fr}
+    .metric{border-radius:11px;padding:8px 5px}.ml{font-size:7.8px;letter-spacing:.07em}.mv{font-size:14px}.ms{font-size:8.5px}.xg-pair{font-size:13px}.metric .pro-tag{font-size:8.5px}
   .toolbar{gap:6px}
   .toolbar input[type=search]{min-width:0;flex:1 1 100%;order:3}
   .toolbar .seg{flex:1}
@@ -498,136 +496,93 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 </style>
 </head>
 <body>
-
-
-
-
-
 <div class="wrap">
-
-  <header class="top">
-    <span class="logo">⚽ AI<b>Goalie</b></span>
-    <button class="navtoggle" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="results.html">Track record</a>
-      <a href="contact.html">Contact</a>
-      <a href="#">About</a>
-      <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
-    </nav>
-    <div class="acct">
-      <div class="language-select language-select--desktop">
-        
-        
-        <select class="lang-switcher" aria-label="Language" id="langSwitcher" onchange="switchLang(this.value)">
-          
-            
-            <option value="en" selected>🇬🇧 English</option>
-          
-            
-            <option value="de" >🇩🇪 Deutsch</option>
-          
-            
-            <option value="es" >🇪🇸 Español</option>
-          
-            
-            <option value="fr" >🇫🇷 Français</option>
-          
-            
-            <option value="pt" >🇵🇹 Português</option>
-          
-            
-            <option value="it" >🇮🇹 Italiano</option>
-          
-            
-            <option value="nl" >🇳🇱 Nederlands</option>
-          
-            
-            <option value="sw" >🇰🇪 Kiswahili</option>
-          
-            
-            <option value="tr" >🇹🇷 Türkçe</option>
-          
-            
-            <option value="id" >🇮🇩 Bahasa Indonesia</option>
-          
-        </select>
-      </div>
-      <button class="btn pro" data-buy-pro="1">✨ Go Pro</button>
-      <div class="account-menu" id="accountMenu">
-        <button class="btn account-btn" id="accountBtn" aria-label="Account" title="Account" aria-haspopup="true" aria-expanded="false" onclick="toggleAccountDropdown('accountBtn')">👤</button>
-        <div class="account-dropdown" id="accountDropdown" role="menu">
-          <a href="#" id="dd_signin" class="account-item" role="menuitem">Sign in</a>
-          <a href="#" id="manageBilling" class="account-item" role="menuitem" style="display:none;">Manage billing</a>
-          <a href="#" id="dd_signout" class="account-item" role="menuitem" style="display:none;">Sign out</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <div class="daybar">
-    <button title="Previous day" id="prevDay">‹</button>
-    <div class="day">Fri 19 June</div>
-    <button title="Next day" id="nextDay">›</button>
-  </div>
-
-  <section class="matchup-teaser" aria-label="Matchup simulator">
-    <div>
-      <div class="ey">New simulator</div>
-      <h2>Simulate any football matchup</h2>
-      <p>Pick two teams and see what AIGoalie predicts. Pro unlocks unlimited simulations and exact xG.</p>
-    </div>
-    <div class="quick">
-      <span class="chip">Germany vs Brazil</span>
-      <span class="chip">Real Madrid vs Inter</span>
-      <a class="cta" href="matchup.html">Try it</a>
-    </div>
-  </section>
-
-  <div class="toolbar">
-    <div class="seg">
-      <button class="on" id="segGlobal" onclick="setView('global')">All matches</button>
-      <button id="segLeague" onclick="setView('league')">By league</button>
-    </div>
-    <div class="spacer"></div>
-    <input type="search" id="search" placeholder="Search team or league…" oninput="doSearch(this.value)">
-    <div class="icon" title="Sort by confidence" id="sortIcon" onclick="toggleSort()">⇅</div>
-    <div class="icon" title="Download CSV" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
-  </div>
-
-  <div id="globalView">
-    
-    
-    
-    
-      <div class="empty">No matches.</div>
-    
-  </div>
-  <div id="leagueView" style="display:none">
-    
-  </div>
-
-  <footer>
-    <div>
-      <a href="index.html">Home</a> · <a href="results.html">Track record</a> ·
+<header class="top">
+<span class="logo">⚽ AI<b>Goalie</b></span>
+<button class="navtoggle" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
+<nav>
+<a href="index.html">Home</a>
+<a href="results.html">Track record</a>
+<a href="contact.html">Contact</a>
+<a href="#">About</a>
+<a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
+</nav>
+<div class="acct">
+<div class="language-select language-select--desktop">
+<select aria-label="Language" class="lang-switcher" id="langSwitcher" onchange="switchLang(this.value)">
+<option selected="" value="en">🇬🇧 English</option>
+<option value="de">🇩🇪 Deutsch</option>
+<option value="es">🇪🇸 Español</option>
+<option value="fr">🇫🇷 Français</option>
+<option value="pt">🇵🇹 Português</option>
+<option value="it">🇮🇹 Italiano</option>
+<option value="nl">🇳🇱 Nederlands</option>
+<option value="sw">🇰🇪 Kiswahili</option>
+<option value="tr">🇹🇷 Türkçe</option>
+<option value="id">🇮🇩 Bahasa Indonesia</option>
+</select>
+</div>
+<button class="btn pro" data-buy-pro="1">✨ Go Pro</button>
+<div class="account-menu" id="accountMenu">
+<button aria-expanded="false" aria-haspopup="true" aria-label="Account" class="btn account-btn" id="accountBtn" onclick="toggleAccountDropdown('accountBtn')" title="Account">👤</button>
+<div class="account-dropdown" id="accountDropdown" role="menu">
+<a class="account-item" href="#" id="dd_signin" role="menuitem">Sign in</a>
+<a class="account-item" href="#" id="manageBilling" role="menuitem" style="display:none;">Manage billing</a>
+<a class="account-item" href="#" id="dd_signout" role="menuitem" style="display:none;">Sign out</a>
+</div>
+</div>
+</div>
+</header>
+<div class="daybar">
+<button id="prevDay" title="Previous day">‹</button>
+<div class="day">Fri 19 June</div>
+<button id="nextDay" title="Next day">›</button>
+</div>
+<section aria-label="Matchup simulator" class="matchup-teaser">
+<div>
+<div class="ey">New simulator</div>
+<h2>Simulate any football matchup</h2>
+<p>Pick two teams and see what AIGoalie predicts. Pro unlocks unlimited simulations and exact xG.</p>
+</div>
+<div class="quick">
+<span class="chip">Germany vs Brazil</span>
+<span class="chip">Real Madrid vs Inter</span>
+<a class="cta" href="matchup.html">Try it</a>
+</div>
+</section>
+<div class="toolbar">
+<div class="seg">
+<button class="on" id="segGlobal" onclick="setView('global')">All matches</button>
+<button id="segLeague" onclick="setView('league')">By league</button>
+</div>
+<div class="spacer"></div>
+<input id="search" oninput="doSearch(this.value)" placeholder="Search team or league…" type="search"/>
+<div class="icon" id="sortIcon" onclick="toggleSort()" title="Sort by confidence">⇅</div>
+<div class="icon" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()" title="Download CSV">⤓</div>
+</div>
+<div id="globalView">
+<div class="empty">No matches.</div>
+</div>
+<div id="leagueView" style="display:none">
+</div>
+<footer>
+<div>
+<a href="index.html">Home</a> · <a href="results.html">Track record</a> ·
       <a href="contact.html">Contact</a> · <a href="#">About the model</a> ·
       <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a> ·
       <a href="#">Privacy</a> · <a href="#">Disclaimer</a>
-    </div>
-    <div style="margin-top:8px">Model outputs, not guarantees. 18+ · Gamble responsibly.</div>
-  </footer>
-
 </div>
-
+<div style="margin-top:8px">Model outputs, not guarantees. 18+ · Gamble responsibly.</div>
+</footer>
+</div>
 <div class="pro-box" id="proBox">
-  <div class="pro-modal">
-    <button aria-label="Close" class="close-btn" onclick="closeProBox('proBox')">×</button>
-    <h2>Go Pro</h2>
-    <p style="color:var(--muted);margin-top:0">Unlock expected goals, BTTS, CSV export, and advanced match detail.</p>
-    <div id="proTableContainer"></div>
-  </div>
+<div class="pro-modal">
+<button aria-label="Close" class="close-btn" onclick="closeProBox('proBox')">×</button>
+<h2>Go Pro</h2>
+<p style="color:var(--muted);margin-top:0">Unlock expected goals, BTTS, CSV export, and advanced match detail.</p>
+<div id="proTableContainer"></div>
 </div>
-
+</div>
 <script>
 // ---- MOCK DATA: order of `leagues` mirrors server value-sort (WC flagged) ----
 const FLAGS = {"Chile":"cl","Uruguay":"uy","England":"gb-eng","Spain":"es","Germany":"de"};
