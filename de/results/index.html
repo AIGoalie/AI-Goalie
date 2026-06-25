@@ -259,6 +259,7 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--muted);font-size:13.5p
     <a href="https://rapidapi.com/aigoaliemail/api/aigoalie" rel="noopener">API</a>
   </nav>
   <div class="acct">
+    <div class="language-select"><select class="lang-switcher" aria-label="Language" onchange="switchSiteLang(this.value)"><option value="en">🇬🇧 English</option><option value="ja">🇯🇵 日本語</option><option value="es">🇪🇸 Español</option><option value="de" selected>🇩🇪 Deutsch</option><option value="fr">🇫🇷 Français</option><option value="pt">🇧🇷 Português</option></select></div>
     <a class="btn pro" href="index.html?pro=1">Pro holen</a>
   </div>
 </header>
@@ -304,4 +305,8 @@ Ein Tipp gilt als <b>getroffen</b>, wenn das vom Modell gewählte Team das Spiel
   <a href="/de/contact/">Kontakt</a> · <a href="/de/disclaimer/">Haftungsausschluss</a>
   <div>Modellausgaben, keine Finanzberatung. 18+ · Spiele verantwortungsbewusst.</div>
 </footer>
-</div></body></html>
+</div><script>
+function switchSiteLang(lang){const p=location.pathname;const m=p.match(/^\/(ja|es|de|fr|pt)(\/.*)?$/);const rest=m?(m[2]||'/'):p;let page='';if(rest==='/'||rest==='/index.html')page='';else{const sm=rest.match(/^\/(results|matchup|contact|about|disclaimer|privacy-policy)(?:\.html|\/)?$/);if(sm)page=sm[1];else page='';}if(lang==='en'){location.href=page?('/'+page+'.html'):'/';return;}location.href=page?('/'+lang+'/'+page+'/'):('/'+lang+'/');}
+(function(){const m=location.pathname.match(/^\/(ja|es|de|fr|pt)(?:\/|$)/);const lang=m?m[1]:'en';document.querySelectorAll('.lang-switcher').forEach(function(sel){sel.value=lang;});})();
+</script>
+</body></html>

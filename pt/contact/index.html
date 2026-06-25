@@ -29,6 +29,7 @@
       <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
     </nav>
     <div class="acct">
+    <div class="language-select"><select class="lang-switcher" aria-label="Language" onchange="switchSiteLang(this.value)"><option value="en">🇬🇧 English</option><option value="ja">🇯🇵 日本語</option><option value="es">🇪🇸 Español</option><option value="de">🇩🇪 Deutsch</option><option value="fr">🇫🇷 Français</option><option value="pt" selected>🇧🇷 Português</option></select></div>
       <a class="btn pro" href="index.html?pro=1">Assinar Pro</a>
     </div>
   </header>
@@ -79,6 +80,10 @@ document.getElementById('contact-form').addEventListener('submit', function(even
     try { console.warn(error); } catch(e) {}
   });
 });
+</script>
+<script>
+function switchSiteLang(lang){const p=location.pathname;const m=p.match(/^\/(ja|es|de|fr|pt)(\/.*)?$/);const rest=m?(m[2]||'/'):p;let page='';if(rest==='/'||rest==='/index.html')page='';else{const sm=rest.match(/^\/(results|matchup|contact|about|disclaimer|privacy-policy)(?:\.html|\/)?$/);if(sm)page=sm[1];else page='';}if(lang==='en'){location.href=page?('/'+page+'.html'):'/';return;}location.href=page?('/'+lang+'/'+page+'/'):('/'+lang+'/');}
+(function(){const m=location.pathname.match(/^\/(ja|es|de|fr|pt)(?:\/|$)/);const lang=m?m[1]:'en';document.querySelectorAll('.lang-switcher').forEach(function(sel){sel.value=lang;});})();
 </script>
 </body>
 </html>
