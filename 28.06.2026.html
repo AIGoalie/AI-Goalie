@@ -1012,9 +1012,9 @@ function cardHTML(m,idx){
       <div class="pred-strip">
         <div class="pred"><div class="pl">Expected goals (per team)</div><div class="pv locked pro pro-xgh">${m.home_xg!=null&&m.away_xg!=null ? Number(m.home_xg).toFixed(1)+" - "+Number(m.away_xg).toFixed(1) : "—"}</div><div class="ps xg-teams"><span>${esc(shortName(m.home))}</span><span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="pred"><div class="pl">Total goals</div><div class="pv">${gb?gb.value:'—'}</div><div class="ps">${gb?gb.label:''}</div></div>
-        <div class="pred"><div class="pl">Both to score</div><div class="pv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="pred"><div class="pl">Both to score</div><div class="pv locked pro pro-btts">🔒</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
-      <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
+      <span class="pro pro-opp" style="display:none">🔒</span>
       <div class="detail-actions">
         <a class="matchlink" href="${MATCH_PATH_PREFIX}${slug(m)}" onclick="trackEvent('fixture_link_click', { league: this.closest('.mrow')?.dataset.league || '' })">Full prediction & analysis →</a>
         ${m.odds ? `<span class="odds-mini">${i18n('odds','Odds')} ${esc(m.odds)}</span>` : ""}
