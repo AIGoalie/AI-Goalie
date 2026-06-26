@@ -2638,7 +2638,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   <div class="mrow tier-high" data-match-index="7" data-league="International - Friendlies Clubs" data-home="Borac Banja Luka"
        data-away="IMT Novi Beograd" data-date="Fri. 26 Jun." data-time="13:00"
-       data-kickoff-utc="2026-06-26T12:00:00Z"
+       data-kickoff-utc="2026-06-26T15:00:00Z"
        data-search="borac banja luka imt novi beograd international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
@@ -2650,7 +2650,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-06-26T12:00:00Z">13:00</div>
+          <div class="ko" data-kickoff-utc="2026-06-26T15:00:00Z">13:00</div>
         </div>
         <div class="side away">
           
@@ -10509,7 +10509,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   <div class="mrow tier-high" data-match-index="3" data-league="International - Friendlies Clubs" data-home="Borac Banja Luka"
        data-away="IMT Novi Beograd" data-date="Fri. 26 Jun." data-time="13:00"
-       data-kickoff-utc="2026-06-26T12:00:00Z"
+       data-kickoff-utc="2026-06-26T15:00:00Z"
        data-search="borac banja luka imt novi beograd international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
@@ -10521,7 +10521,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-06-26T12:00:00Z">13:00</div>
+          <div class="ko" data-kickoff-utc="2026-06-26T15:00:00Z">13:00</div>
         </div>
         <div class="side away">
           
@@ -17883,8 +17883,8 @@ function cardHTML(m,idx){
         <div class="metric pro-metric"><div class="ml">xG/team</div><div class="mv locked pro"><span class="pro-xgh">${m.home_xg!=null ? Number(m.home_xg).toFixed(2) : "—"}</span> - <span class="pro-xga">${m.away_xg!=null ? Number(m.away_xg).toFixed(2) : "—"}</span></div><div class="ms"><span>${esc(shortName(m.home))}</span>&nbsp;·&nbsp;<span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="metric"><div class="ml">Tore insgesamt</div><div class="mv">${gb?gb.value:'—'}</div><div class="ms"></div></div>
         <div class="metric pro-metric"><div class="ml">BTTS</div><div class="mv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="ms"></div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="metric"><div class="ml">Accuracy<br>at ${esc(m.total)}</div><div class="mv">—</div><div class="ms">Mehr Verlauf nötig</div></div>
-        <div class="metric pro-metric"><div class="ml">League<br>accuracy</div><div class="mv locked pro">🔒</div><div class="ms">🔒 Pro</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="metric"><div class="ml">Accuracy<br>at ${esc(m.total)}</div><div class="mv">${m.context_conf ? Math.round(Number(m.context_conf.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_conf ? `${m.context_conf.n} calls` : "Mehr Verlauf nötig"}</div></div>
+        <div class="metric pro-metric"><div class="ml">League<br>accuracy</div><div class="mv locked pro">${m.context_league ? Math.round(Number(m.context_league.win_rate)) + "%" : "🔒"}</div><div class="ms">${m.context_league ? `${m.context_league.n} calls` : "🔒 Pro"}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">
