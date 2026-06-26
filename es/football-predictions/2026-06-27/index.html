@@ -38473,6 +38473,40 @@ function applyProUnlockedDom(){
   document.body.classList.add('pro-unlocked');
 }
 
+let MODEL_CONTEXT_CACHE = null;
+async function loadModelContext(){
+  if (MODEL_CONTEXT_CACHE) return MODEL_CONTEXT_CACHE;
+  try {
+    const res = await fetch('/model_context.json', {cache:'no-store'});
+    MODEL_CONTEXT_CACHE = res.ok ? await res.json() : {};
+  } catch(e) {
+    MODEL_CONTEXT_CACHE = {};
+  }
+  return MODEL_CONTEXT_CACHE;
+}
+function confidenceBucketFor(total){
+  const pc = numOrNull(total);
+  if (pc == null) return null;
+  const buckets = [[0,20],[20,30],[30,40],[40,50],[50,60],[60,75],[75,101]];
+  for (const [lo, hi] of buckets){
+    if (pc >= lo && pc < hi) return `${lo}-${hi-1}%`;
+  }
+  return null;
+}
+function attachClientModelContext(cards, context){
+  context = context || {};
+  cards.forEach(m => {
+    const bucket = confidenceBucketFor(m.total);
+    if (bucket && context.confidence) m.context_conf = context.confidence[bucket] || null;
+    if (context.leagues_conf50 && numOrNull(m.total) >= 50 && context.leagues_conf50[m.league]) m.context_league = context.leagues_conf50[m.league];
+    else if (context.leagues) m.context_league = context.leagues[m.league] || null;
+    const pickedName = m.pick === 'home' ? m.home : m.away;
+    const teamKey = normMatchKey(pickedName);
+    if (context.teams && teamKey) m.context_team = context.teams[teamKey] || null;
+  });
+  return cards;
+}
+
 function normMatchKey(s){
   try {
     return String(s || "").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -38514,8 +38548,9 @@ function populateRenderedProFields(items){
   });
 }
 
-function renderV12MatchesFromApi(matches){
+async function renderV12MatchesFromApi(matches){
   const cards = (matches || []).map(proApiMatchToV12).filter(m => m.home && m.away);
+  await loadModelContext().then(ctx => attachClientModelContext(cards, ctx));
 
   // Visitor-local-day grouping for the Pro re-render — mirror of the server-DOM
   // prune so a Pro unlock doesn't re-introduce off-local-day cards. (Cards with
@@ -38590,7 +38625,7 @@ async function loadProFullForDateV12(){
     const matches = Array.isArray(j.matches) ? j.matches : (Array.isArray(j.items) ? j.items : []);
     if (!matches.length) { showFutureProGate(); return; }
     if (hasRenderedMatches()) populateRenderedProFields(matches);
-    else renderV12MatchesFromApi(matches);
+    else await renderV12MatchesFromApi(matches);
   } catch(e) {
     console.log(e);
     showFutureProGate();

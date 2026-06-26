@@ -11338,8 +11338,9 @@ function populateRenderedProFields(items){
   });
 }
 
-function renderV12MatchesFromApi(matches){
+async function renderV12MatchesFromApi(matches){
   const cards = (matches || []).map(proApiMatchToV12).filter(m => m.home && m.away);
+  await loadModelContext().then(ctx => attachClientModelContext(cards, ctx));
 
   // Visitor-local-day grouping for the Pro re-render — mirror of the server-DOM
   // prune so a Pro unlock doesn't re-introduce off-local-day cards. (Cards with
@@ -11413,7 +11414,7 @@ async function loadProFullForDateV12(){
     const matches = Array.isArray(j.matches) ? j.matches : (Array.isArray(j.items) ? j.items : []);
     if (!matches.length) { showFutureProGate(); return; }
     if (hasRenderedMatches()) populateRenderedProFields(matches);
-    else renderV12MatchesFromApi(matches);
+    else await renderV12MatchesFromApi(matches);
   } catch(e) {
     console.log(e);
     showFutureProGate();

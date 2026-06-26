@@ -7539,8 +7539,9 @@ function proApiMatchToV12(m){
   };
 }
 
-function renderV12MatchesFromApi(matches){
+async function renderV12MatchesFromApi(matches){
   const cards = (matches || []).map(proApiMatchToV12).filter(m => m.home && m.away);
+  await loadModelContext().then(ctx => attachClientModelContext(cards, ctx));
 
   // Visitor-local-day grouping for the Pro re-render — mirror of the server-DOM
   // prune so a Pro unlock doesn't re-introduce off-local-day cards. (Cards with

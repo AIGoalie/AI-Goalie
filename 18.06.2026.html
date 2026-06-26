@@ -2204,8 +2204,9 @@ function proApiMatchToV12(m){
   };
 }
 
-function renderV12MatchesFromApi(matches){
+async function renderV12MatchesFromApi(matches){
   const cards = (matches || []).map(proApiMatchToV12).filter(m => m.home && m.away);
+  await loadModelContext().then(ctx => attachClientModelContext(cards, ctx));
   const wc = cards.filter(m => m.isWC);
   const rest = cards.filter(m => !m.isWC);
   rest.sort((a,b)=>winNum(b.total)-winNum(a.total));

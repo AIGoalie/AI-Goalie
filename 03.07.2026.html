@@ -999,8 +999,8 @@ function cardHTML(m,idx){
         <div class="metric pro-metric"><div class="ml">xG/team</div><div class="mv locked pro"><span class="pro-xgh">${m.home_xg!=null ? Number(m.home_xg).toFixed(2) : "—"}</span> - <span class="pro-xga">${m.away_xg!=null ? Number(m.away_xg).toFixed(2) : "—"}</span></div><div class="ms"><span>${esc(shortName(m.home))}</span>&nbsp;·&nbsp;<span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="metric"><div class="ml">Total goals</div><div class="mv">${gb?gb.value:'—'}</div><div class="ms"></div></div>
         <div class="metric pro-metric"><div class="ml">BTTS</div><div class="mv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="ms"></div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="metric"><div class="ml">Accuracy<br>at ${esc(m.total)}</div><div class="mv">—</div><div class="ms">More history needed</div></div>
-        <div class="metric pro-metric"><div class="ml">League<br>accuracy</div><div class="mv locked pro">🔒</div><div class="ms">🔒 Pro</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="metric"><div class="ml">Accuracy<br>at ${esc(m.total)}</div><div class="mv">${m.context_conf ? Math.round(Number(m.context_conf.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_conf ? `${m.context_conf.n} calls` : "More history needed"}</div></div>
+        <div class="metric pro-metric"><div class="ml">League<br>accuracy</div><div class="mv locked pro">${m.context_league ? Math.round(Number(m.context_league.win_rate)) + "%" : "🔒"}</div><div class="ms">${m.context_league ? `${m.context_league.n} calls` : "🔒 Pro"}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">
@@ -1422,6 +1422,40 @@ function applyProUnlockedDom(){
   document.body.classList.add('pro-unlocked');
 }
 
+let MODEL_CONTEXT_CACHE = null;
+async function loadModelContext(){
+  if (MODEL_CONTEXT_CACHE) return MODEL_CONTEXT_CACHE;
+  try {
+    const res = await fetch('/model_context.json', {cache:'no-store'});
+    MODEL_CONTEXT_CACHE = res.ok ? await res.json() : {};
+  } catch(e) {
+    MODEL_CONTEXT_CACHE = {};
+  }
+  return MODEL_CONTEXT_CACHE;
+}
+function confidenceBucketFor(total){
+  const pc = numOrNull(total);
+  if (pc == null) return null;
+  const buckets = [[0,20],[20,30],[30,40],[40,50],[50,60],[60,75],[75,101]];
+  for (const [lo, hi] of buckets){
+    if (pc >= lo && pc < hi) return `${lo}-${hi-1}%`;
+  }
+  return null;
+}
+function attachClientModelContext(cards, context){
+  context = context || {};
+  cards.forEach(m => {
+    const bucket = confidenceBucketFor(m.total);
+    if (bucket && context.confidence) m.context_conf = context.confidence[bucket] || null;
+    if (context.leagues_conf50 && numOrNull(m.total) >= 50 && context.leagues_conf50[m.league]) m.context_league = context.leagues_conf50[m.league];
+    else if (context.leagues) m.context_league = context.leagues[m.league] || null;
+    const pickedName = m.pick === 'home' ? m.home : m.away;
+    const teamKey = normMatchKey(pickedName);
+    if (context.teams && teamKey) m.context_team = context.teams[teamKey] || null;
+  });
+  return cards;
+}
+
 function normMatchKey(s){
   try {
     return String(s || "").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -1463,8 +1497,9 @@ function populateRenderedProFields(items){
   });
 }
 
-function renderV12MatchesFromApi(matches){
+async function renderV12MatchesFromApi(matches){
   const cards = (matches || []).map(proApiMatchToV12).filter(m => m.home && m.away);
+  await loadModelContext().then(ctx => attachClientModelContext(cards, ctx));
 
   const wc = cards.filter(m => m.isWC);
   const rest = cards.filter(m => !m.isWC);
@@ -1528,7 +1563,7 @@ async function loadProFullForDateV12(){
     const matches = Array.isArray(j.matches) ? j.matches : (Array.isArray(j.items) ? j.items : []);
     if (!matches.length) { showFutureProGate(); return; }
     if (hasRenderedMatches()) populateRenderedProFields(matches);
-    else renderV12MatchesFromApi(matches);
+    else await renderV12MatchesFromApi(matches);
   } catch(e) {
     console.log(e);
     showFutureProGate();
