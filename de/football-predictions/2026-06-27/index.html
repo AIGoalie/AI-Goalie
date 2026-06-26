@@ -38402,6 +38402,24 @@ function parseBg(bg, total){
   return [115, 130, 95];
 }
 
+
+function normalizeLogoSrc(src){
+  const raw = String(src || "").trim();
+  if (!raw) return "";
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (raw.startsWith("//")) return "https:" + raw;
+  return raw.replace(/^\.\//, "/");
+}
+
+function legacyFixtureLogo(m, side){
+  const html = String((m && (m.fixture_html || m.fixture_m_html)) || "");
+  if (!html) return "";
+  const cls = side === "home" ? "home-team-logo" : "away-team-logo";
+  const block = html.match(new RegExp('<div[^>]*class=["\\'][^"\\']*' + cls + '[^"\\']*["\\'][\\s\\S]*?<\\/div>', 'i'));
+  const src = (block ? block[0] : html).match(/<img[^>]+src=["']([^"']+)["']/i);
+  return normalizeLogoSrc(src && src[1]);
+}
+
 function inferPick(m){
   if (m.pick === "home" || m.pick === "away") return m.pick;
   if (m.picked_side === "home" || m.picked_side === "away") return m.picked_side;
@@ -38414,17 +38432,20 @@ function inferPick(m){
 function proApiMatchToV12(m){
   const total = m.total || m.win || m.confidence || "";
   const pc = numOrNull(total) || 0;
-  const homeXg = numOrNull(m.home_xg);
-  const awayXg = numOrNull(m.away_xg);
+  const homeXg = numOrNull(m.home_xg ?? m.pro_home_xg);
+  const awayXg = numOrNull(m.away_xg ?? m.pro_away_xg);
+  const league = m.league || "";
+  const home = m.home || m.home_team || "";
+  const away = m.away || m.away_team || "";
   return {
-    league: m.league || "",
-    isWC: (m.league || "") === "International - World Cup",
-    home: m.home || m.home_team || "",
-    away: m.away || m.away_team || "",
+    league,
+    isWC: /(^| - )World Cup$/i.test(league) || league === "International - World Cup",
+    home,
+    away,
     hid: m.home_id || m.hid || "",
     aid: m.away_id || m.aid || "",
-    home_logo_url: m.home_logo_url || m.home_logo || "",
-    away_logo_url: m.away_logo_url || m.away_logo || "",
+    home_logo_url: normalizeLogoSrc(m.home_logo_url || m.home_logo) || legacyFixtureLogo(m, "home"),
+    away_logo_url: normalizeLogoSrc(m.away_logo_url || m.away_logo) || legacyFixtureLogo(m, "away"),
     pick: inferPick(m),
     total: String(total || ""),
     conf: pc / 100,
@@ -38445,6 +38466,12 @@ function proApiMatchToV12(m){
     date: m.date || getRenderedPageDate(),
     slug: m.slug || ""
   };
+}
+
+function applyProUnlockedDom(){
+  document.querySelectorAll('.pro').forEach(el => el.classList.remove('locked'));
+  document.querySelectorAll('.pro-tag').forEach(el => { el.style.display = 'none'; });
+  document.body.classList.add('pro-unlocked');
 }
 
 function normMatchKey(s){
@@ -38539,6 +38566,7 @@ function renderV12MatchesFromApi(matches){
   const lv = document.getElementById("leagueView");
   if (lv) lv.innerHTML = lhtml || `<div class="empty">No Pro predictions available for this date yet.</div>`;
 
+  if (window.__isPro === true) applyProUnlockedDom();
   doSearch(document.getElementById("search")?.value || "");
   openDefaultRows();
 }
@@ -38572,13 +38600,12 @@ async function loadProFullForDateV12(){
 
 function updateProUI(isPro) {
   window.__isPro = !!isPro;
-  document.querySelectorAll('.pro').forEach(el => {
-    if (isPro) el.classList.remove('locked');
-    else el.classList.add('locked');
-  });
-  document.querySelectorAll('.pro-tag').forEach(el => {
-    el.style.display = isPro ? 'none' : '';
-  });
+  if (isPro) applyProUnlockedDom();
+  else {
+    document.querySelectorAll('.pro').forEach(el => el.classList.add('locked'));
+    document.querySelectorAll('.pro-tag').forEach(el => { el.style.display = ''; });
+    document.body.classList.remove('pro-unlocked');
+  }
   const accountBtn = document.getElementById('accountBtn');
   if (accountBtn) { accountBtn.textContent = '👤'; accountBtn.setAttribute('aria-label', window.__auth?.currentUser ? (isPro ? 'Pro account' : 'Account') : 'Sign in'); accountBtn.title = accountBtn.getAttribute('aria-label'); }
   document.getElementById('manageBilling')?.style.setProperty('display', isPro ? 'block' : 'none');
