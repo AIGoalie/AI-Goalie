@@ -2601,7 +2601,7 @@ function legacyFixtureLogo(m, side){
   const html = String((m && (m.fixture_html || m.fixture_m_html)) || "");
   if (!html) return "";
   const cls = side === "home" ? "home-team-logo" : "away-team-logo";
-  const block = html.match(new RegExp('<div[^>]*class=["\\'][^"\\']*' + cls + '[^"\\']*["\\'][\\s\\S]*?<\\/div>', 'i'));
+  const block = html.match(new RegExp("<div[^>]*class=[\"'][^\"']*" + cls + "[^\"']*[\"'][\\s\\S]*?<\\/div>", "i"));
   const src = (block ? block[0] : html).match(/<img[^>]+src=["']([^"']+)["']/i);
   return normalizeLogoSrc(src && src[1]);
 }
