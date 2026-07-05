@@ -351,7 +351,10 @@ background:
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}
 footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .ad-container{min-height:1px;margin:22px auto 4px;text-align:center;display:flex;justify-content:center}
+.ad-container.ad-megabanner{margin:14px auto 18px}
+.ad-container.ad-rect{margin:18px auto}
 .ad-container.hidden{display:none}
+.ad-desktop{display:flex}
 
 @media(max-width:680px){
   header.top{flex-wrap:wrap}
@@ -360,6 +363,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   header.top nav.show{display:flex}
   header.top nav a{padding:9px}
   .navtoggle{display:block}
+  .ad-desktop{display:none}
   .matchup-teaser{grid-template-columns:1fr}
   .matchup-teaser .quick{justify-content:flex-start}
 }
@@ -776,6 +780,9 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="icon" title="信頼度で並び替え" id="sortIcon" onclick="toggleSort()">⇅</div>
     <div class="icon" title="CSVをダウンロード" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
   </div>
+
+  <div id="128244-1" class="ad-container ad-megabanner ad-desktop" data-moneytizer-format="1"></div>
+  <div id="128244-2" class="ad-container ad-rect" data-moneytizer-format="2"></div>
 
   <div id="globalView">
     
@@ -43661,7 +43668,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="128244-6" class="ad-container" data-moneytizer-slot="6"></div>
+  <div id="128244-19" class="ad-container ad-rect" data-moneytizer-format="19"></div>
+  <div id="128244-6" class="ad-container" data-moneytizer-format="6"></div>
 
   <footer>
     <div>
@@ -44498,16 +44506,22 @@ function hideMoneytizerAds(){
 function loadMoneytizerAds(){
   try {
     if (window.__isPro === true || window.__moneytizerLoaded || location.protocol === 'file:') return;
-    const slot = document.getElementById('128244-6');
-    if (!slot) return;
-    slot.classList.remove('hidden');
+    const slots = Array.from(document.querySelectorAll('.ad-container[data-moneytizer-format]'))
+      .filter(slot => window.getComputedStyle(slot).display !== 'none');
+    if (!slots.length) return;
     window.__moneytizerLoaded = true;
-    const gen = document.createElement('script');
-    gen.src = '//ads.themoneytizer.com/s/gen.js?type=6';
-    const req = document.createElement('script');
-    req.src = '//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6';
-    slot.appendChild(gen);
-    slot.appendChild(req);
+    slots.forEach(slot => {
+      const format = slot.dataset.moneytizerFormat;
+      if (!format || slot.dataset.moneytizerLoaded === '1') return;
+      slot.classList.remove('hidden');
+      slot.dataset.moneytizerLoaded = '1';
+      const gen = document.createElement('script');
+      gen.src = `//ads.themoneytizer.com/s/gen.js?type=${encodeURIComponent(format)}`;
+      const req = document.createElement('script');
+      req.src = `//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=${encodeURIComponent(format)}`;
+      slot.appendChild(gen);
+      slot.appendChild(req);
+    });
   } catch(e) {
     console.warn('AIGoalie: Moneytizer load failed.', e);
   }
