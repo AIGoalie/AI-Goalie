@@ -11320,18 +11320,8 @@ function populateRenderedProFields(items){
     if (!match) return;
     const homeXg = numOrNull(match.home_xg ?? match.pro_home_xg);
     const awayXg = numOrNull(match.away_xg ?? match.pro_away_xg);
-    const totalXg = numOrNull(match.total_xg ?? match.pro_total_xg);
-    const displayTotalXg = totalXg != null ? totalXg : ((homeXg != null && awayXg != null) ? homeXg + awayXg : null);
     row.querySelectorAll(".pro-xgh").forEach(el => { el.textContent = homeXg == null ? "—" : homeXg.toFixed(2); });
     row.querySelectorAll(".pro-xga").forEach(el => { el.textContent = awayXg == null ? "—" : awayXg.toFixed(2); });
-    const totalMetric = row.querySelector(".total-goals-metric") || Array.from(row.querySelectorAll(".metric")).find(el => {
-      const label = (el.querySelector(".ml")?.textContent || "").toLowerCase();
-      return label.includes("total") || label.includes("goals");
-    });
-    if (totalMetric && displayTotalXg != null) {
-      const value = totalMetric.querySelector(".mv");
-      if (value) value.textContent = Number(displayTotalXg).toFixed(2).replace(/\.00$/, "");
-    }
     row.querySelectorAll(".pro-btts").forEach(el => {
       let btts = match.btts ?? match.pro_btts;
       if ((btts == null || btts === "") && homeXg != null && awayXg != null) {
