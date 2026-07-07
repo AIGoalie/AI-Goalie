@@ -20166,8 +20166,12 @@ document.getElementById("sortIcon").style.color="var(--green-bright)";
   var TARGET_ISO = "2026-07-08";
   if (!TARGET_ISO) return;
   function localISO(utc){
-    try { var d = new Date(utc); if (isNaN(d.getTime())) return null;
-      return new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(d);
+    try {
+      var d = new Date(utc); if (isNaN(d.getTime())) return null;
+      var y = d.getFullYear();
+      var m = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      return y + '-' + m + '-' + day;
     } catch(e){ return null; }
   }
   function keep(mrow){
