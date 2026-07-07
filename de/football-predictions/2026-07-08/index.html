@@ -782,8 +782,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="icon" title="CSV herunterladen" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
   </div>
 
-  <div id="128244-1" class="ad-container ad-megabanner ad-desktop" data-moneytizer-format="1"></div>
-  <div id="128244-2" class="ad-container ad-rect" data-moneytizer-format="2"></div>
+  <div id="128244-1" class="ad-container ad-megabanner day-top-ad" data-moneytizer-format="1"></div>
 
   <div id="globalView">
     
@@ -19857,8 +19856,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="128244-19" class="ad-container ad-rect" data-moneytizer-format="19"></div>
-  <div id="128244-6" class="ad-container" data-moneytizer-format="6"></div>
+  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad" data-moneytizer-format="19"></div>
 
   <footer>
     <div>
@@ -20076,6 +20074,7 @@ function renderGlobal(){
     html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
   }
   document.getElementById("globalView").innerHTML = html;
+  placeFeaturedInlineAd();
 }
 function renderLeague(){
   // preserve server order (already value-sorted, WC near top). Render WC as themed section.
@@ -20092,6 +20091,15 @@ function renderLeague(){
     }
   });
   document.getElementById("leagueView").innerHTML = html;
+  placeFeaturedInlineAd();
+}
+function placeFeaturedInlineAd(){
+  const ad = document.getElementById("dayInlineAd");
+  if (!ad) return;
+  const active = document.getElementById(document.getElementById("segLeague")?.classList.contains("on") ? "leagueView" : "globalView");
+  if (!active) return;
+  const firstSection = active.querySelector(".wc-section,.league-section,.all-section");
+  if (firstSection && firstSection.parentNode) firstSection.insertAdjacentElement("afterend", ad);
 }
 function setView(v){
   trackEvent("view_toggle", { view: v });
@@ -20099,6 +20107,7 @@ function setView(v){
   document.getElementById("segLeague").classList.toggle("on",v==="league");
   document.getElementById("globalView").style.display=v==="global"?"block":"none";
   document.getElementById("leagueView").style.display=v==="league"?"block":"none";
+  placeFeaturedInlineAd();
   doSearch(document.getElementById("search").value);
 }
 function doSearch(q){ trackSearch(q); q=(q||"").trim().toLowerCase();
