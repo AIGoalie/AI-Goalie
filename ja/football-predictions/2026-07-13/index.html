@@ -247,14 +247,6 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .toolbar input[type=search]{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 12px;font-size:13px;min-width:170px}
 .toolbar .icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);cursor:pointer;font-size:15px}
 
-.matchup-teaser{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin:16px 0 14px;padding:16px;border:1px solid rgba(113,240,139,.28);border-radius:18px;background:linear-gradient(135deg,rgba(78,232,121,.10),rgba(244,199,82,.04) 58%,transparent),var(--surface)}
-.matchup-teaser .ey{color:var(--green-bright);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
-.matchup-teaser h2{font-size:20px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
-.matchup-teaser p{color:var(--muted);font-size:13px;margin:0}
-.matchup-teaser .quick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.matchup-teaser .chip{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:12px;white-space:nowrap}
-.matchup-teaser .cta{background:var(--green);border:1px solid var(--green);color:#04120b;border-radius:10px;padding:9px 12px;font-weight:900;text-decoration:none;white-space:nowrap}
-
 /* SECTION + LEAGUE HEADS */
 .league-head{display:flex;align-items:center;gap:9px;margin:22px 0 9px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
 .league-head img.flag{height:15px;width:21px;object-fit:cover;border-radius:2px;background:var(--surface-2)}
@@ -367,8 +359,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   header.top nav a{padding:9px}
   .navtoggle{display:block}
   .ad-desktop{display:none}
-  .matchup-teaser{grid-template-columns:1fr}
-  .matchup-teaser .quick{justify-content:flex-start}
 }
 @media(max-width:560px){
   .daybar .day{font-size:17px;min-width:auto}
@@ -777,6 +767,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
     
     
+      
+    
+    
+    
     
       <div class="empty">試合はありません。</div>
     
@@ -988,23 +982,24 @@ function cardHTML(m,idx){
 
 let SORT_BY_CONF=true;
 function renderGlobal(){
+  // WC pinned section first; if there is no WC, feature the top league from league view.
   const wc = ALL.filter(m=>m.isWC);
   const featuredLeague = wc.length ? null : (LEAGUES.find(l => l.matches && l.matches.length) || null);
   let rest = ALL.filter(m=>!m.isWC && (!featuredLeague || m.league !== featuredLeague.key));
   if (SORT_BY_CONF){ wc.sort((a,b)=>winNum(b.total)-winNum(a.total)); rest.sort((a,b)=>winNum(b.total)-winNum(a.total)); }
   let html="";
   if (wc.length){
-    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${wc.length} matches today</span></div>`;
+    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">ワールドカップ</span><span class="badge">ライブ</span><span class="wsub">${wc.length} 試合</span></div>`;
     html += wc.map((m,i)=>cardHTML(m,'wc'+i)).join("") + `</div>`;
   } else if (featuredLeague) {
     const fl = featuredLeague.flag?`<img class="flag" src="https://media.api-sports.io/flags/${featuredLeague.flag}.svg" alt="${esc(featuredLeague.key)} flag">`:'';
-    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="lsub">${featuredLeague.matches.length} matches</span></div>`;
+    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="lsub">${featuredLeague.matches.length} 試合</span></div>`;
     html += featuredLeague.matches.map((m,i)=>cardHTML(Object.assign({league:featuredLeague.key},m),'featured'+i)).join("") + `</section>`;
   }
   if (rest.length){
-    html += `<section class="all-section"><div class="all-head"><span class="lname">All matches</span><span class="lsub">${rest.length} matches</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
+    html += `<section class="all-section"><div class="all-head"><span class="lname">全試合</span><span class="lsub">${rest.length} 試合</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
   } else if (!wc.length && !featuredLeague) {
-    html += `<div class="empty">No matches.</div>`;
+    html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
   }
   document.getElementById("globalView").innerHTML = html;
   placeFeaturedInlineAd();
