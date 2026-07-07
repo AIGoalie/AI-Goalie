@@ -19882,26 +19882,6 @@ function renderLeague(){
   });
   document.getElementById("leagueView").innerHTML = html;
 }
-function promoteTopLeagueToGlobal(){
-  const gv = document.getElementById("globalView");
-  const lv = document.getElementById("leagueView");
-  if (!gv || !lv) return;
-  if (gv.querySelector(".wc-section,.featured-section")) return;
-  const source = Array.from(lv.querySelectorAll(".league-section")).find(sec => sec.querySelector(".mrow"));
-  if (!source) return;
-  const featured = source.cloneNode(true);
-  featured.classList.add("featured-section");
-  const leagueName = featured.querySelector(".lname")?.textContent?.trim() || "";
-  const all = gv.querySelector(".all-section");
-  gv.insertBefore(featured, all || gv.firstChild);
-  if (leagueName && all) {
-    all.querySelectorAll(".mrow").forEach(row => { if ((row.dataset.league || "") === leagueName) row.remove(); });
-    const n = all.querySelectorAll(".mrow").length;
-    const sub = all.querySelector(".lsub");
-    if (sub) sub.textContent = sub.textContent.replace(/^\s*\d+/, String(n));
-    if (n === 0) all.remove();
-  }
-}
 function setView(v){
   trackEvent("view_toggle", { view: v });
   document.getElementById("segGlobal").classList.toggle("on",v==="global");
