@@ -356,6 +356,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .ad-container.ad-rect{width:min(300px,100%);max-width:300px;margin:18px auto}
 .ad-container.hidden{display:none}
 .ad-desktop{display:flex}
+.day-top-ad{min-height:90px}
+.day-inline-ad{min-height:250px}
 
 @media(max-width:680px){
   header.top{flex-wrap:wrap}
@@ -757,19 +759,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="day">Heute</div>
     <button title="Nächster Tag" id="nextDay">›</button>
   </div>
-
-  <section class="matchup-teaser" aria-label="Matchup simulator">
-    <div>
-      <div class="ey">Neuer Simulator</div>
-      <h2>Simuliere jedes Fußballduell</h2>
-      <p>Wähle zwei Teams und sieh, was AIGoalie vorhersagt. Pro schaltet unbegrenzte Simulationen und exakte xG frei.</p>
-    </div>
-    <div class="quick">
-      <span class="chip">Germany vs Brazil</span>
-      <span class="chip">Real Madrid vs Inter</span>
-      <a class="cta" href="/de/matchup/" onclick="trackEvent('matchup_teaser_click')">Ausprobieren</a>
-    </div>
-  </section>
 
   <div class="toolbar">
     <div class="seg">
@@ -16397,19 +16386,23 @@ function cardHTML(m,idx){
 
 let SORT_BY_CONF=true;
 function renderGlobal(){
-  // WC pinned section first, then the rest sorted by win%
   const wc = ALL.filter(m=>m.isWC);
-  let rest = ALL.filter(m=>!m.isWC);
+  const featuredLeague = wc.length ? null : (LEAGUES.find(l => l.matches && l.matches.length) || null);
+  let rest = ALL.filter(m=>!m.isWC && (!featuredLeague || m.league !== featuredLeague.key));
   if (SORT_BY_CONF){ wc.sort((a,b)=>winNum(b.total)-winNum(a.total)); rest.sort((a,b)=>winNum(b.total)-winNum(a.total)); }
   let html="";
   if (wc.length){
-    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">Weltmeisterschaft</span><span class="badge">Live</span><span class="wsub">${wc.length} Spiele heute</span></div>`;
+    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${wc.length} matches today</span></div>`;
     html += wc.map((m,i)=>cardHTML(m,'wc'+i)).join("") + `</div>`;
+  } else if (featuredLeague) {
+    const fl = featuredLeague.flag?`<img class="flag" src="https://media.api-sports.io/flags/${featuredLeague.flag}.svg" alt="${esc(featuredLeague.key)} flag">`:'';
+    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="lsub">${featuredLeague.matches.length} matches</span></div>`;
+    html += featuredLeague.matches.map((m,i)=>cardHTML(Object.assign({league:featuredLeague.key},m),'featured'+i)).join("") + `</section>`;
   }
   if (rest.length){
-    html += `<section class="all-section"><div class="all-head"><span class="lname">Alle Spiele</span><span class="lsub">${rest.length} Spiele</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
-  } else if (!wc.length) {
-    html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
+    html += `<section class="all-section"><div class="all-head"><span class="lname">All matches</span><span class="lsub">${rest.length} matches</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
+  } else if (!wc.length && !featuredLeague) {
+    html += `<div class="empty">No matches.</div>`;
   }
   document.getElementById("globalView").innerHTML = html;
   placeFeaturedInlineAd();
@@ -16475,6 +16468,8 @@ function toggleSort(){
 }
 
 document.getElementById("sortIcon").style.color="var(--green-bright)";
+renderGlobal();
+renderLeague();
 
 /* Visitor-local-day grouping (Stage 1). The page ships a ±1-day window of cards;
    keep only those whose kick-off, in the VISITOR's timezone, lands on this page's
@@ -16509,6 +16504,7 @@ document.getElementById("sortIcon").style.color="var(--green-bright)";
   });
 })();
 
+placeFeaturedInlineAd();
 openDefaultRows();
 </script>
 <script>

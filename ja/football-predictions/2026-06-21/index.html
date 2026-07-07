@@ -617,19 +617,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <button title="翌日" id="nextDay">›</button>
   </div>
 
-  <section class="matchup-teaser" aria-label="Matchup simulator">
-    <div>
-      <div class="ey">新しいシミュレーター</div>
-      <h2>好きなサッカー対戦をシミュレーション</h2>
-      <p>2チームを選ぶとAIGoalieが予測します。Proでは無制限シミュレーションと正確なxGを利用できます。</p>
-    </div>
-    <div class="quick">
-      <span class="chip">Germany vs Brazil</span>
-      <span class="chip">Real Madrid vs Inter</span>
-      <a class="cta" href="/ja/matchup/" onclick="trackEvent('matchup_teaser_click')">試す</a>
-    </div>
-  </section>
-
   <div class="toolbar">
     <div class="seg">
       <button class="on" id="segGlobal" onclick="setView('global')">全試合</button>
@@ -22360,21 +22347,26 @@ function cardHTML(m,idx){
 
 let SORT_BY_CONF=true;
 function renderGlobal(){
-  // WC pinned section first, then the rest sorted by win%
   const wc = ALL.filter(m=>m.isWC);
-  let rest = ALL.filter(m=>!m.isWC);
+  const featuredLeague = wc.length ? null : (LEAGUES.find(l => l.matches && l.matches.length) || null);
+  let rest = ALL.filter(m=>!m.isWC && (!featuredLeague || m.league !== featuredLeague.key));
   if (SORT_BY_CONF){ wc.sort((a,b)=>winNum(b.total)-winNum(a.total)); rest.sort((a,b)=>winNum(b.total)-winNum(a.total)); }
   let html="";
   if (wc.length){
-    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">ワールドカップ</span><span class="badge">ライブ</span><span class="wsub">${wc.length} 試合</span></div>`;
+    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${wc.length} matches today</span></div>`;
     html += wc.map((m,i)=>cardHTML(m,'wc'+i)).join("") + `</div>`;
+  } else if (featuredLeague) {
+    const fl = featuredLeague.flag?`<img class="flag" src="https://media.api-sports.io/flags/${featuredLeague.flag}.svg" alt="${esc(featuredLeague.key)} flag">`:'';
+    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="lsub">${featuredLeague.matches.length} matches</span></div>`;
+    html += featuredLeague.matches.map((m,i)=>cardHTML(Object.assign({league:featuredLeague.key},m),'featured'+i)).join("") + `</section>`;
   }
   if (rest.length){
-    html += `<section class="all-section"><div class="all-head"><span class="lname">全試合</span><span class="lsub">${rest.length} 試合</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
-  } else if (!wc.length) {
-    html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
+    html += `<section class="all-section"><div class="all-head"><span class="lname">All matches</span><span class="lsub">${rest.length} matches</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
+  } else if (!wc.length && !featuredLeague) {
+    html += `<div class="empty">No matches.</div>`;
   }
   document.getElementById("globalView").innerHTML = html;
+  placeFeaturedInlineAd();
 }
 function renderLeague(){
   // preserve server order (already value-sorted, WC near top). Render WC as themed section.
@@ -22391,6 +22383,15 @@ function renderLeague(){
     }
   });
   document.getElementById("leagueView").innerHTML = html;
+  placeFeaturedInlineAd();
+}
+function placeFeaturedInlineAd(){
+  const ad = document.getElementById("dayInlineAd");
+  if (!ad) return;
+  const active = document.getElementById(document.getElementById("segLeague")?.classList.contains("on") ? "leagueView" : "globalView");
+  if (!active) return;
+  const firstSection = active.querySelector(".wc-section,.league-section,.all-section");
+  if (firstSection && firstSection.parentNode) firstSection.insertAdjacentElement("afterend", ad);
 }
 function setView(v){
   trackEvent("view_toggle", { view: v });
@@ -22398,6 +22399,7 @@ function setView(v){
   document.getElementById("segLeague").classList.toggle("on",v==="league");
   document.getElementById("globalView").style.display=v==="global"?"block":"none";
   document.getElementById("leagueView").style.display=v==="league"?"block":"none";
+  placeFeaturedInlineAd();
   doSearch(document.getElementById("search").value);
 }
 function doSearch(q){ trackSearch(q); q=(q||"").trim().toLowerCase();
@@ -22427,6 +22429,8 @@ function toggleSort(){
 }
 
 document.getElementById("sortIcon").style.color="var(--green-bright)";
+renderGlobal();
+renderLeague();
 
 /* Visitor-local-day grouping (Stage 1). The page ships a ±1-day window of cards;
    keep only those whose kick-off, in the VISITOR's timezone, lands on this page's
@@ -22461,6 +22465,7 @@ document.getElementById("sortIcon").style.color="var(--green-bright)";
   });
 })();
 
+placeFeaturedInlineAd();
 openDefaultRows();
 </script>
 <script>
