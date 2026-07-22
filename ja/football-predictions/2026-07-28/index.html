@@ -1010,9 +1010,20 @@ function competitionIcon(name){
   if (s.includes('international')) return '🌍';
   return '';
 }
+function competitionLogoURL(name){
+  const s = String(name || '').toLowerCase();
+  if (s.includes('champions league')) return 'https://media.api-sports.io/football/leagues/2.png';
+  if (s.includes('europa league')) return 'https://media.api-sports.io/football/leagues/3.png';
+  if (s.includes('conference league')) return 'https://media.api-sports.io/football/leagues/848.png';
+  if (s.includes('libertadores')) return 'https://media.api-sports.io/football/leagues/13.png';
+  if (s.includes('sudamericana')) return 'https://media.api-sports.io/football/leagues/11.png';
+  if (s.includes('nations league')) return 'https://media.api-sports.io/football/leagues/5.png';
+  return '';
+}
 function leagueHeaderIcon(league){
   if (!league) return '';
-  if (league.logo_url) return `<img class="league-logo" src="${esc(league.logo_url)}" alt="${esc(league.key)} logo">`;
+  const logoUrl = league.logo_url || competitionLogoURL(league.key);
+  if (logoUrl) return `<img class="league-logo" src="${esc(logoUrl)}" alt="${esc(league.key)} logo">`;
   if (league.flag) return `<img class="flag" src="https://media.api-sports.io/flags/${league.flag}.svg" alt="${esc(league.key)} flag">`;
   const icon = league.icon || competitionIcon(league.key);
   return icon ? `<span class="league-icon" aria-hidden="true">${icon}</span>` : '';
@@ -1114,6 +1125,11 @@ function promoteTopLeagueToGlobal(){
   if (current) current.remove();
   const featured = source.cloneNode(true);
   featured.classList.add("featured-section");
+  const featuredHead = featured.querySelector(".league-head");
+  if (featuredHead && !featuredHead.querySelector("img.league-logo,.flag,.league-icon")) {
+    const logoMarkup = leagueHeaderIcon({key: leagueName});
+    if (logoMarkup) featuredHead.insertAdjacentHTML("afterbegin", logoMarkup);
+  }
   const all = gv.querySelector(".all-section");
   gv.insertBefore(featured, all || gv.firstChild);
   if (leagueName && all) {
