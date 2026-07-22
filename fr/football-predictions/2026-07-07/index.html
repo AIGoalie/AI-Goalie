@@ -14608,40 +14608,5 @@ function applyLocalKickoffTimes(){
   });
 })();
 </script>
-<script id="aigoalie-league-priority-runtime">
-(function(){
-  function priority(name){
-    var s=String(name||'').toLowerCase();
-    if(s.indexOf('world cup')>=0)return 12000;
-    if(s.indexOf('champions league')>=0)return 11000;
-    if(s.indexOf('europa league')>=0)return 10000;
-    if(s.indexOf('conference league')>=0)return 9500;
-    if(s.indexOf('libertadores')>=0)return 9000;
-    if(s.indexOf('sudamericana')>=0)return 8500;
-    if(s.indexOf('nations league')>=0)return 8000;
-    if(s.indexOf('qualif')>=0||s.indexOf('qualification')>=0)return 7000;
-    if(s.indexOf('friendly')>=0)return -5000;
-    return 0;
-  }
-  function reorder(){
-    var view=document.getElementById('leagueView');
-    if(!view)return;
-    var sections=Array.prototype.slice.call(view.children).filter(function(el){
-      return el.classList.contains('league-section')||el.classList.contains('wc-section');
-    });
-    sections.sort(function(a,b){
-      var an=(a.querySelector('.lname,.wtitle')||{}).textContent||'';
-      var bn=(b.querySelector('.lname,.wtitle')||{}).textContent||'';
-      var diff=priority(bn)-priority(an);
-      if(diff)return diff;
-      return b.querySelectorAll('.mrow').length-a.querySelectorAll('.mrow').length;
-    });
-    sections.forEach(function(el){view.appendChild(el);});
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reorder);
-  else reorder();
-  document.getElementById('segLeague')?.addEventListener('click',function(){setTimeout(reorder,0);});
-})();
-</script>
 </body>
 </html>

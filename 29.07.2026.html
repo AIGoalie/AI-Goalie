@@ -16,11 +16,11 @@
 
 
 
-<title>AI Football Predictions - 2026-07-29 | AIGoalie</title>
+<title>AI Goalie Football Predictions - 2026-07-29 | AIGoalie</title>
 <meta name="description" content="AI football predictions for 2026-07-29. Every pick is graded after full-time with real accuracy, match previews and analysis.">
 <meta property="og:site_name" content="AIGoalie">
-<meta property="og:title" content="AI Football Predictions - 2026-07-29 | AIGoalie">
-<meta name="twitter:title" content="AI Football Predictions - 2026-07-29 | AIGoalie">
+<meta property="og:title" content="AI Goalie Football Predictions - 2026-07-29 | AIGoalie">
+<meta name="twitter:title" content="AI Goalie Football Predictions - 2026-07-29 | AIGoalie">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://ai-goalie.com/#organization","name":"AIGoalie","alternateName":["AI Goalie","AI-Goalie","ai-goalie.com"],"url":"https://ai-goalie.com","logo":"https://ai-goalie.com/logo_mm.webp"},{"@type":"WebSite","@id":"https://ai-goalie.com/#website","url":"https://ai-goalie.com","name":"AIGoalie","alternateName":["AI Goalie","AI-Goalie","ai-goalie.com"],"publisher":{"@id":"https://ai-goalie.com/#organization"}}]}</script>
 
 
@@ -1039,12 +1039,6 @@ function competitionIcon(name){
 function competitionLogoURL(name){
   const s = String(name || '').toLowerCase();
   if (s.includes('champions league')) return 'https://media.api-sports.io/football/leagues/2.png';
-  if (s.includes('europa league')) return 'https://media.api-sports.io/football/leagues/3.png';
-  if (s.includes('conference league')) return 'https://media.api-sports.io/football/leagues/848.png';
-  if (s.includes('libertadores')) return 'https://media.api-sports.io/football/leagues/13.png';
-  if (s.includes('sudamericana')) return 'https://media.api-sports.io/football/leagues/11.png';
-  if (s.includes('friendlies') || s.includes('friendly')) return 'https://media.api-sports.io/football/leagues/10.png';
-  if (s.includes('nations league')) return 'https://media.api-sports.io/football/leagues/5.png';
   return '';
 }
 function leagueHeaderIcon(league){
@@ -1805,41 +1799,6 @@ function applyLocalKickoffTimes(){
       } catch(e) { updateProUI(false); loadMoneytizerAds(); }
     });
   });
-})();
-</script>
-<script id="aigoalie-league-priority-runtime">
-(function(){
-  function priority(name){
-    var s=String(name||'').toLowerCase();
-    if(s.indexOf('world cup')>=0)return 12000;
-    if(s.indexOf('champions league')>=0)return 11000;
-    if(s.indexOf('europa league')>=0)return 10000;
-    if(s.indexOf('conference league')>=0)return 9500;
-    if(s.indexOf('libertadores')>=0)return 9000;
-    if(s.indexOf('sudamericana')>=0)return 8500;
-    if(s.indexOf('nations league')>=0)return 8000;
-    if(s.indexOf('qualif')>=0||s.indexOf('qualification')>=0)return 7000;
-    if(s.indexOf('friendly')>=0)return -5000;
-    return 0;
-  }
-  function reorder(){
-    var view=document.getElementById('leagueView');
-    if(!view)return;
-    var sections=Array.prototype.slice.call(view.children).filter(function(el){
-      return el.classList.contains('league-section')||el.classList.contains('wc-section');
-    });
-    sections.sort(function(a,b){
-      var an=(a.querySelector('.lname,.wtitle')||{}).textContent||'';
-      var bn=(b.querySelector('.lname,.wtitle')||{}).textContent||'';
-      var diff=priority(bn)-priority(an);
-      if(diff)return diff;
-      return b.querySelectorAll('.mrow').length-a.querySelectorAll('.mrow').length;
-    });
-    sections.forEach(function(el){view.appendChild(el);});
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reorder);
-  else reorder();
-  document.getElementById('segLeague')?.addEventListener('click',function(){setTimeout(reorder,0);});
 })();
 </script>
 </body>
