@@ -15001,10 +15001,36 @@ function cardHTML(m,idx){
 }
 
 let SORT_BY_CONF=true;
+
+function leagueFeaturePriority(name){
+  const s = String(name || '').toLowerCase();
+  if (s.includes('world cup')) return 12000;
+  if (s.includes('champions league')) return 11000;
+  if (s.includes('europa league')) return 10000;
+  if (s.includes('conference league')) return 9500;
+  if (s.includes('libertadores')) return 9000;
+  if (s.includes('sudamericana')) return 8500;
+  if (s.includes('nations league')) return 8000;
+  if (s.includes('qualif') || s.includes('qualification') || s.includes('qualifying')) return 7000;
+  if (s.includes('friendlies') || s.includes('friendly')) return -5000;
+  return 0;
+}
+function bestFeaturedLeague(){
+  const candidates = LEAGUES.filter(l => l && !l.isWC && l.matches && l.matches.length);
+  if (!candidates.length) return null;
+  return candidates.slice().sort((a,b) => {
+    const pa = leagueFeaturePriority(a.key), pb = leagueFeaturePriority(b.key);
+    if (pa !== pb) return pb - pa;
+    const ca = Math.max(...a.matches.map(m => winNum(m.total)));
+    const cb = Math.max(...b.matches.map(m => winNum(m.total)));
+    if (ca !== cb) return cb - ca;
+    return b.matches.length - a.matches.length;
+  })[0];
+}
 function renderGlobal(){
   // WC pinned section first; if there is no WC, feature the top league from league view.
   const wc = ALL.filter(m=>m.isWC);
-  const featuredLeague = wc.length ? null : (LEAGUES.find(l => l.matches && l.matches.length) || null);
+  const featuredLeague = wc.length ? null : bestFeaturedLeague();
   let rest = ALL.filter(m=>!m.isWC && (!featuredLeague || m.league !== featuredLeague.key));
   if (SORT_BY_CONF){ wc.sort((a,b)=>winNum(b.total)-winNum(a.total)); rest.sort((a,b)=>winNum(b.total)-winNum(a.total)); }
   let html="";
@@ -15052,13 +15078,25 @@ function placeFeaturedInlineAd(){
 function promoteTopLeagueToGlobal(){
   const gv = document.getElementById("globalView");
   const lv = document.getElementById("leagueView");
-  if (!gv || !lv) return;
-  if (gv.querySelector(".wc-section,.featured-section")) return;
-  const source = Array.from(lv.querySelectorAll(".league-section")).find(sec => sec.querySelector(".mrow"));
-  if (!source) return;
+  if (!gv || !lv || gv.querySelector(".wc-section")) return;
+  const sections = Array.from(lv.querySelectorAll(".league-section")).filter(sec => sec.querySelector(".mrow"));
+  if (!sections.length) return;
+  const source = sections.slice().sort((a,b) => {
+    const an = a.querySelector(".lname")?.textContent?.trim() || "";
+    const bn = b.querySelector(".lname")?.textContent?.trim() || "";
+    const pa = leagueFeaturePriority(an), pb = leagueFeaturePriority(bn);
+    if (pa !== pb) return pb - pa;
+    const ac = Math.max(...Array.from(a.querySelectorAll(".mrow")).map(row => winNum(row.dataset.total)));
+    const bc = Math.max(...Array.from(b.querySelectorAll(".mrow")).map(row => winNum(row.dataset.total)));
+    if (ac !== bc) return bc - ac;
+    return b.querySelectorAll(".mrow").length - a.querySelectorAll(".mrow").length;
+  })[0];
+  const leagueName = source.querySelector(".lname")?.textContent?.trim() || "";
+  const current = gv.querySelector(".featured-section");
+  if (current && (current.querySelector(".lname")?.textContent?.trim() || "") === leagueName) return;
+  if (current) current.remove();
   const featured = source.cloneNode(true);
   featured.classList.add("featured-section");
-  const leagueName = featured.querySelector(".lname")?.textContent?.trim() || "";
   const all = gv.querySelector(".all-section");
   gv.insertBefore(featured, all || gv.firstChild);
   if (leagueName && all) {
