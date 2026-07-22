@@ -253,6 +253,7 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 /* SECTION + LEAGUE HEADS */
 .league-head{display:flex;align-items:center;gap:9px;margin:22px 0 9px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
 .league-head img.flag{height:15px;width:21px;object-fit:cover;border-radius:2px;background:var(--surface-2)}
+.league-head .league-icon{width:21px;height:21px;display:inline-grid;place-items:center;border-radius:7px;background:rgba(255,213,94,.10);border:1px solid rgba(255,213,94,.18);font-size:14px;line-height:1;flex:none}
 .league-head .lname{font-weight:700;font-size:15px}
 .league-head .lsub{color:var(--muted-2);font-size:12px;margin-left:auto}
 .league-accuracy{display:inline-flex;align-items:center;gap:5px;margin-left:auto;border:1px solid rgba(255,213,102,.18);background:rgba(255,213,102,.055);color:var(--muted);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;white-space:nowrap}
@@ -404,6 +405,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     padding:12px 13px;
   }
   .league-section .league-head img.flag{grid-area:flag;align-self:start;margin-top:2px}
+  .league-section .league-head .league-icon{grid-area:flag;align-self:start;margin-top:-1px}
   .league-section .league-head .lname{grid-area:name;min-width:0;line-height:1.25;font-size:14px;overflow-wrap:anywhere}
   .league-section .league-head .lsub{grid-area:count;margin-left:0;justify-self:end;text-align:right;font-size:11.5px;line-height:1.2;white-space:normal;max-width:54px}
   .league-section .league-head .league-accuracy{grid-area:acc;margin-left:0;justify-self:start;max-width:100%;font-size:10px;padding:4px 7px}
@@ -6032,7 +6034,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <section class="league-section">
         <div class="league-head">
           
-          <span class="lname">International - Friendlies Clubs</span>
+          <span class="league-icon" aria-hidden="true">🤝</span><span class="lname">International - Friendlies Clubs</span>
           
           
           <span class="league-accuracy"><span>Précision de la ligue (tous les pronostics)</span><span class="pro locked">39%</span><span class="pro-tag">🔒 Pro</span></span>
@@ -10395,7 +10397,7 @@ function renderLeague(){
       html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">${esc(l.key.replace('International - ',''))}</span><span class="badge">En direct</span><span class="wsub">${l.matches.length} matchs</span></div>`;
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),'wc'+i)).join("") + `</div>`;
     } else {
-      const fl = l.flag?`<img class="flag" src="https://media.api-sports.io/flags/${l.flag}.svg" alt="${esc(l.key)} flag">`:'';
+      const fl = leagueHeaderIcon(l);
       html += `<section class="league-section"><div class="league-head">${fl}<span class="lname">${esc(l.key)}</span><span class="lsub">${l.matches.length} matchs</span></div>`;
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),i)).join("");
       html += `</section>`;
