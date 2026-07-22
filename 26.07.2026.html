@@ -1649,7 +1649,9 @@ async function renderV12MatchesFromApi(matches){
       lhtml += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${arr.length} matches</span></div>`;
       lhtml += arr.map((m,i)=>cardHTML(m,"wc"+i)).join("") + `</div>`;
     } else {
-      lhtml += `<section class="league-section"><div class="league-head"><span class="lname">${esc(league)}</span><span class="lsub">${arr.length} matches</span></div>`;
+      const icon = competitionIcon(league);
+      const iconHtml = icon ? `<span class="league-icon" aria-hidden="true">${icon}</span>` : '';
+      lhtml += `<section class="league-section"><div class="league-head">${iconHtml}<span class="lname">${esc(league)}</span><span class="lsub">${arr.length} matches</span></div>`;
       lhtml += arr.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
     }
   });

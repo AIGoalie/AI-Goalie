@@ -883,7 +883,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <section class="league-section featured-section">
       <div class="league-head">
         
-        <img class="league-logo" width="25" height="25" decoding="async" loading="lazy" src="https://media.api-sports.io/football/leagues/667.png" alt="International - Friendlies Clubs logo"><span class="lname">International - Friendlies Clubs</span>
+        <span class="lname">International - Friendlies Clubs</span>
         <span class="lsub">5 matches</span>
       </div>
       
@@ -6743,7 +6743,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <section class="league-section">
         <div class="league-head">
           
-          <img class="league-logo" width="25" height="25" decoding="async" loading="lazy" src="https://media.api-sports.io/football/leagues/667.png" alt="International - Friendlies Clubs logo"><span class="lname">International - Friendlies Clubs</span>
+          <span class="lname">International - Friendlies Clubs</span>
           
           
           <span class="league-accuracy"><span>League accuracy ≥50%</span><span class="pro locked">57%</span><span class="pro-tag">🔒 Pro</span></span>
@@ -7159,7 +7159,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <section class="league-section">
         <div class="league-head">
           
-          <img class="league-logo" width="25" height="25" decoding="async" loading="lazy" src="https://media.api-sports.io/football/leagues/11.png" alt="International - CONMEBOL Sudamericana logo"><span class="lname">International - CONMEBOL Sudamericana</span>
+          <span class="lname">International - CONMEBOL Sudamericana</span>
           
           
           <span class="league-accuracy"><span>League accuracy all picks</span><span class="pro locked">48%</span><span class="pro-tag">🔒 Pro</span></span>
@@ -7255,7 +7255,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <section class="league-section">
         <div class="league-head">
           
-          <img class="league-logo" width="25" height="25" decoding="async" loading="lazy" src="https://media.api-sports.io/football/leagues/2.png" alt="International - UEFA Champions League logo"><span class="lname">International - UEFA Champions League</span>
+          <span class="lname">International - UEFA Champions League</span>
           
           
           <span class="league-accuracy"><span>League accuracy ≥50%</span><span class="pro locked">82%</span><span class="pro-tag">🔒 Pro</span></span>
@@ -8231,7 +8231,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <section class="league-section">
         <div class="league-head">
           
-          <img class="league-logo" width="25" height="25" decoding="async" loading="lazy" src="https://media.api-sports.io/football/leagues/848.png" alt="International - UEFA Europa Conference League logo"><span class="lname">International - UEFA Europa Conference League</span>
+          <span class="lname">International - UEFA Europa Conference League</span>
           
           
           <span class="league-accuracy"><span>League accuracy all picks</span><span class="pro locked">49%</span><span class="pro-tag">🔒 Pro</span></span>
@@ -14032,7 +14032,9 @@ async function renderV12MatchesFromApi(matches){
       lhtml += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${arr.length} matches</span></div>`;
       lhtml += arr.map((m,i)=>cardHTML(m,"wc"+i)).join("") + `</div>`;
     } else {
-      lhtml += `<section class="league-section"><div class="league-head"><span class="lname">${esc(league)}</span><span class="lsub">${arr.length} matches</span></div>`;
+      const icon = competitionIcon(league);
+      const iconHtml = icon ? `<span class="league-icon" aria-hidden="true">${icon}</span>` : '';
+      lhtml += `<section class="league-section"><div class="league-head">${iconHtml}<span class="lname">${esc(league)}</span><span class="lsub">${arr.length} matches</span></div>`;
       lhtml += arr.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
     }
   });
