@@ -28775,7 +28775,9 @@ function placeFeaturedInlineAd(){
 function promoteTopLeagueToGlobal(){
   const gv = document.getElementById("globalView");
   const lv = document.getElementById("leagueView");
-  if (!gv || !lv || gv.querySelector(".wc-section")) return;
+  if (!gv || !lv) return;
+  const liveWc = Array.from(gv.querySelectorAll(".wc-section")).find(sec => sec.querySelector(".mrow"));
+  if (liveWc) return;
   const sections = Array.from(lv.querySelectorAll(".league-section")).filter(sec => sec.querySelector(".mrow"));
   if (!sections.length) return;
   const source = sections.slice().sort((a,b) => {
