@@ -264,6 +264,7 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .league-head .league-icon{width:21px;height:21px;display:inline-grid;place-items:center;border-radius:7px;background:rgba(255,213,94,.10);border:1px solid rgba(255,213,94,.18);font-size:14px;line-height:1;flex:none}
 .league-head .lname{font-weight:700;font-size:15px}
 .league-head .lsub{color:var(--muted-2);font-size:12px;margin-left:auto}
+.featured-label{color:var(--gold);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 .league-accuracy{display:inline-flex;align-items:center;gap:5px;margin-left:auto;border:1px solid rgba(255,213,102,.18);background:rgba(255,213,102,.055);color:var(--muted);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;white-space:nowrap}
 .league-accuracy .pro{color:var(--text)}
 .league-accuracy .pro.locked{filter:blur(4px);user-select:none}
@@ -1073,7 +1074,7 @@ function sortLeaguesByPriority(leagues){
   });
 }
 function bestFeaturedLeague(){
-  const candidates = LEAGUES.filter(l => l && !l.isWC && l.matches && l.matches.length);
+  const candidates = LEAGUES.filter(l => l && !l.isWC && l.matches && l.matches.length && l.featured_eligible !== false && (l.value == null || Number(l.value) >= 40) && !/friendlies?|friendly/i.test(l.key || ''));
   if (!candidates.length) return null;
   return sortLeaguesByPriority(candidates)[0];
 }
@@ -1089,7 +1090,7 @@ function renderGlobal(){
     html += wc.map((m,i)=>cardHTML(m,'wc'+i)).join("") + `</div>`;
   } else if (featuredLeague) {
     const fl = leagueHeaderIcon(featuredLeague);
-    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="lsub">${featuredLeague.matches.length} jogos</span></div>`;
+    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="featured-label">Featured league</span><span class="lsub">${featuredLeague.matches.length} jogos</span></div>`;
     html += featuredLeague.matches.map((m,i)=>cardHTML(Object.assign({league:featuredLeague.key},m),'featured'+i)).join("") + `</section>`;
   }
   if (rest.length){
