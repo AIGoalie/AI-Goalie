@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341511551805856" crossorigin="anonymous"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20473,20 +20474,18 @@ function hideMoneytizerAds(){
 
 function loadMoneytizerAds(){
   try {
-    if (window.__isPro === true || window.__moneytizerLoaded || location.protocol === 'file:') return;
-    const slot = document.getElementById('128244-6');
-    if (!slot) return;
-    slot.classList.remove('hidden');
-    window.__moneytizerLoaded = true;
-    const gen = document.createElement('script');
-    gen.src = '//ads.themoneytizer.com/s/gen.js?type=6';
-    const req = document.createElement('script');
-    req.src = '//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6';
-    slot.appendChild(gen);
-    slot.appendChild(req);
-  } catch(e) {
-    console.warn('AIGoalie: Moneytizer load failed.', e);
-  }
+    if (window.__isPro === true || window.__adsenseLoaded || location.protocol === 'file:') return;
+    const slots = Array.from(document.querySelectorAll('.adsense-slot'))
+      .filter(slot => window.getComputedStyle(slot).display !== 'none');
+    if (!slots.length) return;
+    window.__adsenseLoaded = true;
+    slots.forEach(slot => {
+      if (slot.dataset.adsenseLoaded === '1') return;
+      slot.classList.remove('hidden');
+      slot.dataset.adsenseLoaded = '1';
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    });
+  } catch(e) { console.warn('AIGoalie: AdSense load failed.', e); }
 }
 
 function applyLocalKickoffTimes(){

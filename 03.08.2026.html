@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341511551805856" crossorigin="anonymous"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
 <script>
@@ -802,7 +803,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="icon" title="Download CSV" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
   </div>
 
-  <div id="128244-1" class="ad-container ad-megabanner day-top-ad" data-moneytizer-format="1"></div>
+  <div class="ad-container adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
   <div id="globalView">
     
@@ -820,7 +821,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="128244-19" class="ad-container ad-rect day-inline-ad" data-moneytizer-format="19"></div>
+  <div class="ad-container adsense-slot" data-adsense-slot="1152511125"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="1152511125" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
   <footer>
     <div>
@@ -1733,26 +1734,18 @@ function hideMoneytizerAds(){
 
 function loadMoneytizerAds(){
   try {
-    if (window.__isPro === true || window.__moneytizerLoaded || location.protocol === 'file:') return;
-    const slots = Array.from(document.querySelectorAll('.ad-container[data-moneytizer-format]'))
+    if (window.__isPro === true || window.__adsenseLoaded || location.protocol === 'file:') return;
+    const slots = Array.from(document.querySelectorAll('.adsense-slot'))
       .filter(slot => window.getComputedStyle(slot).display !== 'none');
     if (!slots.length) return;
-    window.__moneytizerLoaded = true;
+    window.__adsenseLoaded = true;
     slots.forEach(slot => {
-      const format = slot.dataset.moneytizerFormat;
-      if (!format || slot.dataset.moneytizerLoaded === '1') return;
+      if (slot.dataset.adsenseLoaded === '1') return;
       slot.classList.remove('hidden');
-      slot.dataset.moneytizerLoaded = '1';
-      const gen = document.createElement('script');
-      gen.src = `//ads.themoneytizer.com/s/gen.js?type=${encodeURIComponent(format)}`;
-      const req = document.createElement('script');
-      req.src = `//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=${encodeURIComponent(format)}`;
-      slot.appendChild(gen);
-      slot.appendChild(req);
+      slot.dataset.adsenseLoaded = '1';
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     });
-  } catch(e) {
-    console.warn('AIGoalie: Moneytizer load failed.', e);
-  }
+  } catch(e) { console.warn('AIGoalie: AdSense load failed.', e); }
 }
 
 function applyLocalKickoffTimes(){
