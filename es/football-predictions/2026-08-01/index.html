@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341511551805856" crossorigin="anonymous"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
 <script>
@@ -14,6 +13,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-adsense-account" content="ca-pub-1341511551805856">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341511551805856" crossorigin="anonymous"></script>
 
 
 
@@ -803,7 +803,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="icon" title="Descargar CSV" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
   </div>
 
-  <div class="ad-container adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
   <div id="globalView">
     
@@ -821,7 +821,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div class="ad-container adsense-slot" data-adsense-slot="1152511125"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="1152511125" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="1152511125"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="1152511125" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
   <footer>
     <div>
@@ -1733,6 +1733,9 @@ function hideMoneytizerAds(){
 }
 
 function loadMoneytizerAds(){
+  return loadAdsenseAds();
+}
+function loadAdsenseAds(){
   try {
     if (window.__isPro === true || window.__adsenseLoaded || location.protocol === 'file:') return;
     const slots = Array.from(document.querySelectorAll('.adsense-slot'))
@@ -1745,7 +1748,9 @@ function loadMoneytizerAds(){
       slot.dataset.adsenseLoaded = '1';
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     });
-  } catch(e) { console.warn('AIGoalie: AdSense load failed.', e); }
+  } catch(e) {
+    console.warn('AIGoalie: AdSense load failed.', e);
+  }
 }
 
 function applyLocalKickoffTimes(){
