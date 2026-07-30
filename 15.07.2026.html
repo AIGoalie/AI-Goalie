@@ -18932,19 +18932,31 @@ function hideMoneytizerAds(){
 }
 
 function loadMoneytizerAds(){
-  try {
-    if (window.__isPro === true || window.__adsenseLoaded || location.protocol === 'file:') return;
-    const slots = Array.from(document.querySelectorAll('.adsense-slot'))
-      .filter(slot => window.getComputedStyle(slot).display !== 'none');
-    if (!slots.length) return;
-    window.__adsenseLoaded = true;
-    slots.forEach(slot => {
-      if (slot.dataset.adsenseLoaded === '1') return;
-      slot.classList.remove('hidden');
-      slot.dataset.adsenseLoaded = '1';
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    });
-  } catch(e) { console.warn('AIGoalie: AdSense load failed.', e); }
+  if (window.__isPro === true || window.__adsenseLoaded || window.__adsenseRetry || location.protocol === 'file:') return;
+  window.__adsenseRetry = true;
+  let attempts = 0;
+  const attempt = () => {
+    try {
+      if (window.__isPro === true) return;
+      const slots = Array.from(document.querySelectorAll('.adsense-slot'))
+        .filter(slot => slot.dataset.adsenseLoaded !== '1' && window.getComputedStyle(slot).display !== 'none');
+      const ready = slots.filter(slot => slot.getBoundingClientRect().width > 1);
+      ready.forEach(slot => {
+        slot.classList.remove('hidden');
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          slot.dataset.adsenseLoaded = '1';
+        } catch (e) { console.warn('AIGoalie: AdSense slot failed.', e); }
+      });
+      const remaining = slots.filter(slot => slot.dataset.adsenseLoaded !== '1');
+      if (remaining.length && attempts++ < 10) setTimeout(attempt, attempts < 3 ? 100 : 500);
+      else { window.__adsenseLoaded = true; window.__adsenseRetry = false; }
+    } catch(e) {
+      window.__adsenseRetry = false;
+      console.warn('AIGoalie: AdSense load failed.', e);
+    }
+  };
+  requestAnimationFrame(attempt);
 }
 
 function applyLocalKickoffTimes(){
