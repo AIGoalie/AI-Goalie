@@ -360,10 +360,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .ad-container iframe,.ad-container img,.ad-container ins,.ad-container > div{position:static!important;left:auto!important;right:auto!important;transform:none!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important}
 .ad-container.ad-megabanner{margin:14px auto 18px}
 .ad-container.ad-rect{width:min(300px,100%);max-width:300px;margin:18px auto}
+.adsense-slot > ins.adsbygoogle{display:block!important;width:100%!important;min-width:1px}
 .ad-container.hidden{display:none}
 .ad-desktop{display:flex}
-.day-top-ad{min-height:90px}
-.day-inline-ad{min-height:1px}
+.day-top-ad{width:min(336px,100%);min-height:250px}
+.day-inline-ad{width:min(468px,100%);max-width:468px;min-height:60px}
 
 @media(max-width:680px){
   header.top{flex-wrap:wrap}
@@ -719,8 +720,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   justify-content:center;
 }
 
-.adsense-slot > ins.adsbygoogle{display:block!important;width:100%!important;min-width:1px}
-.day-top-ad{width:min(336px,100%);min-height:250px}.day-inline-ad{width:min(468px,100%);max-width:468px;min-height:60px}
 </style>
 </head>
 <body>
@@ -805,7 +804,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="icon" title="Descargar CSV" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
   </div>
 
-  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="rectangle" data-full-width-responsive="true"></ins></div>
 
   <div id="globalView">
     
@@ -823,7 +822,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="1152511125"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="1152511125" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="1152511125"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="1152511125" data-ad-format="horizontal" data-full-width-responsive="true"></ins></div>
 
   <footer>
     <div>
@@ -1735,6 +1734,9 @@ function hideMoneytizerAds(){
 }
 
 function loadMoneytizerAds(){
+  return loadAdsenseAds();
+}
+function loadAdsenseAds(){
   if (window.__isPro === true || window.__adsenseLoaded || window.__adsenseRetry || location.protocol === 'file:') return;
   window.__adsenseRetry = true;
   let attempts = 0;
