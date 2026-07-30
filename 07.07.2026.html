@@ -719,6 +719,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 }
 
 .adsense-slot > ins.adsbygoogle{display:block!important;width:100%!important;min-width:1px}
+.day-top-ad{width:min(336px,100%);min-height:250px}.day-inline-ad{width:min(468px,100%);max-width:468px;min-height:60px}
 </style>
 </head>
 <body>
@@ -14646,7 +14647,7 @@ function loadMoneytizerAds(){
       const ready = slots.filter(slot => {
         const ins = slot.querySelector('ins.adsbygoogle');
         if (!ins) return false;
-        slot.style.width = slot.classList.contains('ad-rect') ? 'min(300px, 100%)' : '100%';
+        slot.style.width = slot.classList.contains('day-top-ad') ? 'min(336px, 100%)' : slot.classList.contains('day-inline-ad') ? 'min(468px, 100%)' : slot.classList.contains('ad-rect') ? 'min(300px, 100%)' : '100%';
         ins.style.display = 'block';
         ins.style.width = '100%';
         return slot.getBoundingClientRect().width > 1 && ins.getBoundingClientRect().width > 1;
