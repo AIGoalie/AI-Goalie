@@ -713,6 +713,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   justify-content:center;
 }
 
+.adsense-slot > ins.adsbygoogle{display:block!important;width:100%!important;min-width:1px}
 </style>
 </head>
 <body>
@@ -44550,12 +44551,19 @@ function loadMoneytizerAds(){
       if (window.__isPro === true) return;
       const slots = Array.from(document.querySelectorAll('.adsense-slot'))
         .filter(slot => slot.dataset.adsenseLoaded !== '1' && window.getComputedStyle(slot).display !== 'none');
-      const ready = slots.filter(slot => slot.getBoundingClientRect().width > 1);
+      const ready = slots.filter(slot => {
+        const ins = slot.querySelector('ins.adsbygoogle');
+        if (!ins) return false;
+        slot.style.width = slot.classList.contains('ad-rect') ? 'min(300px, 100%)' : '100%';
+        ins.style.display = 'block';
+        ins.style.width = '100%';
+        return slot.getBoundingClientRect().width > 1 && ins.getBoundingClientRect().width > 1;
+      });
       ready.forEach(slot => {
         slot.classList.remove('hidden');
+        slot.dataset.adsenseLoaded = '1';
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
-          slot.dataset.adsenseLoaded = '1';
         } catch (e) { console.warn('AIGoalie: AdSense slot failed.', e); }
       });
       const remaining = slots.filter(slot => slot.dataset.adsenseLoaded !== '1');
