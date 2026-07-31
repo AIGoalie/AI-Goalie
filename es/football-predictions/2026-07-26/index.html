@@ -719,8 +719,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   justify-content:center;
 }
 
-.adsense-slot > ins.adsbygoogle{display:block!important;width:100%!important;min-width:1px}
-.day-top-ad{width:min(468px,100%);max-width:468px;min-height:60px}.day-inline-ad{width:min(300px,100%);max-width:300px;min-height:250px}
 </style>
 </head>
 <body>
@@ -805,7 +803,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <div class="icon" title="Descargar CSV" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
   </div>
 
-  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
   <div id="globalView">
     
@@ -37885,7 +37883,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="1152511125"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1341511551805856" data-ad-slot="1152511125" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
   <footer>
     <div>
@@ -38845,38 +38843,24 @@ function hideMoneytizerAds(){
 }
 
 function loadMoneytizerAds(){
-  if (window.__isPro === true || window.__adsenseLoaded || window.__adsenseRetry || location.protocol === 'file:') return;
-  window.__adsenseRetry = true;
-  let attempts = 0;
-  const attempt = () => {
-    try {
-      if (window.__isPro === true) return;
-      const slots = Array.from(document.querySelectorAll('.adsense-slot'))
-        .filter(slot => slot.dataset.adsenseLoaded !== '1' && window.getComputedStyle(slot).display !== 'none');
-      const ready = slots.filter(slot => {
-        const ins = slot.querySelector('ins.adsbygoogle');
-        if (!ins) return false;
-        slot.style.width = slot.classList.contains('day-top-ad') ? 'min(468px, 100%)' : slot.classList.contains('day-inline-ad') ? 'min(300px, 100%)' : slot.classList.contains('ad-rect') ? 'min(300px, 100%)' : '100%';
-        ins.style.display = 'block';
-        ins.style.width = '100%';
-        return slot.getBoundingClientRect().width > 1 && ins.getBoundingClientRect().width > 1;
-      });
-      ready.forEach(slot => {
-        slot.classList.remove('hidden');
-        slot.dataset.adsenseLoaded = '1';
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) { console.warn('AIGoalie: AdSense slot failed.', e); }
-      });
-      const remaining = slots.filter(slot => slot.dataset.adsenseLoaded !== '1');
-      if (remaining.length && attempts++ < 10) setTimeout(attempt, attempts < 3 ? 100 : 500);
-      else { window.__adsenseLoaded = true; window.__adsenseRetry = false; }
-    } catch(e) {
-      window.__adsenseRetry = false;
-      console.warn('AIGoalie: AdSense load failed.', e);
-    }
-  };
-  requestAnimationFrame(attempt);
+  return loadAdsenseAds();
+}
+function loadAdsenseAds(){
+  try {
+    if (window.__isPro === true || window.__adsenseLoaded || location.protocol === 'file:') return;
+    const slots = Array.from(document.querySelectorAll('.adsense-slot'))
+      .filter(slot => window.getComputedStyle(slot).display !== 'none');
+    if (!slots.length) return;
+    window.__adsenseLoaded = true;
+    slots.forEach(slot => {
+      if (slot.dataset.adsenseLoaded === '1') return;
+      slot.classList.remove('hidden');
+      slot.dataset.adsenseLoaded = '1';
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    });
+  } catch(e) {
+    console.warn('AIGoalie: AdSense load failed.', e);
+  }
 }
 
 function applyLocalKickoffTimes(){
