@@ -250,13 +250,29 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .daybar button:hover{background:var(--surface-2)}
 .daybar .day{font-size:20px;font-weight:700;min-width:210px;text-align:center}
 
-.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 4px}
-.toolbar .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.toolbar .seg button{background:var(--surface);border:0;color:var(--muted);padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer}
-.toolbar .seg button.on{background:var(--surface-2);color:var(--green-bright)}
-.toolbar .spacer{flex:1}
-.toolbar input[type=search]{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 12px;font-size:13px;min-width:170px}
-.toolbar .icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);cursor:pointer;font-size:15px}
+.match-controls{margin:14px 0 4px}
+.control-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}
+.layout-select{width:142px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);padding:0 32px 0 12px;font-size:13px;font-weight:700;cursor:pointer;outline:0}
+.layout-select:focus{border-color:rgba(113,240,139,.52)}
+.status-switch{min-width:0;display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}
+.status-btn{height:38px;min-width:0;flex:1;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 10px;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}
+.status-btn:last-child{border-right:0}
+.status-btn:hover{background:var(--surface-2);color:var(--text)}
+.status-btn.on{background:var(--text);color:#092015}
+.status-btn.live-filter::before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#ff5e62;vertical-align:1px}
+.utility{position:relative}
+.utility summary{list-style:none;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--text);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
+.utility summary::-webkit-details-marker{display:none}
+.utility[open] summary,.utility summary:hover{background:var(--surface-2);border-color:rgba(113,240,139,.35)}
+.utility-menu{position:absolute;right:0;top:46px;z-index:80;width:196px;padding:6px;background:#102019;border:1px solid var(--line);border-radius:11px;box-shadow:0 14px 36px rgba(0,0,0,.42)}
+.utility-menu button{width:100%;display:flex;align-items:center;gap:8px;border:0;border-radius:8px;background:transparent;color:var(--text);padding:9px 10px;text-align:left;font-size:12px;font-weight:650;cursor:pointer}
+.utility-menu button:hover{background:var(--surface-2)}
+.utility-menu button.active{color:var(--green-bright)}
+.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-top:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}
+.control-search:focus-within{border-color:rgba(113,240,139,.52)}
+.control-search svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
+.control-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:13px}
+.control-search input::placeholder{color:var(--muted-2)}
 
 /* SECTION + LEAGUE HEADS */
 .league-head{display:flex;align-items:center;gap:9px;margin:22px 0 9px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
@@ -399,8 +415,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .metric .mv{font-size:12.5px}
   .metric .ms{font-size:7.4px;min-height:16px}
   .metric .pro-tag{font-size:7.5px}
-  .toolbar{gap:6px}
-  .toolbar input[type=search]{min-width:0;flex:1 1 100%;order:3}
+  .control-row{gap:6px}
+  .layout-select{width:116px;height:38px;padding:0 25px 0 9px;font-size:11.5px}
+  .status-btn{height:36px;padding:0 6px;font-size:11px}
+  .utility summary{width:38px;height:38px}
+  .control-search{height:40px}
 
   .league-section .league-head{
     display:grid;
@@ -418,8 +437,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .league-section .league-head .league-accuracy{grid-area:acc;margin-left:0;justify-self:start;max-width:100%;font-size:10px;padding:4px 7px}
   .league-section .league-head .league-accuracy span:first-child{display:none}
   .league-section .league-head .league-accuracy::before{content:"Accuracy"}
-  .toolbar .seg{flex:1}
-  .toolbar .seg button{flex:1;padding:8px 6px}
 }
 @media(max-width:430px){
   .side .nm{font-size:10.5px;max-width:80px}
@@ -772,11 +789,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 }
 
 </style>
-
-<style id="compact-match-controls-hotfix">
-.match-controls{margin:14px 0 4px}.control-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}.layout-select{width:142px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);padding:0 32px 0 12px;font-size:13px;font-weight:700;cursor:pointer;outline:0}.layout-select:focus{border-color:rgba(113,240,139,.52)}.status-switch{min-width:0;display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}.status-btn{height:38px;min-width:0;flex:1;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 10px;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}.status-btn:last-child{border-right:0}.status-btn:hover{background:var(--surface-2);color:var(--text)}.status-btn.on{background:var(--text);color:#092015}.status-btn.live-filter:before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#ff5e62;vertical-align:1px}.utility{position:relative}.utility summary{list-style:none;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--text);font-size:20px;font-weight:700;cursor:pointer;line-height:1}.utility summary::-webkit-details-marker{display:none}.utility[open] summary,.utility summary:hover{background:var(--surface-2);border-color:rgba(113,240,139,.35)}.utility-menu{position:absolute;right:0;top:46px;z-index:80;width:196px;padding:6px;background:#102019;border:1px solid var(--line);border-radius:11px;box-shadow:0 14px 36px rgba(0,0,0,.42)}.utility-menu button{width:100%;display:flex;align-items:center;gap:8px;border:0;border-radius:8px;background:transparent;color:var(--text);padding:9px 10px;text-align:left;font-size:12px;font-weight:650;cursor:pointer}.utility-menu button:hover{background:var(--surface-2)}.utility-menu button.active{color:var(--green-bright)}.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-top:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}.control-search:focus-within{border-color:rgba(113,240,139,.52)}.control-search svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex:none}.control-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:13px}.control-search input::placeholder{color:var(--muted-2)}
-@media(max-width:560px){.control-row{gap:6px}.layout-select{width:116px;height:38px;padding:0 25px 0 9px;font-size:11.5px}.status-btn{height:36px;padding:0 6px;font-size:11px}.utility summary{width:38px;height:38px}.control-search{height:40px}}
-</style>
 </head>
 <body>
 
@@ -851,12 +863,29 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 
   <section class="match-controls" aria-label="Match filters">
     <div class="control-row">
-      <select id="viewSelect" class="layout-select" aria-label="Match layout" onchange="setView(this.value)"><option value="global">全試合</option><option value="league">リーグ別</option></select>
-      <div class="status-switch" role="group" aria-label="Match status"><button class="status-btn on" onclick="setStatusFilter('all',this)">全て</button><button class="status-btn live-filter" onclick="setStatusFilter('live',this)">ライブ</button><button class="status-btn" onclick="setStatusFilter('upcoming',this)">次</button><button class="status-btn" onclick="setStatusFilter('finished',this)">終了</button></div>
-      <details class="utility" id="utilityMenu"><summary aria-label="その他" title="その他">⋯</summary><div class="utility-menu"><button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ Sort by confidence</button><button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ 時間順</button><button id="csv_button" onclick="closeUtilityMenu();if(window.downloadCSV)downloadCSV()">↓ Download CSV</button></div></details>
+      <select id="viewSelect" class="layout-select" aria-label="Match layout" onchange="setView(this.value)">
+        <option value="global">全試合</option>
+        <option value="league">リーグ別</option>
+      </select>
+      <div class="status-switch" role="group" aria-label="Match status">
+        <button class="status-btn on" data-status-filter="all" onclick="setStatusFilter('all',this)">全て</button>
+        <button class="status-btn live-filter" data-status-filter="live" onclick="setStatusFilter('live',this)">ライブ</button>
+        <button class="status-btn" data-status-filter="upcoming" onclick="setStatusFilter('upcoming',this)">次</button>
+        <button class="status-btn" data-status-filter="finished" onclick="setStatusFilter('finished',this)">終了</button>
+      </div>
+      <details class="utility" id="utilityMenu">
+        <summary aria-label="その他" title="その他">⋯</summary>
+        <div class="utility-menu">
+          <button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ 信頼度で並び替え</button>
+          <button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ 時間順</button>
+          <button id="csv_button" onclick="closeUtilityMenu();if(window.downloadCSV)downloadCSV()">↓ CSVをダウンロード</button>
+        </div>
+      </details>
     </div>
-    <label class="control-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg><input type="search" id="search" placeholder="チームまたはリーグを検索…" aria-label="チームまたはリーグを検索…" oninput="doSearch(this.value)"></label>
-    <span hidden><button class="on" id="segGlobal"></button><button id="segLeague"></button><span id="sortIcon"></span></span>
+    <label class="control-search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
+      <input type="search" id="search" placeholder="チームまたはリーグを検索…" aria-label="チームまたはリーグを検索…" oninput="doSearch(this.value)">
+    </label>
   </section>
 
   <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
@@ -998,8 +1027,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="International - UEFA Europa League" data-home="Benfica"
        data-away="FC ST. Gallen" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="benfica fc st. gallen international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1078,8 +1110,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="1" data-league="International - UEFA Europa League" data-home="Maccabi Tel Aviv"
        data-away="Sheriff Tiraspol" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="maccabi tel aviv sheriff tiraspol international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1158,8 +1193,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="2" data-league="International - UEFA Europa League" data-home="Ferencvarosi TC"
        data-away="Twente" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="ferencvarosi tc twente international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1238,8 +1276,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="International - UEFA Europa League" data-home="Hradec Králové"
        data-away="Tromso" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="hradec králové tromso international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1318,8 +1359,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="4" data-league="International - UEFA Europa League" data-home="PAOK"
        data-away="Dynamo Kyiv" data-date="Thu. 30 Jul." data-time="18:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:45:00Z"
        data-search="paok dynamo kyiv international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1398,8 +1442,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="5" data-league="International - UEFA Europa League" data-home="Pafos"
        data-away="HNK Hajduk Split" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="pafos hnk hajduk split international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1478,8 +1525,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="6" data-league="International - UEFA Europa League" data-home="FC Midtjylland"
        data-away="Beşiktaş" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="fc midtjylland beşiktaş international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1564,8 +1614,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Ecuador - Copa Ecuador" data-home="Independiente del Valle"
        data-away="Manta FC" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="independiente del valle manta fc ecuador - copa ecuador">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1644,8 +1697,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="1" data-league="Croatia - HNL" data-home="Dinamo Zagreb"
        data-away="NK Slaven Belupo" data-date="Fri. 31 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:00:00Z"
        data-search="dinamo zagreb nk slaven belupo croatia - hnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1724,8 +1780,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="2" data-league="Czech Republic - Czech Liga" data-home="Sparta Praha"
        data-away="Zlin" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="sparta praha zlin czech republic - czech liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1804,8 +1863,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="3" data-league="Norway - Eliteserien" data-home="Bodo/Glimt"
        data-away="Lillestrom" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="bodo/glimt lillestrom norway - eliteserien">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1884,8 +1946,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="4" data-league="International - UEFA Europa Conference League" data-home="CFR 1907 Cluj"
        data-away="Alashkert" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="cfr 1907 cluj alashkert international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -1964,8 +2029,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="5" data-league="Wales - Premier League" data-home="Llandudno"
        data-away="Flint Town United" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="llandudno flint town united wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2044,8 +2112,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="6" data-league="International - UEFA Europa Conference League" data-home="Ludogorets"
        data-away="Hapoel Tel Aviv" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="ludogorets hapoel tel aviv international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2124,8 +2195,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="7" data-league="Ukraine - Persha Liga" data-home="UCSA"
        data-away="Oleksandria" data-date="Fri. 31 Jul." data-time="11:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T10:00:00Z"
        data-search="ucsa oleksandria ukraine - persha liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2204,8 +2278,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="8" data-league="Belgium - Super Cup" data-home="Club Brugge KV"
        data-away="Union St. Gilloise" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="club brugge kv union st. gilloise belgium - super cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2284,8 +2361,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="9" data-league="International - CONCACAF Central American Cup" data-home="Municipal"
        data-away="CS Cartagines" data-date="Fri. 31 Jul." data-time="04:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T03:00:00Z"
        data-search="municipal cs cartagines international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2364,8 +2444,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="10" data-league="International - UEFA Europa Conference League" data-home="Ajax"
        data-away="Vojvodina" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="ajax vojvodina international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2444,8 +2527,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="11" data-league="Brazil - Serie A" data-home="Vitoria"
        data-away="Palmeiras" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="vitoria palmeiras brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2524,8 +2610,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="12" data-league="International - Friendlies Clubs" data-home="Monaco"
        data-away="Cercle Brugge" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="monaco cercle brugge international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2604,8 +2693,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="13" data-league="International - UEFA Europa Conference League" data-home="The New Saints"
        data-away="Flora Tallinn" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="the new saints flora tallinn international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2684,8 +2776,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="14" data-league="Poland - I Liga" data-home="Lechia Gdansk"
        data-away="Warta Poznań" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="lechia gdansk warta poznań poland - i liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2764,8 +2859,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="15" data-league="International - UEFA Europa Conference League" data-home="GKS Katowice"
        data-away="Žilina" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="gks katowice žilina international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2844,8 +2942,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="16" data-league="International - UEFA Europa Conference League" data-home="FC Sion"
        data-away="Bate Borisov" data-date="Thu. 30 Jul." data-time="19:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:15:00Z"
        data-search="fc sion bate borisov international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -2924,8 +3025,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="17" data-league="International - UEFA Europa Conference League" data-home="SC Braga"
        data-away="Železničar Pančevo" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="sc braga železničar pančevo international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3004,8 +3108,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="18" data-league="International - Piala Presiden" data-home="Persib Bandung"
        data-away="Tampines Rovers" data-date="Fri. 31 Jul." data-time="13:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T12:30:00Z"
        data-search="persib bandung tampines rovers international - piala presiden">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3084,8 +3191,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="19" data-league="International - Friendlies Clubs" data-home="Trabzonspor"
        data-away="Al Sadd" data-date="Thu. 30 Jul." data-time="16:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="trabzonspor al sadd international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3164,8 +3274,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="20" data-league="International - Friendlies Clubs" data-home="Sporting CP"
        data-away="Nottingham Forest" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="sporting cp nottingham forest international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3244,8 +3357,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="21" data-league="International - Friendlies Clubs" data-home="Las Palmas"
        data-away="NEOM" data-date="Fri. 31 Jul." data-time="10:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T09:00:00Z"
        data-search="las palmas neom international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3324,8 +3440,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="22" data-league="International - UEFA Europa Conference League" data-home="Coleraine FC"
        data-away="HJK Helsinki" data-date="Thu. 30 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:45:00Z"
        data-search="coleraine fc hjk helsinki international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3404,8 +3523,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="23" data-league="Wales - Premier League" data-home="Briton Ferry"
        data-away="Ammanford AFC" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="briton ferry ammanford afc wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3484,8 +3606,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="24" data-league="Austria - 2. Liga" data-home="Voitsberg"
        data-away="SKU Amstetten" data-date="Fri. 31 Jul." data-time="17:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:30:00Z"
        data-search="voitsberg sku amstetten austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3564,8 +3689,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="25" data-league="Hungary - NB I" data-home="Puskas Academy"
        data-away="Kisvarda FC" data-date="Fri. 31 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:00:00Z"
        data-search="puskas academy kisvarda fc hungary - nb i">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3644,8 +3772,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="26" data-league="Australia - Australia Cup" data-home="Sydney Olympic"
        data-away="Brisbane Roar" data-date="Thu. 30 Jul." data-time="10:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T09:30:00Z"
        data-search="sydney olympic brisbane roar australia - australia cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3724,8 +3855,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="27" data-league="Austria - 2. Liga" data-home="SV Kapfenberg"
        data-away="FC Liefering" data-date="Fri. 31 Jul." data-time="17:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:30:00Z"
        data-search="sv kapfenberg fc liefering austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3804,8 +3938,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="28" data-league="International - UEFA Europa Conference League" data-home="Austria Vienna"
        data-away="FK Liepaja" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="austria vienna fk liepaja international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3884,8 +4021,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="29" data-league="International - CONMEBOL Sudamericana" data-home="RB Bragantino"
        data-away="Sporting Cristal" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="rb bragantino sporting cristal international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -3964,8 +4104,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="30" data-league="International - Friendlies Clubs" data-home="Johor Darul Takzim FC"
        data-away="FC Cartagena" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="johor darul takzim fc fc cartagena international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4044,8 +4187,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="31" data-league="El Salvador - Primera Division" data-home="Firpo"
        data-away="Fuerte San Francisco" data-date="Thu. 30 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T01:00:00Z"
        data-search="firpo fuerte san francisco el salvador - primera division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4124,8 +4270,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="32" data-league="International - CONCACAF Central American Cup" data-home="CS Herediano"
        data-away="CD Marathon" data-date="Fri. 31 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T01:00:00Z"
        data-search="cs herediano cd marathon international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4204,8 +4353,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="33" data-league="International - Friendlies Clubs" data-home="VfL Wolfsburg"
        data-away="Telstar" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="vfl wolfsburg telstar international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4284,8 +4436,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="34" data-league="International - CONMEBOL Sudamericana" data-home="O'Higgins"
        data-away="Boca Juniors" data-date="Fri. 31 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:30:00Z"
        data-search="o'higgins boca juniors international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4364,8 +4519,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="35" data-league="International - UEFA Europa Conference League" data-home="Auda"
        data-away="FCSB" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="auda fcsb international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4444,8 +4602,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="36" data-league="Bolivia - Primera División" data-home="The Strongest"
        data-away="Aurora" data-date="Fri. 31 Jul." data-time="22:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T21:30:00Z"
        data-search="the strongest aurora bolivia - primera división">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4524,8 +4685,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="37" data-league="International - UEFA Europa Conference League" data-home="Kalju Nomme"
        data-away="Shelbourne" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="kalju nomme shelbourne international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4604,8 +4768,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="38" data-league="International - UEFA Europa Conference League" data-home="Zira"
        data-away="Paide" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="zira paide international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4684,8 +4851,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="39" data-league="International - UEFA Europa Conference League" data-home="Dinamo Tirana"
        data-away="Aluminij" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="dinamo tirana aluminij international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4764,8 +4934,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="40" data-league="Ireland - First Division" data-home="Athlone Town"
        data-away="UCD" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="athlone town ucd ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4844,8 +5017,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="41" data-league="International - UEFA Europa Conference League" data-home="Zrinjski"
        data-away="Valur Reykjavik" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="zrinjski valur reykjavik international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -4924,8 +5100,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="42" data-league="International - CONCACAF Central American Cup" data-home="LD Alajuelense"
        data-away="Xelajú" data-date="Thu. 30 Jul." data-time="03:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T02:00:00Z"
        data-search="ld alajuelense xelajú international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5004,8 +5183,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="43" data-league="Wales - FAW Championship" data-home="Trethomas Bluebirds"
        data-away="Baglan Dragons" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="trethomas bluebirds baglan dragons wales - faw championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5084,8 +5266,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="44" data-league="International - UEFA Europa Conference League" data-home="Panathinaikos"
        data-away="Paks" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="panathinaikos paks international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5164,8 +5349,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="45" data-league="International - Friendlies Clubs" data-home="Juventus"
        data-away="Nice" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="juventus nice international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5244,8 +5432,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="46" data-league="El Salvador - Primera Division" data-home="Isidro Metapán"
        data-away="FAS" data-date="Fri. 31 Jul." data-time="01:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:00:00Z"
        data-search="isidro metapán fas el salvador - primera division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5324,8 +5515,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="47" data-league="Brazil - Serie A" data-home="Corinthians"
        data-away="Atletico Paranaense" data-date="Thu. 30 Jul." data-time="23:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T22:30:00Z"
        data-search="corinthians atletico paranaense brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5404,8 +5598,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="48" data-league="Estonia - Meistriliiga" data-home="Nõmme United"
        data-away="Trans Narva" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="nõmme united trans narva estonia - meistriliiga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5484,8 +5681,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="49" data-league="Belarus - 1. Division" data-home="FC Slutsk"
        data-away="FC Energetik-Bgu Minsk" data-date="Fri. 31 Jul." data-time="16:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:30:00Z"
        data-search="fc slutsk fc energetik-bgu minsk belarus - 1. division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5564,8 +5764,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="50" data-league="International - UEFA Europa Conference League" data-home="Brann"
        data-away="Universitatea Cluj" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="brann universitatea cluj international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5644,8 +5847,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="51" data-league="International - UEFA Europa Conference League" data-home="FK Zalgiris Vilnius"
        data-away="Dinamo Tbilisi" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="fk zalgiris vilnius dinamo tbilisi international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5724,8 +5930,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="52" data-league="International - UEFA Europa Conference League" data-home="Dinamo Minsk"
        data-away="Neftchi Baku" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="dinamo minsk neftchi baku international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5804,8 +6013,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="53" data-league="International - UEFA Europa Conference League" data-home="Ballkani"
        data-away="Bohemians" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="ballkani bohemians international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5884,8 +6096,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="54" data-league="Czech Republic - FNL" data-home="Viktoria Žižkov"
        data-away="Prostějov" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="viktoria žižkov prostějov czech republic - fnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -5964,8 +6179,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="55" data-league="International - UEFA Europa Conference League" data-home="Petrocub"
        data-away="Borac Banja Luka" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="petrocub borac banja luka international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6044,8 +6262,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="56" data-league="Brazil - Serie A" data-home="Coritiba"
        data-away="Cruzeiro" data-date="Fri. 31 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:30:00Z"
        data-search="coritiba cruzeiro brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6124,8 +6345,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="57" data-league="Austria - 2. Liga" data-home="Admira Wacker"
        data-away="Rapid Wien II" data-date="Fri. 31 Jul." data-time="17:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:30:00Z"
        data-search="admira wacker rapid wien ii austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6204,8 +6428,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="58" data-league="International - CONCACAF Central American Cup" data-home="Alianza"
        data-away="Antigua GFC" data-date="Thu. 30 Jul." data-time="03:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T02:00:00Z"
        data-search="alianza antigua gfc international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6284,8 +6511,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="59" data-league="Ireland - First Division" data-home="Finn Harps"
        data-away="Cork City" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="finn harps cork city ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6364,8 +6594,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="60" data-league="Czech Republic - FNL" data-home="Karviná"
        data-away="Vlašim" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="karviná vlašim czech republic - fnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6444,8 +6677,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="61" data-league="Czech Republic - FNL" data-home="Táborsko"
        data-away="Dukla Praha" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="táborsko dukla praha czech republic - fnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6524,8 +6760,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="62" data-league="Argentina - Liga Profesional Argentina" data-home="Instituto Cordoba"
        data-away="Platense" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="instituto cordoba platense argentina - liga profesional argentina">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6604,8 +6843,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="63" data-league="Poland - II Liga - East" data-home="Stal Stalowa Wola"
        data-away="Tychy 71" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="stal stalowa wola tychy 71 poland - ii liga - east">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6684,8 +6926,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="64" data-league="International - UEFA Europa Conference League" data-home="Shkendija"
        data-away="Bravo" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="shkendija bravo international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6764,8 +7009,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="65" data-league="Bulgaria - First League" data-home="CSKA 1948"
        data-away="Arda Kardzhali" data-date="Fri. 31 Jul." data-time="19:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:15:00Z"
        data-search="cska 1948 arda kardzhali bulgaria - first league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6844,8 +7092,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="66" data-league="International - UEFA Europa Conference League" data-home="FC Nordsjaelland"
        data-away="Gais" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="fc nordsjaelland gais international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -6924,8 +7175,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="67" data-league="Austria - Bundesliga" data-home="Lask Linz"
        data-away="Grazer AK" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="lask linz grazer ak austria - bundesliga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7004,8 +7258,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="68" data-league="International - Friendlies Clubs" data-home="Nantes"
        data-away="Al Wakrah" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="nantes al wakrah international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7084,8 +7341,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="69" data-league="International - Friendlies Clubs" data-home="FSV Mainz 05"
        data-away="Shabab Al Ahli Dubai" data-date="Fri. 31 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T14:00:00Z"
        data-search="fsv mainz 05 shabab al ahli dubai international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7164,8 +7424,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="70" data-league="Colombia - Primera A" data-home="Bucaramanga"
        data-away="Llaneros" data-date="Fri. 31 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T01:00:00Z"
        data-search="bucaramanga llaneros colombia - primera a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7244,8 +7507,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="71" data-league="International - UEFA Europa Conference League" data-home="FK Tobol Kostanay"
        data-away="Panevėžys" data-date="Thu. 30 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T14:00:00Z"
        data-search="fk tobol kostanay panevėžys international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7324,8 +7590,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="72" data-league="United States - USL Championship" data-home="Louisville City"
        data-away="Birmingham Legion" data-date="Thu. 30 Jul." data-time="00:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-29T23:30:00Z"
        data-search="louisville city birmingham legion united states - usl championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7404,8 +7673,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="73" data-league="Romania - Liga I" data-home="Oţelul"
        data-away="Dinamo Bucuresti" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="oţelul dinamo bucuresti romania - liga i">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7484,8 +7756,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="74" data-league="International - UEFA Europa Conference League" data-home="UNA Strassen"
        data-away="FK Partizan" data-date="Thu. 30 Jul." data-time="19:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:15:00Z"
        data-search="una strassen fk partizan international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7564,8 +7839,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="75" data-league="Poland - Ekstraklasa" data-home="Motor Lublin"
        data-away="Jagiellonia" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="motor lublin jagiellonia poland - ekstraklasa">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7644,8 +7922,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="76" data-league="International - UEFA Europa Conference League" data-home="Beitar Jerusalem"
        data-away="AEK Larnaca" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="beitar jerusalem aek larnaca international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7724,8 +8005,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="77" data-league="Chile - Primera B" data-home="San Luis"
        data-away="Rangers de Talca" data-date="Fri. 31 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T22:00:00Z"
        data-search="san luis rangers de talca chile - primera b">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7804,8 +8088,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="78" data-league="International - CONMEBOL Sudamericana" data-home="Caracas FC"
        data-away="Santa Fe" data-date="Fri. 31 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:30:00Z"
        data-search="caracas fc santa fe international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7884,8 +8171,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="79" data-league="International - UEFA Europa Conference League" data-home="Inter Turku"
        data-away="Başakşehir" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="inter turku başakşehir international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -7964,8 +8254,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="80" data-league="Romania - Liga I" data-home="Arges Pitesti"
        data-away="Csikszereda" data-date="Fri. 31 Jul." data-time="16:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:30:00Z"
        data-search="arges pitesti csikszereda romania - liga i">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8044,8 +8337,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="81" data-league="Nicaragua - Primera Division" data-home="Jalapa"
        data-away="Real Estelí" data-date="Thu. 30 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T22:00:00Z"
        data-search="jalapa real estelí nicaragua - primera division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8124,8 +8420,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="82" data-league="Spain - Friendlies Clubs" data-home="Elche"
        data-away="Cordoba" data-date="Fri. 31 Jul." data-time="09:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T08:30:00Z"
        data-search="elche cordoba spain - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8204,8 +8503,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="83" data-league="Switzerland - Challenge League" data-home="Yverdon Sport"
        data-away="Étoile Carouge" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="yverdon sport étoile carouge switzerland - challenge league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8284,8 +8586,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="84" data-league="International - Friendlies Clubs" data-home="FC Augsburg"
        data-away="Bournemouth" data-date="Thu. 30 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T14:00:00Z"
        data-search="fc augsburg bournemouth international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8364,8 +8669,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="85" data-league="International - UEFA Europa Conference League" data-home="Koper"
        data-away="NSI Runavik" data-date="Thu. 30 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:45:00Z"
        data-search="koper nsi runavik international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8444,8 +8752,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="86" data-league="International - UEFA Europa Conference League" data-home="FK Jablonec"
        data-away="NK Varazdin" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="fk jablonec nk varazdin international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8524,8 +8835,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="87" data-league="Belarus - 1. Division" data-home="Orsha"
        data-away="Shakhter Soligorsk" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="orsha shakhter soligorsk belarus - 1. division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8604,8 +8918,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="88" data-league="International - Friendlies Clubs" data-home="FC Cartagena"
        data-away="Johor Darul Takzim FC" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="upcoming"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="fc cartagena johor darul takzim fc international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8684,8 +9001,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="89" data-league="Uruguay - Primera División - Apertura" data-home="Atletico Torque"
        data-away="Wanderers" data-date="Fri. 31 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T22:00:00Z"
        data-search="atletico torque wanderers uruguay - primera división - apertura">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8764,8 +9084,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="90" data-league="International - UEFA Europa Conference League" data-home="Gent"
        data-away="LNZ Cherkasy" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="gent lnz cherkasy international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8844,8 +9167,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="91" data-league="International - CONMEBOL Sudamericana" data-home="Gremio"
        data-away="Bolívar" data-date="Thu. 30 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T22:00:00Z"
        data-search="gremio bolívar international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -8924,8 +9250,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="92" data-league="Colombia - Copa Colombia" data-home="Real Cartagena"
        data-away="America de Cali" data-date="Thu. 30 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T01:00:00Z"
        data-search="real cartagena america de cali colombia - copa colombia">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9004,8 +9333,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="93" data-league="Wales - FAW Championship" data-home="Bangor City 1876 FC"
        data-away="Bala Town" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="bangor city 1876 fc bala town wales - faw championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9084,8 +9416,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="94" data-league="International - Friendlies Clubs" data-home="NEC Nijmegen"
        data-away="Sevilla" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="nec nijmegen sevilla international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9164,8 +9499,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="95" data-league="International - UEFA Europa Conference League" data-home="Valletta FC"
        data-away="Raków Częstochowa" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="valletta fc raków częstochowa international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9244,8 +9582,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="96" data-league="International - CONCACAF Central American Cup" data-home="UMECIT"
        data-away="Deportivo Saprissa" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="umecit deportivo saprissa international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9324,8 +9665,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="97" data-league="International - UEFA Europa Conference League" data-home="HB Torshavn"
        data-away="Motherwell" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="hb torshavn motherwell international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9404,8 +9748,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="98" data-league="Mexico - Liga de Expansión MX" data-home="Alebrijes de Oaxaca"
        data-away="Dorados" data-date="Fri. 31 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T01:00:00Z"
        data-search="alebrijes de oaxaca dorados mexico - liga de expansión mx">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9484,8 +9831,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="99" data-league="Ireland - First Division" data-home="Cobh Ramblers"
        data-away="Wexford" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="cobh ramblers wexford ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9564,8 +9914,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="100" data-league="Wales - Premier League" data-home="Barry Town"
        data-away="Cambrian & Clydach" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="barry town cambrian & clydach wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9644,8 +9997,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="101" data-league="Spain - Friendlies Clubs" data-home="Alaves"
        data-away="Castellón" data-date="Fri. 31 Jul." data-time="13:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T08:30:00Z"
        data-search="alaves castellón spain - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9724,8 +10080,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="102" data-league="International - Friendlies Clubs" data-home="Mallorca"
        data-away="Al-Ittihad FC" data-date="Thu. 30 Jul." data-time="09:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T08:00:00Z"
        data-search="mallorca al-ittihad fc international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9804,8 +10163,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="103" data-league="International - UEFA Europa Conference League" data-home="Hibernian"
        data-away="Malisheva" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="hibernian malisheva international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9884,8 +10246,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="104" data-league="International - Friendlies Clubs" data-home="Monza"
        data-away="Aris Thessalonikis" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="monza aris thessalonikis international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -9964,8 +10329,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="105" data-league="International - Friendlies Clubs" data-home="Malaga"
        data-away="Al-Ittihad FC" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="malaga al-ittihad fc international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10044,8 +10412,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="106" data-league="International - UEFA Europa Conference League" data-home="Derry City"
        data-away="HNK Rijeka" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="derry city hnk rijeka international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10124,8 +10495,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="107" data-league="International - Friendlies Clubs" data-home="Toulouse"
        data-away="Real Sociedad" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="toulouse real sociedad international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10204,8 +10578,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="108" data-league="France - Friendlies Clubs" data-home="Amiens"
        data-away="RED Star FC 93" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="amiens red star fc 93 france - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10284,8 +10661,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="109" data-league="Ireland - First Division" data-home="Treaty United"
        data-away="Longford Town" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="treaty united longford town ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10364,8 +10744,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="110" data-league="Belarus - Premier League" data-home="FC Dnepr Mogilev"
        data-away="Naftan" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="fc dnepr mogilev naftan belarus - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10444,8 +10827,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="111" data-league="Ecuador - Liga Pro Serie B" data-home="Vargas Torres"
        data-away="9 de Octubre" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="upcoming"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="vargas torres 9 de octubre ecuador - liga pro serie b">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10524,8 +10910,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="112" data-league="International - Como Cup" data-home="Famalicao"
        data-away="Como" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="famalicao como international - como cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10604,8 +10993,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="113" data-league="Switzerland - Challenge League" data-home="FC WIL 1900"
        data-away="Neuchatel Xamax FC" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="fc wil 1900 neuchatel xamax fc switzerland - challenge league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10684,8 +11076,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="114" data-league="Colombia - Copa Colombia" data-home="Internacional Palmira"
        data-away="Internacional de Bogota" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="upcoming"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="internacional palmira internacional de bogota colombia - copa colombia">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10764,8 +11159,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="115" data-league="Ireland - Premier Division" data-home="Dundalk"
        data-away="Sligo Rovers" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="dundalk sligo rovers ireland - premier division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10844,8 +11242,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="116" data-league="Northern Ireland - Friendlies Clubs" data-home="Ballinamallard United"
        data-away="Bangor" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="ballinamallard united bangor northern ireland - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -10924,8 +11325,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="117" data-league="Ireland - Premier Division" data-home="Drogheda United"
        data-away="Shamrock Rovers" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="drogheda united shamrock rovers ireland - premier division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11004,8 +11408,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="118" data-league="Ireland - First Division" data-home="Bray Wanderers"
        data-away="Kerry" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="bray wanderers kerry ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11084,8 +11491,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="119" data-league="England - Premier League - Summer Series" data-home="Sunderland"
        data-away="Leeds" data-date="Fri. 31 Jul." data-time="00:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T23:30:00Z"
        data-search="sunderland leeds england - premier league - summer series">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11164,8 +11574,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="120" data-league="International - Friendlies Clubs" data-home="Den Bosch"
        data-away="Al-Fayha" data-date="Fri. 31 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T14:30:00Z"
        data-search="den bosch al-fayha international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11244,8 +11657,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="121" data-league="Wales - Premier League" data-home="Colwyn Bay"
        data-away="Trefelin" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="colwyn bay trefelin wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11324,8 +11740,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="122" data-league="Slovakia - 2. liga" data-home="Pohronie"
        data-away="Považská Bystrica" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="pohronie považská bystrica slovakia - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11404,8 +11823,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="123" data-league="Poland - Ekstraklasa" data-home="Wisla Plock"
        data-away="Widzew Łódź" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="wisla plock widzew łódź poland - ekstraklasa">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11484,8 +11906,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="124" data-league="Brazil - Serie A" data-home="Fluminense"
        data-away="Bahia" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="fluminense bahia brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11564,8 +11989,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="125" data-league="Colombia - Copa Colombia" data-home="Envigado"
        data-away="Once Caldas" data-date="Thu. 30 Jul." data-time="21:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T20:30:00Z"
        data-search="envigado once caldas colombia - copa colombia">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11644,8 +12072,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="126" data-league="Ukraine - Premier League" data-home="Zorya Luhansk"
        data-away="Kolos Kovalivka" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="zorya luhansk kolos kovalivka ukraine - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11724,8 +12155,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="127" data-league="Austria - 2. Liga" data-home="Floridsdorfer AC"
        data-away="SKN ST. Polten" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="floridsdorfer ac skn st. polten austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11804,8 +12238,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="128" data-league="France - Friendlies Clubs" data-home="Le Havre"
        data-away="Laval" data-date="Fri. 31 Jul." data-time="10:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T09:00:00Z"
        data-search="le havre laval france - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11884,8 +12321,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="129" data-league="Argentina - Primera B Metropolitana" data-home="Arsenal Sarandi"
        data-away="Brown DE Adrogue" data-date="Fri. 31 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:00:00Z"
        data-search="arsenal sarandi brown de adrogue argentina - primera b metropolitana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -11964,8 +12404,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="130" data-league="Bulgaria - First League" data-home="Slavia Sofia"
        data-away="Lokomotiv Sofia" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="slavia sofia lokomotiv sofia bulgaria - first league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12044,8 +12487,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="131" data-league="International - Friendlies Clubs" data-home="Fortuna Sittard"
        data-away="Apoel Nicosia" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="fortuna sittard apoel nicosia international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12124,8 +12570,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="132" data-league="International - Friendlies Clubs" data-home="Rizespor"
        data-away="Abha" data-date="Fri. 31 Jul." data-time="13:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="rizespor abha international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12204,8 +12653,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="133" data-league="Bolivia - Primera División" data-home="Universitario de Vinto"
        data-away="Guabirá" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="universitario de vinto guabirá bolivia - primera división">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12284,8 +12736,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="134" data-league="Ukraine - Persha Liga" data-home="Ahrobiznes Volochysk"
        data-away="Yarud Mariupol'" data-date="Fri. 31 Jul." data-time="14:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T13:00:00Z"
        data-search="ahrobiznes volochysk yarud mariupol' ukraine - persha liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12364,8 +12819,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="135" data-league="Argentina - Liga Profesional Argentina" data-home="Central Cordoba de Santiago"
        data-away="Atletico Tucuman" data-date="Fri. 31 Jul." data-time="01:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:15:00Z"
        data-search="central cordoba de santiago atletico tucuman argentina - liga profesional argentina">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12444,8 +12902,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="136" data-league="International - CONMEBOL Sudamericana" data-home="Cienciano"
        data-away="Lanus" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="cienciano lanus international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12524,8 +12985,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="137" data-league="Denmark - 1. Division" data-home="HB Koge"
        data-away="Vejle" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="hb koge vejle denmark - 1. division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12604,8 +13068,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="138" data-league="China - Super League" data-home="Henan Jianye"
        data-away="Dalian Zhixing" data-date="Fri. 31 Jul." data-time="12:35"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T11:35:00Z"
        data-search="henan jianye dalian zhixing china - super league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12684,8 +13151,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="139" data-league="Germany - Friendlies Clubs" data-home="1. FC Köln"
        data-away="Hertha BSC" data-date="Fri. 31 Jul." data-time="11:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T10:00:00Z"
        data-search="1. fc köln hertha bsc germany - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12764,8 +13234,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="140" data-league="International - Friendlies Clubs" data-home="Portimonense"
        data-away="Nottingham Forest" data-date="Fri. 31 Jul." data-time="11:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T10:00:00Z"
        data-search="portimonense nottingham forest international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12844,8 +13317,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="141" data-league="United States - USL Championship" data-home="Pittsburgh Riverhounds"
        data-away="FC Tulsa" data-date="Thu. 30 Jul." data-time="00:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-29T23:00:00Z"
        data-search="pittsburgh riverhounds fc tulsa united states - usl championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -12924,8 +13400,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="142" data-league="Venezuela - Primera División" data-home="Portuguesa FC"
        data-away="Carabobo FC" data-date="Fri. 31 Jul." data-time="22:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T21:00:00Z"
        data-search="portuguesa fc carabobo fc venezuela - primera división">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13004,8 +13483,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="143" data-league="Colombia - Primera B" data-home="Real Santander"
        data-away="Patriotas" data-date="Fri. 31 Jul." data-time="22:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T21:00:00Z"
        data-search="real santander patriotas colombia - primera b">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13104,8 +13586,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="International - UEFA Europa League" data-home="Benfica"
        data-away="FC ST. Gallen" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="benfica fc st. gallen international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13184,8 +13669,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="1" data-league="International - UEFA Europa League" data-home="Maccabi Tel Aviv"
        data-away="Sheriff Tiraspol" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="maccabi tel aviv sheriff tiraspol international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13264,8 +13752,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="2" data-league="International - UEFA Europa League" data-home="Ferencvarosi TC"
        data-away="Twente" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="ferencvarosi tc twente international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13344,8 +13835,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="International - UEFA Europa League" data-home="Hradec Králové"
        data-away="Tromso" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="hradec králové tromso international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13424,8 +13918,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="4" data-league="International - UEFA Europa League" data-home="PAOK"
        data-away="Dynamo Kyiv" data-date="Thu. 30 Jul." data-time="18:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:45:00Z"
        data-search="paok dynamo kyiv international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13504,8 +14001,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="5" data-league="International - UEFA Europa League" data-home="Pafos"
        data-away="HNK Hajduk Split" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="pafos hnk hajduk split international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13584,8 +14084,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="6" data-league="International - UEFA Europa League" data-home="FC Midtjylland"
        data-away="Beşiktaş" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="fc midtjylland beşiktaş international - uefa europa league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13682,8 +14185,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="International - UEFA Europa Conference League" data-home="CFR 1907 Cluj"
        data-away="Alashkert" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="cfr 1907 cluj alashkert international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13762,8 +14268,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="1" data-league="International - UEFA Europa Conference League" data-home="Ludogorets"
        data-away="Hapoel Tel Aviv" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="ludogorets hapoel tel aviv international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13842,8 +14351,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="2" data-league="International - UEFA Europa Conference League" data-home="Ajax"
        data-away="Vojvodina" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="ajax vojvodina international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -13922,8 +14434,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="3" data-league="International - UEFA Europa Conference League" data-home="The New Saints"
        data-away="Flora Tallinn" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="the new saints flora tallinn international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14002,8 +14517,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="4" data-league="International - UEFA Europa Conference League" data-home="GKS Katowice"
        data-away="Žilina" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="gks katowice žilina international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14082,8 +14600,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="5" data-league="International - UEFA Europa Conference League" data-home="FC Sion"
        data-away="Bate Borisov" data-date="Thu. 30 Jul." data-time="19:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:15:00Z"
        data-search="fc sion bate borisov international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14162,8 +14683,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="6" data-league="International - UEFA Europa Conference League" data-home="SC Braga"
        data-away="Železničar Pančevo" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="sc braga železničar pančevo international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14242,8 +14766,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="7" data-league="International - UEFA Europa Conference League" data-home="Coleraine FC"
        data-away="HJK Helsinki" data-date="Thu. 30 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:45:00Z"
        data-search="coleraine fc hjk helsinki international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14322,8 +14849,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="8" data-league="International - UEFA Europa Conference League" data-home="Austria Vienna"
        data-away="FK Liepaja" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="austria vienna fk liepaja international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14402,8 +14932,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="9" data-league="International - UEFA Europa Conference League" data-home="Auda"
        data-away="FCSB" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="auda fcsb international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14482,8 +15015,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="10" data-league="International - UEFA Europa Conference League" data-home="Kalju Nomme"
        data-away="Shelbourne" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="kalju nomme shelbourne international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14562,8 +15098,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="11" data-league="International - UEFA Europa Conference League" data-home="Zira"
        data-away="Paide" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="zira paide international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14642,8 +15181,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="12" data-league="International - UEFA Europa Conference League" data-home="Dinamo Tirana"
        data-away="Aluminij" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="dinamo tirana aluminij international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14722,8 +15264,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="13" data-league="International - UEFA Europa Conference League" data-home="Zrinjski"
        data-away="Valur Reykjavik" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="zrinjski valur reykjavik international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14802,8 +15347,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="14" data-league="International - UEFA Europa Conference League" data-home="Panathinaikos"
        data-away="Paks" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="panathinaikos paks international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14882,8 +15430,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="15" data-league="International - UEFA Europa Conference League" data-home="Brann"
        data-away="Universitatea Cluj" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="brann universitatea cluj international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -14962,8 +15513,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="16" data-league="International - UEFA Europa Conference League" data-home="FK Zalgiris Vilnius"
        data-away="Dinamo Tbilisi" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="fk zalgiris vilnius dinamo tbilisi international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15042,8 +15596,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="17" data-league="International - UEFA Europa Conference League" data-home="Dinamo Minsk"
        data-away="Neftchi Baku" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="dinamo minsk neftchi baku international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15122,8 +15679,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="18" data-league="International - UEFA Europa Conference League" data-home="Ballkani"
        data-away="Bohemians" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="ballkani bohemians international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15202,8 +15762,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="19" data-league="International - UEFA Europa Conference League" data-home="Petrocub"
        data-away="Borac Banja Luka" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="petrocub borac banja luka international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15282,8 +15845,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="20" data-league="International - UEFA Europa Conference League" data-home="Shkendija"
        data-away="Bravo" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:00:00Z"
        data-search="shkendija bravo international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15362,8 +15928,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="21" data-league="International - UEFA Europa Conference League" data-home="FC Nordsjaelland"
        data-away="Gais" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="fc nordsjaelland gais international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15442,8 +16011,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="22" data-league="International - UEFA Europa Conference League" data-home="FK Tobol Kostanay"
        data-away="Panevėžys" data-date="Thu. 30 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T14:00:00Z"
        data-search="fk tobol kostanay panevėžys international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15522,8 +16094,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="23" data-league="International - UEFA Europa Conference League" data-home="UNA Strassen"
        data-away="FK Partizan" data-date="Thu. 30 Jul." data-time="19:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:15:00Z"
        data-search="una strassen fk partizan international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15602,8 +16177,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="24" data-league="International - UEFA Europa Conference League" data-home="Beitar Jerusalem"
        data-away="AEK Larnaca" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="beitar jerusalem aek larnaca international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15682,8 +16260,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="25" data-league="International - UEFA Europa Conference League" data-home="Inter Turku"
        data-away="Başakşehir" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="inter turku başakşehir international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15762,8 +16343,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="26" data-league="International - UEFA Europa Conference League" data-home="Koper"
        data-away="NSI Runavik" data-date="Thu. 30 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:45:00Z"
        data-search="koper nsi runavik international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15842,8 +16426,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="27" data-league="International - UEFA Europa Conference League" data-home="FK Jablonec"
        data-away="NK Varazdin" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="fk jablonec nk varazdin international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -15922,8 +16509,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="28" data-league="International - UEFA Europa Conference League" data-home="Gent"
        data-away="LNZ Cherkasy" data-date="Thu. 30 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T18:30:00Z"
        data-search="gent lnz cherkasy international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16002,8 +16592,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="29" data-league="International - UEFA Europa Conference League" data-home="Valletta FC"
        data-away="Raków Częstochowa" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="valletta fc raków częstochowa international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16082,8 +16675,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="30" data-league="International - UEFA Europa Conference League" data-home="HB Torshavn"
        data-away="Motherwell" data-date="Thu. 30 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="hb torshavn motherwell international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16162,8 +16758,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="31" data-league="International - UEFA Europa Conference League" data-home="Hibernian"
        data-away="Malisheva" data-date="Thu. 30 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T19:00:00Z"
        data-search="hibernian malisheva international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16242,8 +16841,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="32" data-league="International - UEFA Europa Conference League" data-home="Derry City"
        data-away="HNK Rijeka" data-date="Thu. 30 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:30:00Z"
        data-search="derry city hnk rijeka international - uefa europa conference league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16340,8 +16942,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="International - CONMEBOL Sudamericana" data-home="RB Bragantino"
        data-away="Sporting Cristal" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="rb bragantino sporting cristal international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16420,8 +17025,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="1" data-league="International - CONMEBOL Sudamericana" data-home="O'Higgins"
        data-away="Boca Juniors" data-date="Fri. 31 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:30:00Z"
        data-search="o'higgins boca juniors international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16500,8 +17108,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="2" data-league="International - CONMEBOL Sudamericana" data-home="Caracas FC"
        data-away="Santa Fe" data-date="Fri. 31 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:30:00Z"
        data-search="caracas fc santa fe international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16580,8 +17191,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="International - CONMEBOL Sudamericana" data-home="Gremio"
        data-away="Bolívar" data-date="Thu. 30 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T22:00:00Z"
        data-search="gremio bolívar international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16660,8 +17274,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="4" data-league="International - CONMEBOL Sudamericana" data-home="Cienciano"
        data-away="Lanus" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="cienciano lanus international - conmebol sudamericana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16756,8 +17373,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Belgium - Super Cup" data-home="Club Brugge KV"
        data-away="Union St. Gilloise" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="club brugge kv union st. gilloise belgium - super cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16852,8 +17472,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="International - Como Cup" data-home="Famalicao"
        data-away="Como" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="famalicao como international - como cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -16948,8 +17571,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="England - Premier League - Summer Series" data-home="Sunderland"
        data-away="Leeds" data-date="Fri. 31 Jul." data-time="00:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T23:30:00Z"
        data-search="sunderland leeds england - premier league - summer series">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17046,8 +17672,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Brazil - Serie A" data-home="Vitoria"
        data-away="Palmeiras" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="vitoria palmeiras brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17126,8 +17755,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="1" data-league="Brazil - Serie A" data-home="Corinthians"
        data-away="Atletico Paranaense" data-date="Thu. 30 Jul." data-time="23:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T22:30:00Z"
        data-search="corinthians atletico paranaense brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17206,8 +17838,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="2" data-league="Brazil - Serie A" data-home="Coritiba"
        data-away="Cruzeiro" data-date="Fri. 31 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:30:00Z"
        data-search="coritiba cruzeiro brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17286,8 +17921,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="Brazil - Serie A" data-home="Fluminense"
        data-away="Bahia" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="fluminense bahia brazil - serie a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17384,8 +18022,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="International - CONCACAF Central American Cup" data-home="Municipal"
        data-away="CS Cartagines" data-date="Fri. 31 Jul." data-time="04:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T03:00:00Z"
        data-search="municipal cs cartagines international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17464,8 +18105,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="1" data-league="International - CONCACAF Central American Cup" data-home="CS Herediano"
        data-away="CD Marathon" data-date="Fri. 31 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T01:00:00Z"
        data-search="cs herediano cd marathon international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17544,8 +18188,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="2" data-league="International - CONCACAF Central American Cup" data-home="LD Alajuelense"
        data-away="Xelajú" data-date="Thu. 30 Jul." data-time="03:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T02:00:00Z"
        data-search="ld alajuelense xelajú international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17624,8 +18271,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="International - CONCACAF Central American Cup" data-home="Alianza"
        data-away="Antigua GFC" data-date="Thu. 30 Jul." data-time="03:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T02:00:00Z"
        data-search="alianza antigua gfc international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17704,8 +18354,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="4" data-league="International - CONCACAF Central American Cup" data-home="UMECIT"
        data-away="Deportivo Saprissa" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="umecit deportivo saprissa international - concacaf central american cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17800,8 +18453,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="International - Piala Presiden" data-home="Persib Bandung"
        data-away="Tampines Rovers" data-date="Fri. 31 Jul." data-time="13:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T12:30:00Z"
        data-search="persib bandung tampines rovers international - piala presiden">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17898,8 +18554,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Argentina - Liga Profesional Argentina" data-home="Instituto Cordoba"
        data-away="Platense" data-date="Thu. 30 Jul." data-time="01:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:30:00Z"
        data-search="instituto cordoba platense argentina - liga profesional argentina">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -17978,8 +18637,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Argentina - Liga Profesional Argentina" data-home="Central Cordoba de Santiago"
        data-away="Atletico Tucuman" data-date="Fri. 31 Jul." data-time="01:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:15:00Z"
        data-search="central cordoba de santiago atletico tucuman argentina - liga profesional argentina">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18076,8 +18738,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Argentina - Primera B Metropolitana" data-home="Arsenal Sarandi"
        data-away="Brown DE Adrogue" data-date="Fri. 31 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:00:00Z"
        data-search="arsenal sarandi brown de adrogue argentina - primera b metropolitana">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18172,8 +18837,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="Australia - Australia Cup" data-home="Sydney Olympic"
        data-away="Brisbane Roar" data-date="Thu. 30 Jul." data-time="10:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T09:30:00Z"
        data-search="sydney olympic brisbane roar australia - australia cup">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18270,8 +18938,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Austria - Bundesliga" data-home="Lask Linz"
        data-away="Grazer AK" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="lask linz grazer ak austria - bundesliga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18368,8 +19039,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="Austria - 2. Liga" data-home="Voitsberg"
        data-away="SKU Amstetten" data-date="Fri. 31 Jul." data-time="17:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:30:00Z"
        data-search="voitsberg sku amstetten austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18448,8 +19122,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="1" data-league="Austria - 2. Liga" data-home="SV Kapfenberg"
        data-away="FC Liefering" data-date="Fri. 31 Jul." data-time="17:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:30:00Z"
        data-search="sv kapfenberg fc liefering austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18528,8 +19205,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="2" data-league="Austria - 2. Liga" data-home="Admira Wacker"
        data-away="Rapid Wien II" data-date="Fri. 31 Jul." data-time="17:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:30:00Z"
        data-search="admira wacker rapid wien ii austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18608,8 +19288,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="Austria - 2. Liga" data-home="Floridsdorfer AC"
        data-away="SKN ST. Polten" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="floridsdorfer ac skn st. polten austria - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18706,8 +19389,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Belarus - Premier League" data-home="FC Dnepr Mogilev"
        data-away="Naftan" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="fc dnepr mogilev naftan belarus - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18804,8 +19490,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Belarus - 1. Division" data-home="FC Slutsk"
        data-away="FC Energetik-Bgu Minsk" data-date="Fri. 31 Jul." data-time="16:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:30:00Z"
        data-search="fc slutsk fc energetik-bgu minsk belarus - 1. division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18884,8 +19573,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Belarus - 1. Division" data-home="Orsha"
        data-away="Shakhter Soligorsk" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="orsha shakhter soligorsk belarus - 1. division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -18982,8 +19674,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="Bolivia - Primera División" data-home="The Strongest"
        data-away="Aurora" data-date="Fri. 31 Jul." data-time="22:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T21:30:00Z"
        data-search="the strongest aurora bolivia - primera división">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19062,8 +19757,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Bolivia - Primera División" data-home="Universitario de Vinto"
        data-away="Guabirá" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="universitario de vinto guabirá bolivia - primera división">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19160,8 +19858,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Bulgaria - First League" data-home="CSKA 1948"
        data-away="Arda Kardzhali" data-date="Fri. 31 Jul." data-time="19:15"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:15:00Z"
        data-search="cska 1948 arda kardzhali bulgaria - first league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19240,8 +19941,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Bulgaria - First League" data-home="Slavia Sofia"
        data-away="Lokomotiv Sofia" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="slavia sofia lokomotiv sofia bulgaria - first league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19338,8 +20042,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Chile - Primera B" data-home="San Luis"
        data-away="Rangers de Talca" data-date="Fri. 31 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T22:00:00Z"
        data-search="san luis rangers de talca chile - primera b">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19436,8 +20143,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="China - Super League" data-home="Henan Jianye"
        data-away="Dalian Zhixing" data-date="Fri. 31 Jul." data-time="12:35"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T11:35:00Z"
        data-search="henan jianye dalian zhixing china - super league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19534,8 +20244,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Colombia - Copa Colombia" data-home="Real Cartagena"
        data-away="America de Cali" data-date="Thu. 30 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T01:00:00Z"
        data-search="real cartagena america de cali colombia - copa colombia">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19614,8 +20327,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Colombia - Copa Colombia" data-home="Internacional Palmira"
        data-away="Internacional de Bogota" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="upcoming"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="internacional palmira internacional de bogota colombia - copa colombia">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19694,8 +20410,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="2" data-league="Colombia - Copa Colombia" data-home="Envigado"
        data-away="Once Caldas" data-date="Thu. 30 Jul." data-time="21:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T20:30:00Z"
        data-search="envigado once caldas colombia - copa colombia">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19792,8 +20511,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Colombia - Primera A" data-home="Bucaramanga"
        data-away="Llaneros" data-date="Fri. 31 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T01:00:00Z"
        data-search="bucaramanga llaneros colombia - primera a">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19890,8 +20612,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Colombia - Primera B" data-home="Real Santander"
        data-away="Patriotas" data-date="Fri. 31 Jul." data-time="22:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T21:00:00Z"
        data-search="real santander patriotas colombia - primera b">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -19988,8 +20713,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Croatia - HNL" data-home="Dinamo Zagreb"
        data-away="NK Slaven Belupo" data-date="Fri. 31 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:00:00Z"
        data-search="dinamo zagreb nk slaven belupo croatia - hnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20086,8 +20814,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Czech Republic - Czech Liga" data-home="Sparta Praha"
        data-away="Zlin" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="sparta praha zlin czech republic - czech liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20184,8 +20915,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Czech Republic - FNL" data-home="Viktoria Žižkov"
        data-away="Prostějov" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="viktoria žižkov prostějov czech republic - fnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20264,8 +20998,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Czech Republic - FNL" data-home="Karviná"
        data-away="Vlašim" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="karviná vlašim czech republic - fnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20344,8 +21081,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="2" data-league="Czech Republic - FNL" data-home="Táborsko"
        data-away="Dukla Praha" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="táborsko dukla praha czech republic - fnl">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20442,8 +21182,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Denmark - 1. Division" data-home="HB Koge"
        data-away="Vejle" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="hb koge vejle denmark - 1. division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20538,8 +21281,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Ecuador - Copa Ecuador" data-home="Independiente del Valle"
        data-away="Manta FC" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="independiente del valle manta fc ecuador - copa ecuador">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20636,8 +21382,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Ecuador - Liga Pro Serie B" data-home="Vargas Torres"
        data-away="9 de Octubre" data-date="Thu. 30 Jul." data-time="01:00"
+       data-status="upcoming"
        data-kickoff-utc="2026-07-30T00:00:00Z"
        data-search="vargas torres 9 de octubre ecuador - liga pro serie b">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20734,8 +21483,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="El Salvador - Primera Division" data-home="Firpo"
        data-away="Fuerte San Francisco" data-date="Thu. 30 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T01:00:00Z"
        data-search="firpo fuerte san francisco el salvador - primera division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20814,8 +21566,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="1" data-league="El Salvador - Primera Division" data-home="Isidro Metapán"
        data-away="FAS" data-date="Fri. 31 Jul." data-time="01:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T00:00:00Z"
        data-search="isidro metapán fas el salvador - primera division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -20912,8 +21667,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Estonia - Meistriliiga" data-home="Nõmme United"
        data-away="Trans Narva" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="nõmme united trans narva estonia - meistriliiga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21010,8 +21768,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="Hungary - NB I" data-home="Puskas Academy"
        data-away="Kisvarda FC" data-date="Fri. 31 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:00:00Z"
        data-search="puskas academy kisvarda fc hungary - nb i">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21108,8 +21869,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Ireland - Premier Division" data-home="Dundalk"
        data-away="Sligo Rovers" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="dundalk sligo rovers ireland - premier division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21188,8 +21952,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Ireland - Premier Division" data-home="Drogheda United"
        data-away="Shamrock Rovers" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="drogheda united shamrock rovers ireland - premier division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21286,8 +22053,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="Ireland - First Division" data-home="Athlone Town"
        data-away="UCD" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="athlone town ucd ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21366,8 +22136,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Ireland - First Division" data-home="Finn Harps"
        data-away="Cork City" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="finn harps cork city ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21446,8 +22219,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="2" data-league="Ireland - First Division" data-home="Cobh Ramblers"
        data-away="Wexford" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="cobh ramblers wexford ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21526,8 +22302,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="Ireland - First Division" data-home="Treaty United"
        data-away="Longford Town" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="treaty united longford town ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21606,8 +22385,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="4" data-league="Ireland - First Division" data-home="Bray Wanderers"
        data-away="Kerry" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="bray wanderers kerry ireland - first division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21704,8 +22486,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Mexico - Liga de Expansión MX" data-home="Alebrijes de Oaxaca"
        data-away="Dorados" data-date="Fri. 31 Jul." data-time="02:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T01:00:00Z"
        data-search="alebrijes de oaxaca dorados mexico - liga de expansión mx">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21802,8 +22587,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Nicaragua - Primera Division" data-home="Jalapa"
        data-away="Real Estelí" data-date="Thu. 30 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T22:00:00Z"
        data-search="jalapa real estelí nicaragua - primera division">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21900,8 +22688,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Norway - Eliteserien" data-home="Bodo/Glimt"
        data-away="Lillestrom" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="bodo/glimt lillestrom norway - eliteserien">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -21998,8 +22789,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Poland - Ekstraklasa" data-home="Motor Lublin"
        data-away="Jagiellonia" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="motor lublin jagiellonia poland - ekstraklasa">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22078,8 +22872,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Poland - Ekstraklasa" data-home="Wisla Plock"
        data-away="Widzew Łódź" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="wisla plock widzew łódź poland - ekstraklasa">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22176,8 +22973,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Poland - I Liga" data-home="Lechia Gdansk"
        data-away="Warta Poznań" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="lechia gdansk warta poznań poland - i liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22272,8 +23072,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Poland - II Liga - East" data-home="Stal Stalowa Wola"
        data-away="Tychy 71" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="stal stalowa wola tychy 71 poland - ii liga - east">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22370,8 +23173,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Romania - Liga I" data-home="Oţelul"
        data-away="Dinamo Bucuresti" data-date="Fri. 31 Jul." data-time="19:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:30:00Z"
        data-search="oţelul dinamo bucuresti romania - liga i">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22450,8 +23256,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Romania - Liga I" data-home="Arges Pitesti"
        data-away="Csikszereda" data-date="Fri. 31 Jul." data-time="16:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:30:00Z"
        data-search="arges pitesti csikszereda romania - liga i">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22548,8 +23357,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Slovakia - 2. liga" data-home="Pohronie"
        data-away="Považská Bystrica" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="pohronie považská bystrica slovakia - 2. liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22646,8 +23458,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Switzerland - Challenge League" data-home="Yverdon Sport"
        data-away="Étoile Carouge" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="yverdon sport étoile carouge switzerland - challenge league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22726,8 +23541,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Switzerland - Challenge League" data-home="FC WIL 1900"
        data-away="Neuchatel Xamax FC" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="fc wil 1900 neuchatel xamax fc switzerland - challenge league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22824,8 +23642,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Ukraine - Premier League" data-home="Zorya Luhansk"
        data-away="Kolos Kovalivka" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="zorya luhansk kolos kovalivka ukraine - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -22922,8 +23743,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Ukraine - Persha Liga" data-home="UCSA"
        data-away="Oleksandria" data-date="Fri. 31 Jul." data-time="11:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T10:00:00Z"
        data-search="ucsa oleksandria ukraine - persha liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23002,8 +23826,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Ukraine - Persha Liga" data-home="Ahrobiznes Volochysk"
        data-away="Yarud Mariupol'" data-date="Fri. 31 Jul." data-time="14:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T13:00:00Z"
        data-search="ahrobiznes volochysk yarud mariupol' ukraine - persha liga">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23100,8 +23927,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="United States - USL Championship" data-home="Louisville City"
        data-away="Birmingham Legion" data-date="Thu. 30 Jul." data-time="00:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-29T23:30:00Z"
        data-search="louisville city birmingham legion united states - usl championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23180,8 +24010,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="United States - USL Championship" data-home="Pittsburgh Riverhounds"
        data-away="FC Tulsa" data-date="Thu. 30 Jul." data-time="00:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-29T23:00:00Z"
        data-search="pittsburgh riverhounds fc tulsa united states - usl championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23278,8 +24111,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Uruguay - Primera División - Apertura" data-home="Atletico Torque"
        data-away="Wanderers" data-date="Fri. 31 Jul." data-time="23:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T22:00:00Z"
        data-search="atletico torque wanderers uruguay - primera división - apertura">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23376,8 +24212,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Venezuela - Primera División" data-home="Portuguesa FC"
        data-away="Carabobo FC" data-date="Fri. 31 Jul." data-time="22:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T21:00:00Z"
        data-search="portuguesa fc carabobo fc venezuela - primera división">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23472,8 +24311,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="Wales - Premier League" data-home="Llandudno"
        data-away="Flint Town United" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="llandudno flint town united wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23552,8 +24394,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="1" data-league="Wales - Premier League" data-home="Briton Ferry"
        data-away="Ammanford AFC" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="briton ferry ammanford afc wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23632,8 +24477,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="2" data-league="Wales - Premier League" data-home="Barry Town"
        data-away="Cambrian & Clydach" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="barry town cambrian & clydach wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23712,8 +24560,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="3" data-league="Wales - Premier League" data-home="Colwyn Bay"
        data-away="Trefelin" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="colwyn bay trefelin wales - premier league">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23808,8 +24659,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="0" data-league="Wales - FAW Championship" data-home="Trethomas Bluebirds"
        data-away="Baglan Dragons" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="trethomas bluebirds baglan dragons wales - faw championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23888,8 +24742,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Wales - FAW Championship" data-home="Bangor City 1876 FC"
        data-away="Bala Town" data-date="Fri. 31 Jul." data-time="20:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T19:00:00Z"
        data-search="bangor city 1876 fc bala town wales - faw championship">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -23986,8 +24843,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-high" data-match-index="0" data-league="International - Friendlies Clubs" data-home="Monaco"
        data-away="Cercle Brugge" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="monaco cercle brugge international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24066,8 +24926,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="1" data-league="International - Friendlies Clubs" data-home="Trabzonspor"
        data-away="Al Sadd" data-date="Thu. 30 Jul." data-time="16:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="trabzonspor al sadd international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24146,8 +25009,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="2" data-league="International - Friendlies Clubs" data-home="Sporting CP"
        data-away="Nottingham Forest" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="sporting cp nottingham forest international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24226,8 +25092,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="3" data-league="International - Friendlies Clubs" data-home="Las Palmas"
        data-away="NEOM" data-date="Fri. 31 Jul." data-time="10:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T09:00:00Z"
        data-search="las palmas neom international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24306,8 +25175,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="4" data-league="International - Friendlies Clubs" data-home="Johor Darul Takzim FC"
        data-away="FC Cartagena" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="johor darul takzim fc fc cartagena international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24386,8 +25258,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="5" data-league="International - Friendlies Clubs" data-home="VfL Wolfsburg"
        data-away="Telstar" data-date="Fri. 31 Jul." data-time="16:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T15:00:00Z"
        data-search="vfl wolfsburg telstar international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24466,8 +25341,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-lean" data-match-index="6" data-league="International - Friendlies Clubs" data-home="Juventus"
        data-away="Nice" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="juventus nice international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24546,8 +25424,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="7" data-league="International - Friendlies Clubs" data-home="Nantes"
        data-away="Al Wakrah" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="nantes al wakrah international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24626,8 +25507,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="8" data-league="International - Friendlies Clubs" data-home="FSV Mainz 05"
        data-away="Shabab Al Ahli Dubai" data-date="Fri. 31 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T14:00:00Z"
        data-search="fsv mainz 05 shabab al ahli dubai international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24706,8 +25590,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="9" data-league="International - Friendlies Clubs" data-home="FC Augsburg"
        data-away="Bournemouth" data-date="Thu. 30 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T14:00:00Z"
        data-search="fc augsburg bournemouth international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24786,8 +25673,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="10" data-league="International - Friendlies Clubs" data-home="FC Cartagena"
        data-away="Johor Darul Takzim FC" data-date="Fri. 31 Jul." data-time="18:30"
+       data-status="upcoming"
        data-kickoff-utc="2026-07-31T17:30:00Z"
        data-search="fc cartagena johor darul takzim fc international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24866,8 +25756,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="11" data-league="International - Friendlies Clubs" data-home="NEC Nijmegen"
        data-away="Sevilla" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="nec nijmegen sevilla international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -24946,8 +25839,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="12" data-league="International - Friendlies Clubs" data-home="Mallorca"
        data-away="Al-Ittihad FC" data-date="Thu. 30 Jul." data-time="09:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T08:00:00Z"
        data-search="mallorca al-ittihad fc international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25026,8 +25922,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="13" data-league="International - Friendlies Clubs" data-home="Monza"
        data-away="Aris Thessalonikis" data-date="Thu. 30 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T16:00:00Z"
        data-search="monza aris thessalonikis international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25106,8 +26005,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="14" data-league="International - Friendlies Clubs" data-home="Malaga"
        data-away="Al-Ittihad FC" data-date="Thu. 30 Jul." data-time="19:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-30T17:00:00Z"
        data-search="malaga al-ittihad fc international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25186,8 +26088,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="15" data-league="International - Friendlies Clubs" data-home="Toulouse"
        data-away="Real Sociedad" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="toulouse real sociedad international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25266,8 +26171,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="16" data-league="International - Friendlies Clubs" data-home="Den Bosch"
        data-away="Al-Fayha" data-date="Fri. 31 Jul." data-time="15:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T14:30:00Z"
        data-search="den bosch al-fayha international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25346,8 +26254,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="17" data-league="International - Friendlies Clubs" data-home="Fortuna Sittard"
        data-away="Apoel Nicosia" data-date="Fri. 31 Jul." data-time="18:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T17:00:00Z"
        data-search="fortuna sittard apoel nicosia international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25426,8 +26337,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="18" data-league="International - Friendlies Clubs" data-home="Rizespor"
        data-away="Abha" data-date="Fri. 31 Jul." data-time="13:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="rizespor abha international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25506,8 +26420,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="19" data-league="International - Friendlies Clubs" data-home="Portimonense"
        data-away="Nottingham Forest" data-date="Fri. 31 Jul." data-time="11:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T10:00:00Z"
        data-search="portimonense nottingham forest international - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25602,8 +26519,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Germany - Friendlies Clubs" data-home="1. FC Köln"
        data-away="Hertha BSC" data-date="Fri. 31 Jul." data-time="11:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T10:00:00Z"
        data-search="1. fc köln hertha bsc germany - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25700,8 +26620,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="France - Friendlies Clubs" data-home="Amiens"
        data-away="RED Star FC 93" data-date="Fri. 31 Jul." data-time="17:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T16:00:00Z"
        data-search="amiens red star fc 93 france - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25780,8 +26703,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="France - Friendlies Clubs" data-home="Le Havre"
        data-away="Laval" data-date="Fri. 31 Jul." data-time="10:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T09:00:00Z"
        data-search="le havre laval france - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25878,8 +26804,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Northern Ireland - Friendlies Clubs" data-home="Ballinamallard United"
        data-away="Bangor" data-date="Fri. 31 Jul." data-time="19:45"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T18:45:00Z"
        data-search="ballinamallard united bangor northern ireland - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -25976,8 +26905,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="0" data-league="Spain - Friendlies Clubs" data-home="Elche"
        data-away="Cordoba" data-date="Fri. 31 Jul." data-time="09:30"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T08:30:00Z"
        data-search="elche cordoba spain - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -26056,8 +26988,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
+  
+  
   <div class="mrow tier-low" data-match-index="1" data-league="Spain - Friendlies Clubs" data-home="Alaves"
        data-away="Castellón" data-date="Fri. 31 Jul." data-time="13:00"
+       data-status="finished"
        data-kickoff-utc="2026-07-31T08:30:00Z"
        data-search="alaves castellón spain - friendlies clubs">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
@@ -26159,7 +27094,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 </div>
 
 <script>
-const I18N = {"about_model": "\u30e2\u30c7\u30eb\u306b\u3064\u3044\u3066", "account": "\u30a2\u30ab\u30a6\u30f3\u30c8", "ai_predictions_prefix": "AI\u30b5\u30c3\u30ab\u30fc\u4e88\u6e2c", "all_matches": "\u5168\u8a66\u5408", "around_2_3_goals": "2\u301c3\u70b9\u524d\u5f8c", "both_to_score": "\u4e21\u30c1\u30fc\u30e0\u5f97\u70b9", "by_league": "\u30ea\u30fc\u30b0\u5225", "confidence": "\u4fe1\u983c\u5ea6", "confidence_75_plus": "\u4fe1\u983c\u5ea675%\u4ee5\u4e0a", "confidence_bucket_prefix": "\u4fe1\u983c\u5ea6", "confidence_bucket_suffix": "", "csv_login_alert": "CSV\u3092\u5229\u7528\u3059\u308b\u306b\u306f\u30ed\u30b0\u30a4\u30f3\u3057\u3066\u304f\u3060\u3055\u3044\u3002", "csv_pro_alert": "CSV\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3059\u308b\u306b\u306fPro\u304c\u5fc5\u8981\u3067\u3059\u3002", "csv_unavailable_alert": "\u73fe\u5728CSV\u3092\u5229\u7528\u3067\u304d\u307e\u305b\u3093\u3002", "download_csv": "CSV\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9", "expected_goals_per_team": "\u4e88\u60f3\u30b4\u30fc\u30eb\uff08\u30c1\u30fc\u30e0\u5225\uff09", "full_prediction_analysis": "\u8a73\u3057\u3044\u4e88\u6e2c\u3068\u5206\u6790 \u2192", "go_pro": "Pro\u306b\u3059\u308b", "graded_calls": "\u4ef6\u306e\u63a1\u70b9\u6e08\u307f\u4e88\u6e2c", "high_scoring": "\u9ad8\u5f97\u70b9\u50be\u5411", "language": "\u8a00\u8a9e", "league": "\u30ea\u30fc\u30b0", "league_accuracy_all": "\u30ea\u30fc\u30b0\u7cbe\u5ea6\uff08\u5168\u4e88\u6e2c\uff09", "league_accuracy_conf50": "\u30ea\u30fc\u30b0\u7cbe\u5ea6\uff0850%\u4ee5\u4e0a\uff09", "live": "\u30e9\u30a4\u30d6", "low_scoring": "\u4f4e\u5f97\u70b9\u50be\u5411", "manage_billing": "\u8acb\u6c42\u7ba1\u7406", "matches": "\u8a66\u5408", "matches_today": "\u8a66\u5408", "model_accuracy_history": "\u30e2\u30c7\u30eb\u7cbe\u5ea6\u306e\u5c65\u6b74", "model_disclaimer": "\u30e2\u30c7\u30eb\u51fa\u529b\u3067\u3042\u308a\u4fdd\u8a3c\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u300218\u6b73\u4ee5\u4e0a\u30fb\u8cac\u4efb\u3042\u308b\u5229\u7528\u3092\u3002", "more_history_needed": "\u5c65\u6b74\u304c\u307e\u3060\u4e0d\u8db3\u3057\u3066\u3044\u307e\u3059", "new_simulator": "\u65b0\u3057\u3044\u30b7\u30df\u30e5\u30ec\u30fc\u30bf\u30fc", "next_day": "\u7fcc\u65e5", "no_matches": "\u8a66\u5408\u306f\u3042\u308a\u307e\u305b\u3093\u3002", "odds": "\u30aa\u30c3\u30ba", "over_25_likely": "2.5\u70b9\u4ee5\u4e0a\u306e\u53ef\u80fd\u6027", "picked_team": "\u4e88\u6e2c\u30c1\u30fc\u30e0", "previous_day": "\u524d\u65e5", "privacy": "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc", "pro_modal_subtitle": "\u4e88\u60f3\u30b4\u30fc\u30eb\u3001BTTS\u3001CSV\u51fa\u529b\u3001\u76f8\u624b\u5f37\u5ea6\u3001\u5e83\u544a\u306a\u3057\u8868\u793a\u3092\u5229\u7528\u3067\u304d\u307e\u3059\u3002", "public_total_goals_band": "\u516c\u958b\u7528\u306e\u5408\u8a08\u30b4\u30fc\u30eb\u5e2f", "search_placeholder": "\u30c1\u30fc\u30e0\u307e\u305f\u306f\u30ea\u30fc\u30b0\u3092\u691c\u7d22\u2026", "sign_in": "\u30ed\u30b0\u30a4\u30f3", "sign_out": "\u30ed\u30b0\u30a2\u30a6\u30c8", "simulate_any_matchup": "\u597d\u304d\u306a\u30b5\u30c3\u30ab\u30fc\u5bfe\u6226\u3092\u30b7\u30df\u30e5\u30ec\u30fc\u30b7\u30e7\u30f3", "simulator_teaser": "2\u30c1\u30fc\u30e0\u3092\u9078\u3076\u3068AIGoalie\u304c\u4e88\u6e2c\u3057\u307e\u3059\u3002Pro\u3067\u306f\u7121\u5236\u9650\u30b7\u30df\u30e5\u30ec\u30fc\u30b7\u30e7\u30f3\u3068\u6b63\u78ba\u306axG\u3092\u5229\u7528\u3067\u304d\u307e\u3059\u3002", "sort_by_confidence": "\u4fe1\u983c\u5ea6\u3067\u4e26\u3073\u66ff\u3048", "tap_for_prediction": "\u30bf\u30c3\u30d7\u3057\u3066\u4e88\u6e2c\u3092\u898b\u308b", "todays_matches": "\u4eca\u65e5\u306e\u8a66\u5408", "total_goals": "\u5408\u8a08\u30b4\u30fc\u30eb", "try_it": "\u8a66\u3059", "under_25_likely": "2.5\u70b9\u672a\u6e80\u306e\u53ef\u80fd\u6027", "world_cup": "\u30ef\u30fc\u30eb\u30c9\u30ab\u30c3\u30d7"};
+const I18N = {"about_model": "\u30e2\u30c7\u30eb\u306b\u3064\u3044\u3066", "account": "\u30a2\u30ab\u30a6\u30f3\u30c8", "ai_predictions_prefix": "AI\u30b5\u30c3\u30ab\u30fc\u4e88\u6e2c", "all_matches": "\u5168\u8a66\u5408", "around_2_3_goals": "2\u301c3\u70b9\u524d\u5f8c", "both_to_score": "\u4e21\u30c1\u30fc\u30e0\u5f97\u70b9", "by_league": "\u30ea\u30fc\u30b0\u5225", "confidence": "\u4fe1\u983c\u5ea6", "confidence_75_plus": "\u4fe1\u983c\u5ea675%\u4ee5\u4e0a", "confidence_bucket_prefix": "\u4fe1\u983c\u5ea6", "confidence_bucket_suffix": "", "csv_login_alert": "CSV\u3092\u5229\u7528\u3059\u308b\u306b\u306f\u30ed\u30b0\u30a4\u30f3\u3057\u3066\u304f\u3060\u3055\u3044\u3002", "csv_pro_alert": "CSV\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3059\u308b\u306b\u306fPro\u304c\u5fc5\u8981\u3067\u3059\u3002", "csv_unavailable_alert": "\u73fe\u5728CSV\u3092\u5229\u7528\u3067\u304d\u307e\u305b\u3093\u3002", "download_csv": "CSV\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9", "expected_goals_per_team": "\u4e88\u60f3\u30b4\u30fc\u30eb\uff08\u30c1\u30fc\u30e0\u5225\uff09", "filter_all": "\u5168\u3066", "finished_short": "\u7d42\u4e86", "full_prediction_analysis": "\u8a73\u3057\u3044\u4e88\u6e2c\u3068\u5206\u6790 \u2192", "go_pro": "Pro\u306b\u3059\u308b", "graded_calls": "\u4ef6\u306e\u63a1\u70b9\u6e08\u307f\u4e88\u6e2c", "high_scoring": "\u9ad8\u5f97\u70b9\u50be\u5411", "language": "\u8a00\u8a9e", "league": "\u30ea\u30fc\u30b0", "league_accuracy_all": "\u30ea\u30fc\u30b0\u7cbe\u5ea6\uff08\u5168\u4e88\u6e2c\uff09", "league_accuracy_conf50": "\u30ea\u30fc\u30b0\u7cbe\u5ea6\uff0850%\u4ee5\u4e0a\uff09", "live": "\u30e9\u30a4\u30d6", "low_scoring": "\u4f4e\u5f97\u70b9\u50be\u5411", "manage_billing": "\u8acb\u6c42\u7ba1\u7406", "matches": "\u8a66\u5408", "matches_today": "\u8a66\u5408", "model_accuracy_history": "\u30e2\u30c7\u30eb\u7cbe\u5ea6\u306e\u5c65\u6b74", "model_disclaimer": "\u30e2\u30c7\u30eb\u51fa\u529b\u3067\u3042\u308a\u4fdd\u8a3c\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u300218\u6b73\u4ee5\u4e0a\u30fb\u8cac\u4efb\u3042\u308b\u5229\u7528\u3092\u3002", "more_history_needed": "\u5c65\u6b74\u304c\u307e\u3060\u4e0d\u8db3\u3057\u3066\u3044\u307e\u3059", "more_options": "\u305d\u306e\u4ed6", "new_simulator": "\u65b0\u3057\u3044\u30b7\u30df\u30e5\u30ec\u30fc\u30bf\u30fc", "next_day": "\u7fcc\u65e5", "no_matches": "\u8a66\u5408\u306f\u3042\u308a\u307e\u305b\u3093\u3002", "odds": "\u30aa\u30c3\u30ba", "over_25_likely": "2.5\u70b9\u4ee5\u4e0a\u306e\u53ef\u80fd\u6027", "picked_team": "\u4e88\u6e2c\u30c1\u30fc\u30e0", "previous_day": "\u524d\u65e5", "privacy": "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc", "pro_modal_subtitle": "\u4e88\u60f3\u30b4\u30fc\u30eb\u3001BTTS\u3001CSV\u51fa\u529b\u3001\u76f8\u624b\u5f37\u5ea6\u3001\u5e83\u544a\u306a\u3057\u8868\u793a\u3092\u5229\u7528\u3067\u304d\u307e\u3059\u3002", "public_total_goals_band": "\u516c\u958b\u7528\u306e\u5408\u8a08\u30b4\u30fc\u30eb\u5e2f", "search_placeholder": "\u30c1\u30fc\u30e0\u307e\u305f\u306f\u30ea\u30fc\u30b0\u3092\u691c\u7d22\u2026", "sign_in": "\u30ed\u30b0\u30a4\u30f3", "sign_out": "\u30ed\u30b0\u30a2\u30a6\u30c8", "simulate_any_matchup": "\u597d\u304d\u306a\u30b5\u30c3\u30ab\u30fc\u5bfe\u6226\u3092\u30b7\u30df\u30e5\u30ec\u30fc\u30b7\u30e7\u30f3", "simulator_teaser": "2\u30c1\u30fc\u30e0\u3092\u9078\u3076\u3068AIGoalie\u304c\u4e88\u6e2c\u3057\u307e\u3059\u3002Pro\u3067\u306f\u7121\u5236\u9650\u30b7\u30df\u30e5\u30ec\u30fc\u30b7\u30e7\u30f3\u3068\u6b63\u78ba\u306axG\u3092\u5229\u7528\u3067\u304d\u307e\u3059\u3002", "sort_by_confidence": "\u4fe1\u983c\u5ea6\u3067\u4e26\u3073\u66ff\u3048", "sort_by_time": "\u6642\u9593\u9806", "tap_for_prediction": "\u30bf\u30c3\u30d7\u3057\u3066\u4e88\u6e2c\u3092\u898b\u308b", "todays_matches": "\u4eca\u65e5\u306e\u8a66\u5408", "total_goals": "\u5408\u8a08\u30b4\u30fc\u30eb", "try_it": "\u8a66\u3059", "under_25_likely": "2.5\u70b9\u672a\u6e80\u306e\u53ef\u80fd\u6027", "upcoming_short": "\u6b21", "world_cup": "\u30ef\u30fc\u30eb\u30c9\u30ab\u30c3\u30d7"};
 function i18n(key, fallback){ return Object.prototype.hasOwnProperty.call(I18N, key) ? I18N[key] : fallback; }
 function trackEvent(name, data){
   return;
@@ -26298,8 +27233,9 @@ function cardHTML(m,idx){
   const tier=tierOf(m.conf), pickHome=m.pick==="home", gb=goalsBand(m.total_xg);
   const bg=`rgb(${m.bg[0]*0.85},${m.bg[1]*0.85},${m.bg[2]*0.85})`;
   const hl=m.home_logo_url||logoURL(m.hid), al=m.away_logo_url||logoURL(m.aid);
+  const matchStatus=isLiveResult(m)?"live":((m.status==="finished"||["W","D","L"].includes(String(m.outcome||"").toUpperCase()))?"finished":"upcoming");
   return `
-  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
+  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-date="${esc(m.date||'')}" data-time="${esc(m.time||'')}" data-kickoff-utc="${esc(m.kickoff_utc||'')}" data-status="${matchStatus}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -26337,6 +27273,8 @@ function cardHTML(m,idx){
 }
 
 let SORT_BY_CONF=true;
+let SORT_MODE="confidence";
+let ACTIVE_STATUS="all";
 
 
 function competitionIcon(name){
@@ -26436,9 +27374,9 @@ function renderLeague(){
 function placeFeaturedInlineAd(){
   const ad = document.querySelector(".day-inline-ad");
   if (!ad) return;
-  const active = document.getElementById(document.getElementById("segLeague")?.classList.contains("on") ? "leagueView" : "globalView");
+  const active = document.getElementById(document.getElementById("viewSelect")?.value === "league" ? "leagueView" : "globalView");
   if (!active) return;
-  const firstSection = active.querySelector(".wc-section,.league-section,.all-section");
+  const firstSection = Array.from(active.querySelectorAll(".wc-section,.league-section,.all-section")).find(section=>section.style.display!=="none");
   if (firstSection && firstSection.parentNode) firstSection.insertAdjacentElement("afterend", ad);
 }
 function promoteTopLeagueToGlobal(){
@@ -26488,16 +27426,47 @@ function promoteTopLeagueToGlobal(){
 }
 function setView(v){
   trackEvent("view_toggle", { view: v });
-  document.getElementById("segGlobal").classList.toggle("on",v==="global");
-  document.getElementById("segLeague").classList.toggle("on",v==="league");
+  const select=document.getElementById("viewSelect");
+  if(select)select.value=v;
   document.getElementById("globalView").style.display=v==="global"?"block":"none";
   document.getElementById("leagueView").style.display=v==="league"?"block":"none";
-  placeFeaturedInlineAd();
-  doSearch(document.getElementById("search").value);
+  applyFilters();
 }
-function doSearch(q){ trackSearch(q); q=(q||"").trim().toLowerCase();
-  document.querySelectorAll(".mrow").forEach(r=>{ r.style.display=(!q||r.getAttribute("data-search").includes(q))?"":"none"; });
+function rowStatus(row){
+  if(row.dataset.status)return row.dataset.status;
+  if(row.querySelector(".ko.live"))return "live";
+  if(row.querySelector(".resmark.w,.resmark.d,.resmark.l"))return "finished";
+  return "upcoming";
+}
+function applyFilters(){
+  const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
+  document.querySelectorAll(".mrow").forEach(row=>{
+    const textOk=!q||(row.dataset.search||"").includes(q);
+    const statusOk=ACTIVE_STATUS==="all"||rowStatus(row)===ACTIVE_STATUS;
+    row.style.display=textOk&&statusOk?"":"none";
+    if(row.style.display==="none")row.classList.remove("open");
+  });
+  ["globalView","leagueView"].forEach(id=>{
+    const root=document.getElementById(id);if(!root)return;
+    root.querySelectorAll(".wc-section,.all-section,.league-section").forEach(section=>{
+      const visible=Array.from(section.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none").length;
+      section.style.display=visible?"":"none";
+      const sub=section.querySelector(".wsub,.lsub");
+      if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(visible));
+    });
+  });
   openDefaultRows();
+  placeFeaturedInlineAd();
+}
+function doSearch(q){
+  trackSearch(q);
+  applyFilters();
+}
+function setStatusFilter(status,button){
+  ACTIVE_STATUS=status;
+  document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item===button));
+  trackEvent("status_filter",{status});
+  applyFilters();
 }
 function openDefaultRows(){
   ["globalView","leagueView"].forEach(id=>{
@@ -26507,21 +27476,35 @@ function openDefaultRows(){
     if (rows.length && !rows.some(r=>r.classList.contains("open"))) rows[0].classList.add("open");
   });
 }
-function toggleSort(){
-  SORT_BY_CONF=!SORT_BY_CONF;
-  trackEvent("sort_toggle", { sort_by_confidence: SORT_BY_CONF });
-  document.getElementById("sortIcon").style.color=SORT_BY_CONF?"var(--green-bright)":"";
-  const root = document.querySelector("#globalView .all-section") || document.getElementById("globalView");
-  const cards = Array.from(root.children).filter(el => el.classList && el.classList.contains("mrow"));
-  cards.sort((a,b)=>{
-    const av = parseFloat((a.querySelector(".win-pill")?.textContent || "0").replace("%","")) || 0;
-    const bv = parseFloat((b.querySelector(".win-pill")?.textContent || "0").replace("%","")) || 0;
-    return SORT_BY_CONF ? bv - av : av - bv;
-  }).forEach(card => root.appendChild(card));
-  doSearch(document.getElementById("search").value);
+function rowTimeValue(row){
+  const utc=Date.parse(row.dataset.kickoffUtc||"");
+  if(Number.isFinite(utc))return utc;
+  const match=String(row.dataset.time||"").match(/(\d{1,2}):(\d{2})/);
+  return match?Number(match[1])*60+Number(match[2]):Number.MAX_SAFE_INTEGER;
 }
-
-document.getElementById("sortIcon").style.color="var(--green-bright)";
+function setSortMode(mode){
+  SORT_MODE=mode;
+  SORT_BY_CONF=mode==="confidence";
+  document.getElementById("sortConfidence")?.classList.toggle("active",SORT_BY_CONF);
+  document.getElementById("sortTime")?.classList.toggle("active",!SORT_BY_CONF);
+  document.querySelectorAll("#globalView .wc-section,#globalView .all-section,#globalView .league-section,#leagueView .wc-section,#leagueView .league-section").forEach(section=>{
+    const cards=Array.from(section.children).filter(element=>element.classList?.contains("mrow"));
+    cards.sort((a,b)=>{
+      if(SORT_MODE==="time")return rowTimeValue(a)-rowTimeValue(b);
+      const av=parseFloat((a.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;
+      const bv=parseFloat((b.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;
+      return bv-av;
+    }).forEach(card=>section.appendChild(card));
+  });
+  trackEvent("sort_toggle",{sort_mode:mode});
+  applyFilters();
+}
+function toggleSort(){setSortMode(SORT_MODE==="confidence"?"time":"confidence")}
+function closeUtilityMenu(){document.getElementById("utilityMenu")?.removeAttribute("open")}
+document.addEventListener("click",event=>{
+  const menu=document.getElementById("utilityMenu");
+  if(menu?.open&&!menu.contains(event.target))menu.removeAttribute("open");
+});
 
 /* Visitor-local-day grouping (Stage 1). The page ships a ±1-day window of cards;
    keep only those whose kick-off, in the VISITOR's timezone, lands on this page's
@@ -27183,26 +28166,6 @@ function applyLocalKickoffTimes(){
       } catch(e) { updateProUI(false); loadMoneytizerAds(); }
     });
   });
-})();
-</script>
-
-<script id="compact-match-controls-hotfix-js">
-(function(){
-  document.documentElement.dataset.compactControls="loading";
-  let activeStatus="all",sortMode="confidence";
-  window.closeUtilityMenu=function(){document.getElementById("utilityMenu")?.removeAttribute("open")};
-  function rowStatus(row){if(row.dataset.status)return row.dataset.status;if(row.querySelector(".ko.live"))return "live";if(row.querySelector(".resmark.w,.resmark.d,.resmark.l"))return "finished";return "upcoming"}
-  function rowTime(row){const utc=Date.parse(row.dataset.kickoffUtc||"");if(Number.isFinite(utc))return utc;const match=String(row.dataset.time||"").match(/(\d{1,2}):(\d{2})/);return match?Number(match[1])*60+Number(match[2]):Number.MAX_SAFE_INTEGER}
-  function placeAd(){const ad=document.querySelector(".day-inline-ad"),view=document.getElementById(document.getElementById("viewSelect")?.value==="league"?"leagueView":"globalView");if(!ad||!view)return;const section=Array.from(view.querySelectorAll(".wc-section,.league-section,.all-section")).find(item=>item.style.display!=="none");if(section)section.insertAdjacentElement("afterend",ad)}
-  function apply(){const q=(document.getElementById("search")?.value||"").trim().toLowerCase();document.querySelectorAll(".mrow").forEach(row=>{const visible=(!q||(row.dataset.search||"").includes(q))&&(activeStatus==="all"||rowStatus(row)===activeStatus);row.style.display=visible?"":"none";if(!visible)row.classList.remove("open")});["globalView","leagueView"].forEach(id=>{const root=document.getElementById(id);if(!root)return;root.querySelectorAll(".wc-section,.all-section,.league-section").forEach(section=>{const count=Array.from(section.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none").length;section.style.display=count?"":"none";const sub=section.querySelector(".wsub,.lsub");if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(count))})});if(window.openDefaultRows)openDefaultRows();placeAd()}
-  window.setView=function(view){if(window.trackEvent)trackEvent("view_toggle",{view});const select=document.getElementById("viewSelect");if(select)select.value=view;const global=document.getElementById("globalView"),league=document.getElementById("leagueView");if(global)global.style.display=view==="global"?"block":"none";if(league)league.style.display=view==="league"?"block":"none";apply()};
-  window.doSearch=function(value){if(window.trackSearch)trackSearch(value);apply()};
-  window.setStatusFilter=function(status,button){activeStatus=status;document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item===button));if(window.trackEvent)trackEvent("status_filter",{status});apply()};
-  window.setSortMode=function(mode){sortMode=mode;document.getElementById("sortConfidence")?.classList.toggle("active",mode==="confidence");document.getElementById("sortTime")?.classList.toggle("active",mode==="time");document.querySelectorAll("#globalView .wc-section,#globalView .all-section,#globalView .league-section,#leagueView .wc-section,#leagueView .league-section").forEach(section=>{const rows=Array.from(section.children).filter(item=>item.classList?.contains("mrow"));rows.sort((a,b)=>{if(sortMode==="time")return rowTime(a)-rowTime(b);const av=parseFloat((a.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0,bv=parseFloat((b.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;return bv-av}).forEach(row=>section.appendChild(row))});if(window.trackEvent)trackEvent("sort_toggle",{sort_mode:mode});apply()};
-  window.toggleSort=function(){setSortMode(sortMode==="confidence"?"time":"confidence")};
-  document.addEventListener("click",event=>{const menu=document.getElementById("utilityMenu");if(menu?.open&&!menu.contains(event.target))menu.removeAttribute("open")});
-  apply();
-  document.documentElement.dataset.compactControls="ready";
 })();
 </script>
 </body>
