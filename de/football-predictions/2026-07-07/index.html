@@ -706,6 +706,11 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 }
 
 </style>
+
+<style id="compact-match-controls-hotfix">
+.match-controls{margin:14px 0 4px}.control-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}.layout-select{width:142px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);padding:0 32px 0 12px;font-size:13px;font-weight:700;cursor:pointer;outline:0}.layout-select:focus{border-color:rgba(113,240,139,.52)}.status-switch{min-width:0;display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}.status-btn{height:38px;min-width:0;flex:1;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 10px;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}.status-btn:last-child{border-right:0}.status-btn:hover{background:var(--surface-2);color:var(--text)}.status-btn.on{background:var(--text);color:#092015}.status-btn.live-filter:before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#ff5e62;vertical-align:1px}.utility{position:relative}.utility summary{list-style:none;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--text);font-size:20px;font-weight:700;cursor:pointer;line-height:1}.utility summary::-webkit-details-marker{display:none}.utility[open] summary,.utility summary:hover{background:var(--surface-2);border-color:rgba(113,240,139,.35)}.utility-menu{position:absolute;right:0;top:46px;z-index:80;width:196px;padding:6px;background:#102019;border:1px solid var(--line);border-radius:11px;box-shadow:0 14px 36px rgba(0,0,0,.42)}.utility-menu button{width:100%;display:flex;align-items:center;gap:8px;border:0;border-radius:8px;background:transparent;color:var(--text);padding:9px 10px;text-align:left;font-size:12px;font-weight:650;cursor:pointer}.utility-menu button:hover{background:var(--surface-2)}.utility-menu button.active{color:var(--green-bright)}.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-top:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}.control-search:focus-within{border-color:rgba(113,240,139,.52)}.control-search svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex:none}.control-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:13px}.control-search input::placeholder{color:var(--muted-2)}
+@media(max-width:560px){.control-row{gap:6px}.layout-select{width:116px;height:38px;padding:0 25px 0 9px;font-size:11.5px}.status-btn{height:36px;padding:0 6px;font-size:11px}.utility summary{width:38px;height:38px}.control-search{height:40px}}
+</style>
 </head>
 <body>
 
@@ -752,16 +757,15 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     <button title="Nächster Tag" id="nextDay">›</button>
   </div>
 
-  <div class="toolbar">
-    <div class="seg">
-      <button class="on" id="segGlobal" onclick="setView('global')">Alle Spiele</button>
-      <button id="segLeague" onclick="setView('league')">Nach Liga</button>
+  <section class="match-controls" aria-label="Match filters">
+    <div class="control-row">
+      <select id="viewSelect" class="layout-select" aria-label="Match layout" onchange="setView(this.value)"><option value="global">Alle Spiele</option><option value="league">Nach Liga</option></select>
+      <div class="status-switch" role="group" aria-label="Match status"><button class="status-btn on" onclick="setStatusFilter('all',this)">Alle</button><button class="status-btn live-filter" onclick="setStatusFilter('live',this)">Live</button><button class="status-btn" onclick="setStatusFilter('upcoming',this)">Nächste</button><button class="status-btn" onclick="setStatusFilter('finished',this)">FT</button></div>
+      <details class="utility" id="utilityMenu"><summary aria-label="Mehr Optionen" title="Mehr Optionen">⋯</summary><div class="utility-menu"><button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ Sort by confidence</button><button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ Nach Zeit sortieren</button><button id="csv_button" onclick="closeUtilityMenu();if(window.downloadCSV)downloadCSV()">↓ Download CSV</button></div></details>
     </div>
-    <div class="spacer"></div>
-    <input type="search" id="search" placeholder="Team oder Liga suchen…" oninput="doSearch(this.value)">
-    <div class="icon" title="Nach Konfidenz sortieren" id="sortIcon" onclick="toggleSort()">⇅</div>
-    <div class="icon" title="CSV herunterladen" id="csv_button" onclick="if (window.downloadCSV) downloadCSV()">⤓</div>
-  </div>
+    <label class="control-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg><input type="search" id="search" placeholder="Team oder Liga suchen…" aria-label="Team oder Liga suchen…" oninput="doSearch(this.value)"></label>
+    <span hidden><button class="on" id="segGlobal"></button><button id="segLeague"></button><span id="sortIcon"></span></span>
+  </section>
 
   <div id="128244-1" class="ad-container ad-megabanner day-top-ad" data-moneytizer-format="1"></div>
 
@@ -14608,6 +14612,26 @@ function applyLocalKickoffTimes(){
       } catch(e) { updateProUI(false); loadMoneytizerAds(); }
     });
   });
+})();
+</script>
+
+<script id="compact-match-controls-hotfix-js">
+(function(){
+  document.documentElement.dataset.compactControls="loading";
+  let activeStatus="all",sortMode="confidence";
+  window.closeUtilityMenu=function(){document.getElementById("utilityMenu")?.removeAttribute("open")};
+  function rowStatus(row){if(row.dataset.status)return row.dataset.status;if(row.querySelector(".ko.live"))return "live";if(row.querySelector(".resmark.w,.resmark.d,.resmark.l"))return "finished";return "upcoming"}
+  function rowTime(row){const utc=Date.parse(row.dataset.kickoffUtc||"");if(Number.isFinite(utc))return utc;const match=String(row.dataset.time||"").match(/(\d{1,2}):(\d{2})/);return match?Number(match[1])*60+Number(match[2]):Number.MAX_SAFE_INTEGER}
+  function placeAd(){const ad=document.querySelector(".day-inline-ad"),view=document.getElementById(document.getElementById("viewSelect")?.value==="league"?"leagueView":"globalView");if(!ad||!view)return;const section=Array.from(view.querySelectorAll(".wc-section,.league-section,.all-section")).find(item=>item.style.display!=="none");if(section)section.insertAdjacentElement("afterend",ad)}
+  function apply(){const q=(document.getElementById("search")?.value||"").trim().toLowerCase();document.querySelectorAll(".mrow").forEach(row=>{const visible=(!q||(row.dataset.search||"").includes(q))&&(activeStatus==="all"||rowStatus(row)===activeStatus);row.style.display=visible?"":"none";if(!visible)row.classList.remove("open")});["globalView","leagueView"].forEach(id=>{const root=document.getElementById(id);if(!root)return;root.querySelectorAll(".wc-section,.all-section,.league-section").forEach(section=>{const count=Array.from(section.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none").length;section.style.display=count?"":"none";const sub=section.querySelector(".wsub,.lsub");if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(count))})});if(window.openDefaultRows)openDefaultRows();placeAd()}
+  window.setView=function(view){if(window.trackEvent)trackEvent("view_toggle",{view});const select=document.getElementById("viewSelect");if(select)select.value=view;const global=document.getElementById("globalView"),league=document.getElementById("leagueView");if(global)global.style.display=view==="global"?"block":"none";if(league)league.style.display=view==="league"?"block":"none";apply()};
+  window.doSearch=function(value){if(window.trackSearch)trackSearch(value);apply()};
+  window.setStatusFilter=function(status,button){activeStatus=status;document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item===button));if(window.trackEvent)trackEvent("status_filter",{status});apply()};
+  window.setSortMode=function(mode){sortMode=mode;document.getElementById("sortConfidence")?.classList.toggle("active",mode==="confidence");document.getElementById("sortTime")?.classList.toggle("active",mode==="time");document.querySelectorAll("#globalView .wc-section,#globalView .all-section,#globalView .league-section,#leagueView .wc-section,#leagueView .league-section").forEach(section=>{const rows=Array.from(section.children).filter(item=>item.classList?.contains("mrow"));rows.sort((a,b)=>{if(sortMode==="time")return rowTime(a)-rowTime(b);const av=parseFloat((a.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0,bv=parseFloat((b.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;return bv-av}).forEach(row=>section.appendChild(row))});if(window.trackEvent)trackEvent("sort_toggle",{sort_mode:mode});apply()};
+  window.toggleSort=function(){setSortMode(sortMode==="confidence"?"time":"confidence")};
+  document.addEventListener("click",event=>{const menu=document.getElementById("utilityMenu");if(menu?.open&&!menu.contains(event.target))menu.removeAttribute("open")});
+  apply();
+  document.documentElement.dataset.compactControls="ready";
 })();
 </script>
 </body>
