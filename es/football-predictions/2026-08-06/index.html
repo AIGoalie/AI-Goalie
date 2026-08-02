@@ -277,7 +277,7 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 /* SECTION + LEAGUE HEADS */
 .league-head{display:flex;align-items:center;gap:9px;margin:22px 0 9px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
 .league-head img.flag{height:15px;width:21px;object-fit:cover;border-radius:2px;background:var(--surface-2)}
-.league-head img.league-logo{width:29px;height:29px;object-fit:contain;border-radius:8px;background:#f7f8fb;border:1px solid rgba(255,255,255,.22);padding:3px;flex:none;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.league-head img.league-logo{width:29px;height:29px;object-fit:contain;border-radius:8px;background:#dbe6dd;border:1px solid rgba(255,255,255,.16);padding:3px;flex:none;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .league-head .league-icon{width:21px;height:21px;display:inline-grid;place-items:center;border-radius:7px;background:rgba(255,213,94,.10);border:1px solid rgba(255,213,94,.18);font-size:14px;line-height:1;flex:none}
 .league-head .lname{font-weight:700;font-size:15px}
 .league-head .lsub{color:var(--muted-2);font-size:12px;margin-left:auto}
@@ -436,7 +436,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .league-section .league-head .lsub{grid-area:count;margin-left:0;justify-self:end;text-align:right;font-size:11.5px;line-height:1.2;white-space:normal;max-width:54px}
   .league-section .league-head .league-accuracy{grid-area:acc;margin-left:0;justify-self:start;max-width:100%;font-size:10px;padding:4px 7px}
   .league-section .league-head .league-accuracy span:first-child{display:none}
-  .league-section .league-head .league-accuracy::before{content:"Accuracy"}
+  .league-section .league-head .league-accuracy::before{content:"precisión"}
 }
 @media(max-width:430px){
   .side .nm{font-size:10.5px;max-width:80px}
@@ -714,6 +714,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .all-head{display:flex;align-items:center;gap:9px;margin:0;padding:13px 15px;border-bottom:1px solid var(--line-soft);background:rgba(255,255,255,.035)}
 .all-head .lname{font-size:15px;font-weight:800}
 .all-head .lsub{color:var(--muted);font-size:13px;margin-left:auto}
+.all-head .ranking-note{display:block;color:var(--muted-2);font-size:10px;font-weight:600;line-height:1.25;margin-top:2px}
 
 
 .future-pro-card{
@@ -786,6 +787,70 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .metric-rail{margin-top:7px}
   .metric{min-height:53px;padding:5px 3px}
   .metric .ms{min-height:10px}
+}
+
+/* Keep the CMP preference control available without covering match actions. */
+#qc-cmp2-persistent-link,
+.qc-cmp2-persistent-link{
+  width:44px!important;
+  min-width:44px!important;
+  max-width:44px!important;
+  height:44px!important;
+  min-height:44px!important;
+  max-height:44px!important;
+  right:10px!important;
+  bottom:10px!important;
+  padding:0!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+  font-size:0!important;
+  line-height:0!important;
+}
+#qc-cmp2-persistent-link svg,
+.qc-cmp2-persistent-link svg{
+  width:20px!important;
+  height:20px!important;
+  margin:auto!important;
+}
+
+@media(max-width:680px){
+  header.top{
+    gap:5px;
+    padding:5px 0 7px;
+  }
+  header.top .logo{font-size:16px;gap:6px}
+  header.top .logo img{width:23px;height:23px}
+  .navtoggle{
+    flex-basis:42px;
+    width:42px;
+    height:42px;
+  }
+  .acct{gap:5px}
+  .language-select{
+    max-width:46px;
+    flex-basis:46px;
+    height:42px;
+  }
+  .language-select select{
+    width:46px;
+    min-width:46px;
+    height:40px;
+    padding-left:6px;
+  }
+  .btn.pro{height:42px;padding:6px 9px;font-size:12.5px}
+  .account-btn{width:42px;min-width:42px;height:42px;font-size:17px}
+  .daybar{gap:10px;padding:10px 0 0}
+  .daybar button{width:36px;height:36px;border-radius:9px;font-size:17px}
+  .daybar .day{font-size:18px;min-width:170px}
+}
+
+@media(max-width:430px){
+  .fixrow{gap:5px}
+  .side{gap:4px}
+  .side .nm{font-size:11.5px;max-width:104px;line-height:1.12}
+  .crest{width:19px;height:19px}
+  .winwrap{gap:4px}
+  .win-pill{min-width:48px;padding:4px 5px;font-size:10.5px}
 }
 
 </style>
@@ -892,13 +957,13 @@ header.top .logo img{width:23px!important;height:23px!important}
   <section class="match-controls" aria-label="Match filters">
     <div class="control-row">
       <select id="viewSelect" class="layout-select" aria-label="Match layout" onchange="setView(this.value)">
-        <option value="global">Todos los partidos</option>
+        <option value="global">Global</option>
         <option value="league">Por liga</option>
       </select>
       <div class="status-switch" role="group" aria-label="Match status">
         <button class="status-btn on" data-status-filter="all" onclick="setStatusFilter('all',this)">Todo</button>
         <button class="status-btn live-filter" data-status-filter="live" onclick="setStatusFilter('live',this)">En directo</button>
-        <button class="status-btn" data-status-filter="upcoming" onclick="setStatusFilter('upcoming',this)">Próx.</button>
+        <button class="status-btn" data-status-filter="upcoming" onclick="setStatusFilter('upcoming',this)">Próximos</button>
         <button class="status-btn" data-status-filter="finished" onclick="setStatusFilter('finished',this)">FT</button>
       </div>
       <details class="utility" id="utilityMenu">
@@ -958,7 +1023,7 @@ header.top .logo img{width:23px!important;height:23px!important}
 </div>
 
 <script>
-const I18N = {"about_model": "Sobre el modelo", "account": "Cuenta", "ai_predictions_prefix": "Predicciones de f\u00fatbol con IA", "all_matches": "Todos los partidos", "around_2_3_goals": "Alrededor de 2-3 goles", "both_to_score": "Ambos marcan", "by_league": "Por liga", "confidence": "Confianza", "confidence_75_plus": "Confianza 75%+", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "de confianza", "csv_login_alert": "Inicia sesi\u00f3n para acceder al CSV.", "csv_pro_alert": "Hazte Pro para descargar el CSV.", "csv_unavailable_alert": "El CSV no est\u00e1 disponible en este momento.", "download_csv": "Descargar CSV", "expected_goals_per_team": "Goles esperados (por equipo)", "filter_all": "Todo", "finished_short": "FT", "full_prediction_analysis": "Predicci\u00f3n y an\u00e1lisis completos \u2192", "go_pro": "Hazte Pro", "graded_calls": "predicciones calificadas", "high_scoring": "Muchos goles", "language": "Idioma", "league": "Liga", "league_accuracy_all": "Precisi\u00f3n de liga (todas las predicciones)", "league_accuracy_conf50": "Precisi\u00f3n de liga \u226550%", "live": "En directo", "low_scoring": "Pocos goles", "manage_billing": "Gestionar facturaci\u00f3n", "matches": "partidos", "matches_today": "partidos hoy", "model_accuracy_history": "Historial de precisi\u00f3n del modelo", "model_disclaimer": "Resultados del modelo, no garant\u00edas. +18 \u00b7 Juega con responsabilidad.", "more_history_needed": "Se necesita m\u00e1s historial", "more_options": "M\u00e1s opciones", "new_simulator": "Nuevo simulador", "next_day": "D\u00eda siguiente", "no_matches": "No hay partidos.", "odds": "Cuotas", "over_25_likely": "Probable m\u00e1s de 2,5", "picked_team": "Equipo elegido", "previous_day": "D\u00eda anterior", "privacy": "Privacidad", "pro_modal_subtitle": "Desbloquea goles esperados, BTTS, exportaci\u00f3n CSV, fuerza del rival y un sitio sin anuncios.", "public_total_goals_band": "Franja p\u00fablica de goles totales", "search_placeholder": "Buscar equipo o liga\u2026", "sign_in": "Iniciar sesi\u00f3n", "sign_out": "Cerrar sesi\u00f3n", "simulate_any_matchup": "Simula cualquier enfrentamiento de f\u00fatbol", "simulator_teaser": "Elige dos equipos y mira qu\u00e9 predice AIGoalie. Pro desbloquea simulaciones ilimitadas y xG exacto.", "sort_by_confidence": "Ordenar por confianza", "sort_by_time": "Ordenar por hora", "tap_for_prediction": "Toca para ver la predicci\u00f3n", "todays_matches": "Partidos de hoy", "total_goals": "Goles totales", "try_it": "Pru\u00e9balo", "under_25_likely": "Probable menos de 2,5", "upcoming_short": "Pr\u00f3x.", "world_cup": "Mundial"};
+const I18N = {"about_model": "Sobre el modelo", "account": "Cuenta", "accuracy": "precisi\u00f3n", "ai_pick": "Pron\u00f3stico IA", "ai_predictions_prefix": "Predicciones de f\u00fatbol con IA", "all_matches": "Todos los partidos", "around_2_3_goals": "Alrededor de 2-3 goles", "both_to_score": "Ambos marcan", "by_league": "Por liga", "confidence": "Confianza", "confidence_75_plus": "Confianza 75%+", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "de confianza", "csv_login_alert": "Inicia sesi\u00f3n para acceder al CSV.", "csv_pro_alert": "Hazte Pro para descargar el CSV.", "csv_unavailable_alert": "El CSV no est\u00e1 disponible en este momento.", "download_csv": "Descargar CSV", "expected_goals_per_team": "Goles esperados (por equipo)", "filter_all": "Todo", "finished_short": "FT", "full_prediction_analysis": "Predicci\u00f3n y an\u00e1lisis completos \u2192", "global_view": "Global", "go_pro": "Hazte Pro", "graded_calls": "predicciones calificadas", "high_scoring": "Muchos goles", "language": "Idioma", "league": "Liga", "league_accuracy_all": "Precisi\u00f3n de liga (todas las predicciones)", "league_accuracy_conf50": "Precisi\u00f3n de liga \u226550%", "live": "En directo", "low_scoring": "Pocos goles", "manage_billing": "Gestionar facturaci\u00f3n", "matches": "partidos", "matches_today": "partidos hoy", "model_accuracy_history": "Historial de precisi\u00f3n del modelo", "model_disclaimer": "Resultados del modelo, no garant\u00edas. +18 \u00b7 Juega con responsabilidad.", "more_history_needed": "Se necesita m\u00e1s historial", "more_options": "M\u00e1s opciones", "new_simulator": "Nuevo simulador", "next_day": "D\u00eda siguiente", "no_matches": "No hay partidos.", "odds": "Cuotas", "over_25_likely": "Probable m\u00e1s de 2,5", "picked_team": "Equipo elegido", "predictions": "predicciones", "previous_day": "D\u00eda anterior", "privacy": "Privacidad", "pro_modal_subtitle": "Desbloquea goles esperados, BTTS, exportaci\u00f3n CSV, fuerza del rival y un sitio sin anuncios.", "public_total_goals_band": "Franja p\u00fablica de goles totales", "ranked_worldwide": "Partidos mundiales ordenados por confianza de la IA", "search_placeholder": "Buscar equipo o liga\u2026", "sign_in": "Iniciar sesi\u00f3n", "sign_out": "Cerrar sesi\u00f3n", "similar_accuracy_short": "Similar", "similar_confidence_accuracy": "Precisi\u00f3n con confianza similar", "simulate_any_matchup": "Simula cualquier enfrentamiento de f\u00fatbol", "simulator_teaser": "Elige dos equipos y mira qu\u00e9 predice AIGoalie. Pro desbloquea simulaciones ilimitadas y xG exacto.", "sort_by_confidence": "Ordenar por confianza", "sort_by_time": "Ordenar por hora", "tap_for_prediction": "Toca para ver la predicci\u00f3n", "todays_matches": "Partidos de hoy", "total_goals": "Goles totales", "try_it": "Pru\u00e9balo", "under_25_likely": "Probable menos de 2,5", "upcoming_short": "Pr\u00f3ximos", "world_cup": "Mundial"};
 function i18n(key, fallback){ return Object.prototype.hasOwnProperty.call(I18N, key) ? I18N[key] : fallback; }
 function trackEvent(name, data){
   return;
@@ -1114,7 +1179,7 @@ function cardHTML(m,idx){
       </div>
       <div class="winwrap">
         ${resMark(m.outcome)}
-        <span class="win-pill" style="background:${bg}">${esc(m.total)}</span>
+        <span class="win-pill" title="Pronóstico IA" style="background:${bg}">AI ${esc(m.total)}</span>
         <span class="chev" title="Toca para ver la predicción">▾</span>
       </div>
     </div>
@@ -1124,8 +1189,8 @@ function cardHTML(m,idx){
         <div class="metric pro-metric"><div class="ml">xG/team</div><div class="mv locked pro"><span class="pro-xgh">${m.home_xg!=null ? Number(m.home_xg).toFixed(2) : "—"}</span> - <span class="pro-xga">${m.away_xg!=null ? Number(m.away_xg).toFixed(2) : "—"}</span></div><div class="ms"><span>${esc(shortName(m.home))}</span>&nbsp;·&nbsp;<span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="metric total-goals-metric"><div class="ml">Goles totales</div><div class="mv">${gb?gb.value:'—'}</div><div class="ms"></div></div>
         <div class="metric pro-metric"><div class="ml">BTTS</div><div class="mv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="ms"></div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="metric"><div class="ml">Accuracy<br>at ${esc(m.total)}</div><div class="mv">${m.context_conf ? Math.round(Number(m.context_conf.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_conf ? `${m.context_conf.n} calls` : "Se necesita más historial"}</div></div>
-        <div class="metric pro-metric"><div class="ml">League<br>accuracy</div><div class="mv locked pro">${m.context_league ? Math.round(Number(m.context_league.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_league ? `${m.context_league.n} calls` : "Se necesita más historial"}</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="metric"><div class="ml" title="Precisión con confianza similar">Similar<br>precisión</div><div class="mv">${m.context_conf ? Math.round(Number(m.context_conf.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_conf ? `${m.context_conf.n} predicciones` : "Se necesita más historial"}</div></div>
+        <div class="metric pro-metric"><div class="ml">League<br>precisión</div><div class="mv locked pro">${m.context_league ? Math.round(Number(m.context_league.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_league ? `${m.context_league.n} predicciones` : "Se necesita más historial"}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">
@@ -1212,7 +1277,7 @@ function renderGlobal(){
     html += featuredLeague.matches.map((m,i)=>cardHTML(Object.assign({league:featuredLeague.key},m),'featured'+i)).join("") + `</section>`;
   }
   if (rest.length){
-    html += `<section class="all-section"><div class="all-head"><span class="lname">Todos los partidos</span><span class="lsub">${rest.length} partidos</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
+    html += `<section class="all-section"><div class="all-head"><span><span class="lname">Todos los partidos</span><span class="ranking-note">Partidos mundiales ordenados por confianza de la IA</span></span><span class="lsub">${rest.length} partidos</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
   } else if (!wc.length && !featuredLeague) {
     html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
   }
@@ -1827,7 +1892,7 @@ async function renderV12MatchesFromApi(matches){
     ghtml += wc.map((m,i)=>cardHTML(m,"wc"+i)).join("") + `</div>`;
   }
   if (rest.length){
-    ghtml += `<section class="all-section"><div class="all-head"><span class="lname">Todos los partidos</span><span class="lsub">${rest.length} partidos</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
+    ghtml += `<section class="all-section"><div class="all-head"><span><span class="lname">Todos los partidos</span><span class="ranking-note">Partidos mundiales ordenados por confianza de la IA</span></span><span class="lsub">${rest.length} partidos</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
   }
   if (!ghtml) ghtml = `<div class="empty">No Pro predictions available for this date yet.</div>`;
   const gv = document.getElementById("globalView");
@@ -1996,76 +2061,6 @@ function applyLocalKickoffTimes(){
       } catch(e) { updateProUI(false); loadMoneytizerAds(); }
     });
   });
-})();
-</script>
-<script id="featured-league-sync-20260802">
-(function(){
-  function priority(name){
-    const s=String(name||"").toLowerCase();
-    if(s.includes("world cup"))return 12000;
-    if(s.includes("champions league"))return 11000;
-    if(s.includes("europa league"))return 10000;
-    if(s.includes("conference league"))return 9500;
-    if(s.includes("libertadores"))return 9000;
-    if(s.includes("sudamericana"))return 8500;
-    if(s.includes("nations league"))return 8000;
-    if(s.includes("qualif")||s.includes("qualification")||s.includes("qualifying"))return 7000;
-    if(s.includes("super cup")||s.includes("supercup"))return 6800;
-    if(s.includes("friendly")||s.includes("friendlies")||s.includes("summer series")||s.includes("como cup")||s.includes("piala presiden")||s.includes("pre-season")||s.includes("preseason"))return -5000;
-    return 0;
-  }
-  const labels={en:"Featured league",ja:"注目リーグ",es:"Liga destacada",de:"Top-Liga",fr:"Ligue à la une",pt:"Liga em destaque"};
-  const gv=document.getElementById("globalView"),lv=document.getElementById("leagueView");
-  if(!gv||!lv)return;
-  const sections=Array.from(lv.children).filter(section=>section.classList?.contains("league-section")&&section.querySelector(".mrow"));
-  const ordered=sections.map((section,index)=>({section,index})).sort((a,b)=>{
-    const an=a.section.querySelector(".lname")?.textContent?.trim()||"";
-    const bn=b.section.querySelector(".lname")?.textContent?.trim()||"";
-    return priority(bn)-priority(an)||a.index-b.index;
-  }).map(item=>item.section);
-  ordered.forEach(section=>lv.appendChild(section));
-  if(gv.querySelector(".wc-section .mrow"))return;
-  const source=ordered.find(section=>{
-    const name=section.querySelector(".lname")?.textContent?.trim()||"";
-    return section.dataset.featuredEligible==="true"||priority(name)>0;
-  });
-  if(!source)return;
-  const leagueName=source.querySelector(".lname")?.textContent?.trim()||"";
-  const current=gv.querySelector(".featured-section");
-  if(current&&(current.querySelector(".lname")?.textContent?.trim()||"")===leagueName)return;
-  const all=gv.querySelector(".all-section");
-  if(all){
-    ordered.forEach(section=>{
-      const sectionLeague=section.querySelector(".lname")?.textContent?.trim()||"";
-      if(sectionLeague===leagueName)return;
-      section.querySelectorAll(".mrow").forEach(row=>{
-        const exists=Array.from(all.querySelectorAll(".mrow")).some(existing=>existing.dataset.league===row.dataset.league&&existing.dataset.home===row.dataset.home&&existing.dataset.away===row.dataset.away);
-        if(!exists)all.appendChild(row.cloneNode(true));
-      });
-    });
-  }
-  if(current)current.remove();
-  const featured=source.cloneNode(true);
-  featured.classList.add("featured-section");
-  const head=featured.querySelector(".league-head");
-  if(head&&!head.querySelector(".featured-label")){
-    const label=document.createElement("span");
-    label.className="featured-label";
-    label.textContent=labels[document.documentElement.lang]||labels.en;
-    head.insertBefore(label,head.querySelector(".lsub")||null);
-  }
-  gv.insertBefore(featured,all||gv.firstChild);
-  if(all){
-    all.querySelectorAll(".mrow").forEach(row=>{if((row.dataset.league||"")===leagueName)row.remove()});
-    Array.from(all.children).filter(child=>child.classList?.contains("mrow")).sort((a,b)=>{
-      const confidence=row=>parseFloat((row.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;
-      return confidence(b)-confidence(a);
-    }).forEach(row=>all.appendChild(row));
-    const sub=all.querySelector(".lsub");
-    if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(all.querySelectorAll(".mrow").length));
-  }
-  const ad=document.querySelector(".day-inline-ad");
-  if(ad)featured.insertAdjacentElement("afterend",ad);
 })();
 </script>
 <script id="day-ui-polish-20260802">
