@@ -91447,7 +91447,8 @@ function leagueFeaturePriority(name){
   if (s.includes('sudamericana')) return 8500;
   if (s.includes('nations league')) return 8000;
   if (s.includes('qualif') || s.includes('qualification') || s.includes('qualifying')) return 7000;
-  if (s.includes('friendlies') || s.includes('friendly')) return -5000;
+  if (s.includes('super cup') || s.includes('supercup')) return 6800;
+  if (s.includes('friendlies') || s.includes('friendly') || s.includes('summer series') || s.includes('como cup') || s.includes('piala presiden') || s.includes('pre-season') || s.includes('preseason')) return -5000;
   return 0;
 }
 function sortLeaguesByPriority(leagues){
@@ -91519,27 +91520,33 @@ function promoteTopLeagueToGlobal(){
   if (!gv || !lv) return;
   const liveWc = Array.from(gv.querySelectorAll(".wc-section")).find(sec => sec.querySelector(".mrow"));
   if (liveWc) return;
-  const sections = Array.from(lv.querySelectorAll(".league-section")).filter(sec => {
-    if (!sec.querySelector(".mrow")) return false;
-    if (sec.dataset.featuredEligible === "true") return true;
-    if (sec.dataset.featuredEligible === "false") return false;
-    const name = sec.querySelector(".lname")?.textContent?.trim() || "";
-    return leagueFeaturePriority(name) > 0;
+  const sections = Array.from(lv.children).filter(sec => sec.classList?.contains("league-section") && sec.querySelector(".mrow"));
+  const ordered = sections.map((section,index)=>({section,index})).sort((a,b)=>{
+    const an=a.section.querySelector(".lname")?.textContent?.trim()||"";
+    const bn=b.section.querySelector(".lname")?.textContent?.trim()||"";
+    const priorityDiff=leagueFeaturePriority(bn)-leagueFeaturePriority(an);
+    return priorityDiff||a.index-b.index;
+  }).map(item=>item.section);
+  ordered.forEach(section=>lv.appendChild(section));
+  const source = ordered.find(sec => {
+    const name=sec.querySelector(".lname")?.textContent?.trim()||"";
+    return sec.dataset.featuredEligible === "true" || leagueFeaturePriority(name) > 0;
   });
-  if (!sections.length) return;
-  const source = sections.slice().sort((a,b) => {
-    const an = a.querySelector(".lname")?.textContent?.trim() || "";
-    const bn = b.querySelector(".lname")?.textContent?.trim() || "";
-    const pa = leagueFeaturePriority(an), pb = leagueFeaturePriority(bn);
-    if (pa !== pb) return pb - pa;
-    const ac = Math.max(...Array.from(a.querySelectorAll(".mrow")).map(row => winNum(row.dataset.total)));
-    const bc = Math.max(...Array.from(b.querySelectorAll(".mrow")).map(row => winNum(row.dataset.total)));
-    if (ac !== bc) return bc - ac;
-    return b.querySelectorAll(".mrow").length - a.querySelectorAll(".mrow").length;
-  })[0];
+  if (!source) return;
   const leagueName = source.querySelector(".lname")?.textContent?.trim() || "";
   const current = gv.querySelector(".featured-section");
   if (current && (current.querySelector(".lname")?.textContent?.trim() || "") === leagueName) return;
+  const all = gv.querySelector(".all-section");
+  if (all) {
+    ordered.forEach(section=>{
+      const sectionLeague=section.querySelector(".lname")?.textContent?.trim()||"";
+      if (sectionLeague===leagueName) return;
+      section.querySelectorAll(".mrow").forEach(row=>{
+        const exists=Array.from(all.querySelectorAll(".mrow")).some(existing=>existing.dataset.league===row.dataset.league&&existing.dataset.home===row.dataset.home&&existing.dataset.away===row.dataset.away);
+        if (!exists) all.appendChild(row.cloneNode(true));
+      });
+    });
+  }
   if (current) current.remove();
   const featured = source.cloneNode(true);
   featured.classList.add("featured-section");
@@ -91548,10 +91555,17 @@ function promoteTopLeagueToGlobal(){
     const logoMarkup = leagueHeaderIcon({key: leagueName});
     if (logoMarkup) featuredHead.insertAdjacentHTML("afterbegin", logoMarkup);
   }
-  const all = gv.querySelector(".all-section");
+  if (featuredHead && !featuredHead.querySelector(".featured-label")) {
+    const count=featuredHead.querySelector(".lsub");
+    const label=document.createElement("span");
+    label.className="featured-label";
+    label.textContent="Featured league";
+    featuredHead.insertBefore(label,count||null);
+  }
   gv.insertBefore(featured, all || gv.firstChild);
   if (leagueName && all) {
     all.querySelectorAll(".mrow").forEach(row => { if ((row.dataset.league || "") === leagueName) row.remove(); });
+    Array.from(all.children).filter(child=>child.classList?.contains("mrow")).sort((a,b)=>winNum(b.querySelector(".win-pill")?.textContent)-winNum(a.querySelector(".win-pill")?.textContent)).forEach(row=>all.appendChild(row));
     const n = all.querySelectorAll(".mrow").length;
     const sub = all.querySelector(".lsub");
     if (sub) sub.textContent = sub.textContent.replace(/^\s*\d+/, String(n));
@@ -92300,76 +92314,6 @@ function applyLocalKickoffTimes(){
       } catch(e) { updateProUI(false); loadMoneytizerAds(); }
     });
   });
-})();
-</script>
-<script id="featured-league-sync-20260802">
-(function(){
-  function priority(name){
-    const s=String(name||"").toLowerCase();
-    if(s.includes("world cup"))return 12000;
-    if(s.includes("champions league"))return 11000;
-    if(s.includes("europa league"))return 10000;
-    if(s.includes("conference league"))return 9500;
-    if(s.includes("libertadores"))return 9000;
-    if(s.includes("sudamericana"))return 8500;
-    if(s.includes("nations league"))return 8000;
-    if(s.includes("qualif")||s.includes("qualification")||s.includes("qualifying"))return 7000;
-    if(s.includes("super cup")||s.includes("supercup"))return 6800;
-    if(s.includes("friendly")||s.includes("friendlies")||s.includes("summer series")||s.includes("como cup")||s.includes("piala presiden")||s.includes("pre-season")||s.includes("preseason"))return -5000;
-    return 0;
-  }
-  const labels={en:"Featured league",ja:"注目リーグ",es:"Liga destacada",de:"Top-Liga",fr:"Ligue à la une",pt:"Liga em destaque"};
-  const gv=document.getElementById("globalView"),lv=document.getElementById("leagueView");
-  if(!gv||!lv)return;
-  const sections=Array.from(lv.children).filter(section=>section.classList?.contains("league-section")&&section.querySelector(".mrow"));
-  const ordered=sections.map((section,index)=>({section,index})).sort((a,b)=>{
-    const an=a.section.querySelector(".lname")?.textContent?.trim()||"";
-    const bn=b.section.querySelector(".lname")?.textContent?.trim()||"";
-    return priority(bn)-priority(an)||a.index-b.index;
-  }).map(item=>item.section);
-  ordered.forEach(section=>lv.appendChild(section));
-  if(gv.querySelector(".wc-section .mrow"))return;
-  const source=ordered.find(section=>{
-    const name=section.querySelector(".lname")?.textContent?.trim()||"";
-    return section.dataset.featuredEligible==="true"||priority(name)>0;
-  });
-  if(!source)return;
-  const leagueName=source.querySelector(".lname")?.textContent?.trim()||"";
-  const current=gv.querySelector(".featured-section");
-  if(current&&(current.querySelector(".lname")?.textContent?.trim()||"")===leagueName)return;
-  const all=gv.querySelector(".all-section");
-  if(all){
-    ordered.forEach(section=>{
-      const sectionLeague=section.querySelector(".lname")?.textContent?.trim()||"";
-      if(sectionLeague===leagueName)return;
-      section.querySelectorAll(".mrow").forEach(row=>{
-        const exists=Array.from(all.querySelectorAll(".mrow")).some(existing=>existing.dataset.league===row.dataset.league&&existing.dataset.home===row.dataset.home&&existing.dataset.away===row.dataset.away);
-        if(!exists)all.appendChild(row.cloneNode(true));
-      });
-    });
-  }
-  if(current)current.remove();
-  const featured=source.cloneNode(true);
-  featured.classList.add("featured-section");
-  const head=featured.querySelector(".league-head");
-  if(head&&!head.querySelector(".featured-label")){
-    const label=document.createElement("span");
-    label.className="featured-label";
-    label.textContent=labels[document.documentElement.lang]||labels.en;
-    head.insertBefore(label,head.querySelector(".lsub")||null);
-  }
-  gv.insertBefore(featured,all||gv.firstChild);
-  if(all){
-    all.querySelectorAll(".mrow").forEach(row=>{if((row.dataset.league||"")===leagueName)row.remove()});
-    Array.from(all.children).filter(child=>child.classList?.contains("mrow")).sort((a,b)=>{
-      const confidence=row=>parseFloat((row.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;
-      return confidence(b)-confidence(a);
-    }).forEach(row=>all.appendChild(row));
-    const sub=all.querySelector(".lsub");
-    if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(all.querySelectorAll(".mrow").length));
-  }
-  const ad=document.querySelector(".day-inline-ad");
-  if(ad)featured.insertAdjacentElement("afterend",ad);
 })();
 </script>
 </body>
