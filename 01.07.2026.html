@@ -740,6 +740,34 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .match-controls{margin:14px 0 4px}.control-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}.layout-select{width:142px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);padding:0 32px 0 12px;font-size:13px;font-weight:700;cursor:pointer;outline:0}.layout-select:focus{border-color:rgba(113,240,139,.52)}.status-switch{min-width:0;display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}.status-btn{height:38px;min-width:0;flex:1;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 10px;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}.status-btn:last-child{border-right:0}.status-btn:hover{background:var(--surface-2);color:var(--text)}.status-btn.on{background:var(--text);color:#092015}.status-btn.live-filter:before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#ff5e62;vertical-align:1px}.utility{position:relative}.utility summary{list-style:none;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--text);font-size:20px;font-weight:700;cursor:pointer;line-height:1}.utility summary::-webkit-details-marker{display:none}.utility[open] summary,.utility summary:hover{background:var(--surface-2);border-color:rgba(113,240,139,.35)}.utility-menu{position:absolute;right:0;top:46px;z-index:80;width:196px;padding:6px;background:#102019;border:1px solid var(--line);border-radius:11px;box-shadow:0 14px 36px rgba(0,0,0,.42)}.utility-menu button{width:100%;display:flex;align-items:center;gap:8px;border:0;border-radius:8px;background:transparent;color:var(--text);padding:9px 10px;text-align:left;font-size:12px;font-weight:650;cursor:pointer}.utility-menu button:hover{background:var(--surface-2)}.utility-menu button.active{color:var(--green-bright)}.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-top:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}.control-search:focus-within{border-color:rgba(113,240,139,.52)}.control-search svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex:none}.control-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:13px}.control-search input::placeholder{color:var(--muted-2)}
 @media(max-width:560px){.control-row{gap:6px}.layout-select{width:116px;height:38px;padding:0 25px 0 9px;font-size:11.5px}.status-btn{height:36px;padding:0 6px;font-size:11px}.utility summary{width:38px;height:38px}.control-search{height:40px}}
 </style>
+<style id="day-ui-polish-20260802-style">
+.league-head img.league-logo{background:#dbe6dd!important;border-color:rgba(255,255,255,.16)!important}
+.all-head .ranking-note{display:block;color:var(--muted-2);font-size:10px;font-weight:600;line-height:1.25;margin-top:2px}
+#qc-cmp2-persistent-link,.qc-cmp2-persistent-link{width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;max-height:44px!important;right:10px!important;bottom:10px!important;padding:0!important;border-radius:50%!important;overflow:hidden!important;font-size:0!important;line-height:0!important}
+#qc-cmp2-persistent-link svg,.qc-cmp2-persistent-link svg{width:20px!important;height:20px!important;margin:auto!important}
+@media(max-width:680px){
+header.top{gap:5px!important;padding:5px 0 7px!important}
+header.top .logo{font-size:16px!important;gap:6px!important}
+header.top .logo img{width:23px!important;height:23px!important}
+.navtoggle{flex-basis:42px!important;width:42px!important;height:42px!important}
+.acct{gap:5px!important}
+.language-select{max-width:46px!important;flex-basis:46px!important;height:42px!important}
+.language-select select{width:46px!important;min-width:46px!important;height:40px!important;padding-left:6px!important}
+.btn.pro{height:42px!important;padding:6px 9px!important;font-size:12.5px!important}
+.account-btn{width:42px!important;min-width:42px!important;height:42px!important;font-size:17px!important}
+.daybar{gap:10px!important;padding:10px 0 0!important}
+.daybar button{width:36px!important;height:36px!important;border-radius:9px!important;font-size:17px!important}
+.daybar .day{font-size:18px!important;min-width:170px!important}
+}
+@media(max-width:430px){
+.fixrow{gap:5px!important}
+.side{gap:4px!important}
+.side .nm{font-size:11.5px!important;max-width:104px!important;line-height:1.12!important}
+.crest{width:19px!important;height:19px!important}
+.winwrap{gap:4px!important}
+.win-pill{min-width:48px!important;padding:4px 5px!important;font-size:10.5px!important}
+}
+</style>
 </head>
 <body>
 
@@ -18295,6 +18323,57 @@ function applyLocalKickoffTimes(){
   }
   const ad=document.querySelector(".day-inline-ad");
   if(ad)featured.insertAdjacentElement("afterend",ad);
+})();
+</script>
+<script id="day-ui-polish-20260802">
+(function(){
+  const copy={
+    en:{global:"Global",upcoming:"Upcoming",ranked:"Ranked worldwide by AI confidence",similar:"Similar",accuracy:"accuracy",predictions:"predictions",aiPick:"AI pick"},
+    ja:{global:"グローバル",upcoming:"今後",ranked:"AI信頼度順の世界中の試合",similar:"同程度",accuracy:"精度",predictions:"予測",aiPick:"AI予測"},
+    es:{global:"Global",upcoming:"Próximos",ranked:"Partidos mundiales ordenados por confianza de la IA",similar:"Similar",accuracy:"precisión",predictions:"predicciones",aiPick:"Pronóstico IA"},
+    de:{global:"Global",upcoming:"Bevorstehend",ranked:"Weltweite Spiele nach KI-Konfidenz sortiert",similar:"Ähnliche",accuracy:"Genauigkeit",predictions:"Prognosen",aiPick:"KI-Tipp"},
+    fr:{global:"Global",upcoming:"À venir",ranked:"Matchs mondiaux classés par confiance de l’IA",similar:"Similaire",accuracy:"précision",predictions:"prédictions",aiPick:"Choix IA"},
+    pt:{global:"Global",upcoming:"Próximos",ranked:"Jogos mundiais classificados pela confiança da IA",similar:"Semelhante",accuracy:"precisão",predictions:"previsões",aiPick:"Palpite IA"}
+  };
+  const lang=(document.documentElement.lang||"en").split("-")[0];
+  const t=copy[lang]||copy.en;
+  function polish(){
+    const globalOption=document.querySelector('#viewSelect option[value="global"]');
+    if(globalOption)globalOption.textContent=t.global;
+    const upcoming=document.querySelector('[data-status-filter="upcoming"]');
+    if(upcoming)upcoming.textContent=t.upcoming;
+    document.querySelectorAll('.all-head').forEach(head=>{
+      const name=head.querySelector('.lname');
+      if(!name||head.querySelector('.ranking-note'))return;
+      const group=document.createElement('span');
+      name.before(group);
+      group.appendChild(name);
+      const note=document.createElement('span');
+      note.className='ranking-note';
+      note.textContent=t.ranked;
+      group.appendChild(note);
+    });
+    document.querySelectorAll('.win-pill').forEach(pill=>{
+      const value=pill.textContent.trim();
+      if(/^\d+(?:\.\d+)?%$/.test(value))pill.textContent='AI '+value;
+      pill.title=t.aiPick;
+    });
+    document.querySelectorAll('.metric-rail').forEach(rail=>{
+      const metrics=rail.querySelectorAll(':scope > .metric');
+      if(metrics[3]){
+        const label=metrics[3].querySelector('.ml');
+        if(label){label.innerHTML=t.similar+'<br>'+t.accuracy;label.title=t.similar+'-'+t.accuracy;}
+      }
+      [metrics[3],metrics[4]].forEach(metric=>{
+        const sample=metric&&metric.querySelector('.ms');
+        if(sample&&/\d/.test(sample.textContent)&&!sample.textContent.includes(t.predictions))sample.textContent=sample.textContent.replace(/(?:graded\s+)?calls?/gi,t.predictions);
+      });
+    });
+  }
+  let queued=false;
+  const schedule=()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;polish();});};
+  polish();
+  new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 </body>

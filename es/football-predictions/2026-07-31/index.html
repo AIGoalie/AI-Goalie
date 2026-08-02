@@ -789,6 +789,34 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 }
 
 </style>
+<style id="day-ui-polish-20260802-style">
+.league-head img.league-logo{background:#dbe6dd!important;border-color:rgba(255,255,255,.16)!important}
+.all-head .ranking-note{display:block;color:var(--muted-2);font-size:10px;font-weight:600;line-height:1.25;margin-top:2px}
+#qc-cmp2-persistent-link,.qc-cmp2-persistent-link{width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;max-height:44px!important;right:10px!important;bottom:10px!important;padding:0!important;border-radius:50%!important;overflow:hidden!important;font-size:0!important;line-height:0!important}
+#qc-cmp2-persistent-link svg,.qc-cmp2-persistent-link svg{width:20px!important;height:20px!important;margin:auto!important}
+@media(max-width:680px){
+header.top{gap:5px!important;padding:5px 0 7px!important}
+header.top .logo{font-size:16px!important;gap:6px!important}
+header.top .logo img{width:23px!important;height:23px!important}
+.navtoggle{flex-basis:42px!important;width:42px!important;height:42px!important}
+.acct{gap:5px!important}
+.language-select{max-width:46px!important;flex-basis:46px!important;height:42px!important}
+.language-select select{width:46px!important;min-width:46px!important;height:40px!important;padding-left:6px!important}
+.btn.pro{height:42px!important;padding:6px 9px!important;font-size:12.5px!important}
+.account-btn{width:42px!important;min-width:42px!important;height:42px!important;font-size:17px!important}
+.daybar{gap:10px!important;padding:10px 0 0!important}
+.daybar button{width:36px!important;height:36px!important;border-radius:9px!important;font-size:17px!important}
+.daybar .day{font-size:18px!important;min-width:170px!important}
+}
+@media(max-width:430px){
+.fixrow{gap:5px!important}
+.side{gap:4px!important}
+.side .nm{font-size:11.5px!important;max-width:104px!important;line-height:1.12!important}
+.crest{width:19px!important;height:19px!important}
+.winwrap{gap:4px!important}
+.win-pill{min-width:48px!important;padding:4px 5px!important;font-size:10.5px!important}
+}
+</style>
 </head>
 <body>
 
@@ -58098,6 +58126,57 @@ function applyLocalKickoffTimes(){
   }
   const ad=document.querySelector(".day-inline-ad");
   if(ad)featured.insertAdjacentElement("afterend",ad);
+})();
+</script>
+<script id="day-ui-polish-20260802">
+(function(){
+  const copy={
+    en:{global:"Global",upcoming:"Upcoming",ranked:"Ranked worldwide by AI confidence",similar:"Similar",accuracy:"accuracy",predictions:"predictions",aiPick:"AI pick"},
+    ja:{global:"グローバル",upcoming:"今後",ranked:"AI信頼度順の世界中の試合",similar:"同程度",accuracy:"精度",predictions:"予測",aiPick:"AI予測"},
+    es:{global:"Global",upcoming:"Próximos",ranked:"Partidos mundiales ordenados por confianza de la IA",similar:"Similar",accuracy:"precisión",predictions:"predicciones",aiPick:"Pronóstico IA"},
+    de:{global:"Global",upcoming:"Bevorstehend",ranked:"Weltweite Spiele nach KI-Konfidenz sortiert",similar:"Ähnliche",accuracy:"Genauigkeit",predictions:"Prognosen",aiPick:"KI-Tipp"},
+    fr:{global:"Global",upcoming:"À venir",ranked:"Matchs mondiaux classés par confiance de l’IA",similar:"Similaire",accuracy:"précision",predictions:"prédictions",aiPick:"Choix IA"},
+    pt:{global:"Global",upcoming:"Próximos",ranked:"Jogos mundiais classificados pela confiança da IA",similar:"Semelhante",accuracy:"precisão",predictions:"previsões",aiPick:"Palpite IA"}
+  };
+  const lang=(document.documentElement.lang||"en").split("-")[0];
+  const t=copy[lang]||copy.en;
+  function polish(){
+    const globalOption=document.querySelector('#viewSelect option[value="global"]');
+    if(globalOption)globalOption.textContent=t.global;
+    const upcoming=document.querySelector('[data-status-filter="upcoming"]');
+    if(upcoming)upcoming.textContent=t.upcoming;
+    document.querySelectorAll('.all-head').forEach(head=>{
+      const name=head.querySelector('.lname');
+      if(!name||head.querySelector('.ranking-note'))return;
+      const group=document.createElement('span');
+      name.before(group);
+      group.appendChild(name);
+      const note=document.createElement('span');
+      note.className='ranking-note';
+      note.textContent=t.ranked;
+      group.appendChild(note);
+    });
+    document.querySelectorAll('.win-pill').forEach(pill=>{
+      const value=pill.textContent.trim();
+      if(/^\d+(?:\.\d+)?%$/.test(value))pill.textContent='AI '+value;
+      pill.title=t.aiPick;
+    });
+    document.querySelectorAll('.metric-rail').forEach(rail=>{
+      const metrics=rail.querySelectorAll(':scope > .metric');
+      if(metrics[3]){
+        const label=metrics[3].querySelector('.ml');
+        if(label){label.innerHTML=t.similar+'<br>'+t.accuracy;label.title=t.similar+'-'+t.accuracy;}
+      }
+      [metrics[3],metrics[4]].forEach(metric=>{
+        const sample=metric&&metric.querySelector('.ms');
+        if(sample&&/\d/.test(sample.textContent)&&!sample.textContent.includes(t.predictions))sample.textContent=sample.textContent.replace(/(?:graded\s+)?calls?/gi,t.predictions);
+      });
+    });
+  }
+  let queued=false;
+  const schedule=()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;polish();});};
+  polish();
+  new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 </body>
