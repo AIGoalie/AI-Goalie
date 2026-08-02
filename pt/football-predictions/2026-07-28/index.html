@@ -20876,5 +20876,75 @@ function applyLocalKickoffTimes(){
   document.documentElement.dataset.compactControls="ready";
 })();
 </script>
+<script id="featured-league-sync-20260802">
+(function(){
+  function priority(name){
+    const s=String(name||"").toLowerCase();
+    if(s.includes("world cup"))return 12000;
+    if(s.includes("champions league"))return 11000;
+    if(s.includes("europa league"))return 10000;
+    if(s.includes("conference league"))return 9500;
+    if(s.includes("libertadores"))return 9000;
+    if(s.includes("sudamericana"))return 8500;
+    if(s.includes("nations league"))return 8000;
+    if(s.includes("qualif")||s.includes("qualification")||s.includes("qualifying"))return 7000;
+    if(s.includes("super cup")||s.includes("supercup"))return 6800;
+    if(s.includes("friendly")||s.includes("friendlies")||s.includes("summer series")||s.includes("como cup")||s.includes("piala presiden")||s.includes("pre-season")||s.includes("preseason"))return -5000;
+    return 0;
+  }
+  const labels={en:"Featured league",ja:"注目リーグ",es:"Liga destacada",de:"Top-Liga",fr:"Ligue à la une",pt:"Liga em destaque"};
+  const gv=document.getElementById("globalView"),lv=document.getElementById("leagueView");
+  if(!gv||!lv)return;
+  const sections=Array.from(lv.children).filter(section=>section.classList?.contains("league-section")&&section.querySelector(".mrow"));
+  const ordered=sections.map((section,index)=>({section,index})).sort((a,b)=>{
+    const an=a.section.querySelector(".lname")?.textContent?.trim()||"";
+    const bn=b.section.querySelector(".lname")?.textContent?.trim()||"";
+    return priority(bn)-priority(an)||a.index-b.index;
+  }).map(item=>item.section);
+  ordered.forEach(section=>lv.appendChild(section));
+  if(gv.querySelector(".wc-section .mrow"))return;
+  const source=ordered.find(section=>{
+    const name=section.querySelector(".lname")?.textContent?.trim()||"";
+    return section.dataset.featuredEligible==="true"||priority(name)>0;
+  });
+  if(!source)return;
+  const leagueName=source.querySelector(".lname")?.textContent?.trim()||"";
+  const current=gv.querySelector(".featured-section");
+  if(current&&(current.querySelector(".lname")?.textContent?.trim()||"")===leagueName)return;
+  const all=gv.querySelector(".all-section");
+  if(all){
+    ordered.forEach(section=>{
+      const sectionLeague=section.querySelector(".lname")?.textContent?.trim()||"";
+      if(sectionLeague===leagueName)return;
+      section.querySelectorAll(".mrow").forEach(row=>{
+        const exists=Array.from(all.querySelectorAll(".mrow")).some(existing=>existing.dataset.league===row.dataset.league&&existing.dataset.home===row.dataset.home&&existing.dataset.away===row.dataset.away);
+        if(!exists)all.appendChild(row.cloneNode(true));
+      });
+    });
+  }
+  if(current)current.remove();
+  const featured=source.cloneNode(true);
+  featured.classList.add("featured-section");
+  const head=featured.querySelector(".league-head");
+  if(head&&!head.querySelector(".featured-label")){
+    const label=document.createElement("span");
+    label.className="featured-label";
+    label.textContent=labels[document.documentElement.lang]||labels.en;
+    head.insertBefore(label,head.querySelector(".lsub")||null);
+  }
+  gv.insertBefore(featured,all||gv.firstChild);
+  if(all){
+    all.querySelectorAll(".mrow").forEach(row=>{if((row.dataset.league||"")===leagueName)row.remove()});
+    Array.from(all.children).filter(child=>child.classList?.contains("mrow")).sort((a,b)=>{
+      const confidence=row=>parseFloat((row.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;
+      return confidence(b)-confidence(a);
+    }).forEach(row=>all.appendChild(row));
+    const sub=all.querySelector(".lsub");
+    if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(all.querySelectorAll(".mrow").length));
+  }
+  const ad=document.querySelector(".day-inline-ad");
+  if(ad)featured.insertAdjacentElement("afterend",ad);
+})();
+</script>
 </body>
 </html>
