@@ -437,6 +437,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .league-section .league-head .league-accuracy{grid-area:acc;margin-left:0;justify-self:start;max-width:100%;font-size:10px;padding:4px 7px}
   .league-section .league-head .league-accuracy span:first-child{display:none}
   .league-section .league-head .league-accuracy::before{content:"precisão"}
+  .featured-section .league-head .featured-label{grid-area:acc;justify-self:start}
 }
 @media(max-width:430px){
   .side .nm{font-size:10.5px;max-width:80px}
@@ -1897,27 +1898,48 @@ async function renderV12MatchesFromApi(matches){
   openDefaultRows();
 }
 
+/* featured-pro-adjacent-dates-20260803 */
 async function loadProFullForDateV12(){
   try {
     const token = await window.getAuthToken?.();
     if (!token) { showFutureProGate(); return; }
 
     const date = getRenderedPageDate();
-    let res = null;
-    for (let i=0; i<3; i++){
-      res = await fetch(`${PRO_API_BASE}/pro/day/full?date=${encodeURIComponent(date)}`, {
-        headers: { Authorization: "Bearer " + token }
-      });
-      if (res.ok) break;
-      if (res.status === 401) await new Promise(r => setTimeout(r, 400));
-      else break;
+    async function fetchProDate(proDate){
+      let res = null;
+      for (let i=0; i<3; i++){
+        res = await fetch(`${PRO_API_BASE}/pro/day/full?date=${encodeURIComponent(proDate)}`, {
+          headers: { Authorization: "Bearer " + token }
+        });
+        if (res.ok) break;
+        if (res.status === 401) await new Promise(r => setTimeout(r, 400));
+        else break;
+      }
+      if (!res || !res.ok) return [];
+      const payload = await res.json();
+      return Array.isArray(payload.matches) ? payload.matches : (Array.isArray(payload.items) ? payload.items : []);
     }
-    if (!res || !res.ok) { showFutureProGate(); return; }
-    const j = await res.json();
-    const matches = Array.isArray(j.matches) ? j.matches : (Array.isArray(j.items) ? j.items : []);
+    const primaryMatches = await fetchProDate(date);
+    if (!hasRenderedMatches()) {
+      if (!primaryMatches.length) { showFutureProGate(); return; }
+      await renderV12MatchesFromApi(primaryMatches);
+      return;
+    }
+
+    // Local-day pages can contain fixtures whose UTC date is the previous or
+    // next day. Hydrate every rendered UTC date so a promoted Featured match
+    // receives the same Pro xG/BTTS values as its By League counterpart.
+    const renderedDates = new Set([date]);
+    document.querySelectorAll('.mrow[data-kickoff-utc]').forEach(row => {
+      const raw = row.dataset.kickoffUtc || '';
+      const match = raw.match(/^(\d{4}-\d{2}-\d{2})/);
+      if (match) renderedDates.add(match[1]);
+    });
+    const adjacentDates = Array.from(renderedDates).filter(item => item !== date).slice(0, 2);
+    const adjacentMatches = (await Promise.all(adjacentDates.map(fetchProDate))).flat();
+    const matches = primaryMatches.concat(adjacentMatches);
     if (!matches.length) { showFutureProGate(); return; }
-    if (hasRenderedMatches()) populateRenderedProFields(matches);
-    else await renderV12MatchesFromApi(matches);
+    populateRenderedProFields(matches);
   } catch(e) {
     console.log(e);
     showFutureProGate();
