@@ -20507,22 +20507,16 @@ function hideMoneytizerAds(){
 function loadMoneytizerAds(){
   try {
     if (window.__isPro === true || window.__moneytizerLoaded || location.protocol === 'file:') return;
-    const slots = Array.from(document.querySelectorAll('.ad-container[data-moneytizer-format]'))
-      .filter(slot => window.getComputedStyle(slot).display !== 'none');
-    if (!slots.length) return;
+    const slot = document.getElementById('128244-6');
+    if (!slot) return;
+    slot.classList.remove('hidden');
     window.__moneytizerLoaded = true;
-    slots.forEach(slot => {
-      const format = slot.dataset.moneytizerFormat;
-      if (!format || slot.dataset.moneytizerLoaded === '1') return;
-      slot.classList.remove('hidden');
-      slot.dataset.moneytizerLoaded = '1';
-      const gen = document.createElement('script');
-      gen.src = `//ads.themoneytizer.com/s/gen.js?type=${encodeURIComponent(format)}`;
-      const req = document.createElement('script');
-      req.src = `//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=${encodeURIComponent(format)}`;
-      slot.appendChild(gen);
-      slot.appendChild(req);
-    });
+    const gen = document.createElement('script');
+    gen.src = '//ads.themoneytizer.com/s/gen.js?type=6';
+    const req = document.createElement('script');
+    req.src = '//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6';
+    slot.appendChild(gen);
+    slot.appendChild(req);
   } catch(e) {
     console.warn('AIGoalie: Moneytizer load failed.', e);
   }
