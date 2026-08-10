@@ -30548,6 +30548,20 @@ function loadMoneytizerAds(){
   }
 }
 
+
+async function openBillingPortal(){
+  const user = window.__auth && window.__auth.currentUser;
+  if (!user) throw new Error('Please sign in first.');
+  const token = await user.getIdToken(true);
+  const response = await fetch(PRO_API_BASE + '/billing-portal', {
+    headers: { Authorization: 'Bearer ' + token }
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload.detail || payload.error || 'Billing portal unavailable.');
+  if (!payload.url || !/^https:\/\//i.test(payload.url)) throw new Error('Billing portal unavailable.');
+  window.location.assign(payload.url);
+}
+
 function applyLocalKickoffTimes(){
   document.querySelectorAll('.ko[data-kickoff-utc]').forEach(el => {
     const utc = el.getAttribute('data-kickoff-utc');
@@ -30574,8 +30588,25 @@ function applyLocalKickoffTimes(){
     window.getAuthToken = async function(){ const u = window.__auth && window.__auth.currentUser; return u ? u.getIdToken() : null; };
     const signin = document.getElementById('dd_signin');
     const signout = document.getElementById('dd_signout');
+    const manageBilling = document.getElementById('manageBilling');
     signin?.addEventListener('click', async function(ev){ ev.preventDefault(); await window.__auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); });
     signout?.addEventListener('click', async function(ev){ ev.preventDefault(); await window.__auth.signOut(); });
+    manageBilling?.addEventListener('click', async function(ev){
+      ev.preventDefault();
+      if (manageBilling.dataset.loading === '1') return;
+      manageBilling.dataset.loading = '1';
+      manageBilling.setAttribute('aria-busy', 'true');
+      try {
+        trackEvent('billing_portal_click', { source: 'day_account_menu' });
+        await openBillingPortal();
+      } catch(e) {
+        console.warn('Billing portal failed', e);
+        alert(e && e.message ? e.message : 'Billing portal unavailable.');
+      } finally {
+        delete manageBilling.dataset.loading;
+        manageBilling.removeAttribute('aria-busy');
+      }
+    });
     window.__auth.onAuthStateChanged(async function(user){
       if (signin) signin.style.display = user ? 'none' : 'block';
       if (signout) signout.style.display = user ? 'block' : 'none';
