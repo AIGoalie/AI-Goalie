@@ -207,6 +207,8 @@ header.top nav{display:flex;gap:4px;align-items:center;margin-left:6px;flex-wrap
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 @media(max-width:720px){header.top{flex-wrap:wrap}.navtoggle{display:block;background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 11px}header.top nav{display:none;position:absolute;top:54px;left:14px;right:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;flex-direction:column;z-index:50}header.top nav.show{display:flex}.acct{margin-left:0;width:100%;display:flex;justify-content:flex-end}.pro-state{display:none}.sim{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.scoreline{align-items:stretch}.team img{width:46px;height:46px}h1{font-size:29px}}
 </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341511551805856" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1341511551805856">
 </head>
 <body>
 <div class="wrap">
@@ -248,7 +250,7 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
     <datalist id="teamList"></datalist>
   </section>
   <section class="result" id="result"></section>
-  <div id="128244-6" class="ad-container hidden" data-moneytizer-slot="6"></div>
+  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block;width:300px;height:250px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="rectangle" data-full-width-responsive="false"></ins></div>
   <p class="note">As simulações gratuitas são limitadas neste navegador. O Pro libera simulações ilimitadas, xG exato, BTTS, probabilidade de empate e um site sem anúncios.</p>
 </main>
 <footer><a href="/pt/">Início</a> · <a href="/pt/results/">Histórico</a> · <a href="/pt/matchup/">Simulador</a> · <a href="/pt/privacy-policy/">Privacidade</a> · <a href="/pt/disclaimer/">Aviso legal</a></footer>
@@ -271,8 +273,37 @@ function quotaLimit(){return IS_PRO?Infinity:(currentUser()?FREE_LOGIN_LIMIT:FRE
 function updateQuota(){const q=quota(), lim=quotaLimit();document.getElementById("quotaText").textContent=IS_PRO?"Pro ativo: simulações ilimitadas":`${Math.max(0,lim-q.count)} simulações gratuitas restantes hoje`;}
 function setProState(text){const el=document.getElementById("proState");if(el)el.textContent=text;}
 function updateAuthUI(user){const account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn"),goPro=document.getElementById("goProBtn");if(account){account.textContent="👤";account.setAttribute("aria-label",user?(IS_PRO?"Pro account":"Conta"):"Entrar");account.title=account.getAttribute("aria-label");}if(signIn)signIn.style.display=user?"none":"block";if(signOut)signOut.style.display=user?"block":"none";if(goPro)goPro.style.display=IS_PRO?"none":"inline-flex";document.body.classList.toggle("pro-unlocked",IS_PRO);}
-function hideAdsenseAds(){document.querySelectorAll(".ad-container").forEach(el=>el.classList.add("hidden"));}
-function loadAdsenseAds(){try{if(window.__moneytizerLoaded||IS_PRO||location.protocol==="file:")return;const slot=document.getElementById("128244-6");if(!slot)return;slot.classList.remove("hidden");window.__moneytizerLoaded=true;const gen=document.createElement("script");gen.src="//ads.themoneytizer.com/s/gen.js?type=6";const req=document.createElement("script");req.src="//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6";slot.appendChild(gen);slot.appendChild(req);}catch(e){console.warn("AIGoalie: Moneytizer load failed.",e);}}
+function hideAdsenseAds(){
+  document.querySelectorAll('.ad-container').forEach(el => el.classList.add('hidden'));
+}
+
+function loadAdsenseAds(){
+  if (window.__isPro === true || document.body.classList.contains('pro-unlocked') || window.__adsenseLoading || location.protocol === 'file:') return;
+  window.__adsenseLoading = true;
+  let attempts = 0;
+  const attempt = () => {
+    try {
+      if (window.__isPro === true || document.body.classList.contains('pro-unlocked')) { window.__adsenseLoading = false; return; }
+      const slots = Array.from(document.querySelectorAll('.adsense-slot'))
+        .filter(slot => slot.dataset.adsenseLoaded !== '1' && window.getComputedStyle(slot).display !== 'none');
+      slots.forEach(slot => {
+        const ins = slot.querySelector('ins.adsbygoogle');
+        if (!ins || slot.getBoundingClientRect().width <= 1 || ins.getBoundingClientRect().width <= 1) return;
+        slot.classList.remove('hidden');
+        slot.dataset.adsenseLoaded = '1';
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); }
+        catch (e) { console.warn('AIGoalie: AdSense slot failed.', e); }
+      });
+      const pending = slots.some(slot => slot.dataset.adsenseLoaded !== '1');
+      if (pending && attempts++ < 12) setTimeout(attempt, attempts < 3 ? 100 : 400);
+      else window.__adsenseLoading = false;
+    } catch(e) {
+      window.__adsenseLoading = false;
+      console.warn('AIGoalie: AdSense load failed.', e);
+    }
+  };
+  requestAnimationFrame(attempt);
+}
 function resolveTeam(value){const exact=LABELS.get(String(value||"").trim().toLowerCase());if(exact)return exact;const q=String(value||"").trim().toLowerCase();return TEAMS.find(t=>t.name.toLowerCase()===q)||TEAMS.find(t=>(t.name+" "+t.league).toLowerCase().includes(q));}
 function formRelative(team){
   const hist=String(team.history||"").split("");
