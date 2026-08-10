@@ -737,8 +737,6 @@ header.top .logo img{width:23px!important;height:23px!important}
 .win-pill{min-width:48px!important;padding:4px 5px!important;font-size:10.5px!important}
 }
 </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341511551805856" crossorigin="anonymous"></script>
-<meta name="google-adsense-account" content="ca-pub-1341511551805856">
 </head>
 <body>
 
@@ -11694,7 +11692,7 @@ header.top .logo img{width:23px!important;height:23px!important}
     
   </div>
 
-  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
+  <div id="128244-6" class="ad-container" data-moneytizer-slot="6"></div>
 
   <footer>
     <div>
@@ -12509,41 +12507,31 @@ function updateProUI(isPro) {
   const accountBtn = document.getElementById('accountBtn');
   if (accountBtn) { accountBtn.textContent = '👤'; accountBtn.setAttribute('aria-label', window.__auth?.currentUser ? (isPro ? 'Pro account' : 'Account') : 'Sign in'); accountBtn.title = accountBtn.getAttribute('aria-label'); }
   document.getElementById('manageBilling')?.style.setProperty('display', isPro ? 'block' : 'none');
-  if (isPro) hideAdsenseAds();
+  if (isPro) hideMoneytizerAds();
   if (isPro) setTimeout(loadProFullForDateV12, 0);
   else showFutureProGate();
 }
 
-function hideAdsenseAds(){
+function hideMoneytizerAds(){
   document.querySelectorAll('.ad-container').forEach(el => el.classList.add('hidden'));
 }
 
-function loadAdsenseAds(){
-  if (window.__isPro === true || document.body.classList.contains('pro-unlocked') || window.__adsenseLoading || location.protocol === 'file:') return;
-  window.__adsenseLoading = true;
-  let attempts = 0;
-  const attempt = () => {
-    try {
-      if (window.__isPro === true || document.body.classList.contains('pro-unlocked')) { window.__adsenseLoading = false; return; }
-      const slots = Array.from(document.querySelectorAll('.adsense-slot'))
-        .filter(slot => slot.dataset.adsenseLoaded !== '1' && window.getComputedStyle(slot).display !== 'none');
-      slots.forEach(slot => {
-        const ins = slot.querySelector('ins.adsbygoogle');
-        if (!ins || slot.getBoundingClientRect().width <= 1 || ins.getBoundingClientRect().width <= 1) return;
-        slot.classList.remove('hidden');
-        slot.dataset.adsenseLoaded = '1';
-        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); }
-        catch (e) { console.warn('AIGoalie: AdSense slot failed.', e); }
-      });
-      const pending = slots.some(slot => slot.dataset.adsenseLoaded !== '1');
-      if (pending && attempts++ < 12) setTimeout(attempt, attempts < 3 ? 100 : 400);
-      else window.__adsenseLoading = false;
-    } catch(e) {
-      window.__adsenseLoading = false;
-      console.warn('AIGoalie: AdSense load failed.', e);
-    }
-  };
-  requestAnimationFrame(attempt);
+function loadMoneytizerAds(){
+  try {
+    if (window.__isPro === true || window.__moneytizerLoaded || location.protocol === 'file:') return;
+    const slot = document.getElementById('128244-6');
+    if (!slot) return;
+    slot.classList.remove('hidden');
+    window.__moneytizerLoaded = true;
+    const gen = document.createElement('script');
+    gen.src = '//ads.themoneytizer.com/s/gen.js?type=6';
+    const req = document.createElement('script');
+    req.src = '//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6';
+    slot.appendChild(gen);
+    slot.appendChild(req);
+  } catch(e) {
+    console.warn('AIGoalie: Moneytizer load failed.', e);
+  }
 }
 
 function applyLocalKickoffTimes(){
@@ -12566,7 +12554,7 @@ function applyLocalKickoffTimes(){
     applyLocalKickoffTimes();
     updateProUI(false);
     setTimeout(showFutureProGate, 0);
-    if (!window.firebase || !window.firebase.initializeApp) { loadAdsenseAds(); return; }
+    if (!window.firebase || !window.firebase.initializeApp) { loadMoneytizerAds(); return; }
     try { window.__fbapp = firebase.initializeApp(cfg); } catch(e) { try { window.__fbapp = firebase.app(); } catch(_){} }
     window.__auth = firebase.auth();
     window.getAuthToken = async function(){ const u = window.__auth && window.__auth.currentUser; return u ? u.getIdToken() : null; };
@@ -12581,7 +12569,7 @@ function applyLocalKickoffTimes(){
         if (!user) {
           updateProUI(false);
           clearPricingTable();
-          loadAdsenseAds();
+          loadMoneytizerAds();
           if (checkoutRequestedFromUrl()) setTimeout(startCheckout, 0);
           return;
         }
@@ -12590,11 +12578,11 @@ function applyLocalKickoffTimes(){
         const j = res.ok ? await res.json() : null;
         const isPro = !!(j && j.pro);
         updateProUI(isPro);
-        if (!isPro) loadAdsenseAds();
+        if (!isPro) loadMoneytizerAds();
         if (!isPro && (SafeStore.get(CHECKOUT_PENDING_KEY) === '1' || checkoutRequestedFromUrl())) {
           setTimeout(startCheckout, 0);
         }
-      } catch(e) { updateProUI(false); loadAdsenseAds(); }
+      } catch(e) { updateProUI(false); loadMoneytizerAds(); }
     });
   });
 })();
