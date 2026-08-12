@@ -42235,6 +42235,20 @@ function loadAdsenseAds(){
   requestAnimationFrame(attempt);
 }
 
+
+async function openBillingPortal(){
+  const user = window.__auth && window.__auth.currentUser;
+  if (!user) throw new Error('Please sign in first.');
+  const token = await user.getIdToken(true);
+  const response = await fetch(PRO_API_BASE + '/billing-portal', {
+    headers: { Authorization: 'Bearer ' + token }
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload.detail || payload.error || 'Billing portal unavailable.');
+  if (!payload.url || !/^https:\/\//i.test(payload.url)) throw new Error('Billing portal unavailable.');
+  window.location.assign(payload.url);
+}
+
 function applyLocalKickoffTimes(){
   document.querySelectorAll('.ko[data-kickoff-utc]').forEach(el => {
     const utc = el.getAttribute('data-kickoff-utc');
