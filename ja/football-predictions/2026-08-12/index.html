@@ -17883,13 +17883,6 @@ function updateProUI(isPro) {
   else showFutureProGate();
 }
 
-const PRO_PICK_REASON_LABELS = {
-  high_data_depth: "\u5341\u5206\u306a\u30c7\u30fc\u30bf\u91cf",
-  strong_league_history: "\u30ea\u30fc\u30b0\u3067\u306e\u597d\u6210\u7e3e",
-  model_market_agree: "\u30e2\u30c7\u30eb\u3068\u5e02\u5834\u304c\u4e00\u81f4",
-  strong_confidence_history: "\u540c\u4fe1\u983c\u5ea6\u5e2f\u3067\u597d\u6210\u7e3e",
-  best_available_evidence: "\u6700\u826f\u306e\u6839\u62e0"
-};
 function setProPicksState(state){
   const ids = { locked:'proPicksLocked', loading:'proPicksLoading', member:'proPicksMember', empty:'proPicksEmpty' };
   Object.entries(ids).forEach(([name,id]) => document.getElementById(id)?.classList.toggle('on', name === state));
