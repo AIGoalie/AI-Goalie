@@ -2026,11 +2026,11 @@ function proPickLogo(pick, side, sourceRow){
   return normalizeLogoSrc(image?.currentSrc || image?.getAttribute('src'));
 }
 function proPickScore(pick){
-  if (pick.score) return String(pick.score);
   const holder = document.createElement('span');
   holder.innerHTML = String(pick.result || '');
   const match = (holder.textContent || '').match(/\d+\s*[:\-]\s*\d+(?:\s+after pens)?/i);
-  return match ? match[0].replace(/\s+/g,' ').replace('-',':') : '';
+  if (match) return match[0].replace(/\s+/g,' ').replace('-',':');
+  return pick.score ? String(pick.score) : '';
 }
 function proPickOutcome(pick){
   if (pick.outcome === 'hit' || Number(pick.correct) === 1) return 'hit';
