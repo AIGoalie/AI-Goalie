@@ -1173,7 +1173,7 @@ function cardHTML(m,idx){
   const hl=m.home_logo_url||logoURL(m.hid), al=m.away_logo_url||logoURL(m.aid);
   const matchStatus=isLiveResult(m)?"live":((m.status==="finished"||["W","D","L"].includes(String(m.outcome||"").toUpperCase()))?"finished":"upcoming");
   return `
-  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-date="${esc(m.date||'')}" data-time="${esc(m.time||'')}" data-kickoff-utc="${esc(m.kickoff_utc||'')}" data-status="${matchStatus}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
+  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-date="${esc(m.date||'')}" data-time="${esc(m.time||'')}" data-kickoff-utc="${esc(m.kickoff_utc||'')}" data-featured-value="${Number(m._featured_matchup_value||m.featured_matchup_value||0)}" data-status="${matchStatus}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1242,24 +1242,17 @@ function leagueHeaderIcon(league){
   return icon ? `<span class="league-icon" aria-hidden="true">${icon}</span>` : '';
 }
 function leagueFeaturePriority(name){
-  const s = String(name || '').toLowerCase();
-  if (s.includes('world cup')) return 12000;
-  if (s.includes('uefa super cup')) return 11500;
-  if (s.includes('champions league')) return 11000;
-  if (s.includes('europa league')) return 10000;
-  if (s.includes('conference league')) return 9500;
-  if (s.includes('libertadores')) return 9000;
-  if (s.includes('sudamericana')) return 8500;
-  if (s.includes('nations league')) return 8000;
-  if (s.includes('qualif') || s.includes('qualification') || s.includes('qualifying')) return 7000;
-  if (s.includes('super cup') || s.includes('supercup')) return 6800;
-  if (s.includes('friendlies') || s.includes('friendly') || s.includes('summer series') || s.includes('como cup') || s.includes('piala presiden') || s.includes('pre-season') || s.includes('preseason')) return -5000;
+  const league = LEAGUES.find(item => item?.key === name);
+  if (league && Number.isFinite(Number(league.featured_priority))) return Number(league.featured_priority);
   return 0;
 }
 function sortLeaguesByPriority(leagues){
   return (leagues || []).slice().sort((a,b) => {
     const pa = leagueFeaturePriority(a?.key), pb = leagueFeaturePriority(b?.key);
     if (pa !== pb) return pb - pa;
+    const va = Number(a?.featured_value || a?.value || 0);
+    const vb = Number(b?.featured_value || b?.value || 0);
+    if (va !== vb) return vb - va;
     const ca = Math.max(...(a?.matches || []).map(m => winNum(m.total)), 0);
     const cb = Math.max(...(b?.matches || []).map(m => winNum(m.total)), 0);
     if (ca !== cb) return cb - ca;
@@ -1267,7 +1260,7 @@ function sortLeaguesByPriority(leagues){
   });
 }
 function bestFeaturedLeague(){
-  const candidates = LEAGUES.filter(l => l && !l.isWC && l.matches && l.matches.length && l.featured_eligible !== false && (l.value == null || Number(l.value) >= 40) && !/friendlies?|friendly/i.test(l.key || ''));
+  const candidates = LEAGUES.filter(l => l && !l.isWC && l.matches && l.matches.length && l.featured_eligible === true && Number(l.featured_priority || 0) > 0);
   if (!candidates.length) return null;
   return sortLeaguesByPriority(candidates)[0];
 }
@@ -1303,7 +1296,7 @@ function renderLeague(){
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),'wc'+i)).join("") + `</div>`;
     } else {
       const fl = leagueHeaderIcon(l);
-      html += `<section class="league-section" data-featured-eligible="${l.featured_eligible === false ? 'false' : (l.featured_eligible === true ? 'true' : '')}"><div class="league-head">${fl}<span class="lname">${esc(l.key)}</span><span class="lsub">${l.matches.length} jogos</span></div>`;
+      html += `<section class="league-section" data-featured-eligible="${l.featured_eligible === true ? 'true' : 'false'}" data-featured-priority="${Number(l.featured_priority||0)}" data-featured-value="${Number(l.featured_value||0)}"><div class="league-head">${fl}<span class="lname">${esc(l.key)}</span><span class="lsub">${l.matches.length} jogos</span></div>`;
       html += l.matches.map((m,i)=>cardHTML(Object.assign({league:l.key},m),i)).join("");
       html += `</section>`;
     }
@@ -1327,16 +1320,13 @@ function promoteTopLeagueToGlobal(){
   if (liveWc) return;
   const sections = Array.from(lv.children).filter(sec => sec.classList?.contains("league-section") && sec.querySelector(".mrow"));
   const ordered = sections.map((section,index)=>({section,index})).sort((a,b)=>{
-    const an=a.section.querySelector(".lname")?.textContent?.trim()||"";
-    const bn=b.section.querySelector(".lname")?.textContent?.trim()||"";
-    const priorityDiff=leagueFeaturePriority(bn)-leagueFeaturePriority(an);
-    return priorityDiff||a.index-b.index;
+    const priorityDiff=Number(b.section.dataset.featuredPriority||0)-Number(a.section.dataset.featuredPriority||0);
+    const visibleValue=section=>Math.max(0,...Array.from(section.querySelectorAll(".mrow")).map(row=>Number(row.dataset.featuredValue||0)));
+    const valueDiff=visibleValue(b.section)-visibleValue(a.section);
+    return priorityDiff||valueDiff||a.index-b.index;
   }).map(item=>item.section);
   ordered.forEach(section=>lv.appendChild(section));
-  const source = ordered.find(sec => {
-    const name=sec.querySelector(".lname")?.textContent?.trim()||"";
-    return sec.dataset.featuredEligible === "true" || leagueFeaturePriority(name) > 0;
-  });
+  const source = ordered.find(sec => sec.dataset.featuredEligible === "true" && Number(sec.dataset.featuredPriority||0) > 0);
   if (!source) return;
   const leagueName = source.querySelector(".lname")?.textContent?.trim() || "";
   const current = gv.querySelector(".featured-section");
