@@ -872,6 +872,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .pro-pick-signal{display:inline-flex;align-items:center;gap:5px;min-width:0;padding:4px 7px;border:1px solid rgba(113,240,139,.13);border-radius:999px;background:rgba(113,240,139,.045);color:var(--muted);font-size:8.5px;line-height:1.15}
 .pro-pick-signal::before{content:'';width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--green)}
 @media(max-width:680px){.pro-pick-row{min-height:61px;padding:8px 9px 4px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}}
+/* pro-pick-reason-quality-20260816 */
+.pro-pick-row{min-height:65px;padding:9px 14px 5px;text-decoration:none;cursor:pointer;list-style:none}
+.pro-pick-arrow{transition:none}
+.pro-pick-signals{display:flex;flex-wrap:wrap;gap:5px;margin:0 14px 9px 50px}
+.pro-pick-signal{display:inline-flex;align-items:center;gap:5px;min-width:0;padding:4px 7px;border:1px solid rgba(113,240,139,.13);border-radius:999px;background:rgba(113,240,139,.045);color:var(--muted);font-size:8.5px;line-height:1.15}
+.pro-pick-signal::before{content:'';width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--green)}
+@media(max-width:680px){.pro-pick-row{min-height:61px;padding:8px 9px 4px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}}
 </style>
 </head>
 <body>
@@ -98022,9 +98029,8 @@ function setProPicksState(state){
 const PRO_PICK_REASON_LABELS = {
   high_data_depth: "Grande profundidade de dados",
   strong_league_history: "Boa precisão na liga",
-  reasonable_bookmaker_odds: "Odd não muito baixa",
-  strong_confidence_history: "Boa precisão nesta faixa",
-  best_available_evidence: "Evidência geral forte"
+  positive_value_signal: "Sinal de valor",
+  strong_confidence_history: "Boa precisão nesta faixa"
 };
 function proPickSourceRow(pick){
   return Array.from(document.querySelectorAll('.mrow')).find(row =>
@@ -98089,11 +98095,11 @@ function renderProPicks(payload){
     const odds = Number(pick.odds);
     const oddsHtml = Number.isFinite(odds) && odds > 1 ? `<span class="pro-pick-odds">· Odds ${odds.toFixed(2).replace(/0$/,'')}</span>` : '';
     const reasons = (Array.isArray(pick.reasons) ? pick.reasons : [])
-      .map(key => key === 'model_market_agree' && odds >= 1.25 ? 'reasonable_bookmaker_odds' : key)
+      .filter(key => key !== 'model_market_agree' && key !== 'reasonable_bookmaker_odds')
       .filter(key => PRO_PICK_REASON_LABELS[key]);
-    if (!reasons.length) reasons.push('best_available_evidence');
     const signalItems = [...new Set(reasons)].map(key => `<span class="pro-pick-signal">${esc(PRO_PICK_REASON_LABELS[key])}</span>`).join('');
-    return `<article class="pro-pick-item"><a class="pro-pick-row" href="${href}" onclick="trackEvent('pro_pick_click',{rank:${index + 1}})"><span class="pro-pick-rank">${index + 1}</span><span class="pro-pick-main"><span class="pro-pick-fixture"><span class="pro-pick-side home${homePicked ? ' picked' : ''}"><span class="name">${esc(pick.home)}</span>${homeCrest}</span><span class="pro-pick-center${status === 'live' ? ' live' : ''}">${esc(centerLabel)}</span><span class="pro-pick-side away${awayPicked ? ' picked' : ''}">${awayCrest}<span class="name">${esc(pick.away)}</span></span></span><span class="pro-pick-meta"><span class="league">${esc(pick.league)}</span>${oddsHtml}</span></span><span class="pro-pick-winwrap">${outcomeHtml}<span class="pro-pick-confidence" style="background:${proPickConfidenceColor(confidence)}">${confidence}%</span></span><span class="pro-pick-arrow">›</span></a><div class="pro-pick-signals">${signalItems}</div></article>`;
+    const signalsHtml = signalItems ? `<div class="pro-pick-signals">${signalItems}</div>` : '';
+    return `<article class="pro-pick-item"><a class="pro-pick-row" href="${href}" onclick="trackEvent('pro_pick_click',{rank:${index + 1}})"><span class="pro-pick-rank">${index + 1}</span><span class="pro-pick-main"><span class="pro-pick-fixture"><span class="pro-pick-side home${homePicked ? ' picked' : ''}"><span class="name">${esc(pick.home)}</span>${homeCrest}</span><span class="pro-pick-center${status === 'live' ? ' live' : ''}">${esc(centerLabel)}</span><span class="pro-pick-side away${awayPicked ? ' picked' : ''}">${awayCrest}<span class="name">${esc(pick.away)}</span></span></span><span class="pro-pick-meta"><span class="league">${esc(pick.league)}</span>${oddsHtml}</span></span><span class="pro-pick-winwrap">${outcomeHtml}<span class="pro-pick-confidence" style="background:${proPickConfidenceColor(confidence)}">${confidence}%</span></span><span class="pro-pick-arrow">›</span></a>${signalsHtml}</article>`;
   }).join('');
   setProPicksState('member');
 }
