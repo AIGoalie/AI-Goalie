@@ -865,6 +865,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{min-width:48px;padding:4px 5px;font-size:10.5px}
 }
 
+/* pro-pick-signals-20260816 */
+.pro-pick-row{min-height:65px;padding:9px 14px 5px;text-decoration:none;cursor:pointer;list-style:none}
+.pro-pick-arrow{transition:none}
+.pro-pick-signals{display:flex;flex-wrap:wrap;gap:5px;margin:0 14px 9px 50px}
+.pro-pick-signal{display:inline-flex;align-items:center;gap:5px;min-width:0;padding:4px 7px;border:1px solid rgba(113,240,139,.13);border-radius:999px;background:rgba(113,240,139,.045);color:var(--muted);font-size:8.5px;line-height:1.15}
+.pro-pick-signal::before{content:'';width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--green)}
+@media(max-width:680px){.pro-pick-row{min-height:61px;padding:8px 9px 4px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}}
 </style>
 </head>
 <body>
@@ -28952,17 +28959,10 @@ function setProPicksState(state){
 }
 const PRO_PICK_REASON_LABELS = {
   high_data_depth: "Grande profundidade de dados",
-  strong_league_history: "Bom hist\u00f3rico na liga",
-  model_market_agree: "Modelo e mercado concordam",
-  strong_confidence_history: "Bom hist\u00f3rico de confian\u00e7a",
-  best_available_evidence: "Melhor evid\u00eancia dispon\u00edvel"
-};
-const PRO_PICK_REASON_DETAILS = {
-  high_data_depth: "As duas equipes t\u00eam hist\u00f3rico suficiente para uma leitura mais est\u00e1vel do modelo.",
-  strong_league_history: "Os palpites anteriores do modelo nesta competi\u00e7\u00e3o superam sua m\u00e9dia geral.",
-  model_market_agree: "A odd dispon\u00edvel apoia, de forma geral, o lado preferido pelo modelo.",
-  strong_confidence_history: "Palpites anteriores nesta faixa de confian\u00e7a superam a refer\u00eancia geral do modelo.",
-  best_available_evidence: "Foi uma das combina\u00e7\u00f5es qualificadas mais fortes do dia em confian\u00e7a, hist\u00f3rico e qualidade dos dados."
+  strong_league_history: "Boa precisão na liga",
+  reasonable_bookmaker_odds: "Odd não muito baixa",
+  strong_confidence_history: "Boa precisão nesta faixa",
+  best_available_evidence: "Evidência geral forte"
 };
 function proPickSourceRow(pick){
   return Array.from(document.querySelectorAll('.mrow')).find(row =>
@@ -29026,11 +29026,12 @@ function renderProPicks(payload){
     const confidence = Math.round(Number(pick.confidence) || 0);
     const odds = Number(pick.odds);
     const oddsHtml = Number.isFinite(odds) && odds > 1 ? `<span class="pro-pick-odds">· Odds ${odds.toFixed(2).replace(/0$/,'')}</span>` : '';
-    const reasons = (Array.isArray(pick.reasons) ? pick.reasons : []).filter(key => PRO_PICK_REASON_LABELS[key]);
+    const reasons = (Array.isArray(pick.reasons) ? pick.reasons : [])
+      .map(key => key === 'model_market_agree' && odds >= 1.25 ? 'reasonable_bookmaker_odds' : key)
+      .filter(key => PRO_PICK_REASON_LABELS[key]);
     if (!reasons.length) reasons.push('best_available_evidence');
-    const reasonItems = reasons.map(key => `<div class="pro-pick-rationale-item"><span class="pro-pick-rationale-check">✓</span><span><strong>${esc(PRO_PICK_REASON_LABELS[key])}</strong><span>${esc(PRO_PICK_REASON_DETAILS[key] || '')}</span></span></div>`).join('');
-    const priceNote = Number.isFinite(odds) && odds > 1 ? `<p class="pro-pick-price-note">As odds são exibidas como contexto. Pro Picks prioriza confiabilidade e depois o preço quando adequado. · Odds ${odds.toFixed(2).replace(/0$/,'')}</p>` : '';
-    return `<details class="pro-pick-item" ontoggle="if(this.open)trackEvent('pro_pick_expand',{rank:${index + 1}})"><summary class="pro-pick-row"><span class="pro-pick-rank">${index + 1}</span><span class="pro-pick-main"><span class="pro-pick-fixture"><span class="pro-pick-side home${homePicked ? ' picked' : ''}"><span class="name">${esc(pick.home)}</span>${homeCrest}</span><span class="pro-pick-center${status === 'live' ? ' live' : ''}">${esc(centerLabel)}</span><span class="pro-pick-side away${awayPicked ? ' picked' : ''}">${awayCrest}<span class="name">${esc(pick.away)}</span></span></span><span class="pro-pick-meta"><span class="league">${esc(pick.league)}</span>${oddsHtml}</span></span><span class="pro-pick-winwrap">${outcomeHtml}<span class="pro-pick-confidence" style="background:${proPickConfidenceColor(confidence)}">${confidence}%</span></span><span class="pro-pick-arrow">›</span></summary><div class="pro-pick-rationale"><h3>Por que este jogo foi selecionado</h3><p class="pro-pick-rationale-intro">Ele atingiu o padrão ao combinar confiança do modelo, desempenho histórico, profundidade de dados e odds disponíveis.</p><div class="pro-pick-rationale-list">${reasonItems}</div>${priceNote}<a class="pro-pick-analysis" href="${href}" onclick="trackEvent('pro_pick_click',{rank:${index + 1}})">Palpite e análise completos →</a></div></details>`;
+    const signalItems = [...new Set(reasons)].map(key => `<span class="pro-pick-signal">${esc(PRO_PICK_REASON_LABELS[key])}</span>`).join('');
+    return `<article class="pro-pick-item"><a class="pro-pick-row" href="${href}" onclick="trackEvent('pro_pick_click',{rank:${index + 1}})"><span class="pro-pick-rank">${index + 1}</span><span class="pro-pick-main"><span class="pro-pick-fixture"><span class="pro-pick-side home${homePicked ? ' picked' : ''}"><span class="name">${esc(pick.home)}</span>${homeCrest}</span><span class="pro-pick-center${status === 'live' ? ' live' : ''}">${esc(centerLabel)}</span><span class="pro-pick-side away${awayPicked ? ' picked' : ''}">${awayCrest}<span class="name">${esc(pick.away)}</span></span></span><span class="pro-pick-meta"><span class="league">${esc(pick.league)}</span>${oddsHtml}</span></span><span class="pro-pick-winwrap">${outcomeHtml}<span class="pro-pick-confidence" style="background:${proPickConfidenceColor(confidence)}">${confidence}%</span></span><span class="pro-pick-arrow">›</span></a><div class="pro-pick-signals">${signalItems}</div></article>`;
   }).join('');
   setProPicksState('member');
 }

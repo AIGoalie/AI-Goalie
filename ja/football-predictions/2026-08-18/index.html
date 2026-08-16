@@ -865,6 +865,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{min-width:48px;padding:4px 5px;font-size:10.5px}
 }
 
+/* pro-pick-signals-20260816 */
+.pro-pick-row{min-height:65px;padding:9px 14px 5px;text-decoration:none;cursor:pointer;list-style:none}
+.pro-pick-arrow{transition:none}
+.pro-pick-signals{display:flex;flex-wrap:wrap;gap:5px;margin:0 14px 9px 50px}
+.pro-pick-signal{display:inline-flex;align-items:center;gap:5px;min-width:0;padding:4px 7px;border:1px solid rgba(113,240,139,.13);border-radius:999px;background:rgba(113,240,139,.045);color:var(--muted);font-size:8.5px;line-height:1.15}
+.pro-pick-signal::before{content:'';width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--green)}
+@media(max-width:680px){.pro-pick-row{min-height:61px;padding:8px 9px 4px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}}
 </style>
 </head>
 <body>
@@ -28951,18 +28958,11 @@ function setProPicksState(state){
   Object.entries(ids).forEach(([name,id]) => document.getElementById(id)?.classList.toggle('on', name === state));
 }
 const PRO_PICK_REASON_LABELS = {
-  high_data_depth: "\u5341\u5206\u306a\u30c7\u30fc\u30bf\u91cf",
-  strong_league_history: "\u30ea\u30fc\u30b0\u3067\u306e\u597d\u6210\u7e3e",
-  model_market_agree: "\u30e2\u30c7\u30eb\u3068\u5e02\u5834\u304c\u4e00\u81f4",
-  strong_confidence_history: "\u540c\u4fe1\u983c\u5ea6\u5e2f\u3067\u597d\u6210\u7e3e",
-  best_available_evidence: "\u6700\u826f\u306e\u6839\u62e0"
-};
-const PRO_PICK_REASON_DETAILS = {
-  high_data_depth: "\u4e21\u30c1\u30fc\u30e0\u306b\u5341\u5206\u306a\u8a66\u5408\u5c65\u6b74\u304c\u3042\u308a\u3001\u30e2\u30c7\u30eb\u304c\u3088\u308a\u5b89\u5b9a\u3057\u3066\u8a55\u4fa1\u3067\u304d\u307e\u3059\u3002",
-  strong_league_history: "\u3053\u306e\u5927\u4f1a\u3067\u306e\u30e2\u30c7\u30eb\u306e\u904e\u53bb\u4e88\u6e2c\u306f\u3001\u5168\u4f53\u5e73\u5747\u3092\u4e0a\u56de\u3063\u3066\u3044\u307e\u3059\u3002",
-  model_market_agree: "\u5229\u7528\u53ef\u80fd\u306a\u30d6\u30c3\u30af\u30e1\u30fc\u30ab\u30fc\u306e\u30aa\u30c3\u30ba\u304c\u3001\u30e2\u30c7\u30eb\u306e\u9078\u629e\u3092\u6982\u306d\u652f\u6301\u3057\u3066\u3044\u307e\u3059\u3002",
-  strong_confidence_history: "\u3053\u306e\u4fe1\u983c\u5ea6\u5e2f\u306e\u904e\u53bb\u4e88\u6e2c\u306f\u3001\u30e2\u30c7\u30eb\u5168\u4f53\u306e\u57fa\u6e96\u3092\u4e0a\u56de\u3063\u3066\u3044\u307e\u3059\u3002",
-  best_available_evidence: "\u4fe1\u983c\u5ea6\u3001\u5c65\u6b74\u3001\u30c7\u30fc\u30bf\u54c1\u8cea\u3092\u7d44\u307f\u5408\u308f\u305b\u305f\u672c\u65e5\u306e\u6709\u529b\u306a\u57fa\u6e96\u901a\u904e\u8a66\u5408\u3067\u3059\u3002"
+  high_data_depth: "十分なデータ量",
+  strong_league_history: "リーグ精度が高い",
+  reasonable_bookmaker_odds: "極端に低くないオッズ",
+  strong_confidence_history: "信頼度帯の精度が高い",
+  best_available_evidence: "総合的な根拠が強い"
 };
 function proPickSourceRow(pick){
   return Array.from(document.querySelectorAll('.mrow')).find(row =>
@@ -29026,11 +29026,12 @@ function renderProPicks(payload){
     const confidence = Math.round(Number(pick.confidence) || 0);
     const odds = Number(pick.odds);
     const oddsHtml = Number.isFinite(odds) && odds > 1 ? `<span class="pro-pick-odds">· オッズ ${odds.toFixed(2).replace(/0$/,'')}</span>` : '';
-    const reasons = (Array.isArray(pick.reasons) ? pick.reasons : []).filter(key => PRO_PICK_REASON_LABELS[key]);
+    const reasons = (Array.isArray(pick.reasons) ? pick.reasons : [])
+      .map(key => key === 'model_market_agree' && odds >= 1.25 ? 'reasonable_bookmaker_odds' : key)
+      .filter(key => PRO_PICK_REASON_LABELS[key]);
     if (!reasons.length) reasons.push('best_available_evidence');
-    const reasonItems = reasons.map(key => `<div class="pro-pick-rationale-item"><span class="pro-pick-rationale-check">✓</span><span><strong>${esc(PRO_PICK_REASON_LABELS[key])}</strong><span>${esc(PRO_PICK_REASON_DETAILS[key] || '')}</span></span></div>`).join('');
-    const priceNote = Number.isFinite(odds) && odds > 1 ? `<p class="pro-pick-price-note">オッズは参考情報です。Pro Picksは信頼性を優先し、適切な場合に価格も考慮します。 · オッズ ${odds.toFixed(2).replace(/0$/,'')}</p>` : '';
-    return `<details class="pro-pick-item" ontoggle="if(this.open)trackEvent('pro_pick_expand',{rank:${index + 1}})"><summary class="pro-pick-row"><span class="pro-pick-rank">${index + 1}</span><span class="pro-pick-main"><span class="pro-pick-fixture"><span class="pro-pick-side home${homePicked ? ' picked' : ''}"><span class="name">${esc(pick.home)}</span>${homeCrest}</span><span class="pro-pick-center${status === 'live' ? ' live' : ''}">${esc(centerLabel)}</span><span class="pro-pick-side away${awayPicked ? ' picked' : ''}">${awayCrest}<span class="name">${esc(pick.away)}</span></span></span><span class="pro-pick-meta"><span class="league">${esc(pick.league)}</span>${oddsHtml}</span></span><span class="pro-pick-winwrap">${outcomeHtml}<span class="pro-pick-confidence" style="background:${proPickConfidenceColor(confidence)}">${confidence}%</span></span><span class="pro-pick-arrow">›</span></summary><div class="pro-pick-rationale"><h3>この試合が厳選された理由</h3><p class="pro-pick-rationale-intro">モデルの信頼度、過去成績、データ量、利用可能なオッズ情報を組み合わせて基準を満たしました。</p><div class="pro-pick-rationale-list">${reasonItems}</div>${priceNote}<a class="pro-pick-analysis" href="${href}" onclick="trackEvent('pro_pick_click',{rank:${index + 1}})">詳しい予測と分析 →</a></div></details>`;
+    const signalItems = [...new Set(reasons)].map(key => `<span class="pro-pick-signal">${esc(PRO_PICK_REASON_LABELS[key])}</span>`).join('');
+    return `<article class="pro-pick-item"><a class="pro-pick-row" href="${href}" onclick="trackEvent('pro_pick_click',{rank:${index + 1}})"><span class="pro-pick-rank">${index + 1}</span><span class="pro-pick-main"><span class="pro-pick-fixture"><span class="pro-pick-side home${homePicked ? ' picked' : ''}"><span class="name">${esc(pick.home)}</span>${homeCrest}</span><span class="pro-pick-center${status === 'live' ? ' live' : ''}">${esc(centerLabel)}</span><span class="pro-pick-side away${awayPicked ? ' picked' : ''}">${awayCrest}<span class="name">${esc(pick.away)}</span></span></span><span class="pro-pick-meta"><span class="league">${esc(pick.league)}</span>${oddsHtml}</span></span><span class="pro-pick-winwrap">${outcomeHtml}<span class="pro-pick-confidence" style="background:${proPickConfidenceColor(confidence)}">${confidence}%</span></span><span class="pro-pick-arrow">›</span></a><div class="pro-pick-signals">${signalItems}</div></article>`;
   }).join('');
   setProPicksState('member');
 }
