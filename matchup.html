@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DP174X78CW');
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AIGoalie Matchup Simulator — AI Football Predictions</title>
@@ -14,35 +23,181 @@
 <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script defer src="/auth_ui.js?v=20260817-1"></script>
-<script>
-window.__tcfapi = window.__tcfapi || function(){};
-window.__gpp = window.__gpp || function(){ (window.__gpp.q = window.__gpp.q || []).push(arguments); };
-</script>
-<script type="text/javascript" async>
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
+<script type="text/javascript" async=true>
 (function() {
-  if (location.protocol === 'file:') return;
   var host = "www.themoneytizer.com";
   var element = document.createElement('script');
   var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
   element.async = true;
   element.type = 'text/javascript';
-  element.src = 'https://cmp.inmobi.com/choice/6Fv0cGNfc_bw8/' + host + '/choice.js?tag_version=V3';
+  element.src = url;
+
   firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
 })();
 </script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
 <style>
-:root{--bg:#0A1310;--surface:#101D17;--surface-2:#16271E;--line:#21372B;--line-soft:#1a2c22;--green:#27D27A;--green-bright:#46F08F;--gold:#F4C752;--text:#E9F1EB;--muted:#85A091;--muted-2:#5f7a6c;--loss:#E96A6A}
-*{box-sizing:border-box} body{margin:0;background:radial-gradient(900px 460px at 50% -10%,#112a1f 0%,rgba(17,42,31,0) 60%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+:root{--bg:#06120C;--surface:#0D1D14;--surface-2:#132A1C;--line:#254331;--line-soft:#193024;--green:#4EE879;--green-bright:#71F08B;--gold:#FFD35E;--text:#F4F6EF;--muted:#AEB8A9;--muted-2:#778578;--loss:#EF6F6C}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(780px 420px at 82% -8%,rgba(113,240,139,.16),transparent 62%),linear-gradient(135deg,#06120C,#0C2115 52%,#08120D),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:980px;margin:0 auto;padding:0 14px 64px} a{color:inherit}
 header.top{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line-soft)}
 header.top .logo{font-weight:700;font-size:17px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:7px}
 header.top .logo img{width:25px;height:25px;border-radius:6px;object-fit:contain;flex:none} header.top .logo b{color:var(--green-bright)}
 header.top nav{display:flex;gap:4px;align-items:center;margin-left:6px;flex-wrap:wrap} header.top nav a{color:var(--muted);font-size:13px;padding:6px 9px;border-radius:8px;text-decoration:none} header.top nav a:hover,header.top nav a.active{background:var(--surface-2);color:var(--text)}
-.acct{margin-left:auto;display:flex;gap:8px;align-items:center}.btn{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer;font-weight:700;white-space:nowrap;text-decoration:none}.btn.pro{background:rgba(39,210,122,.12);color:var(--green-bright);border-color:rgba(70,240,143,.45)}.pro-state{color:var(--muted);font-size:12px}.account-menu{position:relative}.account-dropdown{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:170px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;z-index:100;box-shadow:0 14px 35px rgba(0,0,0,.35)}.account-dropdown.show{display:block}.account-dropdown a{display:block;color:var(--text);text-decoration:none;padding:9px 10px;border-radius:8px;font-size:13px}.account-dropdown a:hover{background:var(--surface-2)}
+.acct{margin-left:auto;display:flex;gap:8px;align-items:center}.language-select{display:flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:5px 7px}.language-select select{background:transparent;color:var(--text);border:0;font-size:13px;outline:0;max-width:140px}.btn{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer;font-weight:700;white-space:nowrap;text-decoration:none}.btn.pro{background:rgba(78,232,121,.12);color:var(--green-bright);border-color:rgba(113,240,139,.45)}.account-btn{width:40px;height:36px;padding:0;font-size:17px}.pro-state{color:var(--muted);font-size:12px}.account-menu{position:relative}.account-dropdown{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:170px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;z-index:100;box-shadow:0 14px 35px rgba(0,0,0,.35)}.account-dropdown.show{display:block}.account-dropdown a{display:block;color:var(--text);text-decoration:none;padding:9px 10px;border-radius:8px;font-size:13px}.account-dropdown a:hover{background:var(--surface-2)}
 .hero{padding:34px 0 18px}.eyebrow{color:var(--green-bright);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}h1{font-size:36px;letter-spacing:-.035em;line-height:1.08;margin:0 0 10px}.lead{max-width:720px;color:var(--muted);font-size:16px}
 .sim{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin:18px 0}.field{display:flex;flex-direction:column;gap:7px}label{font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}input,select{width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:11px;color:var(--text);padding:11px 12px;font:inherit}.actions{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.submit{background:var(--green);border:1px solid var(--green);color:#04120b;border-radius:11px;padding:11px 15px;font-weight:900;cursor:pointer}.quota{font-size:12px;color:var(--muted)}
-.result{display:none;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(39,210,122,.07),transparent 55%),var(--surface);padding:18px;margin:18px 0}.scoreline{display:flex;align-items:center;justify-content:space-between;gap:12px}.team{flex:1;text-align:center}.team img{width:56px;height:56px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line);object-fit:contain;padding:5px}.team .name{font-weight:800;margin-top:7px}.team.pick .name{color:var(--green-bright)}.mid{text-align:center}.pill{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:#06130b;border-radius:12px;padding:8px 14px;font-size:24px;font-weight:950;min-width:86px}.sub{font-size:12px;color:var(--muted);margin-top:6px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.card{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:center}.card .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-2);font-weight:900}.card .v{font-size:22px;font-weight:900;margin-top:5px}.card .s{font-size:12px;color:var(--muted);margin-top:3px}.locked .v{filter:blur(5px);user-select:none}.pro-note{margin-top:12px;border:1px solid rgba(70,240,143,.28);background:rgba(39,210,122,.07);border-radius:12px;padding:11px 12px;color:var(--text);font-size:13px;display:flex;justify-content:space-between;gap:10px;align-items:center}.pro-note a{color:var(--green-bright);font-weight:900;text-decoration:none}.pro-unlocked .locked .v{filter:none;user-select:auto}.pro-unlocked .pro-note,.pro-unlocked .ad-container{display:none}.note{font-size:12px;color:var(--muted-2);margin-top:12px}.error{color:var(--loss);font-size:13px;font-weight:800}.navtoggle{display:none}.ad-container{min-height:1px;margin:22px auto 4px;text-align:center;display:flex;justify-content:center}.ad-container.hidden{display:none}
+.result{display:none;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(78,232,121,.07),transparent 55%),var(--surface);padding:18px;margin:18px 0}.scoreline{display:flex;align-items:center;justify-content:space-between;gap:12px}.team{flex:1;text-align:center}.team img{width:56px;height:56px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line);object-fit:contain;padding:5px}.team .name{font-weight:800;margin-top:7px}.team.pick .name{color:var(--green-bright)}.mid{text-align:center}.pill{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:#06130b;border-radius:12px;padding:8px 14px;font-size:24px;font-weight:950;min-width:86px}.sub{font-size:12px;color:var(--muted);margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.card{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:center}.card .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-2);font-weight:900}.card .v{font-size:22px;font-weight:900;margin-top:5px}.card .s{font-size:12px;color:var(--muted);margin-top:3px}.locked .v{filter:blur(5px);user-select:none}.pro-note{margin-top:12px;border:1px solid rgba(113,240,139,.28);background:rgba(78,232,121,.07);border-radius:12px;padding:11px 12px;color:var(--text);font-size:13px;display:flex;justify-content:space-between;gap:10px;align-items:center}.pro-note a{color:var(--green-bright);font-weight:900;text-decoration:none}.pro-unlocked .locked .v{filter:none;user-select:auto}.pro-unlocked .pro-note,.pro-unlocked .ad-container{display:none}.note{font-size:12px;color:var(--muted-2);margin-top:12px}.error{color:var(--loss);font-size:13px;font-weight:800}.navtoggle{display:none}.ad-container{min-height:1px;margin:22px auto 4px;text-align:center;display:flex;justify-content:center}.ad-container.hidden{display:none}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 @media(max-width:720px){header.top{flex-wrap:wrap}.navtoggle{display:block;background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 11px}header.top nav{display:none;position:absolute;top:54px;left:14px;right:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;flex-direction:column;z-index:50}header.top nav.show{display:flex}.acct{margin-left:0;width:100%;display:flex;justify-content:flex-end}.pro-state{display:none}.sim{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.scoreline{align-items:stretch}.team img{width:46px;height:46px}h1{font-size:29px}}
 </style>
@@ -53,7 +208,6 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
   <a class="logo" href="index.html"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></a>
   <button class="navtoggle" type="button" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
   <nav>
-    <a href="index.html">Home</a>
     <a href="results.html">Track record</a>
     <a href="contact.html">Contact</a>
     <a href="about.html">About</a>
@@ -62,6 +216,7 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
     <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
   </nav>
   <div class="acct">
+    <div class="language-select"><select class="lang-switcher" aria-label="Language" onchange="switchSiteLang(this.value)"><option value="en" selected>🇬🇧 English</option><option value="ja">🇯🇵 日本語</option><option value="es">🇪🇸 Español</option><option value="de">🇩🇪 Deutsch</option><option value="fr">🇫🇷 Français</option><option value="pt">🇧🇷 Português</option></select></div>
     <span id="proState" class="pro-state">Checking Pro…</span>
     <a class="btn pro" id="goProBtn" href="index.html?pro=1">Go Pro</a>
     <div class="account-menu">
@@ -95,10 +250,14 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
 <script>
 const PRO_API_BASE = "https://aigoalie-pro-1047692809091.europe-west1.run.app";
 const FIREBASE_CONFIG = { apiKey:"AIzaSyAaqlt7k7ELZV_WSLw-0uTL6Yhmg93uyTw", authDomain:"aigoalie-5286d.firebaseapp.com", projectId:"aigoalie-5286d", appId:"1:164078880718:web:710dec15b47cec22928d9f" };
+function trackEvent(name,data){return;}
 let TEAMS=[], LABELS=new Map(), IS_PRO=false, FREE_LIMIT=1, FREE_LOGIN_LIMIT=1;
 const todayKey=()=>new Date().toISOString().slice(0,10);
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+function switchSiteLang(lang){const p=location.pathname;const m=p.match(/^\/(ja|es|de|fr|pt)(\/.*)?$/);const rest=m?(m[2]||'/'):p;let page='';if(rest==='/'||rest==='/index.html')page='';else{const sm=rest.match(/^\/(results|matchup|contact|about|disclaimer|privacy-policy)(?:\.html|\/)?$/);if(sm)page=sm[1];else page='matchup';}if(lang==='en'){location.href=page?`/${page}.html`:'/';return;}location.href=page?`/${lang}/${page}/`:`/${lang}/`;}
+(function(){const m=location.pathname.match(/^\/(ja|es|de|fr|pt)(?:\/|$)/);const lang=m?m[1]:'en';document.querySelectorAll('.lang-switcher').forEach(s=>{s.value=lang;});})();
 function quota(){try{const raw=JSON.parse(localStorage.getItem("matchupQuota")||"{}");return raw.date===todayKey()?raw:{date:todayKey(),count:0};}catch(e){return {date:todayKey(),count:0};}}
 function saveQuota(q){try{localStorage.setItem("matchupQuota",JSON.stringify(q));}catch(e){}}
 function currentUser(){try{return window.firebase&&firebase.auth&&firebase.auth().currentUser?firebase.auth().currentUser:null;}catch(e){return null;}}
@@ -170,11 +329,11 @@ function render(r){const locked=!IS_PRO;document.body.classList.toggle("pro-unlo
   <div class="card ${locked?"locked":""}"><div class="k">Draw</div><div class="v">${pct(r.p.draw)}</div><div class="s">Simulation probability</div></div>
   <div class="card ${locked?"locked":""}"><div class="k">${esc(r.away.name)} win</div><div class="v">${pct(r.p.away)}</div><div class="s">Venue-adjusted</div></div>
 </div>
-${locked?`<div class="pro-note"><span>Pro unlocks unlimited simulations and the advanced probability panel.</span><a href="index.html?pro=1">Go Pro</a></div>`:""}
+${locked?`<div class="pro-note"><span>Pro unlocks unlimited simulations and the advanced probability panel.</span><a href="index.html?pro=1" onclick="trackEvent('go_pro_click',{source:'simulator_result'})">Go Pro</a></div>`:""}
 <p class="note">Hypothetical simulation based on current model signals. It does not include confirmed lineups, injuries or a scheduled venue unless shown.</p>`;}
-function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="Pick two teams from the list.";return;}if(h.id===a.id){err.textContent="Pick two different teams.";return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="Free simulations used today. Go Pro for unlimited.";return;}if(!IS_PRO){q.count+=1;saveQuota(q);}render(simulate(h,a,document.getElementById("venue").value));updateQuota();}
-async function loadTeams(){const res=await fetch("matchup_data.json",{cache:"no-store"});const data=await res.json();TEAMS=data.teams||[];const dl=document.getElementById("teamList");TEAMS.forEach(t=>{const label=`${t.name} — ${t.league||t.country||"Team"}`;LABELS.set(label.toLowerCase(),t);LABELS.set(t.name.toLowerCase(),t);const o=document.createElement("option");o.value=label;dl.appendChild(o);});updateQuota();}
-function initAuth(){const menu=document.getElementById("accountDropdown"),account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn");account&&account.addEventListener("click",()=>{menu&&menu.classList.toggle("show");account.setAttribute("aria-expanded",menu&&menu.classList.contains("show")?"true":"false");});document.addEventListener("click",ev=>{if(menu&&account&&!account.contains(ev.target)&&!menu.contains(ev.target))menu.classList.remove("show");});if(!window.firebase){IS_PRO=false;setProState("Sign in");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){try{firebase.app();}catch(_){}}const auth=firebase.auth();signIn&&signIn.addEventListener("click",async ev=>{ev.preventDefault();await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());});signOut&&signOut.addEventListener("click",async ev=>{ev.preventDefault();await auth.signOut();});auth.onAuthStateChanged(async user=>{try{if(!user){IS_PRO=false;setProState("Sign in");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}setProState("Checking Pro…");const tok=await user.getIdToken();const res=await fetch(PRO_API_BASE+"/me",{headers:{Authorization:"Bearer "+tok}});const j=res.ok?await res.json():null;IS_PRO=!!(j&&j.pro);setProState(IS_PRO?"Pro active":"Free account");updateAuthUI(user);updateQuota();if(IS_PRO)hideMoneytizerAds();else loadMoneytizerAds();}catch(e){IS_PRO=false;setProState("Free account");updateAuthUI(user);updateQuota();loadMoneytizerAds();}});}
+function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="Pick two teams from the list.";trackEvent("simulator_error",{reason:"missing_team"});return;}if(h.id===a.id){err.textContent="Pick two different teams.";trackEvent("simulator_error",{reason:"same_team"});return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="Free simulations used today. Go Pro for unlimited.";trackEvent("simulator_pro_limit_hit",{logged_in:!!currentUser(),limit:lim});return;}if(!IS_PRO){q.count+=1;saveQuota(q);}const venue=document.getElementById("venue").value;const result=simulate(h,a,venue);trackEvent("simulator_run",{venue,pro:IS_PRO,home_league:h.league||"",away_league:a.league||"",confidence:Math.round(result.conf*100)});render(result);updateQuota();}
+async function loadTeams(){const res=await fetch("/matchup_data.json",{cache:"no-store"});const data=await res.json();TEAMS=data.teams||[];const dl=document.getElementById("teamList");TEAMS.forEach(t=>{const label=`${t.name} — ${t.league||t.country||"Team"}`;LABELS.set(label.toLowerCase(),t);LABELS.set(t.name.toLowerCase(),t);const o=document.createElement("option");o.value=label;dl.appendChild(o);});updateQuota();}
+function initAuth(){const menu=document.getElementById("accountDropdown"),account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn");document.getElementById("goProBtn")?.addEventListener("click",()=>trackEvent("go_pro_click",{source:"simulator_header"}));account&&account.addEventListener("click",()=>{menu&&menu.classList.toggle("show");account.setAttribute("aria-expanded",menu&&menu.classList.contains("show")?"true":"false");});document.addEventListener("click",ev=>{if(menu&&account&&!account.contains(ev.target)&&!menu.contains(ev.target))menu.classList.remove("show");});if(!window.firebase){IS_PRO=false;setProState("Sign in");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){try{firebase.app();}catch(_){}}const auth=firebase.auth();signIn&&signIn.addEventListener("click",async ev=>{ev.preventDefault();trackEvent("sign_in_click",{source:"simulator"});await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());});signOut&&signOut.addEventListener("click",async ev=>{ev.preventDefault();await auth.signOut();});auth.onAuthStateChanged(async user=>{try{if(!user){IS_PRO=false;setProState("Sign in");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}setProState("Checking Pro…");const tok=await user.getIdToken();const res=await fetch(PRO_API_BASE+"/me",{headers:{Authorization:"Bearer "+tok}});const j=res.ok?await res.json():null;IS_PRO=!!(j&&j.pro);setProState(IS_PRO?"Pro active":"Free account");updateAuthUI(user);updateQuota();if(IS_PRO)hideMoneytizerAds();else loadMoneytizerAds();}catch(e){IS_PRO=false;setProState("Free account");updateAuthUI(user);updateQuota();loadMoneytizerAds();}});}
 document.getElementById("simulateBtn").addEventListener("click",run);
 loadTeams().catch(()=>{document.getElementById("quotaText").textContent="Could not load teams.";});
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initAuth);else initAuth();

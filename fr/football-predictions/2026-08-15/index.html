@@ -865,13 +865,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{min-width:48px;padding:4px 5px;font-size:10.5px}
 }
 
-/* pro-pick-reason-quality-20260816 */
-.pro-pick-row{min-height:65px;padding:9px 14px 5px;text-decoration:none;cursor:pointer;list-style:none}
-.pro-pick-arrow{transition:none}
-.pro-pick-signals{display:flex;flex-wrap:wrap;gap:5px;margin:0 14px 9px 50px}
-.pro-pick-signal{display:inline-flex;align-items:center;gap:5px;min-width:0;padding:4px 7px;border:1px solid rgba(113,240,139,.13);border-radius:999px;background:rgba(113,240,139,.045);color:var(--muted);font-size:8.5px;line-height:1.15}
-.pro-pick-signal::before{content:'';width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--green)}
-@media(max-width:680px){.pro-pick-row{min-height:61px;padding:8px 9px 4px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}}
 </style>
 </head>
 <body>
@@ -86469,30 +86462,38 @@ function shouldUseRedirectSignIn(){
   return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '') ||
     (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 }
-async function ensureSignedInForCheckout(){
-  const auth = await waitForAuthReady();
-  if (!auth || !window.firebase) {
-    alert(i18n('csv_login_alert','Please log in to continue.'));
-    return null;
-  }
-  if (auth.currentUser) return auth.currentUser;
-  SafeStore.set(CHECKOUT_PENDING_KEY, '1');
+async function startGoogleSignIn(auth){
   const provider = new firebase.auth.GoogleAuthProvider();
   if (shouldUseRedirectSignIn()) {
     await auth.signInWithRedirect(provider);
-    return null;
+    return;
   }
   try {
     await auth.signInWithPopup(provider);
   } catch(e) {
     if (e && /popup|redirect|operation-not-supported/i.test(String(e.code || e.message || ''))) {
       await auth.signInWithRedirect(provider);
-      return null;
+      return;
     }
-    SafeStore.del(CHECKOUT_PENDING_KEY);
     throw e;
   }
-  return auth.currentUser;
+}
+async function ensureSignedInForCheckout(){
+  const auth = await waitForAuthReady();
+  if (!auth || !window.firebase) {
+    alert(i18n('csv_login_alert','Please log in to continue.'));
+    return null;
+  }
+  if (auth.currentUser) {
+    if (!window.AIGoalieAuthUI || window.AIGoalieAuthUI.isVerified(auth.currentUser)) return auth.currentUser;
+    window.AIGoalieAuthUI.open({ mode: 'signin' });
+    alert('Please verify your email before starting checkout.');
+    return null;
+  }
+  SafeStore.set(CHECKOUT_PENDING_KEY, '1');
+  if (window.AIGoalieAuthUI) window.AIGoalieAuthUI.open({ mode: 'signin' });
+  else alert(i18n('csv_login_alert','Please log in to continue.'));
+  return null;
 }
 function checkoutRequestedFromUrl(){
   try { return new URLSearchParams(location.search).get('pro') === '1'; }
@@ -86856,10 +86857,10 @@ function setProPicksState(state){
   Object.entries(ids).forEach(([name,id]) => document.getElementById(id)?.classList.toggle('on', name === state));
 }
 const PRO_PICK_REASON_LABELS = {
-  high_data_depth: "High data depth",
-  strong_league_history: "Strong league accuracy",
-  positive_value_signal: "Value signal",
-  strong_confidence_history: "Strong confidence-range accuracy"
+  high_data_depth: "Grande profondeur de donn\u00e9es",
+  strong_league_history: "Bonne pr\u00e9cision dans la ligue",
+  positive_value_signal: "Signal de valeur",
+  strong_confidence_history: "Bonne pr\u00e9cision dans cette plage"
 };
 function proPickSourceRow(pick){
   return Array.from(document.querySelectorAll('.mrow')).find(row =>
@@ -87001,11 +87002,19 @@ function applyLocalKickoffTimes(){
     if (!window.firebase || !window.firebase.initializeApp) { loadAdsenseAds(); return; }
     try { window.__fbapp = firebase.initializeApp(cfg); } catch(e) { try { window.__fbapp = firebase.app(); } catch(_){} }
     window.__auth = firebase.auth();
+    try { window.__auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch(e) {}
+    window.AIGoalieAuthUI?.init({
+      auth: window.__auth,
+      googleSignIn: startGoogleSignIn,
+      track: trackEvent,
+      source: 'day_page',
+      locale: document.documentElement.lang || 'fr'
+    });
     window.getAuthToken = async function(){ const u = window.__auth && window.__auth.currentUser; return u ? u.getIdToken() : null; };
     const signin = document.getElementById('dd_signin');
     const signout = document.getElementById('dd_signout');
     const manageBilling = document.getElementById('manageBilling');
-    signin?.addEventListener('click', async function(ev){ ev.preventDefault(); await window.__auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); });
+    signin?.addEventListener('click', function(ev){ ev.preventDefault(); trackEvent('sign_in_click', { source:'day_account_menu' }); window.AIGoalieAuthUI?.open({ mode:'signin' }); });
     signout?.addEventListener('click', async function(ev){ ev.preventDefault(); await window.__auth.signOut(); });
     manageBilling?.addEventListener('click', async function(ev){
       ev.preventDefault();
@@ -87032,6 +87041,12 @@ function applyLocalKickoffTimes(){
           clearPricingTable();
           loadAdsenseAds();
           if (checkoutRequestedFromUrl()) setTimeout(startCheckout, 0);
+          return;
+        }
+        if (window.AIGoalieAuthUI && !window.AIGoalieAuthUI.isVerified(user)) {
+          updateProUI(false);
+          clearPricingTable();
+          loadAdsenseAds();
           return;
         }
         const tok = await user.getIdToken();
