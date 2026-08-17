@@ -7,7 +7,7 @@
       divider: "or continue with email", email: "Email address", password: "Password", signIn: "Sign in with email",
       create: "Create account", useSignIn: "Already have an account? Sign in", useCreate: "New here? Create an account",
       forgot: "Forgot password?", close: "Close", creating: "Creating account…", signingIn: "Signing in…",
-      resetSent: "Password reset email sent.", verifySent: "Check your inbox and verify your email before signing in.",
+      resetSent: "Password reset email sent.", verifySent: "Verification email sent. Check your inbox, then verify your email before signing in.",
       existing: "An account already uses this email. Sign in instead, or use Google if that is how you registered.",
       invalid: "The email or password is incorrect.", weak: "Use a password with at least 8 characters.",
       generic: "We could not complete sign-in. Please try again.", emailRequired: "Enter your email address first."
@@ -19,6 +19,15 @@
     pt: { title:"Entrar na AIGoalie", intro:"Use o Google ou qualquer endereço de e-mail.", google:"Continuar com Google", divider:"ou continuar com e-mail", email:"Endereço de e-mail", password:"Palavra-passe", signIn:"Entrar com e-mail", create:"Criar conta", useSignIn:"Já tem conta? Entrar", useCreate:"É novo? Criar uma conta", forgot:"Esqueceu a palavra-passe?", close:"Fechar", creating:"A criar conta…", signingIn:"A entrar…", resetSent:"E-mail de recuperação enviado.", verifySent:"Consulte o seu e-mail e confirme o endereço antes de entrar.", existing:"Já existe uma conta com este e-mail. Entre ou use o Google se foi assim que se registou.", invalid:"O e-mail ou a palavra-passe estão incorretos.", weak:"Use uma palavra-passe com pelo menos 8 caracteres.", generic:"Não foi possível concluir o acesso. Tente novamente.", emailRequired:"Introduza primeiro o seu endereço de e-mail." }
   };
 
+  const SPAM_HINT = {
+    en: "If it is not there, check your spam or junk folder.",
+    ja: "届いていない場合は、迷惑メールフォルダも確認してください。",
+    es: "Si no aparece, revisa la carpeta de spam o correo no deseado.",
+    de: "Falls sie nicht erscheint, prüfe auch deinen Spam- oder Junk-Ordner.",
+    fr: "Si vous ne le trouvez pas, vérifiez le dossier spam ou courrier indésirable.",
+    pt: "Se não aparecer, verifique também a pasta de spam ou lixo eletrónico."
+  };
+
   let options = null;
   let mode = "signin";
 
@@ -28,6 +37,8 @@
   }
 
   function copy() { return COPY[locale()]; }
+
+  function verificationMessage() { return `${copy().verifySent} ${SPAM_HINT[locale()]}`; }
 
   function inject() {
     if (document.getElementById("aigoalieAuthDialog")) return;
@@ -115,13 +126,13 @@
         await credential.user.sendEmailVerification();
         if (options.track) options.track("account_created", { method: "email", source: options.source || "auth_dialog" });
         await options.auth.signOut();
-        status(copy().verifySent, false);
+        status(verificationMessage(), false);
       } else {
         const credential = await options.auth.signInWithEmailAndPassword(email, password);
         if (!credential.user.emailVerified) {
           try { await credential.user.sendEmailVerification(); } catch (_) {}
           await options.auth.signOut();
-          status(copy().verifySent, false);
+          status(verificationMessage(), false);
         } else {
           if (options.track) options.track("sign_in_method", { method: "email", source: options.source || "auth_dialog" });
           close();
