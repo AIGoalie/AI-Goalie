@@ -266,10 +266,15 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .utility summary{list-style:none;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--text);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
 .utility summary::-webkit-details-marker{display:none}
 .utility[open] summary,.utility summary:hover{background:var(--surface-2);border-color:rgba(113,240,139,.35)}
-.utility-menu{position:absolute;right:0;top:46px;z-index:80;width:196px;padding:6px;background:#102019;border:1px solid var(--line);border-radius:11px;box-shadow:0 14px 36px rgba(0,0,0,.42)}
+.utility-menu{position:absolute;right:0;top:46px;z-index:80;width:218px;padding:6px;background:#102019;border:1px solid var(--line);border-radius:11px;box-shadow:0 14px 36px rgba(0,0,0,.42)}
+.utility-label{display:block;padding:6px 10px 4px;color:var(--muted-2);font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
 .utility-menu button{width:100%;display:flex;align-items:center;gap:8px;border:0;border-radius:8px;background:transparent;color:var(--text);padding:9px 10px;text-align:left;font-size:12px;font-weight:650;cursor:pointer}
 .utility-menu button:hover{background:var(--surface-2)}
 .utility-menu button.active{color:var(--green-bright)}
+.utility-menu .pro-mini{margin-left:auto;padding:2px 5px;border:1px solid rgba(235,200,91,.3);border-radius:999px;color:#e9ca64;font-size:9px;line-height:1.2}
+.win-pill.metric-goals,.win-pill.metric-btts{min-width:66px;padding-inline:6px;font-size:10px;white-space:nowrap}
+.win-pill.metric-goals{background:#d9c46b!important;color:#122015}
+.win-pill.metric-btts{background:#83d9b1!important;color:#092015}
 .control-search{display:flex;align-items:center;gap:8px;height:42px;margin-top:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}
 .control-search:focus-within{border-color:rgba(113,240,139,.52)}
 .control-search svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
@@ -953,7 +958,10 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <details class="utility" id="utilityMenu">
         <summary aria-label="Mehr Optionen" title="Mehr Optionen">⋯</summary>
         <div class="utility-menu">
+          <span class="utility-label">Spiele sortieren nach</span>
           <button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ Nach Konfidenz sortieren</button>
+          <button id="sortGoals" onclick="setSortMode('goals');closeUtilityMenu()">⚽ Erwartete Tore</button>
+          <button id="sortBtts" onclick="setSortMode('btts');closeUtilityMenu()">⇄ BTTS-Wahrscheinlichkeit <span class="pro-mini">Pro</span></button>
           <button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ Nach Zeit sortieren</button>
           <button id="csv_button" onclick="closeUtilityMenu();if(window.downloadCSV)downloadCSV()">↓ CSV herunterladen</button>
         </div>
@@ -1032,7 +1040,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 </div>
 
 <script>
-const I18N = {"about_model": "\u00dcber das Modell", "account": "Konto", "accuracy": "Genauigkeit", "ai_pick": "KI-Tipp", "ai_predictions_prefix": "KI-Fu\u00dfballvorhersagen", "all_matches": "Alle Spiele", "around_2_3_goals": "Etwa 2-3 Tore", "best_available_evidence": "Starke Gesamtevidenz", "both_to_score": "Beide treffen", "by_league": "Nach Liga", "confidence": "Konfidenz", "confidence_75_plus": "75%+ Konfidenz", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "Konfidenz", "csv_login_alert": "Bitte melde dich an, um auf die CSV zuzugreifen.", "csv_pro_alert": "Hol dir Pro, um die CSV herunterzuladen.", "csv_unavailable_alert": "Die CSV ist derzeit nicht verf\u00fcgbar.", "discipline_model": "Disziplin ist Teil des Modells", "download_csv": "CSV herunterladen", "expected_goals_per_team": "Erwartete Tore (pro Team)", "filter_all": "Alle", "finished_short": "FT", "full_prediction_analysis": "Vollst\u00e4ndige Vorhersage \u0026 Analyse \u2192", "global_view": "Global", "go_pro": "Pro holen", "graded_calls": "bewertete Vorhersagen", "high_data_depth": "Hohe Datentiefe", "high_scoring": "Viele Tore", "historical_backtest": "Historischer Backtest", "language": "Sprache", "league": "Liga", "league_accuracy_all": "Liga-Trefferquote (alle Vorhersagen)", "league_accuracy_conf50": "Liga-Trefferquote \u226550%", "live": "Live", "loading_pro_picks": "Pro Picks werden geladen\u2026", "low_scoring": "Wenige Tore", "manage_billing": "Abrechnung verwalten", "matches": "Spiele", "matches_today": "Spiele heute", "model_accuracy_history": "Trefferquoten-Verlauf des Modells", "model_disclaimer": "Modellausgaben, keine Garantien. 18+ \u00b7 Spiele verantwortungsbewusst.", "model_pick": "Modell-Pick", "more_history_needed": "Mehr Verlauf n\u00f6tig", "more_options": "Mehr Optionen", "new_simulator": "Neuer Simulator", "next_day": "N\u00e4chster Tag", "no_matches": "Keine Spiele.", "no_pro_picks_copy": "Kein Spiel erf\u00fcllte heute den AIGoalie-Standard. Wir erg\u00e4nzen keine schw\u00e4cheren Tipps, nur um die Liste zu f\u00fcllen.", "no_pro_picks_today": "Heute keine Pro Picks", "odds": "Quoten", "over_25_likely": "\u00dcber 2,5 wahrscheinlich", "pick_hit": "Treffer", "pick_missed": "Verfehlt", "picked_team": "Gew\u00e4hltes Team", "positive_value_signal": "Value-Signal", "predictions": "Prognosen", "previous_day": "Vorheriger Tag", "privacy": "Datenschutz", "pro_modal_subtitle": "Schalte erwartete Tore, BTTS, CSV-Export, Gegnerst\u00e4rke und eine werbefreie Seite frei.", "pro_picks_historical_win_rate": "Historische Trefferquote der Pro Picks", "pro_picks_win_rate": "Trefferquote der Pro Picks", "pro_shortlist": "Pro-Auswahl", "public_total_goals_band": "\u00d6ffentliche Gesamttor-Spanne", "qualified": "qualifiziert", "ranked_worldwide": "Weltweite Spiele nach KI-Konfidenz sortiert", "search_placeholder": "Team oder Liga suchen\u2026", "shortlist_ready": "Die heutige Auswahl ist bereit", "shortlisted_worldwide": "Aus allen Spielen weltweit ausgew\u00e4hlt", "sign_in": "Anmelden", "sign_out": "Abmelden", "similar_accuracy_short": "\u00c4hnliche", "similar_confidence_accuracy": "Genauigkeit bei \u00e4hnlicher Konfidenz", "simulate_any_matchup": "Simuliere jedes Fu\u00dfballduell", "simulator_teaser": "W\u00e4hle zwei Teams und sieh, was AIGoalie vorhersagt. Pro schaltet unbegrenzte Simulationen und exakte xG frei.", "sort_by_confidence": "Nach Konfidenz sortieren", "sort_by_time": "Nach Zeit sortieren", "strong_confidence_history": "Starke Genauigkeit im Bereich", "strong_league_history": "Starke Liga-Genauigkeit", "tap_for_prediction": "Tippen f\u00fcr Vorhersage", "todays_matches": "Heutige Spiele", "todays_pro_picks": "Heutige Pro Picks", "total_goals": "Tore insgesamt", "try_it": "Ausprobieren", "under_25_likely": "Unter 2,5 wahrscheinlich", "unlock_pro_picks": "Pro Picks freischalten", "unlock_supporting_evidence": "Picks und Begr\u00fcndungen freischalten.", "up_to_three": "Bis zu 3", "upcoming_short": "Bevorstehend", "weaker_never_added": "Bis zu 3 t\u00e4glich \u00b7 schw\u00e4chere Spiele werden nie erg\u00e4nzt", "world_cup": "Weltmeisterschaft"};
+const I18N = {"about_model": "\u00dcber das Modell", "account": "Konto", "accuracy": "Genauigkeit", "ai_pick": "KI-Tipp", "ai_predictions_prefix": "KI-Fu\u00dfballvorhersagen", "all_matches": "Alle Spiele", "around_2_3_goals": "Etwa 2-3 Tore", "best_available_evidence": "Starke Gesamtevidenz", "both_to_score": "Beide treffen", "btts_chance": "Wahrscheinlichkeit, dass beide Teams treffen", "by_league": "Nach Liga", "confidence": "Konfidenz", "confidence_75_plus": "75%+ Konfidenz", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "Konfidenz", "csv_login_alert": "Bitte melde dich an, um auf die CSV zuzugreifen.", "csv_pro_alert": "Hol dir Pro, um die CSV herunterzuladen.", "csv_unavailable_alert": "Die CSV ist derzeit nicht verf\u00fcgbar.", "discipline_model": "Disziplin ist Teil des Modells", "download_csv": "CSV herunterladen", "expected_goals_per_team": "Erwartete Tore (pro Team)", "filter_all": "Alle", "finished_short": "FT", "full_prediction_analysis": "Vollst\u00e4ndige Vorhersage \u0026 Analyse \u2192", "global_view": "Global", "go_pro": "Pro holen", "graded_calls": "bewertete Vorhersagen", "high_data_depth": "Hohe Datentiefe", "high_scoring": "Viele Tore", "historical_backtest": "Historischer Backtest", "language": "Sprache", "league": "Liga", "league_accuracy_all": "Liga-Trefferquote (alle Vorhersagen)", "league_accuracy_conf50": "Liga-Trefferquote \u226550%", "live": "Live", "loading_pro_picks": "Pro Picks werden geladen\u2026", "low_scoring": "Wenige Tore", "manage_billing": "Abrechnung verwalten", "matches": "Spiele", "matches_today": "Spiele heute", "model_accuracy_history": "Trefferquoten-Verlauf des Modells", "model_disclaimer": "Modellausgaben, keine Garantien. 18+ \u00b7 Spiele verantwortungsbewusst.", "model_pick": "Modell-Pick", "more_history_needed": "Mehr Verlauf n\u00f6tig", "more_options": "Mehr Optionen", "new_simulator": "Neuer Simulator", "next_day": "N\u00e4chster Tag", "no_matches": "Keine Spiele.", "no_pro_picks_copy": "Kein Spiel erf\u00fcllte heute den AIGoalie-Standard. Wir erg\u00e4nzen keine schw\u00e4cheren Tipps, nur um die Liste zu f\u00fcllen.", "no_pro_picks_today": "Heute keine Pro Picks", "odds": "Quoten", "over_25_likely": "\u00dcber 2,5 wahrscheinlich", "pick_hit": "Treffer", "pick_missed": "Verfehlt", "picked_team": "Gew\u00e4hltes Team", "positive_value_signal": "Value-Signal", "predicted_goals_short": "Tore", "predicted_total_goals": "Erwartete Gesamttore", "predictions": "Prognosen", "previous_day": "Vorheriger Tag", "privacy": "Datenschutz", "pro_modal_subtitle": "Schalte erwartete Tore, BTTS, CSV-Export, Gegnerst\u00e4rke und eine werbefreie Seite frei.", "pro_picks_historical_win_rate": "Historische Trefferquote der Pro Picks", "pro_picks_win_rate": "Trefferquote der Pro Picks", "pro_shortlist": "Pro-Auswahl", "public_total_goals_band": "\u00d6ffentliche Gesamttor-Spanne", "qualified": "qualifiziert", "rank_matches_by": "Spiele sortieren nach", "ranked_by_btts": "Weltweite Spiele nach BTTS-Wahrscheinlichkeit sortiert", "ranked_by_goals": "Weltweite Spiele nach erwarteten Toren sortiert", "ranked_worldwide": "Weltweite Spiele nach KI-Konfidenz sortiert", "search_placeholder": "Team oder Liga suchen\u2026", "shortlist_ready": "Die heutige Auswahl ist bereit", "shortlisted_worldwide": "Aus allen Spielen weltweit ausgew\u00e4hlt", "sign_in": "Anmelden", "sign_out": "Abmelden", "similar_accuracy_short": "\u00c4hnliche", "similar_confidence_accuracy": "Genauigkeit bei \u00e4hnlicher Konfidenz", "simulate_any_matchup": "Simuliere jedes Fu\u00dfballduell", "simulator_teaser": "W\u00e4hle zwei Teams und sieh, was AIGoalie vorhersagt. Pro schaltet unbegrenzte Simulationen und exakte xG frei.", "sort_by_btts": "BTTS-Wahrscheinlichkeit", "sort_by_confidence": "Nach Konfidenz sortieren", "sort_by_goals": "Erwartete Tore", "sort_by_time": "Nach Zeit sortieren", "strong_confidence_history": "Starke Genauigkeit im Bereich", "strong_league_history": "Starke Liga-Genauigkeit", "tap_for_prediction": "Tippen f\u00fcr Vorhersage", "todays_matches": "Heutige Spiele", "todays_pro_picks": "Heutige Pro Picks", "total_goals": "Tore insgesamt", "try_it": "Ausprobieren", "under_25_likely": "Unter 2,5 wahrscheinlich", "unlock_pro_picks": "Pro Picks freischalten", "unlock_supporting_evidence": "Picks und Begr\u00fcndungen freischalten.", "up_to_three": "Bis zu 3", "upcoming_short": "Bevorstehend", "weaker_never_added": "Bis zu 3 t\u00e4glich \u00b7 schw\u00e4chere Spiele werden nie erg\u00e4nzt", "world_cup": "Weltmeisterschaft"};
 const COUNTRY_FLAGS = {};
 function i18n(key, fallback){ return Object.prototype.hasOwnProperty.call(I18N, key) ? I18N[key] : fallback; }
 function trackEvent(name, data){
@@ -1099,6 +1107,11 @@ function fmtPct(v){
   const n = Number(s.replace(",", "."));
   if (!Number.isFinite(n)) return s;
   return `${Math.round((Math.abs(n) <= 1 ? n * 100 : n))}%`;
+}
+function normalizePercent(v){
+  const n = Number(String(v == null ? "" : v).replace("%", "").replace(",", "."));
+  if (!Number.isFinite(n)) return "";
+  return Math.round(Math.abs(n) <= 1 ? n * 100 : n);
 }
 function fmtThreatPct(v){
   if (v == null || v === "") return "—";
@@ -1174,7 +1187,7 @@ function cardHTML(m,idx){
   const hl=m.home_logo_url||logoURL(m.hid), al=m.away_logo_url||logoURL(m.aid);
   const matchStatus=isLiveResult(m)?"live":((m.status==="finished"||["W","D","L"].includes(String(m.outcome||"").toUpperCase()))?"finished":"upcoming");
   return `
-  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-date="${esc(m.date||'')}" data-time="${esc(m.time||'')}" data-kickoff-utc="${esc(m.kickoff_utc||'')}" data-featured-value="${Number(m._featured_matchup_value||m.featured_matchup_value||0)}" data-status="${matchStatus}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
+  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-date="${esc(m.date||'')}" data-time="${esc(m.time||'')}" data-kickoff-utc="${esc(m.kickoff_utc||'')}" data-featured-value="${Number(m._featured_matchup_value||m.featured_matchup_value||0)}" data-confidence="${esc(m.total||'')}" data-total-goals="${m.total_xg!=null?Number(m.total_xg):''}" data-btts="${m.btts!=null?normalizePercent(m.btts):''}" data-status="${matchStatus}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1211,8 +1224,15 @@ function cardHTML(m,idx){
   </div>`;
 }
 
+const RANKING_STORAGE_KEY="aigoalie-ranking-metric";
+const RANKING_COPY={
+  confidence:{note:"Weltweite Spiele nach KI-Konfidenz sortiert",title:"KI-Tipp"},
+  goals:{note:"Weltweite Spiele nach erwarteten Toren sortiert",title:"Erwartete Gesamttore",unit:"Tore"},
+  btts:{note:"Weltweite Spiele nach BTTS-Wahrscheinlichkeit sortiert",title:"Wahrscheinlichkeit, dass beide Teams treffen"}
+};
 let SORT_BY_CONF=true;
 let SORT_MODE="confidence";
+let PENDING_PRO_SORT_MODE="";
 let ACTIVE_STATUS="all";
 
 
@@ -1426,24 +1446,78 @@ function rowTimeValue(row){
   const match=String(row.dataset.time||"").match(/(\d{1,2}):(\d{2})/);
   return match?Number(match[1])*60+Number(match[2]):Number.MAX_SAFE_INTEGER;
 }
-function setSortMode(mode){
+function numericMetric(value){
+  const match=String(value==null?"":value).replace(",",".").match(/-?\d+(?:\.\d+)?/);
+  return match?Number(match[0]):0;
+}
+function rowMetricValue(row,mode){
+  if(mode==="goals")return numericMetric(row.dataset.totalGoals);
+  if(mode==="btts")return numericMetric(row.dataset.btts);
+  return numericMetric(row.dataset.confidence||row.querySelector(".win-pill")?.textContent);
+}
+function updateMetricBadge(row,mode){
+  const pill=row.querySelector(".win-pill");
+  if(!pill)return;
+  if(!pill.dataset.confidenceText)pill.dataset.confidenceText=pill.textContent.trim();
+  pill.classList.remove("metric-goals","metric-btts");
+  if(mode==="goals"){
+    const value=rowMetricValue(row,"goals");
+    pill.textContent=value?`${value.toFixed(2).replace(/0+$/,"").replace(/\.$/,"")} ${RANKING_COPY.goals.unit}`:`— ${RANKING_COPY.goals.unit}`;
+    pill.title=RANKING_COPY.goals.title;
+    pill.classList.add("metric-goals");
+  }else if(mode==="btts"){
+    const value=rowMetricValue(row,"btts");
+    pill.textContent=value?`${Math.round(value)}% BTTS`:`— BTTS`;
+    pill.title=RANKING_COPY.btts.title;
+    pill.classList.add("metric-btts");
+  }else{
+    pill.textContent=pill.dataset.confidenceText;
+    pill.title=RANKING_COPY.confidence.title;
+  }
+}
+function updateRankingNotes(mode){
+  const copy=RANKING_COPY[mode]||RANKING_COPY.confidence;
+  document.querySelectorAll(".ranking-note").forEach(note=>{note.textContent=copy.note;});
+}
+function setSortMode(mode,options={}){
+  if(!["confidence","goals","btts","time"].includes(mode))mode="confidence";
+  if(mode==="btts"&&window.__isPro!==true){
+    PENDING_PRO_SORT_MODE="btts";
+    if(options.fromRestore)return;
+    trackEvent("ranking_metric_locked",{metric:"btts"});
+    const buyButton=Array.from(document.querySelectorAll("[data-buy-pro]")).find(button=>getComputedStyle(button).display!=="none")||document.querySelector("[data-buy-pro]");
+    buyButton?.click();
+    return;
+  }
+  PENDING_PRO_SORT_MODE="";
   SORT_MODE=mode;
   SORT_BY_CONF=mode==="confidence";
-  document.getElementById("sortConfidence")?.classList.toggle("active",SORT_BY_CONF);
-  document.getElementById("sortTime")?.classList.toggle("active",!SORT_BY_CONF);
+  ["Confidence","Goals","Btts","Time"].forEach(name=>document.getElementById(`sort${name}`)?.classList.toggle("active",mode===name.toLowerCase()));
+  const badgeMode=mode==="time"?"confidence":mode;
+  document.querySelectorAll(".mrow").forEach(row=>updateMetricBadge(row,badgeMode));
+  updateRankingNotes(badgeMode);
   document.querySelectorAll("#globalView .wc-section,#globalView .all-section,#globalView .league-section,#leagueView .wc-section,#leagueView .league-section").forEach(section=>{
     const cards=Array.from(section.children).filter(element=>element.classList?.contains("mrow"));
     cards.sort((a,b)=>{
       if(SORT_MODE==="time")return rowTimeValue(a)-rowTimeValue(b);
-      const av=parseFloat((a.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;
-      const bv=parseFloat((b.querySelector(".win-pill")?.textContent||"0").replace("%",""))||0;
-      return bv-av;
+      return rowMetricValue(b,SORT_MODE)-rowMetricValue(a,SORT_MODE);
     }).forEach(card=>section.appendChild(card));
   });
-  trackEvent("sort_toggle",{sort_mode:mode});
+  if(options.persist!==false){try{localStorage.setItem(RANKING_STORAGE_KEY,mode);}catch(e){}}
+  if(options.track!==false)trackEvent(mode==="time"?"sort_toggle":"ranking_metric_change",{sort_mode:mode,metric:mode});
   applyFilters();
 }
 function toggleSort(){setSortMode(SORT_MODE==="confidence"?"time":"confidence")}
+function restoreSortMode(){
+  let stored="confidence";
+  try{stored=localStorage.getItem(RANKING_STORAGE_KEY)||"confidence";}catch(e){}
+  if(stored==="btts"){
+    setSortMode("confidence",{track:false,persist:false});
+    PENDING_PRO_SORT_MODE="btts";
+    return;
+  }
+  setSortMode(stored,{track:false,persist:false,fromRestore:true});
+}
 function closeUtilityMenu(){document.getElementById("utilityMenu")?.removeAttribute("open")}
 document.addEventListener("click",event=>{
   const menu=document.getElementById("utilityMenu");
@@ -1452,6 +1526,7 @@ document.addEventListener("click",event=>{
 
 promoteTopLeagueToGlobal();
 placeFeaturedInlineAd();
+restoreSortMode();
 openDefaultRows();
 </script>
 <script>
@@ -1865,6 +1940,14 @@ function populateRenderedProFields(items){
     const awayXg = numOrNull(match.away_xg ?? match.pro_away_xg);
     const totalXg = numOrNull(match.total_xg ?? match.pro_total_xg);
     const displayTotalXg = totalXg != null ? totalXg : ((homeXg != null && awayXg != null) ? homeXg + awayXg : null);
+    let btts = match.btts ?? match.pro_btts;
+    if ((btts == null || btts === "") && homeXg != null && awayXg != null) {
+      const ph = 1 - Math.exp(-Math.max(0, homeXg));
+      const pa = 1 - Math.exp(-Math.max(0, awayXg));
+      btts = Math.round(Math.max(0, Math.min(1, ph * pa)) * 100);
+    }
+    if (displayTotalXg != null) row.dataset.totalGoals = String(displayTotalXg);
+    if (btts != null && btts !== "") row.dataset.btts = String(normalizePercent(btts));
     row.querySelectorAll(".pro-xgh").forEach(el => { el.textContent = homeXg == null ? "—" : homeXg.toFixed(2); });
     row.querySelectorAll(".pro-xga").forEach(el => { el.textContent = awayXg == null ? "—" : awayXg.toFixed(2); });
     const totalMetric = row.querySelector(".total-goals-metric") || Array.from(row.querySelectorAll(".metric")).find(el => {
@@ -1876,12 +1959,6 @@ function populateRenderedProFields(items){
       if (value) value.textContent = Number(displayTotalXg).toFixed(2).replace(/\.00$/, "");
     }
     row.querySelectorAll(".pro-btts").forEach(el => {
-      let btts = match.btts ?? match.pro_btts;
-      if ((btts == null || btts === "") && homeXg != null && awayXg != null) {
-        const ph = 1 - Math.exp(-Math.max(0, homeXg));
-        const pa = 1 - Math.exp(-Math.max(0, awayXg));
-        btts = Math.round(Math.max(0, Math.min(1, ph * pa)) * 100);
-      }
       el.textContent = btts == null || btts === "" ? "—" : fmtPct(btts);
     });
     row.querySelectorAll(".pro-opp").forEach(el => {
@@ -1889,6 +1966,8 @@ function populateRenderedProFields(items){
       el.textContent = opp == null || opp === "" ? "—" : fmtThreatPct(opp);
     });
   });
+  if (PENDING_PRO_SORT_MODE === "btts") setSortMode("btts", {track:false});
+  else if (["goals","btts","time"].includes(SORT_MODE)) setSortMode(SORT_MODE, {track:false,persist:false});
 }
 
 async function renderV12MatchesFromApi(matches){
@@ -1934,6 +2013,8 @@ async function renderV12MatchesFromApi(matches){
   if (lv) lv.innerHTML = lhtml || `<div class="empty">No Pro predictions available for this date yet.</div>`;
 
   if (window.__isPro === true) applyProUnlockedDom();
+  if (PENDING_PRO_SORT_MODE === "btts") setSortMode("btts", {track:false});
+  else setSortMode(SORT_MODE, {track:false,persist:false});
   doSearch(document.getElementById("search")?.value || "");
   openDefaultRows();
 }
