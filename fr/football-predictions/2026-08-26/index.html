@@ -1200,7 +1200,7 @@ function cardHTML(m,idx){
         <div class="metric total-goals-metric"><div class="ml">Total de buts</div><div class="mv">${gb?gb.value:'—'}</div><div class="ms"></div></div>
         <div class="metric pro-metric"><div class="ml">BTTS</div><div class="mv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="ms"></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="metric"><div class="ml" title="Précision à confiance similaire">Similaire<br>précision</div><div class="mv">${m.context_conf ? Math.round(Number(m.context_conf.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_conf ? `${m.context_conf.n} prédictions` : "Plus d'historique nécessaire"}</div></div>
-        <div class="metric pro-metric"><div class="ml">League<br>précision</div><div class="mv locked pro">${m.context_league ? Math.round(Number(m.context_league.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_league ? `${m.context_league.n} prédictions${m.context_league_scope === "conf50" ? " · 50%+" : ""}` : "Plus d'historique nécessaire"}</div><div class="pro-tag">🔒 Pro</div></div>
+        <div class="metric pro-metric"><div class="ml">Équipe choisie<br>précision</div><div class="mv locked pro">${m.context_team ? Math.round(Number(m.context_team.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_team ? `${m.context_team.n} prédictions` : "Plus d'historique nécessaire"}</div><div class="pro-tag">🔒 Pro</div></div>
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">
