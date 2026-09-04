@@ -245,23 +245,44 @@ body.pro-unlocked [data-buy-pro]{display:none!important}
 .navtoggle{display:none;background:var(--surface);border:1px solid var(--line);color:var(--text);
 border-radius:9px;padding:7px 11px;font-size:15px;cursor:pointer}
 
-.daybar{display:flex;align-items:center;justify-content:center;gap:14px;padding:16px 0 2px}
+.daybar{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 0 2px}
 .seo-h1{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .daybar button{background:var(--surface);border:1px solid var(--line);color:var(--text);
 border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:grid;place-items:center}
 .daybar button:hover{background:var(--surface-2)}
-.daybar .day{font-size:20px;font-weight:700;min-width:210px;text-align:center}
+.daybar .day-trigger{width:auto;min-width:210px;padding:0 14px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:20px;font-weight:700;text-align:center}
+.daybar .day-trigger .day-caret{font-size:11px;color:var(--muted);transition:transform .15s}
+.daybar .day-trigger[aria-expanded="true"] .day-caret{transform:rotate(180deg)}
+.calendar-popover{position:fixed;inset:0;z-index:12000;display:none;align-items:flex-start;justify-content:center;padding:118px 14px 24px;background:rgba(2,10,6,.72);backdrop-filter:blur(5px)}
+.calendar-popover.open{display:flex}
+.calendar-card{width:min(360px,100%);padding:14px;border:1px solid var(--line);border-radius:16px;background:#102019;box-shadow:0 22px 60px rgba(0,0,0,.5)}
+.calendar-head{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;gap:8px;margin-bottom:10px}
+.calendar-head button{width:36px;height:36px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);color:var(--text);font-size:18px;cursor:pointer}
+.calendar-month{text-align:center;font-size:15px;font-weight:800;text-transform:capitalize}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.calendar-weekdays span{padding:4px 0;color:var(--muted-2);font-size:9px;font-weight:800;text-align:center;text-transform:uppercase}
+.calendar-day{aspect-ratio:1;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted-2);font-size:12px;cursor:default}
+.calendar-day.available{border-color:var(--line);background:var(--surface-2);color:var(--text);cursor:pointer}
+.calendar-day.available:hover{border-color:var(--green)}
+.calendar-day.today{box-shadow:inset 0 0 0 1px rgba(113,240,139,.45)}
+.calendar-day.selected{border-color:var(--green);background:rgba(113,240,139,.14);color:var(--green-bright);font-weight:900}
+.calendar-day.pro-locked{color:var(--gold);opacity:.72;cursor:pointer}
+.calendar-legend{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;color:var(--muted);font-size:9.5px}
+.calendar-close{border:0;background:transparent;color:var(--green);font-size:10px;font-weight:800;cursor:pointer}
 
-.match-controls{margin:14px 0 4px}
+.match-controls{margin:12px 0 4px}
 .control-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}
-.layout-select{width:142px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);padding:0 32px 0 12px;font-size:13px;font-weight:700;cursor:pointer;outline:0}
-.layout-select:focus{border-color:rgba(113,240,139,.52)}
+.view-switch{display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}
+.view-btn{height:38px;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 14px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}
+.view-btn:last-child{border-right:0}.view-btn:hover{background:var(--surface-2);color:var(--text)}.view-btn.on{background:rgba(113,240,139,.12);color:var(--green-bright)}
 .status-switch{min-width:0;display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}
 .status-btn{height:38px;min-width:0;flex:1;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 10px;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}
 .status-btn:last-child{border-right:0}
 .status-btn:hover{background:var(--surface-2);color:var(--text)}
 .status-btn.on{background:var(--text);color:#092015}
 .status-btn.live-filter::before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#ff5e62;vertical-align:1px}
+.status-select{display:none;height:38px;min-width:92px;padding:0 25px 0 10px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);font-size:11.5px;font-weight:800;outline:0}
+.control-actions{display:flex;align-items:center;gap:7px}
 .utility{position:relative}
 .utility summary{list-style:none;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--text);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
 .utility summary::-webkit-details-marker{display:none}
@@ -272,10 +293,13 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .utility-menu button:hover{background:var(--surface-2)}
 .utility-menu button.active{color:var(--green-bright)}
 .utility-menu .pro-mini{margin-left:auto;padding:2px 5px;border:1px solid rgba(235,200,91,.3);border-radius:999px;color:#e9ca64;font-size:9px;line-height:1.2}
+.csv-quick{position:relative;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);font-size:16px;font-weight:800;cursor:pointer}
+.csv-quick:hover{background:var(--surface-2);border-color:rgba(113,240,139,.35)}
+.csv-quick .pro-mini{position:absolute;right:-4px;top:-6px;padding:1px 4px;border:1px solid rgba(235,200,91,.35);border-radius:999px;background:#17241c;color:var(--gold);font-size:7px;line-height:1.35;text-transform:uppercase}
 .win-pill.metric-goals,.win-pill.metric-btts{min-width:66px;padding-inline:6px;font-size:10px;white-space:nowrap}
 .win-pill.metric-goals{background:#d9c46b!important;color:#122015}
 .win-pill.metric-btts{background:#83d9b1!important;color:#092015}
-.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-top:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}
+.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-bottom:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}
 .control-search:focus-within{border-color:rgba(113,240,139,.52)}
 .control-search svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
 .control-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:13px}
@@ -387,7 +411,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .ad-container.hidden{display:none}
 .ad-desktop{display:flex}
 .day-top-ad{width:min(468px,100%);max-width:468px;min-height:60px}
-.day-inline-ad{min-height:250px}
+.day-inline-ad{width:min(468px,100%);max-width:468px;min-height:60px;margin:16px auto}
 .whats-new{margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:rgba(113,240,139,.035);overflow:hidden}
 .whats-new summary{min-height:42px;padding:0 13px;display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;color:var(--text);font-size:12px;font-weight:800}
 .whats-new summary::-webkit-details-marker{display:none}.whats-new summary::after{content:'\203A';margin-left:auto;color:var(--muted);font-size:18px;transform:rotate(90deg);transition:transform .15s}.whats-new[open] summary::after{transform:rotate(-90deg)}
@@ -401,7 +425,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .pro-picks-badge{padding:5px 8px;border:1px solid rgba(113,240,139,.23);border-radius:999px;color:var(--green);font-size:9.5px;font-weight:800;white-space:nowrap}
 .pro-picks-state{display:none}.pro-picks-state.on{display:block}.pro-picks-list{display:grid}.pro-pick-item{border-bottom:1px solid rgba(145,169,157,.09)}.pro-pick-item:last-child{border-bottom:0}.pro-pick-row{display:grid;grid-template-columns:27px minmax(0,1fr) 80px 15px;align-items:center;gap:9px;min-height:65px;padding:9px 14px 5px;color:inherit;text-decoration:none}.pro-pick-row:hover{background:rgba(113,240,139,.045)}
 .pro-pick-rank{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:rgba(113,240,139,.11);color:var(--green);font-size:10px;font-weight:900}.pro-pick-main{min-width:0}.pro-pick-fixture{display:grid;grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);align-items:center;gap:7px}.pro-pick-side{min-width:0;display:flex;align-items:center;gap:6px}.pro-pick-side.home{justify-content:flex-end;text-align:right}.pro-pick-side.away{justify-content:flex-start}.pro-pick-side .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-size:11.5px;font-weight:750}.pro-pick-side.picked .name{color:var(--green)}.pro-pick-crest{width:25px;height:25px;flex:0 0 25px;object-fit:contain;border-radius:7px;background:rgba(255,255,255,.035)}.pro-pick-center{height:31px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);font-size:11px;font-weight:850;white-space:nowrap}.pro-pick-center.live{color:#ff7777;border-color:rgba(255,100,100,.24)}.pro-pick-meta{display:flex;align-items:center;justify-content:center;gap:6px;min-width:0;margin-top:5px;color:var(--muted);font-size:9px}.pro-pick-meta .league{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pro-pick-odds{flex:0 0 auto;color:var(--muted-2);white-space:nowrap}.pro-pick-winwrap{display:flex;align-items:center;justify-content:flex-end;gap:7px}.pro-pick-confidence{min-width:49px;height:32px;padding:0 6px;border-radius:9px;display:inline-grid;place-items:center;color:#06150b;font-size:12px;font-weight:950}.pro-pick-arrow{color:var(--muted);font-size:15px}.pro-pick-signals{display:flex;flex-wrap:wrap;gap:5px;margin:0 14px 9px 50px}.pro-pick-signal{display:inline-flex;align-items:center;gap:5px;min-width:0;padding:4px 7px;border:1px solid rgba(113,240,139,.13);border-radius:999px;background:rgba(113,240,139,.045);color:var(--muted);font-size:8.5px;line-height:1.15}.pro-pick-signal::before{content:'';width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--green)}
-.pro-picks-locked{padding:13px 14px}.pro-picks-skeleton{display:grid;gap:7px;filter:blur(5px);opacity:.52}.pro-picks-skeleton span{height:29px;border-radius:8px;background:linear-gradient(90deg,rgba(113,240,139,.15),rgba(255,255,255,.07),rgba(113,240,139,.12))}.pro-picks-unlock{display:flex;align-items:center;gap:12px;margin-top:12px}.pro-picks-unlock-copy{min-width:0;flex:1}.pro-picks-unlock-copy strong{display:block;font-size:12px}.pro-picks-unlock-copy span{display:block;margin-top:3px;color:var(--muted);font-size:10px}.pro-picks-unlock button{height:34px;padding:0 12px;border:1px solid rgba(113,240,139,.42);border-radius:10px;background:rgba(113,240,139,.12);color:var(--green);font-weight:850;cursor:pointer;white-space:nowrap}
+.pro-picks-locked{padding:10px 12px}.pro-picks-lockbar{display:flex;align-items:center;gap:10px}.pro-picks-lockbar .pro-picks-icon{width:31px;height:31px;flex-basis:31px;border-radius:9px}.pro-picks-lock-copy{min-width:0;flex:1}.pro-picks-lock-copy strong{display:block;font-size:12px}.pro-picks-lock-copy span{display:block;margin-top:2px;color:var(--muted);font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pro-picks-lockbar button{height:34px;padding:0 12px;border:1px solid rgba(113,240,139,.42);border-radius:10px;background:rgba(113,240,139,.12);color:var(--green);font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}
+.pro-picks.state-locked .pro-picks-head{display:none}.pro-picks.state-locked{margin-top:10px}.pro-picks.state-locked .pro-picks-locked{padding:10px 12px}
 .pro-picks-empty{display:flex;align-items:flex-start;gap:11px;padding:15px 14px}.pro-picks-empty-mark{width:29px;height:29px;flex:0 0 29px;border-radius:9px;display:grid;place-items:center;background:rgba(113,240,139,.1);color:var(--green);font-weight:900}.pro-picks-empty strong{font-size:12px}.pro-picks-empty p{margin:4px 0 0;color:var(--muted);font-size:10.5px;line-height:1.45}.pro-picks-loading{padding:20px 14px;color:var(--muted);font-size:11px;text-align:center}
 .pro-picks-foot{display:flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,0,0,.06);color:var(--muted);font-size:9.5px;line-height:1.2}.pro-picks-foot a{margin-left:auto;color:var(--green);font-weight:800;text-decoration:none;white-space:nowrap}
 
@@ -414,7 +439,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .navtoggle{display:block}
   .ad-desktop{display:none}
 }
-@media(max-width:680px){.pro-picks{margin:7px 0 15px;border-radius:14px}.pro-picks-head{padding:11px 12px;gap:9px}.pro-picks-icon{width:32px;height:32px;flex-basis:32px}.pro-picks-copy h2{font-size:15px}.pro-picks-copy p{font-size:9.5px}.pro-picks-badge{padding:4px 7px}.pro-pick-row{grid-template-columns:22px minmax(0,1fr) 72px 11px;gap:6px;min-height:61px;padding:8px 9px 4px}.pro-pick-rank{width:21px;height:21px}.pro-pick-fixture{grid-template-columns:minmax(0,1fr) 46px minmax(0,1fr);gap:5px}.pro-pick-side{gap:4px}.pro-pick-side .name{font-size:10.5px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.pro-pick-crest{width:23px;height:23px;flex-basis:23px}.pro-pick-center{height:29px;font-size:10.5px}.pro-pick-confidence{min-width:44px;height:31px;font-size:11.5px}.pro-pick-winwrap{gap:5px}.pro-pick-meta{margin-top:4px;font-size:8.5px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}.pro-picks-locked{padding:11px}.pro-picks-unlock{justify-content:space-between}.pro-picks-foot{padding:5px 11px}}
+@media(max-width:680px){.pro-picks{margin:7px 0 15px;border-radius:14px}.pro-picks-head{padding:11px 12px;gap:9px}.pro-picks-icon{width:32px;height:32px;flex-basis:32px}.pro-picks-copy h2{font-size:15px}.pro-picks-copy p{font-size:9.5px}.pro-picks-badge{padding:4px 7px}.pro-pick-row{grid-template-columns:22px minmax(0,1fr) 72px 11px;gap:6px;min-height:61px;padding:8px 9px 4px}.pro-pick-rank{width:21px;height:21px}.pro-pick-fixture{grid-template-columns:minmax(0,1fr) 46px minmax(0,1fr);gap:5px}.pro-pick-side{gap:4px}.pro-pick-side .name{font-size:10.5px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.pro-pick-crest{width:23px;height:23px;flex-basis:23px}.pro-pick-center{height:29px;font-size:10.5px}.pro-pick-confidence{min-width:44px;height:31px;font-size:11.5px}.pro-pick-winwrap{gap:5px}.pro-pick-meta{margin-top:4px;font-size:8.5px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}.pro-picks-foot{padding:5px 11px}}
 @media(max-width:560px){
   .daybar .day{font-size:17px;min-width:auto}
   /* Keep everything on ONE row, just smaller — compact */
@@ -436,9 +461,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .metric .ms{font-size:7.4px;min-height:16px}
   .metric .pro-tag{font-size:7.5px}
   .control-row{gap:6px}
-  .layout-select{width:116px;height:38px;padding:0 25px 0 9px;font-size:11.5px}
+  .view-btn{height:38px;padding:0 10px;font-size:11px}
+  .status-switch{display:none}
+  .status-select{display:block}
   .status-btn{height:36px;padding:0 6px;font-size:11px}
   .utility summary{width:38px;height:38px}
+  .csv-quick{width:38px;height:38px}
   .control-search{height:40px}
 
   .league-section .league-head{
@@ -943,57 +971,70 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 
   <h1 class="seo-h1">AI Football Predictions — Thu 10 September</h1>
 
+  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
+
   <div class="daybar">
     <button title="Previous day" id="prevDay">‹</button>
-    <div class="day">Thu 10 September</div>
+    <button type="button" class="day-trigger" id="calendarTrigger" aria-haspopup="dialog" aria-expanded="false">
+      <span>Thu 10 September</span>
+      <span class="day-caret" aria-hidden="true">▼</span>
+    </button>
     <button title="Next day" id="nextDay">›</button>
   </div>
 
-  <details class="whats-new" id="whatsNew" data-update-version="20260824-2">
-    <summary>
-      <span class="whats-new-mark" aria-hidden="true">&#10022;</span>
-      <span>What's new?</span>
-      <span class="whats-new-badge" id="whatsNewBadge">New</span>
-    </summary>
-    <div class="whats-new-copy">
-      <div class="whats-new-item"><span aria-hidden="true">&#8645;</span><div><strong>New match rankings</strong><p>Use ⋯ to rank matches by confidence, predicted goals, BTTS chance (Pro), or kick-off time.</p></div></div>
-      <div class="whats-new-item"><span aria-hidden="true">&#10022;</span><div><strong>Today's Pro Picks <span class="whats-new-pro">PRO</span></strong><p>Up to three matches are shortlisted from every game worldwide. We add fewer—or none—when the evidence is not strong enough.</p></div></div>
+  <div class="calendar-popover" id="calendarPopover" role="dialog" aria-modal="true" aria-label="Choose a date">
+    <div class="calendar-card">
+      <div class="calendar-head">
+        <button type="button" id="calendarPrevMonth" aria-label="Previous month">‹</button>
+        <div class="calendar-month" id="calendarMonth"></div>
+        <button type="button" id="calendarNextMonth" aria-label="Next month">›</button>
+      </div>
+      <div class="calendar-weekdays" id="calendarWeekdays"></div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="calendar-legend"><span>Only available prediction dates can be opened.</span><button type="button" class="calendar-close" id="calendarClose">Close</button></div>
     </div>
-  </details>
+  </div>
 
   <section class="match-controls" aria-label="Match filters">
+    <label class="control-search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
+      <input type="search" id="search" placeholder="Search team or league…" aria-label="Search team or league…" oninput="doSearch(this.value)">
+    </label>
     <div class="control-row">
-      <select id="viewSelect" class="layout-select" aria-label="Match layout" onchange="setView(this.value)">
-        <option value="global">Global</option>
-        <option value="league">By league</option>
-      </select>
+      <input type="hidden" id="viewSelect" value="global">
+      <div class="view-switch" role="group" aria-label="Match layout">
+        <button type="button" class="view-btn on" data-view="global" onclick="setView('global')">Global</button>
+        <button type="button" class="view-btn" data-view="league" onclick="setView('league')">League</button>
+      </div>
       <div class="status-switch" role="group" aria-label="Match status">
         <button class="status-btn on" data-status-filter="all" onclick="setStatusFilter('all',this)">All</button>
         <button class="status-btn live-filter" data-status-filter="live" onclick="setStatusFilter('live',this)">Live</button>
         <button class="status-btn" data-status-filter="upcoming" onclick="setStatusFilter('upcoming',this)">Upcoming</button>
         <button class="status-btn" data-status-filter="finished" onclick="setStatusFilter('finished',this)">FT</button>
       </div>
-      <details class="utility" id="utilityMenu">
-        <summary aria-label="More options" title="More options">⋯</summary>
-        <div class="utility-menu">
-          <span class="utility-label">Rank matches by</span>
-          <button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ Sort by confidence</button>
-          <button id="sortGoals" onclick="setSortMode('goals');closeUtilityMenu()">⚽ Predicted goals</button>
-          <button id="sortBtts" onclick="setSortMode('btts');closeUtilityMenu()">⇄ BTTS chance <span class="pro-mini">Pro</span></button>
-          <button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ Sort by time</button>
-          <button id="csv_button" onclick="closeUtilityMenu();if(window.downloadCSV)downloadCSV()">↓ Download CSV</button>
-        </div>
-      </details>
+      <select id="statusSelect" class="status-select" aria-label="Match status" onchange="setStatusFilter(this.value)">
+        <option value="all">All</option>
+        <option value="live">Live</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="finished">FT</option>
+      </select>
+      <div class="control-actions">
+        <details class="utility" id="utilityMenu">
+          <summary aria-label="Rank matches by" title="Rank matches by">⇅</summary>
+          <div class="utility-menu">
+            <span class="utility-label">Rank matches by</span>
+            <button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ Sort by confidence</button>
+            <button id="sortGoals" onclick="setSortMode('goals');closeUtilityMenu()">⚽ Predicted goals</button>
+            <button id="sortBtts" onclick="setSortMode('btts');closeUtilityMenu()">⇄ BTTS chance <span class="pro-mini">Pro</span></button>
+            <button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ Sort by time</button>
+          </div>
+        </details>
+        <button type="button" id="csv_button" class="csv-quick" aria-label="Download CSV" title="Download CSV" onclick="if(window.downloadCSV)downloadCSV()">↓<span class="pro-mini">Pro</span></button>
+      </div>
     </div>
-    <label class="control-search">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
-      <input type="search" id="search" placeholder="Search team or league…" aria-label="Search team or league…" oninput="doSearch(this.value)">
-    </label>
   </section>
 
-  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
-
-  <section class="pro-picks" id="proPicks" aria-labelledby="proPicksTitle">
+  <section class="pro-picks state-locked" id="proPicks" aria-labelledby="proPicksTitle">
     <header class="pro-picks-head">
       <div class="pro-picks-icon" aria-hidden="true">✦</div>
       <div class="pro-picks-copy">
@@ -1005,13 +1046,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     </header>
     <div class="pro-picks-state on" id="proPicksLocked">
       <div class="pro-picks-locked">
-        <div class="pro-picks-skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="pro-picks-unlock">
-          <div class="pro-picks-unlock-copy"><strong>Today's shortlist is ready</strong><span>Unlock the picks and supporting evidence.</span></div>
+        <div class="pro-picks-lockbar">
+          <div class="pro-picks-icon" aria-hidden="true">✦</div>
+          <div class="pro-picks-lock-copy"><strong>Today's Pro Picks</strong><span>Pro Picks win rate: 78.1%</span></div>
           <button type="button" data-buy-pro="1">Unlock Pro Picks</button>
         </div>
       </div>
-      <footer class="pro-picks-foot"><span>Shortlisted from every match worldwide</span></footer>
     </div>
     <div class="pro-picks-state" id="proPicksLoading"><div class="pro-picks-loading">Loading Pro Picks…</div></div>
     <div class="pro-picks-state" id="proPicksMember"><div class="pro-picks-list" id="proPicksList"></div><footer class="pro-picks-foot"><span>Up to 3 daily · weaker matches are never added</span><a href="/results.html">Track record →</a></footer></div>
@@ -1020,13 +1060,6 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 
   <div id="globalView">
     
-    
-    
-      
-    
-    
-    
-    
       <div class="empty">No matches.</div>
     
   </div>
@@ -1034,7 +1067,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block;width:300px;height:250px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="rectangle" data-full-width-responsive="false"></ins></div>
+  <div id="dayInlineAd" class="ad-container ad-megabanner day-inline-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
 
   <footer>
     <div>
@@ -1058,7 +1091,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 </div>
 
 <script>
-const I18N = {"about_model": "About the model", "account": "Account", "accuracy": "accuracy", "ai_pick": "AI pick", "ai_predictions_prefix": "AI Football Predictions", "all_matches": "All matches", "around_2_3_goals": "Around 2-3 goals", "best_available_evidence": "Strong overall evidence", "both_to_score": "Both to score", "btts_chance": "Both teams to score chance", "by_league": "By league", "confidence": "Confidence", "confidence_75_plus": "75%+ confidence", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "confidence", "csv_login_alert": "Please log in to access CSV.", "csv_pro_alert": "Go Pro to download CSV.", "csv_unavailable_alert": "CSV is not available right now.", "discipline_model": "Discipline is part of the model", "download_csv": "Download CSV", "expected_goals_per_team": "Expected goals (per team)", "filter_all": "All", "finished_short": "FT", "full_prediction_analysis": "Full prediction \u0026 analysis \u2192", "global_view": "Global", "go_pro": "Go Pro", "graded_calls": "graded calls", "high_data_depth": "High data depth", "high_scoring": "High scoring", "historical_backtest": "Historical backtest", "language": "Language", "league": "League", "league_accuracy_all": "League accuracy all picks", "league_accuracy_conf50": "League accuracy \u226550%", "live": "Live", "loading_pro_picks": "Loading Pro Picks\u2026", "low_scoring": "Low scoring", "manage_billing": "Manage billing", "matches": "matches", "matches_today": "matches today", "model_accuracy_history": "Model accuracy history", "model_disclaimer": "Model outputs, not guarantees. 18+ \u00b7 Gamble responsibly.", "model_pick": "Model pick", "more_history_needed": "More history needed", "more_options": "More options", "new_badge": "New", "new_match_ranking": "New match rankings", "new_match_ranking_copy": "Use \u22ef to rank matches by confidence, predicted goals, BTTS chance (Pro), or kick-off time.", "new_pro_picks": "Today\u0027s Pro Picks", "new_pro_picks_copy": "Up to three matches are shortlisted from every game worldwide. We add fewer\u2014or none\u2014when the evidence is not strong enough.", "new_simulator": "New simulator", "next_day": "Next day", "no_matches": "No matches.", "no_pro_picks_copy": "No match met AIGoalie\u0027s shortlist standard. We never add weaker selections just to fill the table.", "no_pro_picks_today": "No Pro Picks today", "odds": "Odds", "over_25_likely": "Over 2.5 likely", "pick_hit": "Hit", "pick_missed": "Missed", "picked_team": "Picked team", "positive_value_signal": "Value signal", "predicted_goals_short": "goals", "predicted_total_goals": "Predicted total goals", "predictions": "predictions", "previous_day": "Previous day", "privacy": "Privacy", "pro_modal_subtitle": "Unlock expected goals, BTTS, CSV export, opponent strength, and an ad-free site.", "pro_picks_historical_win_rate": "Pro Picks historical win rate", "pro_picks_win_rate": "Pro Picks win rate", "pro_shortlist": "Pro shortlist", "public_total_goals_band": "Public total-goals band", "qualified": "qualified", "rank_matches_by": "Rank matches by", "ranked_by_btts": "Ranked worldwide by BTTS chance", "ranked_by_goals": "Ranked worldwide by predicted goals", "ranked_worldwide": "Ranked worldwide by AI confidence", "search_placeholder": "Search team or league\u2026", "shortlist_ready": "Today\u0027s shortlist is ready", "shortlisted_worldwide": "Shortlisted from every match worldwide", "sign_in": "Sign in", "sign_out": "Sign out", "similar_accuracy_short": "Similar", "similar_confidence_accuracy": "Similar-confidence accuracy", "simulate_any_matchup": "Simulate any football matchup", "simulator_teaser": "Pick two teams and see what AIGoalie predicts. Pro unlocks unlimited simulations and exact xG.", "sort_by_btts": "BTTS chance", "sort_by_confidence": "Sort by confidence", "sort_by_goals": "Predicted goals", "sort_by_time": "Sort by time", "strong_confidence_history": "Strong confidence-range accuracy", "strong_league_history": "Strong league accuracy", "tap_for_prediction": "Tap for prediction", "todays_matches": "Today\u0027s Matches", "todays_pro_picks": "Today\u0027s Pro Picks", "total_goals": "Total goals", "try_it": "Try it", "under_25_likely": "Under 2.5 likely", "unlock_pro_picks": "Unlock Pro Picks", "unlock_supporting_evidence": "Unlock the picks and supporting evidence.", "up_to_three": "Up to 3", "upcoming_short": "Upcoming", "weaker_never_added": "Up to 3 daily \u00b7 weaker matches are never added", "whats_new": "What\u0027s new?", "world_cup": "World Cup"};
+const I18N = {"about_model": "About the model", "account": "Account", "accuracy": "accuracy", "ai_pick": "AI pick", "ai_predictions_prefix": "AI Football Predictions", "all_matches": "All matches", "around_2_3_goals": "Around 2-3 goals", "best_available_evidence": "Strong overall evidence", "both_to_score": "Both to score", "btts_chance": "Both teams to score chance", "by_league": "By league", "calendar_available_only": "Only available prediction dates can be opened.", "choose_date": "Choose a date", "close": "Close", "confidence": "Confidence", "confidence_75_plus": "75%+ confidence", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "confidence", "csv_login_alert": "Please log in to access CSV.", "csv_pro_alert": "Go Pro to download CSV.", "csv_unavailable_alert": "CSV is not available right now.", "discipline_model": "Discipline is part of the model", "download_csv": "Download CSV", "expected_goals_per_team": "Expected goals (per team)", "filter_all": "All", "finished_short": "FT", "full_prediction_analysis": "Full prediction \u0026 analysis \u2192", "global_view": "Global", "go_pro": "Go Pro", "graded_calls": "graded calls", "high_data_depth": "High data depth", "high_scoring": "High scoring", "historical_backtest": "Historical backtest", "language": "Language", "league": "League", "league_accuracy_all": "League accuracy all picks", "league_accuracy_conf50": "League accuracy \u226550%", "league_view": "League", "live": "Live", "loading_pro_picks": "Loading Pro Picks\u2026", "low_scoring": "Low scoring", "manage_billing": "Manage billing", "matches": "matches", "matches_today": "matches today", "model_accuracy_history": "Model accuracy history", "model_disclaimer": "Model outputs, not guarantees. 18+ \u00b7 Gamble responsibly.", "model_pick": "Model pick", "more_history_needed": "More history needed", "more_options": "More options", "new_badge": "New", "new_match_ranking": "New match rankings", "new_match_ranking_copy": "Use \u22ef to rank matches by confidence, predicted goals, BTTS chance (Pro), or kick-off time.", "new_pro_picks": "Today\u0027s Pro Picks", "new_pro_picks_copy": "Up to three matches are shortlisted from every game worldwide. We add fewer\u2014or none\u2014when the evidence is not strong enough.", "new_simulator": "New simulator", "next_day": "Next day", "next_month": "Next month", "no_matches": "No matches.", "no_pro_picks_copy": "No match met AIGoalie\u0027s shortlist standard. We never add weaker selections just to fill the table.", "no_pro_picks_today": "No Pro Picks today", "odds": "Odds", "over_25_likely": "Over 2.5 likely", "pick_hit": "Hit", "pick_missed": "Missed", "picked_team": "Picked team", "positive_value_signal": "Value signal", "predicted_goals_short": "goals", "predicted_total_goals": "Predicted total goals", "predictions": "predictions", "previous_day": "Previous day", "previous_month": "Previous month", "privacy": "Privacy", "pro_modal_subtitle": "Unlock expected goals, BTTS, CSV export, opponent strength, and an ad-free site.", "pro_picks_historical_win_rate": "Pro Picks historical win rate", "pro_picks_win_rate": "Pro Picks win rate", "pro_shortlist": "Pro shortlist", "public_total_goals_band": "Public total-goals band", "qualified": "qualified", "rank_matches_by": "Rank matches by", "ranked_by_btts": "Ranked worldwide by BTTS chance", "ranked_by_goals": "Ranked worldwide by predicted goals", "ranked_worldwide": "Ranked worldwide by AI confidence", "search_placeholder": "Search team or league\u2026", "shortlist_ready": "Today\u0027s shortlist is ready", "shortlisted_worldwide": "Shortlisted from every match worldwide", "sign_in": "Sign in", "sign_out": "Sign out", "similar_accuracy_short": "Similar", "similar_confidence_accuracy": "Similar-confidence accuracy", "simulate_any_matchup": "Simulate any football matchup", "simulator_teaser": "Pick two teams and see what AIGoalie predicts. Pro unlocks unlimited simulations and exact xG.", "sort_by_btts": "BTTS chance", "sort_by_confidence": "Sort by confidence", "sort_by_goals": "Predicted goals", "sort_by_time": "Sort by time", "strong_confidence_history": "Strong confidence-range accuracy", "strong_league_history": "Strong league accuracy", "tap_for_prediction": "Tap for prediction", "todays_matches": "Today\u0027s Matches", "todays_pro_picks": "Today\u0027s Pro Picks", "total_goals": "Total goals", "try_it": "Try it", "under_25_likely": "Under 2.5 likely", "unlock_pro_picks": "Unlock Pro Picks", "unlock_supporting_evidence": "Unlock the picks and supporting evidence.", "up_to_three": "Up to 3", "upcoming_short": "Upcoming", "weaker_never_added": "Up to 3 daily \u00b7 weaker matches are never added", "whats_new": "What\u0027s new?", "world_cup": "World Cup"};
 const COUNTRY_FLAGS = {"Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao", "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at", "Azerbaijan": "az", "Bangladesh": "bd", "Belarus": "by", "Belgium": "be", "Bhutan": "bt", "Bolivia": "bo", "Bosnia-Herzegovina": "ba", "Brazil": "br", "Bulgaria": "bg", "Cambodia": "kh", "Canada": "ca", "Chile": "cl", "China": "cn", "Chinese Taipei": "tw", "Colombia": "co", "Comoros": "km", "Costa Rica": "cr", "Croatia": "hr", "Cyprus": "cy", "Czech Republic": "cz", "Denmark": "dk", "Dominican Republic": "do", "Ecuador": "ec", "Egypt": "eg", "El Salvador": "sv", "England": "gb-eng", "Estonia": "ee", "Ethiopia": "et", "Faroe Islands": "fo", "Fiji": "fj", "Finland": "fi", "France": "fr", "Georgia": "ge", "Germany": "de", "Ghana": "gh", "Gibraltar": "gi", "Greece": "gr", "Guatemala": "gt", "Honduras": "hn", "Hongkong": "hk", "Hungary": "hu", "Iceland": "is", "India": "in", "Indonesia": "id", "Iran": "ir", "Iraq": "iq", "Ireland": "ie", "Israel": "il", "Italy": "it", "Jamaica": "jm", "Japan": "jp", "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Korea": "kr", "Kosovo": "xk", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv", "Lebanon": "lb", "Libya": "ly", "Lithuania": "lt", "Luxembourg": "lu", "Malaysia": "my", "Malta": "mt", "Mexico": "mx", "Moldova": "md", "Montenegro": "me", "Morocco": "ma", "Myanmar": "mm", "Netherlands": "nl", "New Zealand": "nz", "Nicaragua": "ni", "Nigeria": "ng", "North Macedonia": "mk", "Northern Ireland": "gb-nir", "Norway": "no", "Oman": "om", "Panama": "pa", "Paraguay": "py", "Peru": "pe", "Philippines": "ph", "Poland": "pl", "Portugal": "pt", "Puerto Rico": "pr", "Qatar": "qa", "Romania": "ro", "Russia": "ru", "San Marino": "sm", "Saudi Arabia": "sa", "Scotland": "gb-sct", "Senegal": "sn", "Serbia": "rs", "Singapore": "sg", "Slovakia": "sk", "Slovenia": "si", "South Africa": "za", "South Korea": "kr", "Spain": "es", "Sweden": "se", "Switzerland": "ch", "Tajikistan": "tj", "Thailand": "th", "Tunisia": "tn", "Turkey": "tr", "T\u00fcrkiye": "tr", "Uganda": "ug", "Ukraine": "ua", "United Arab Emirates": "ae", "United States": "us", "Uruguay": "uy", "Uzbekistan": "uz", "Venezuela": "ve", "Vietnam": "vn", "Wales": "gb-wls"};
 function i18n(key, fallback){ return Object.prototype.hasOwnProperty.call(I18N, key) ? I18N[key] : fallback; }
 function trackEvent(name, data){
@@ -1304,23 +1337,12 @@ function bestFeaturedLeague(){
   return sortLeaguesByPriority(candidates)[0];
 }
 function renderGlobal(){
-  // WC pinned section first; if there is no WC, feature the top league from league view.
-  const wc = ALL.filter(m=>m.isWC);
-  const featuredLeague = wc.length ? null : bestFeaturedLeague();
-  let rest = ALL.filter(m=>!m.isWC && (!featuredLeague || m.league !== featuredLeague.key));
-  if (SORT_BY_CONF){ wc.sort((a,b)=>winNum(b.total)-winNum(a.total)); rest.sort((a,b)=>winNum(b.total)-winNum(a.total)); }
+  const rest = ALL.slice();
+  if (SORT_BY_CONF) rest.sort((a,b)=>winNum(b.total)-winNum(a.total));
   let html="";
-  if (wc.length){
-    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${wc.length} matches today</span></div>`;
-    html += wc.map((m,i)=>cardHTML(m,'wc'+i)).join("") + `</div>`;
-  } else if (featuredLeague) {
-    const fl = leagueHeaderIcon(featuredLeague);
-    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="featured-label">Featured league</span><span class="lsub">${featuredLeague.matches.length} matches</span></div>`;
-    html += featuredLeague.matches.map((m,i)=>cardHTML(Object.assign({league:featuredLeague.key},m),'featured'+i)).join("") + `</section>`;
-  }
   if (rest.length){
     html += `<section class="all-section"><div class="all-head"><span><span class="lname">All matches</span><span class="ranking-note">Ranked worldwide by AI confidence</span></span><span class="lsub">${rest.length} matches</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
-  } else if (!wc.length && !featuredLeague) {
+  } else {
     html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
   }
   document.getElementById("globalView").innerHTML = html;
@@ -1341,79 +1363,45 @@ function renderLeague(){
     }
   });
   document.getElementById("leagueView").innerHTML = html;
+  orderLeagueSections();
   placeFeaturedInlineAd();
+}
+function orderLeagueSections(){
+  const root=document.getElementById("leagueView");if(!root)return;
+  Array.from(root.children).filter(section=>section.matches?.(".wc-section,.league-section")).map((section,index)=>({section,index})).sort((a,b)=>{
+    const priority=section=>section.classList.contains("wc-section")?100000:Number(section.dataset.featuredPriority||0);
+    const priorityDiff=priority(b.section)-priority(a.section);
+    const valueDiff=Number(b.section.dataset.featuredValue||0)-Number(a.section.dataset.featuredValue||0);
+    return priorityDiff||valueDiff||a.index-b.index;
+  }).forEach(item=>root.appendChild(item.section));
 }
 function placeFeaturedInlineAd(){
   const ad = document.querySelector(".day-inline-ad");
   if (!ad) return;
-  const active = document.getElementById(document.getElementById("viewSelect")?.value === "league" ? "leagueView" : "globalView");
+  const leagueMode = document.getElementById("viewSelect")?.value === "league";
+  const active = document.getElementById(leagueMode ? "leagueView" : "globalView");
   if (!active) return;
-  const firstSection = Array.from(active.querySelectorAll(".wc-section,.league-section,.all-section")).find(section=>section.style.display!=="none");
-  if (firstSection && firstSection.parentNode) firstSection.insertAdjacentElement("afterend", ad);
-}
-function promoteTopLeagueToGlobal(){
-  const gv = document.getElementById("globalView");
-  const lv = document.getElementById("leagueView");
-  if (!gv || !lv) return;
-  const liveWc = Array.from(gv.querySelectorAll(".wc-section")).find(sec => sec.querySelector(".mrow"));
-  if (liveWc) return;
-  const sections = Array.from(lv.children).filter(sec => sec.classList?.contains("league-section") && sec.querySelector(".mrow"));
-  const ordered = sections.map((section,index)=>({section,index})).sort((a,b)=>{
-    const priorityDiff=Number(b.section.dataset.featuredPriority||0)-Number(a.section.dataset.featuredPriority||0);
-    const visibleValue=section=>Math.max(0,...Array.from(section.querySelectorAll(".mrow")).map(row=>Number(row.dataset.featuredValue||0)));
-    const valueDiff=visibleValue(b.section)-visibleValue(a.section);
-    return priorityDiff||valueDiff||a.index-b.index;
-  }).map(item=>item.section);
-  ordered.forEach(section=>lv.appendChild(section));
-  const source = ordered.find(sec => sec.dataset.featuredEligible === "true" && Number(sec.dataset.featuredPriority||0) > 0);
-  if (!source) return;
-  const leagueName = source.querySelector(".lname")?.textContent?.trim() || "";
-  const current = gv.querySelector(".featured-section");
-  if (current && (current.querySelector(".lname")?.textContent?.trim() || "") === leagueName) return;
-  const all = gv.querySelector(".all-section");
-  if (all) {
-    ordered.forEach(section=>{
-      const sectionLeague=section.querySelector(".lname")?.textContent?.trim()||"";
-      if (sectionLeague===leagueName) return;
-      section.querySelectorAll(".mrow").forEach(row=>{
-        const exists=Array.from(all.querySelectorAll(".mrow")).some(existing=>existing.dataset.league===row.dataset.league&&existing.dataset.home===row.dataset.home&&existing.dataset.away===row.dataset.away);
-        if (!exists) all.appendChild(row.cloneNode(true));
-      });
-    });
-  }
-  if (current) current.remove();
-  const featured = source.cloneNode(true);
-  featured.classList.add("featured-section");
-  const featuredHead = featured.querySelector(".league-head");
-  if (featuredHead && !featuredHead.querySelector("img.league-logo,.flag,.league-icon")) {
-    const logoMarkup = leagueHeaderIcon({key: leagueName});
-    if (logoMarkup) featuredHead.insertAdjacentHTML("afterbegin", logoMarkup);
-  }
-  if (featuredHead && !featuredHead.querySelector(".featured-label")) {
-    const count=featuredHead.querySelector(".lsub");
-    const label=document.createElement("span");
-    label.className="featured-label";
-    label.textContent="Featured league";
-    featuredHead.insertBefore(label,count||null);
-  }
-  gv.insertBefore(featured, all || gv.firstChild);
-  if (leagueName && all) {
-    all.querySelectorAll(".mrow").forEach(row => { if ((row.dataset.league || "") === leagueName) row.remove(); });
-    Array.from(all.children).filter(child=>child.classList?.contains("mrow")).sort((a,b)=>winNum(b.querySelector(".win-pill")?.textContent)-winNum(a.querySelector(".win-pill")?.textContent)).forEach(row=>all.appendChild(row));
-    const n = all.querySelectorAll(".mrow").length;
-    const sub = all.querySelector(".lsub");
-    if (sub) sub.textContent = sub.textContent.replace(/^\s*\d+/, String(n));
-    if (n === 0) all.remove();
+  const visibleRows = Array.from(active.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none");
+  if (!visibleRows.length) return;
+  if (!leagueMode && visibleRows[4]) visibleRows[4].insertAdjacentElement("afterend", ad);
+  else {
+    const firstSection = Array.from(active.querySelectorAll(".wc-section,.league-section,.all-section")).find(section=>section.style.display!=="none");
+    if (firstSection?.parentNode) firstSection.insertAdjacentElement("afterend", ad);
   }
 }
-function setView(v){
-  trackEvent("view_toggle", { view: v });
+const VIEW_STORAGE_KEY="aigoalie-match-view";
+function setView(v,options={}){
+  if(v!=="league")v="global";
+  if(options.track!==false)trackEvent("view_toggle", { view: v });
   const select=document.getElementById("viewSelect");
   if(select)select.value=v;
+  document.querySelectorAll(".view-btn").forEach(button=>button.classList.toggle("on",button.dataset.view===v));
   document.getElementById("globalView").style.display=v==="global"?"block":"none";
   document.getElementById("leagueView").style.display=v==="league"?"block":"none";
+  if(options.persist!==false){try{localStorage.setItem(VIEW_STORAGE_KEY,v)}catch(e){}}
   applyFilters();
 }
+function restoreView(){let stored="global";try{stored=localStorage.getItem(VIEW_STORAGE_KEY)||"global"}catch(e){}setView(stored==="league"?"league":"global",{track:false,persist:false})}
 function rowStatus(row){
   if(row.dataset.status)return row.dataset.status;
   if(row.querySelector(".ko.live"))return "live";
@@ -1445,8 +1433,10 @@ function doSearch(q){
   applyFilters();
 }
 function setStatusFilter(status,button){
+  if(!["all","live","upcoming","finished"].includes(status))status="all";
   ACTIVE_STATUS=status;
-  document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item===button));
+  document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item.dataset.statusFilter===status));
+  const statusSelect=document.getElementById("statusSelect");if(statusSelect)statusSelect.value=status;
   trackEvent("status_filter",{status});
   applyFilters();
 }
@@ -1542,8 +1532,8 @@ document.addEventListener("click",event=>{
   if(menu?.open&&!menu.contains(event.target))menu.removeAttribute("open");
 });
 
-promoteTopLeagueToGlobal();
-placeFeaturedInlineAd();
+orderLeagueSections();
+restoreView();
 restoreSortMode();
 openDefaultRows();
 </script>
@@ -1554,24 +1544,12 @@ const SafeStore = {
   set(k,v){ try { localStorage.setItem(k, v); return; } catch(e){} __memStore[k] = String(v); },
   del(k){ try { localStorage.removeItem(k); } catch(e){} delete __memStore[k]; }
 };
-const WHATS_NEW_STORAGE_KEY='aigoalie-whats-new-seen';
-function initWhatsNew(){
-  const panel=document.getElementById('whatsNew');
-  const badge=document.getElementById('whatsNewBadge');
-  if(!panel||!badge)return;
-  const version=panel.dataset.updateVersion||'';
-  if(SafeStore.get(WHATS_NEW_STORAGE_KEY)===version)badge.classList.add('seen');
-  panel.addEventListener('toggle',()=>{
-    if(!panel.open)return;
-    SafeStore.set(WHATS_NEW_STORAGE_KEY,version);
-    badge.classList.add('seen');
-    if(typeof trackEvent==='function')trackEvent('whats_new_open',{version});
-  });
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initWhatsNew);else initWhatsNew();
 const buildHref = (href) => href;
-const validDates = `['14.06.2024', '15.06.2024', '16.06.2024', '17.06.2024', '18.06.2024', '19.06.2024', '20.06.2024', '21.06.2024', '22.06.2024', '23.06.2024', '24.06.2024', '25.06.2024', '26.06.2024', '27.06.2024', '28.06.2024', '29.06.2024', '30.06.2024', '01.07.2024', '02.07.2024', '03.07.2024', '04.07.2024', '05.07.2024', '06.07.2024', '07.07.2024', '08.07.2024', '09.07.2024', '10.07.2024', '11.07.2024', '12.07.2024', '13.07.2024', '14.07.2024', '15.07.2024', '16.07.2024', '17.07.2024', '18.07.2024', '19.07.2024', '20.07.2024', '21.07.2024', '22.07.2024', '23.07.2024', '24.07.2024', '25.07.2024', '26.07.2024', '27.07.2024', '28.07.2024', '29.07.2024', '30.07.2024', '31.07.2024', '01.08.2024', '02.08.2024', '03.08.2024', '04.08.2024', '05.08.2024', '06.08.2024', '07.08.2024', '08.08.2024', '09.08.2024', '10.08.2024', '11.08.2024', '12.08.2024', '13.08.2024', '14.08.2024', '15.08.2024', '16.08.2024', '17.08.2024', '18.08.2024', '19.08.2024', '20.08.2024', '21.08.2024', '22.08.2024', '23.08.2024', '24.08.2024', '25.08.2024', '26.08.2024', '27.08.2024', '28.08.2024', '29.08.2024', '30.08.2024', '31.08.2024', '01.09.2024', '02.09.2024', '03.09.2024', '04.09.2024', '05.09.2024', '06.09.2024', '07.09.2024', '08.09.2024', '09.09.2024', '10.09.2024', '11.09.2024', '12.09.2024', '13.09.2024', '14.09.2024', '15.09.2024', '16.09.2024', '17.09.2024', '18.09.2024', '19.09.2024', '20.09.2024', '21.09.2024', '22.09.2024', '23.09.2024', '24.09.2024', '25.09.2024', '26.09.2024', '27.09.2024', '28.09.2024', '29.09.2024', '30.09.2024', '01.10.2024', '02.10.2024', '03.10.2024', '04.10.2024', '05.10.2024', '06.10.2024', '07.10.2024', '08.10.2024', '09.10.2024', '10.10.2024', '11.10.2024', '12.10.2024', '13.10.2024', '14.10.2024', '15.10.2024', '16.10.2024', '17.10.2024', '18.10.2024', '19.10.2024', '20.10.2024', '21.10.2024', '22.10.2024', '23.10.2024', '24.10.2024', '25.10.2024', '26.10.2024', '27.10.2024', '28.10.2024', '29.10.2024', '30.10.2024', '31.10.2024', '01.11.2024', '02.11.2024', '03.11.2024', '04.11.2024', '05.11.2024', '06.11.2024', '07.11.2024', '08.11.2024', '09.11.2024', '10.11.2024', '11.11.2024', '12.11.2024', '13.11.2024', '14.11.2024', '15.11.2024', '16.11.2024', '17.11.2024', '18.11.2024', '19.11.2024', '20.11.2024', '21.11.2024', '22.11.2024', '23.11.2024', '24.11.2024', '25.11.2024', '26.11.2024', '27.11.2024', '28.11.2024', '29.11.2024', '30.11.2024', '01.12.2024', '02.12.2024', '03.12.2024', '04.12.2024', '05.12.2024', '06.12.2024', '07.12.2024', '08.12.2024', '09.12.2024', '10.12.2024', '11.12.2024', '12.12.2024', '13.12.2024', '14.12.2024', '15.12.2024', '16.12.2024', '17.12.2024', '18.12.2024', '19.12.2024', '20.12.2024', '21.12.2024', '22.12.2024', '23.12.2024', '24.12.2024', '25.12.2024', '26.12.2024', '27.12.2024', '28.12.2024', '29.12.2024', '30.12.2024', '31.12.2024', '01.01.2026', '02.01.2026', '03.01.2026', '04.01.2026', '05.01.2026', '06.01.2026', '07.01.2026', '08.01.2026', '09.01.2026', '10.01.2026', '11.01.2026', '12.01.2026', '13.01.2026', '14.01.2026', '15.01.2026', '16.01.2026', '17.01.2026', '18.01.2026', '19.01.2026', '20.01.2026', '21.01.2026', '22.01.2026', '23.01.2026', '24.01.2026', '25.01.2026', '26.01.2026', '27.01.2026', '28.01.2026', '29.01.2026', '30.01.2026', '31.01.2026', '01.02.2026', '02.02.2026', '03.02.2026', '04.02.2026', '05.02.2026', '06.02.2026', '07.02.2026', '08.02.2026', '09.02.2026', '10.02.2026', '11.02.2026', '12.02.2026', '13.02.2026', '14.02.2026', '15.02.2026', '16.02.2026', '17.02.2026', '18.02.2026', '19.02.2026', '20.02.2026', '21.02.2026', '22.02.2026', '23.02.2026', '24.02.2026', '25.02.2026', '26.02.2026', '27.02.2026', '28.02.2026', '01.05.2026', '02.05.2026', '03.05.2026', '04.05.2026', '05.05.2026', '06.05.2026', '07.05.2026', '08.05.2026', '09.05.2026', '10.05.2026', '11.05.2026', '12.05.2026', '13.05.2026', '14.05.2026', '15.05.2026', '16.05.2026', '17.05.2026', '18.05.2026', '19.05.2026', '20.05.2026', '21.05.2026', '22.05.2026', '23.05.2026', '24.05.2026', '25.05.2026', '26.05.2026', '27.05.2026', '28.05.2026', '29.05.2026', '30.05.2026', '31.05.2026', '01.06.2026', '02.06.2026', '03.06.2026', '04.06.2026', '05.06.2026', '06.06.2026', '07.06.2026', '08.06.2026', '09.06.2026', '10.06.2026', '11.06.2026', '12.06.2026', '13.06.2026', '14.06.2026', '15.06.2026', '16.06.2026', '17.06.2026', '18.06.2026', '19.06.2026', '20.06.2026', '21.06.2026', '22.06.2026', '23.06.2026', '24.06.2026', '25.06.2026', '26.06.2026', '27.06.2026', '28.06.2026', '29.06.2026', '30.06.2026', '01.07.2026', '02.07.2026', '03.07.2026', '04.07.2026', '05.07.2026', '06.07.2026', '07.07.2026', '08.07.2026', '09.07.2026', '10.07.2026', '11.07.2026', '12.07.2026', '13.07.2026', '14.07.2026', '15.07.2026', '16.07.2026', '17.07.2026', '18.07.2026', '19.07.2026', '20.07.2026', '21.07.2026', '22.07.2026', '23.07.2026', '24.07.2026', '25.07.2026', '26.07.2026', '27.07.2026', '28.07.2026', '29.07.2026', '30.07.2026', '31.07.2026', '01.08.2026', '02.08.2026', '03.08.2026', '04.08.2026', '05.08.2026', '06.08.2026', '07.08.2026', '08.08.2026', '09.08.2026', '10.08.2026', '11.08.2026', '12.08.2026', '13.08.2026', '14.08.2026', '15.08.2026', '16.08.2026', '17.08.2026', '18.08.2026', '19.08.2026', '20.08.2026', '21.08.2026', '22.08.2026', '23.08.2026', '24.08.2026', '25.08.2026', '26.08.2026', '27.08.2026', '28.08.2026', '29.08.2026', '30.08.2026', '31.08.2026', '01.09.2026', '02.09.2026', '03.09.2026', '04.09.2026', '05.09.2026', '06.09.2026', '07.09.2026', '08.09.2026', '09.09.2026', '10.09.2026', '11.09.2026']`;
+const validDates = ["14.06.2024", "15.06.2024", "16.06.2024", "17.06.2024", "18.06.2024", "19.06.2024", "20.06.2024", "21.06.2024", "22.06.2024", "23.06.2024", "24.06.2024", "25.06.2024", "26.06.2024", "27.06.2024", "28.06.2024", "29.06.2024", "30.06.2024", "01.07.2024", "02.07.2024", "03.07.2024", "04.07.2024", "05.07.2024", "06.07.2024", "07.07.2024", "08.07.2024", "09.07.2024", "10.07.2024", "11.07.2024", "12.07.2024", "13.07.2024", "14.07.2024", "15.07.2024", "16.07.2024", "17.07.2024", "18.07.2024", "19.07.2024", "20.07.2024", "21.07.2024", "22.07.2024", "23.07.2024", "24.07.2024", "25.07.2024", "26.07.2024", "27.07.2024", "28.07.2024", "29.07.2024", "30.07.2024", "31.07.2024", "01.08.2024", "02.08.2024", "03.08.2024", "04.08.2024", "05.08.2024", "06.08.2024", "07.08.2024", "08.08.2024", "09.08.2024", "10.08.2024", "11.08.2024", "12.08.2024", "13.08.2024", "14.08.2024", "15.08.2024", "16.08.2024", "17.08.2024", "18.08.2024", "19.08.2024", "20.08.2024", "21.08.2024", "22.08.2024", "23.08.2024", "24.08.2024", "25.08.2024", "26.08.2024", "27.08.2024", "28.08.2024", "29.08.2024", "30.08.2024", "31.08.2024", "01.09.2024", "02.09.2024", "03.09.2024", "04.09.2024", "05.09.2024", "06.09.2024", "07.09.2024", "08.09.2024", "09.09.2024", "10.09.2024", "11.09.2024", "12.09.2024", "13.09.2024", "14.09.2024", "15.09.2024", "16.09.2024", "17.09.2024", "18.09.2024", "19.09.2024", "20.09.2024", "21.09.2024", "22.09.2024", "23.09.2024", "24.09.2024", "25.09.2024", "26.09.2024", "27.09.2024", "28.09.2024", "29.09.2024", "30.09.2024", "01.10.2024", "02.10.2024", "03.10.2024", "04.10.2024", "05.10.2024", "06.10.2024", "07.10.2024", "08.10.2024", "09.10.2024", "10.10.2024", "11.10.2024", "12.10.2024", "13.10.2024", "14.10.2024", "15.10.2024", "16.10.2024", "17.10.2024", "18.10.2024", "19.10.2024", "20.10.2024", "21.10.2024", "22.10.2024", "23.10.2024", "24.10.2024", "25.10.2024", "26.10.2024", "27.10.2024", "28.10.2024", "29.10.2024", "30.10.2024", "31.10.2024", "01.11.2024", "02.11.2024", "03.11.2024", "04.11.2024", "05.11.2024", "06.11.2024", "07.11.2024", "08.11.2024", "09.11.2024", "10.11.2024", "11.11.2024", "12.11.2024", "13.11.2024", "14.11.2024", "15.11.2024", "16.11.2024", "17.11.2024", "18.11.2024", "19.11.2024", "20.11.2024", "21.11.2024", "22.11.2024", "23.11.2024", "24.11.2024", "25.11.2024", "26.11.2024", "27.11.2024", "28.11.2024", "29.11.2024", "30.11.2024", "01.12.2024", "02.12.2024", "03.12.2024", "04.12.2024", "05.12.2024", "06.12.2024", "07.12.2024", "08.12.2024", "09.12.2024", "10.12.2024", "11.12.2024", "12.12.2024", "13.12.2024", "14.12.2024", "15.12.2024", "16.12.2024", "17.12.2024", "18.12.2024", "19.12.2024", "20.12.2024", "21.12.2024", "22.12.2024", "23.12.2024", "24.12.2024", "25.12.2024", "26.12.2024", "27.12.2024", "28.12.2024", "29.12.2024", "30.12.2024", "31.12.2024", "01.01.2026", "02.01.2026", "03.01.2026", "04.01.2026", "05.01.2026", "06.01.2026", "07.01.2026", "08.01.2026", "09.01.2026", "10.01.2026", "11.01.2026", "12.01.2026", "13.01.2026", "14.01.2026", "15.01.2026", "16.01.2026", "17.01.2026", "18.01.2026", "19.01.2026", "20.01.2026", "21.01.2026", "22.01.2026", "23.01.2026", "24.01.2026", "25.01.2026", "26.01.2026", "27.01.2026", "28.01.2026", "29.01.2026", "30.01.2026", "31.01.2026", "01.02.2026", "02.02.2026", "03.02.2026", "04.02.2026", "05.02.2026", "06.02.2026", "07.02.2026", "08.02.2026", "09.02.2026", "10.02.2026", "11.02.2026", "12.02.2026", "13.02.2026", "14.02.2026", "15.02.2026", "16.02.2026", "17.02.2026", "18.02.2026", "19.02.2026", "20.02.2026", "21.02.2026", "22.02.2026", "23.02.2026", "24.02.2026", "25.02.2026", "26.02.2026", "27.02.2026", "28.02.2026", "01.05.2026", "02.05.2026", "03.05.2026", "04.05.2026", "05.05.2026", "06.05.2026", "07.05.2026", "08.05.2026", "09.05.2026", "10.05.2026", "11.05.2026", "12.05.2026", "13.05.2026", "14.05.2026", "15.05.2026", "16.05.2026", "17.05.2026", "18.05.2026", "19.05.2026", "20.05.2026", "21.05.2026", "22.05.2026", "23.05.2026", "24.05.2026", "25.05.2026", "26.05.2026", "27.05.2026", "28.05.2026", "29.05.2026", "30.05.2026", "31.05.2026", "01.06.2026", "02.06.2026", "03.06.2026", "04.06.2026", "05.06.2026", "06.06.2026", "07.06.2026", "08.06.2026", "09.06.2026", "10.06.2026", "11.06.2026", "12.06.2026", "13.06.2026", "14.06.2026", "15.06.2026", "16.06.2026", "17.06.2026", "18.06.2026", "19.06.2026", "20.06.2026", "21.06.2026", "22.06.2026", "23.06.2026", "24.06.2026", "25.06.2026", "26.06.2026", "27.06.2026", "28.06.2026", "29.06.2026", "30.06.2026", "01.07.2026", "02.07.2026", "03.07.2026", "04.07.2026", "05.07.2026", "06.07.2026", "07.07.2026", "08.07.2026", "09.07.2026", "10.07.2026", "11.07.2026", "12.07.2026", "13.07.2026", "14.07.2026", "15.07.2026", "16.07.2026", "17.07.2026", "18.07.2026", "19.07.2026", "20.07.2026", "21.07.2026", "22.07.2026", "23.07.2026", "24.07.2026", "25.07.2026", "26.07.2026", "27.07.2026", "28.07.2026", "29.07.2026", "30.07.2026", "31.07.2026", "01.08.2026", "02.08.2026", "03.08.2026", "04.08.2026", "05.08.2026", "06.08.2026", "07.08.2026", "08.08.2026", "09.08.2026", "10.08.2026", "11.08.2026", "12.08.2026", "13.08.2026", "14.08.2026", "15.08.2026", "16.08.2026", "17.08.2026", "18.08.2026", "19.08.2026", "20.08.2026", "21.08.2026", "22.08.2026", "23.08.2026", "24.08.2026", "25.08.2026", "26.08.2026", "27.08.2026", "28.08.2026", "29.08.2026", "30.08.2026", "31.08.2026", "01.09.2026", "02.09.2026", "03.09.2026", "04.09.2026", "05.09.2026", "06.09.2026", "07.09.2026", "08.09.2026", "09.09.2026", "10.09.2026", "11.09.2026"];
 const windowDates = ["02.09.2026", "03.09.2026", "04.09.2026", "05.09.2026", "06.09.2026", "07.09.2026", "08.09.2026", "09.09.2026", "10.09.2026", "11.09.2026"];
+const AVAILABLE_DATE_SET = new Set([...(Array.isArray(validDates)?validDates:[]),...(Array.isArray(windowDates)?windowDates:[])]
+  .map(value=>String(value||'').match(/\d{2}\.\d{2}\.\d{4}/)?.[0])
+  .filter(Boolean));
 const QA_SUFFIX = '';
 const PRO_API_BASE = (() => {
   try {
@@ -1643,6 +1621,54 @@ function adjustDate(days) {
 }
 document.getElementById('prevDay')?.addEventListener('click', () => { trackEvent('day_nav', { direction: 'prev' }); adjustDate(-1); });
 document.getElementById('nextDay')?.addEventListener('click', () => { trackEvent('day_nav', { direction: 'next' }); adjustDate(1); });
+
+let calendarCursor = (()=>{const d=parseDateFromURL();return new Date(d.getFullYear(),d.getMonth(),1)})();
+function calendarDateAvailable(date){return AVAILABLE_DATE_SET.has(formatDate(date))}
+function calendarDateAccessible(date){
+  const today=new Date();today.setHours(0,0,0,0);
+  const target=new Date(date.getFullYear(),date.getMonth(),date.getDate());
+  return window.__isPro===true||Math.round((target-today)/86400000)<=2;
+}
+function renderCalendarMonth(){
+  const month=document.getElementById('calendarMonth'),grid=document.getElementById('calendarGrid'),weekdays=document.getElementById('calendarWeekdays');
+  if(!month||!grid||!weekdays)return;
+  const locale="en";
+  month.textContent=new Intl.DateTimeFormat(locale,{month:'long',year:'numeric'}).format(calendarCursor);
+  const monday=new Date(2024,0,1);
+  weekdays.innerHTML=Array.from({length:7},(_,index)=>`<span>${new Intl.DateTimeFormat(locale,{weekday:'narrow'}).format(new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+index))}</span>`).join('');
+  const selected=parseDateFromURL();selected.setHours(0,0,0,0);
+  const today=new Date();today.setHours(0,0,0,0);
+  const first=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),1);
+  const offset=(first.getDay()+6)%7;
+  const days=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,0).getDate();
+  let html='';
+  for(let index=0;index<offset;index++)html+='<span></span>';
+  for(let day=1;day<=days;day++){
+    const date=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),day);
+    const available=calendarDateAvailable(date),accessible=available&&calendarDateAccessible(date);
+    const classes=['calendar-day',available?'available':'',available&&!accessible?'pro-locked':'',date.getTime()===today.getTime()?'today':'',date.getTime()===selected.getTime()?'selected':''].filter(Boolean).join(' ');
+    const label=new Intl.DateTimeFormat(locale,{dateStyle:'full'}).format(date);
+    html+=`<button type="button" class="${classes}" data-calendar-date="${formatDate(date)}" ${accessible?'': 'disabled'} aria-label="${label}${available&&!accessible?' · Pro':''}">${day}</button>`;
+  }
+  grid.innerHTML=html;
+  grid.querySelectorAll('[data-calendar-date]:not([disabled])').forEach(button=>button.addEventListener('click',()=>{
+    const parts=button.dataset.calendarDate.split('.').map(Number);
+    trackEvent('calendar_date_select',{date:button.dataset.calendarDate});
+    navigateToDate(new Date(parts[2],parts[1]-1,parts[0]));
+  }));
+}
+function setCalendarOpen(open){
+  document.getElementById('calendarPopover')?.classList.toggle('open',open);
+  document.getElementById('calendarTrigger')?.setAttribute('aria-expanded',open?'true':'false');
+  document.body.style.overflow=open?'hidden':'';
+  if(open){const d=parseDateFromURL();calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendarMonth();trackEvent('calendar_open');}
+}
+document.getElementById('calendarTrigger')?.addEventListener('click',()=>setCalendarOpen(true));
+document.getElementById('calendarClose')?.addEventListener('click',()=>setCalendarOpen(false));
+document.getElementById('calendarPopover')?.addEventListener('click',event=>{if(event.target.id==='calendarPopover')setCalendarOpen(false)});
+document.getElementById('calendarPrevMonth')?.addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()-1,1);renderCalendarMonth()});
+document.getElementById('calendarNextMonth')?.addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,1);renderCalendarMonth()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape')setCalendarOpen(false)});
 
 function switchLang(lng) {
   trackEvent('language_change', { language: lng });
@@ -2007,16 +2033,10 @@ async function renderV12MatchesFromApi(matches){
   const cards = (matches || []).map(proApiMatchToV12).filter(m => m.home && m.away);
   await loadModelContext().then(ctx => attachClientModelContext(cards, ctx));
 
-  const wc = cards.filter(m => m.isWC);
-  const rest = cards.filter(m => !m.isWC);
+  const rest = cards.slice();
   rest.sort((a,b)=>winNum(b.total)-winNum(a.total));
-  wc.sort((a,b)=>winNum(b.total)-winNum(a.total));
 
   let ghtml = "";
-  if (wc.length){
-    ghtml += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${wc.length} matches</span></div>`;
-    ghtml += wc.map((m,i)=>cardHTML(m,"wc"+i)).join("") + `</div>`;
-  }
   if (rest.length){
     ghtml += `<section class="all-section"><div class="all-head"><span><span class="lname">All matches</span><span class="ranking-note">Ranked worldwide by AI confidence</span></span><span class="lsub">${rest.length} matches</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
   }
@@ -2031,7 +2051,7 @@ async function renderV12MatchesFromApi(matches){
     grouped.get(k).push(m);
   });
   let lhtml = "";
-  grouped.forEach((arr, league) => {
+  Array.from(grouped.entries()).sort((a,b)=>leagueFeaturePriority(b[0])-leagueFeaturePriority(a[0])).forEach(([league,arr]) => {
     arr.sort((a,b)=>winNum(b.total)-winNum(a.total));
     if (league === "International - World Cup") {
       lhtml += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${arr.length} matches</span></div>`;
@@ -2044,6 +2064,7 @@ async function renderV12MatchesFromApi(matches){
   });
   const lv = document.getElementById("leagueView");
   if (lv) lv.innerHTML = lhtml || `<div class="empty">No Pro predictions available for this date yet.</div>`;
+  orderLeagueSections();
 
   if (window.__isPro === true) applyProUnlockedDom();
   if (PENDING_PRO_SORT_MODE === "btts") setSortMode("btts", {track:false});
@@ -2119,11 +2140,14 @@ function updateProUI(isPro) {
   if (isPro) hideAdsenseAds();
   if (isPro) setTimeout(loadProFullForDateV12, 0);
   else showFutureProGate();
+  if (typeof renderCalendarMonth === 'function') renderCalendarMonth();
 }
 
 function setProPicksState(state){
   const ids = { locked:'proPicksLocked', loading:'proPicksLoading', member:'proPicksMember', empty:'proPicksEmpty' };
   Object.entries(ids).forEach(([name,id]) => document.getElementById(id)?.classList.toggle('on', name === state));
+  const section=document.getElementById('proPicks');
+  if(section){Object.keys(ids).forEach(name=>section.classList.toggle(`state-${name}`,name===state));}
 }
 const PRO_PICK_REASON_LABELS = {
   high_data_depth: "High data depth",

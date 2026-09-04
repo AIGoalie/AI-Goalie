@@ -245,23 +245,44 @@ body.pro-unlocked [data-buy-pro]{display:none!important}
 .navtoggle{display:none;background:var(--surface);border:1px solid var(--line);color:var(--text);
 border-radius:9px;padding:7px 11px;font-size:15px;cursor:pointer}
 
-.daybar{display:flex;align-items:center;justify-content:center;gap:14px;padding:16px 0 2px}
+.daybar{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 0 2px}
 .seo-h1{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .daybar button{background:var(--surface);border:1px solid var(--line);color:var(--text);
 border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:grid;place-items:center}
 .daybar button:hover{background:var(--surface-2)}
-.daybar .day{font-size:20px;font-weight:700;min-width:210px;text-align:center}
+.daybar .day-trigger{width:auto;min-width:210px;padding:0 14px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:20px;font-weight:700;text-align:center}
+.daybar .day-trigger .day-caret{font-size:11px;color:var(--muted);transition:transform .15s}
+.daybar .day-trigger[aria-expanded="true"] .day-caret{transform:rotate(180deg)}
+.calendar-popover{position:fixed;inset:0;z-index:12000;display:none;align-items:flex-start;justify-content:center;padding:118px 14px 24px;background:rgba(2,10,6,.72);backdrop-filter:blur(5px)}
+.calendar-popover.open{display:flex}
+.calendar-card{width:min(360px,100%);padding:14px;border:1px solid var(--line);border-radius:16px;background:#102019;box-shadow:0 22px 60px rgba(0,0,0,.5)}
+.calendar-head{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;gap:8px;margin-bottom:10px}
+.calendar-head button{width:36px;height:36px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);color:var(--text);font-size:18px;cursor:pointer}
+.calendar-month{text-align:center;font-size:15px;font-weight:800;text-transform:capitalize}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.calendar-weekdays span{padding:4px 0;color:var(--muted-2);font-size:9px;font-weight:800;text-align:center;text-transform:uppercase}
+.calendar-day{aspect-ratio:1;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted-2);font-size:12px;cursor:default}
+.calendar-day.available{border-color:var(--line);background:var(--surface-2);color:var(--text);cursor:pointer}
+.calendar-day.available:hover{border-color:var(--green)}
+.calendar-day.today{box-shadow:inset 0 0 0 1px rgba(113,240,139,.45)}
+.calendar-day.selected{border-color:var(--green);background:rgba(113,240,139,.14);color:var(--green-bright);font-weight:900}
+.calendar-day.pro-locked{color:var(--gold);opacity:.72;cursor:pointer}
+.calendar-legend{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;color:var(--muted);font-size:9.5px}
+.calendar-close{border:0;background:transparent;color:var(--green);font-size:10px;font-weight:800;cursor:pointer}
 
-.match-controls{margin:14px 0 4px}
+.match-controls{margin:12px 0 4px}
 .control-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}
-.layout-select{width:142px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);padding:0 32px 0 12px;font-size:13px;font-weight:700;cursor:pointer;outline:0}
-.layout-select:focus{border-color:rgba(113,240,139,.52)}
+.view-switch{display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}
+.view-btn{height:38px;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 14px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}
+.view-btn:last-child{border-right:0}.view-btn:hover{background:var(--surface-2);color:var(--text)}.view-btn.on{background:rgba(113,240,139,.12);color:var(--green-bright)}
 .status-switch{min-width:0;display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--surface)}
 .status-btn{height:38px;min-width:0;flex:1;border:0;border-right:1px solid var(--line-soft);background:transparent;color:var(--muted);padding:0 10px;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}
 .status-btn:last-child{border-right:0}
 .status-btn:hover{background:var(--surface-2);color:var(--text)}
 .status-btn.on{background:var(--text);color:#092015}
 .status-btn.live-filter::before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#ff5e62;vertical-align:1px}
+.status-select{display:none;height:38px;min-width:92px;padding:0 25px 0 10px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);font-size:11.5px;font-weight:800;outline:0}
+.control-actions{display:flex;align-items:center;gap:7px}
 .utility{position:relative}
 .utility summary{list-style:none;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--text);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
 .utility summary::-webkit-details-marker{display:none}
@@ -272,10 +293,13 @@ border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;display:
 .utility-menu button:hover{background:var(--surface-2)}
 .utility-menu button.active{color:var(--green-bright)}
 .utility-menu .pro-mini{margin-left:auto;padding:2px 5px;border:1px solid rgba(235,200,91,.3);border-radius:999px;color:#e9ca64;font-size:9px;line-height:1.2}
+.csv-quick{position:relative;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);font-size:16px;font-weight:800;cursor:pointer}
+.csv-quick:hover{background:var(--surface-2);border-color:rgba(113,240,139,.35)}
+.csv-quick .pro-mini{position:absolute;right:-4px;top:-6px;padding:1px 4px;border:1px solid rgba(235,200,91,.35);border-radius:999px;background:#17241c;color:var(--gold);font-size:7px;line-height:1.35;text-transform:uppercase}
 .win-pill.metric-goals,.win-pill.metric-btts{min-width:66px;padding-inline:6px;font-size:10px;white-space:nowrap}
 .win-pill.metric-goals{background:#d9c46b!important;color:#122015}
 .win-pill.metric-btts{background:#83d9b1!important;color:#092015}
-.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-top:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}
+.control-search{display:flex;align-items:center;gap:8px;height:42px;margin-bottom:8px;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted)}
 .control-search:focus-within{border-color:rgba(113,240,139,.52)}
 .control-search svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
 .control-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:13px}
@@ -387,7 +411,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .ad-container.hidden{display:none}
 .ad-desktop{display:flex}
 .day-top-ad{width:min(468px,100%);max-width:468px;min-height:60px}
-.day-inline-ad{min-height:250px}
+.day-inline-ad{width:min(468px,100%);max-width:468px;min-height:60px;margin:16px auto}
 .whats-new{margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:rgba(113,240,139,.035);overflow:hidden}
 .whats-new summary{min-height:42px;padding:0 13px;display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;color:var(--text);font-size:12px;font-weight:800}
 .whats-new summary::-webkit-details-marker{display:none}.whats-new summary::after{content:'\203A';margin-left:auto;color:var(--muted);font-size:18px;transform:rotate(90deg);transition:transform .15s}.whats-new[open] summary::after{transform:rotate(-90deg)}
@@ -401,7 +425,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .pro-picks-badge{padding:5px 8px;border:1px solid rgba(113,240,139,.23);border-radius:999px;color:var(--green);font-size:9.5px;font-weight:800;white-space:nowrap}
 .pro-picks-state{display:none}.pro-picks-state.on{display:block}.pro-picks-list{display:grid}.pro-pick-item{border-bottom:1px solid rgba(145,169,157,.09)}.pro-pick-item:last-child{border-bottom:0}.pro-pick-row{display:grid;grid-template-columns:27px minmax(0,1fr) 80px 15px;align-items:center;gap:9px;min-height:65px;padding:9px 14px 5px;color:inherit;text-decoration:none}.pro-pick-row:hover{background:rgba(113,240,139,.045)}
 .pro-pick-rank{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:rgba(113,240,139,.11);color:var(--green);font-size:10px;font-weight:900}.pro-pick-main{min-width:0}.pro-pick-fixture{display:grid;grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);align-items:center;gap:7px}.pro-pick-side{min-width:0;display:flex;align-items:center;gap:6px}.pro-pick-side.home{justify-content:flex-end;text-align:right}.pro-pick-side.away{justify-content:flex-start}.pro-pick-side .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-size:11.5px;font-weight:750}.pro-pick-side.picked .name{color:var(--green)}.pro-pick-crest{width:25px;height:25px;flex:0 0 25px;object-fit:contain;border-radius:7px;background:rgba(255,255,255,.035)}.pro-pick-center{height:31px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);font-size:11px;font-weight:850;white-space:nowrap}.pro-pick-center.live{color:#ff7777;border-color:rgba(255,100,100,.24)}.pro-pick-meta{display:flex;align-items:center;justify-content:center;gap:6px;min-width:0;margin-top:5px;color:var(--muted);font-size:9px}.pro-pick-meta .league{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pro-pick-odds{flex:0 0 auto;color:var(--muted-2);white-space:nowrap}.pro-pick-winwrap{display:flex;align-items:center;justify-content:flex-end;gap:7px}.pro-pick-confidence{min-width:49px;height:32px;padding:0 6px;border-radius:9px;display:inline-grid;place-items:center;color:#06150b;font-size:12px;font-weight:950}.pro-pick-arrow{color:var(--muted);font-size:15px}.pro-pick-signals{display:flex;flex-wrap:wrap;gap:5px;margin:0 14px 9px 50px}.pro-pick-signal{display:inline-flex;align-items:center;gap:5px;min-width:0;padding:4px 7px;border:1px solid rgba(113,240,139,.13);border-radius:999px;background:rgba(113,240,139,.045);color:var(--muted);font-size:8.5px;line-height:1.15}.pro-pick-signal::before{content:'';width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--green)}
-.pro-picks-locked{padding:13px 14px}.pro-picks-skeleton{display:grid;gap:7px;filter:blur(5px);opacity:.52}.pro-picks-skeleton span{height:29px;border-radius:8px;background:linear-gradient(90deg,rgba(113,240,139,.15),rgba(255,255,255,.07),rgba(113,240,139,.12))}.pro-picks-unlock{display:flex;align-items:center;gap:12px;margin-top:12px}.pro-picks-unlock-copy{min-width:0;flex:1}.pro-picks-unlock-copy strong{display:block;font-size:12px}.pro-picks-unlock-copy span{display:block;margin-top:3px;color:var(--muted);font-size:10px}.pro-picks-unlock button{height:34px;padding:0 12px;border:1px solid rgba(113,240,139,.42);border-radius:10px;background:rgba(113,240,139,.12);color:var(--green);font-weight:850;cursor:pointer;white-space:nowrap}
+.pro-picks-locked{padding:10px 12px}.pro-picks-lockbar{display:flex;align-items:center;gap:10px}.pro-picks-lockbar .pro-picks-icon{width:31px;height:31px;flex-basis:31px;border-radius:9px}.pro-picks-lock-copy{min-width:0;flex:1}.pro-picks-lock-copy strong{display:block;font-size:12px}.pro-picks-lock-copy span{display:block;margin-top:2px;color:var(--muted);font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pro-picks-lockbar button{height:34px;padding:0 12px;border:1px solid rgba(113,240,139,.42);border-radius:10px;background:rgba(113,240,139,.12);color:var(--green);font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}
+.pro-picks.state-locked .pro-picks-head{display:none}.pro-picks.state-locked{margin-top:10px}.pro-picks.state-locked .pro-picks-locked{padding:10px 12px}
 .pro-picks-empty{display:flex;align-items:flex-start;gap:11px;padding:15px 14px}.pro-picks-empty-mark{width:29px;height:29px;flex:0 0 29px;border-radius:9px;display:grid;place-items:center;background:rgba(113,240,139,.1);color:var(--green);font-weight:900}.pro-picks-empty strong{font-size:12px}.pro-picks-empty p{margin:4px 0 0;color:var(--muted);font-size:10.5px;line-height:1.45}.pro-picks-loading{padding:20px 14px;color:var(--muted);font-size:11px;text-align:center}
 .pro-picks-foot{display:flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,0,0,.06);color:var(--muted);font-size:9.5px;line-height:1.2}.pro-picks-foot a{margin-left:auto;color:var(--green);font-weight:800;text-decoration:none;white-space:nowrap}
 
@@ -414,7 +439,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .navtoggle{display:block}
   .ad-desktop{display:none}
 }
-@media(max-width:680px){.pro-picks{margin:7px 0 15px;border-radius:14px}.pro-picks-head{padding:11px 12px;gap:9px}.pro-picks-icon{width:32px;height:32px;flex-basis:32px}.pro-picks-copy h2{font-size:15px}.pro-picks-copy p{font-size:9.5px}.pro-picks-badge{padding:4px 7px}.pro-pick-row{grid-template-columns:22px minmax(0,1fr) 72px 11px;gap:6px;min-height:61px;padding:8px 9px 4px}.pro-pick-rank{width:21px;height:21px}.pro-pick-fixture{grid-template-columns:minmax(0,1fr) 46px minmax(0,1fr);gap:5px}.pro-pick-side{gap:4px}.pro-pick-side .name{font-size:10.5px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.pro-pick-crest{width:23px;height:23px;flex-basis:23px}.pro-pick-center{height:29px;font-size:10.5px}.pro-pick-confidence{min-width:44px;height:31px;font-size:11.5px}.pro-pick-winwrap{gap:5px}.pro-pick-meta{margin-top:4px;font-size:8.5px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}.pro-picks-locked{padding:11px}.pro-picks-unlock{justify-content:space-between}.pro-picks-foot{padding:5px 11px}}
+@media(max-width:680px){.pro-picks{margin:7px 0 15px;border-radius:14px}.pro-picks-head{padding:11px 12px;gap:9px}.pro-picks-icon{width:32px;height:32px;flex-basis:32px}.pro-picks-copy h2{font-size:15px}.pro-picks-copy p{font-size:9.5px}.pro-picks-badge{padding:4px 7px}.pro-pick-row{grid-template-columns:22px minmax(0,1fr) 72px 11px;gap:6px;min-height:61px;padding:8px 9px 4px}.pro-pick-rank{width:21px;height:21px}.pro-pick-fixture{grid-template-columns:minmax(0,1fr) 46px minmax(0,1fr);gap:5px}.pro-pick-side{gap:4px}.pro-pick-side .name{font-size:10.5px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.pro-pick-crest{width:23px;height:23px;flex-basis:23px}.pro-pick-center{height:29px;font-size:10.5px}.pro-pick-confidence{min-width:44px;height:31px;font-size:11.5px}.pro-pick-winwrap{gap:5px}.pro-pick-meta{margin-top:4px;font-size:8.5px}.pro-pick-signals{gap:4px;margin:0 9px 8px 37px}.pro-pick-signal{padding:3px 6px;font-size:8px}.pro-picks-foot{padding:5px 11px}}
 @media(max-width:560px){
   .daybar .day{font-size:17px;min-width:auto}
   /* Keep everything on ONE row, just smaller — compact */
@@ -436,9 +461,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .metric .ms{font-size:7.4px;min-height:16px}
   .metric .pro-tag{font-size:7.5px}
   .control-row{gap:6px}
-  .layout-select{width:116px;height:38px;padding:0 25px 0 9px;font-size:11.5px}
+  .view-btn{height:38px;padding:0 10px;font-size:11px}
+  .status-switch{display:none}
+  .status-select{display:block}
   .status-btn{height:36px;padding:0 6px;font-size:11px}
   .utility summary{width:38px;height:38px}
+  .csv-quick{width:38px;height:38px}
   .control-search{height:40px}
 
   .league-section .league-head{
@@ -943,57 +971,70 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 
   <h1 class="seo-h1">AI Football Predictions — Today's Matches</h1>
 
+  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
+
   <div class="daybar">
     <button title="Previous day" id="prevDay">‹</button>
-    <div class="day">Today</div>
+    <button type="button" class="day-trigger" id="calendarTrigger" aria-haspopup="dialog" aria-expanded="false">
+      <span>Today</span>
+      <span class="day-caret" aria-hidden="true">▼</span>
+    </button>
     <button title="Next day" id="nextDay">›</button>
   </div>
 
-  <details class="whats-new" id="whatsNew" data-update-version="20260824-2">
-    <summary>
-      <span class="whats-new-mark" aria-hidden="true">&#10022;</span>
-      <span>What's new?</span>
-      <span class="whats-new-badge" id="whatsNewBadge">New</span>
-    </summary>
-    <div class="whats-new-copy">
-      <div class="whats-new-item"><span aria-hidden="true">&#8645;</span><div><strong>New match rankings</strong><p>Use ⋯ to rank matches by confidence, predicted goals, BTTS chance (Pro), or kick-off time.</p></div></div>
-      <div class="whats-new-item"><span aria-hidden="true">&#10022;</span><div><strong>Today's Pro Picks <span class="whats-new-pro">PRO</span></strong><p>Up to three matches are shortlisted from every game worldwide. We add fewer—or none—when the evidence is not strong enough.</p></div></div>
+  <div class="calendar-popover" id="calendarPopover" role="dialog" aria-modal="true" aria-label="Choose a date">
+    <div class="calendar-card">
+      <div class="calendar-head">
+        <button type="button" id="calendarPrevMonth" aria-label="Previous month">‹</button>
+        <div class="calendar-month" id="calendarMonth"></div>
+        <button type="button" id="calendarNextMonth" aria-label="Next month">›</button>
+      </div>
+      <div class="calendar-weekdays" id="calendarWeekdays"></div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="calendar-legend"><span>Only available prediction dates can be opened.</span><button type="button" class="calendar-close" id="calendarClose">Close</button></div>
     </div>
-  </details>
+  </div>
 
   <section class="match-controls" aria-label="Match filters">
+    <label class="control-search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
+      <input type="search" id="search" placeholder="Search team or league…" aria-label="Search team or league…" oninput="doSearch(this.value)">
+    </label>
     <div class="control-row">
-      <select id="viewSelect" class="layout-select" aria-label="Match layout" onchange="setView(this.value)">
-        <option value="global">Global</option>
-        <option value="league">By league</option>
-      </select>
+      <input type="hidden" id="viewSelect" value="global">
+      <div class="view-switch" role="group" aria-label="Match layout">
+        <button type="button" class="view-btn on" data-view="global" onclick="setView('global')">Global</button>
+        <button type="button" class="view-btn" data-view="league" onclick="setView('league')">League</button>
+      </div>
       <div class="status-switch" role="group" aria-label="Match status">
         <button class="status-btn on" data-status-filter="all" onclick="setStatusFilter('all',this)">All</button>
         <button class="status-btn live-filter" data-status-filter="live" onclick="setStatusFilter('live',this)">Live</button>
         <button class="status-btn" data-status-filter="upcoming" onclick="setStatusFilter('upcoming',this)">Upcoming</button>
         <button class="status-btn" data-status-filter="finished" onclick="setStatusFilter('finished',this)">FT</button>
       </div>
-      <details class="utility" id="utilityMenu">
-        <summary aria-label="More options" title="More options">⋯</summary>
-        <div class="utility-menu">
-          <span class="utility-label">Rank matches by</span>
-          <button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ Sort by confidence</button>
-          <button id="sortGoals" onclick="setSortMode('goals');closeUtilityMenu()">⚽ Predicted goals</button>
-          <button id="sortBtts" onclick="setSortMode('btts');closeUtilityMenu()">⇄ BTTS chance <span class="pro-mini">Pro</span></button>
-          <button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ Sort by time</button>
-          <button id="csv_button" onclick="closeUtilityMenu();if(window.downloadCSV)downloadCSV()">↓ Download CSV</button>
-        </div>
-      </details>
+      <select id="statusSelect" class="status-select" aria-label="Match status" onchange="setStatusFilter(this.value)">
+        <option value="all">All</option>
+        <option value="live">Live</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="finished">FT</option>
+      </select>
+      <div class="control-actions">
+        <details class="utility" id="utilityMenu">
+          <summary aria-label="Rank matches by" title="Rank matches by">⇅</summary>
+          <div class="utility-menu">
+            <span class="utility-label">Rank matches by</span>
+            <button class="active" id="sortConfidence" onclick="setSortMode('confidence');closeUtilityMenu()">⇅ Sort by confidence</button>
+            <button id="sortGoals" onclick="setSortMode('goals');closeUtilityMenu()">⚽ Predicted goals</button>
+            <button id="sortBtts" onclick="setSortMode('btts');closeUtilityMenu()">⇄ BTTS chance <span class="pro-mini">Pro</span></button>
+            <button id="sortTime" onclick="setSortMode('time');closeUtilityMenu()">◷ Sort by time</button>
+          </div>
+        </details>
+        <button type="button" id="csv_button" class="csv-quick" aria-label="Download CSV" title="Download CSV" onclick="if(window.downloadCSV)downloadCSV()">↓<span class="pro-mini">Pro</span></button>
+      </div>
     </div>
-    <label class="control-search">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
-      <input type="search" id="search" placeholder="Search team or league…" aria-label="Search team or league…" oninput="doSearch(this.value)">
-    </label>
   </section>
 
-  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
-
-  <section class="pro-picks" id="proPicks" aria-labelledby="proPicksTitle">
+  <section class="pro-picks state-locked" id="proPicks" aria-labelledby="proPicksTitle">
     <header class="pro-picks-head">
       <div class="pro-picks-icon" aria-hidden="true">✦</div>
       <div class="pro-picks-copy">
@@ -1005,13 +1046,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     </header>
     <div class="pro-picks-state on" id="proPicksLocked">
       <div class="pro-picks-locked">
-        <div class="pro-picks-skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="pro-picks-unlock">
-          <div class="pro-picks-unlock-copy"><strong>Today's shortlist is ready</strong><span>Unlock the picks and supporting evidence.</span></div>
+        <div class="pro-picks-lockbar">
+          <div class="pro-picks-icon" aria-hidden="true">✦</div>
+          <div class="pro-picks-lock-copy"><strong>Today's Pro Picks</strong><span>Pro Picks win rate: 78.1%</span></div>
           <button type="button" data-buy-pro="1">Unlock Pro Picks</button>
         </div>
       </div>
-      <footer class="pro-picks-foot"><span>Shortlisted from every match worldwide</span></footer>
     </div>
     <div class="pro-picks-state" id="proPicksLoading"><div class="pro-picks-loading">Loading Pro Picks…</div></div>
     <div class="pro-picks-state" id="proPicksMember"><div class="pro-picks-list" id="proPicksList"></div><footer class="pro-picks-foot"><span>Up to 3 daily · weaker matches are never added</span><a href="/results.html">Track record →</a></footer></div>
@@ -1020,300 +1060,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 
   <div id="globalView">
     
-    
-    
-      
-        
-          
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    <section class="league-section featured-section">
-      <div class="league-head">
-        
-      <img class="flag" width="21" height="15" decoding="async" loading="lazy" src="https://media.api-sports.io/flags/es.svg" alt="Spain - La Liga flag">
-        
-        <span class="lname">Spain - La Liga</span>
-        <span class="featured-label">Featured league</span>
-        <span class="lsub">1 matches</span>
-      </div>
-      
-      
-  
-  
-  
-  
-  
-  
-  
-  <div class="mrow tier-high" data-match-index="0" data-league="Spain - La Liga" data-home="Real Betis"
-       data-away="Real Madrid" data-date="Fri. 04 Sep." data-time="20:00"
-       data-confidence="71%" data-total-goals="&#9917;&#9917;&#9917;<br>2.74" data-btts=""
-       data-status="upcoming"
-       data-kickoff-utc="2026-09-04T19:00:00Z"
-       data-featured-value="1428.2"
-       data-search="real betis real madrid spain - la liga">
-    <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
-      <div class="fixrow">
-        <div class="side home">
-          <span class="nm ">Real Betis</span>
-          
-    
-    <img class="crest" width="30" height="30" decoding="async" src="https://media.api-sports.io/football/teams/543.png" alt="Real Betis football team crest" loading="lazy" onerror="this.style.visibility='hidden'">
-  
-        </div>
-        <div class="center">
-          <div class="ko" data-kickoff-utc="2026-09-04T19:00:00Z">20:00</div>
-        </div>
-        <div class="side away">
-          
-    
-    <img class="crest" width="30" height="30" decoding="async" src="https://media.api-sports.io/football/teams/541.png" alt="Real Madrid football team crest" loading="lazy" onerror="this.style.visibility='hidden'">
-  
-          <span class="nm pk">Real Madrid</span>
-        </div>
-      </div>
-      <div class="winwrap">
-        
-  <span class="resmark empty" aria-hidden="true"></span>
-  
-        <span class="win-pill" title="AI pick" style="background:rgb(34.0,216.75,0.0)">71%</span>
-        <span class="chev" title="Tap for prediction">▾</span>
-      </div>
-    </div>
-    <div class="mdetail">
-      
-      
-      <div class="metric-rail">
-        <div class="metric pro-metric">
-          <div class="ml">xG/team</div>
-          <div class="mv locked pro"><span class="pro-xgh">🔒</span> - <span class="pro-xga">🔒</span></div>
-          <div class="ms"><span>Real Betis</span>&nbsp;·&nbsp;<span>Real Madrid</span></div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="metric total-goals-metric">
-          <div class="ml">Total goals</div>
-          <div class="mv">&#9917;&#9917;&#9917;<br>2.74</div>
-          <div class="ms"></div>
-        </div>
-        <div class="metric pro-metric">
-          <div class="ml">BTTS</div>
-          <div class="mv locked pro pro-btts">🔒</div>
-          <div class="ms"></div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-        <div class="metric">
-          <div class="ml" title="Similar-confidence accuracy">Similar<br>accuracy</div>
-          <div class="mv">75%</div>
-          <div class="ms">2903 predictions</div>
-        </div>
-        <div class="metric pro-metric">
-          <div class="ml">Picked team<br>accuracy</div>
-          <div class="mv locked pro">69%</div>
-          <div class="ms">49 predictions</div>
-          <div class="pro-tag">🔒 Pro</div>
-        </div>
-      </div>
-      <span class="pro pro-opp" style="display:none">🔒</span>
-      <div class="detail-actions">
-        <a class="matchlink" href="/match/2026-09-04-real-betis-vs-real-madrid" onclick="trackEvent('fixture_link_click', { league: this.closest('.mrow')?.dataset.league || '' })">Full prediction & analysis →</a>
-        <span class="odds-mini">Odds 1.4</span>
-      </div>
-    </div>
-  </div>
-      
-    </section>
-    
-    
     <section class="all-section">
-      <div class="all-head"><span><span class="lname">All matches</span><span class="ranking-note">Ranked worldwide by AI confidence</span></span><span class="lsub">146 matches</span></div>
+      <div class="all-head"><span><span class="lname">All matches</span><span class="ranking-note">Ranked worldwide by AI confidence</span></span><span class="lsub">147 matches</span></div>
       
       
   
@@ -1743,7 +1491,91 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="5" data-league="Türkiye - Süper Lig" data-home="Başakşehir"
+  <div class="mrow tier-high" data-match-index="5" data-league="Spain - La Liga" data-home="Real Betis"
+       data-away="Real Madrid" data-date="Fri. 04 Sep." data-time="20:00"
+       data-confidence="71%" data-total-goals="&#9917;&#9917;&#9917;<br>2.74" data-btts=""
+       data-status="upcoming"
+       data-kickoff-utc="2026-09-04T19:00:00Z"
+       data-featured-value="1428.2"
+       data-search="real betis real madrid spain - la liga">
+    <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
+      <div class="fixrow">
+        <div class="side home">
+          <span class="nm ">Real Betis</span>
+          
+    
+    <img class="crest" width="30" height="30" decoding="async" src="https://media.api-sports.io/football/teams/543.png" alt="Real Betis football team crest" loading="lazy" onerror="this.style.visibility='hidden'">
+  
+        </div>
+        <div class="center">
+          <div class="ko" data-kickoff-utc="2026-09-04T19:00:00Z">20:00</div>
+        </div>
+        <div class="side away">
+          
+    
+    <img class="crest" width="30" height="30" decoding="async" src="https://media.api-sports.io/football/teams/541.png" alt="Real Madrid football team crest" loading="lazy" onerror="this.style.visibility='hidden'">
+  
+          <span class="nm pk">Real Madrid</span>
+        </div>
+      </div>
+      <div class="winwrap">
+        
+  <span class="resmark empty" aria-hidden="true"></span>
+  
+        <span class="win-pill" title="AI pick" style="background:rgb(34.0,216.75,0.0)">71%</span>
+        <span class="chev" title="Tap for prediction">▾</span>
+      </div>
+    </div>
+    <div class="mdetail">
+      
+      
+      <div class="metric-rail">
+        <div class="metric pro-metric">
+          <div class="ml">xG/team</div>
+          <div class="mv locked pro"><span class="pro-xgh">🔒</span> - <span class="pro-xga">🔒</span></div>
+          <div class="ms"><span>Real Betis</span>&nbsp;·&nbsp;<span>Real Madrid</span></div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
+        <div class="metric total-goals-metric">
+          <div class="ml">Total goals</div>
+          <div class="mv">&#9917;&#9917;&#9917;<br>2.74</div>
+          <div class="ms"></div>
+        </div>
+        <div class="metric pro-metric">
+          <div class="ml">BTTS</div>
+          <div class="mv locked pro pro-btts">🔒</div>
+          <div class="ms"></div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
+        <div class="metric">
+          <div class="ml" title="Similar-confidence accuracy">Similar<br>accuracy</div>
+          <div class="mv">75%</div>
+          <div class="ms">2903 predictions</div>
+        </div>
+        <div class="metric pro-metric">
+          <div class="ml">Picked team<br>accuracy</div>
+          <div class="mv locked pro">69%</div>
+          <div class="ms">49 predictions</div>
+          <div class="pro-tag">🔒 Pro</div>
+        </div>
+      </div>
+      <span class="pro pro-opp" style="display:none">🔒</span>
+      <div class="detail-actions">
+        <a class="matchlink" href="/match/2026-09-04-real-betis-vs-real-madrid" onclick="trackEvent('fixture_link_click', { league: this.closest('.mrow')?.dataset.league || '' })">Full prediction & analysis →</a>
+        <span class="odds-mini">Odds 1.4</span>
+      </div>
+    </div>
+  </div>
+      
+      
+  
+  
+  
+  
+  
+  
+  
+  <div class="mrow tier-high" data-match-index="6" data-league="Türkiye - Süper Lig" data-home="Başakşehir"
        data-away="Galatasaray" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="71%" data-total-goals="&#9917;&#9917;<br>2.25" data-btts=""
        data-status="upcoming"
@@ -1827,7 +1659,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="6" data-league="Saudi Arabia - Pro League" data-home="Al-Ahli Jeddah"
+  <div class="mrow tier-high" data-match-index="7" data-league="Saudi Arabia - Pro League" data-home="Al-Ahli Jeddah"
        data-away="Al Riyadh" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="66%" data-total-goals="&#9917;&#9917;<br>2.33" data-btts=""
        data-status="upcoming"
@@ -1911,7 +1743,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="7" data-league="International - Ligue 1" data-home="Paris Saint Germain"
+  <div class="mrow tier-high" data-match-index="8" data-league="International - Ligue 1" data-home="Paris Saint Germain"
        data-away="Monaco" data-date="Fri. 04 Sep." data-time="20:05"
        data-confidence="62%" data-total-goals="&#9917;&#9917;&#9917;&#9917;&#9917;<br>5.18" data-btts=""
        data-status="upcoming"
@@ -1995,7 +1827,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="8" data-league="San Marino - Campionato" data-home="Fiorentino"
+  <div class="mrow tier-high" data-match-index="9" data-league="San Marino - Campionato" data-home="Fiorentino"
        data-away="Virtus" data-date="Fri. 04 Sep." data-time="20:15"
        data-confidence="60%" data-total-goals="&#9917;&#9917;<br>2.0" data-btts=""
        data-status="upcoming"
@@ -2079,7 +1911,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="9" data-league="Malaysia - Super League" data-home="Kelantan Red Warrior FC"
+  <div class="mrow tier-high" data-match-index="10" data-league="Malaysia - Super League" data-home="Kelantan Red Warrior FC"
        data-away="Kuala Lumpur FA" data-date="Fri. 04 Sep." data-time="14:00"
        data-confidence="60%" data-total-goals="&#9917;&#9917;<br>1.58" data-btts=""
        data-status="upcoming"
@@ -2163,7 +1995,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="10" data-league="Venezuela - Primera División" data-home="Metropolitanos FC"
+  <div class="mrow tier-high" data-match-index="11" data-league="Venezuela - Primera División" data-home="Metropolitanos FC"
        data-away="Trujillanos FC" data-date="Fri. 04 Sep." data-time="00:00"
        data-confidence="59%" data-total-goals="&#9917;<br>1.24" data-btts=""
        data-status="finished"
@@ -2247,7 +2079,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="11" data-league="Wales - Premier League" data-home="Caernarfon Town"
+  <div class="mrow tier-high" data-match-index="12" data-league="Wales - Premier League" data-home="Caernarfon Town"
        data-away="Flint Town United" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="58%" data-total-goals="&#9917;&#9917;&#9917;&#9917;&#9917;<br>5.44" data-btts=""
        data-status="upcoming"
@@ -2331,7 +2163,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="12" data-league="Belgium - Jupiler Pro League" data-home="Lommel United"
+  <div class="mrow tier-high" data-match-index="13" data-league="Belgium - Jupiler Pro League" data-home="Lommel United"
        data-away="Club Brugge KV" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="57%" data-total-goals="&#9917;&#9917;<br>1.64" data-btts=""
        data-status="upcoming"
@@ -2415,7 +2247,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="13" data-league="France - Ligue 1" data-home="Lyon"
+  <div class="mrow tier-high" data-match-index="14" data-league="France - Ligue 1" data-home="Lyon"
        data-away="Auxerre" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="56%" data-total-goals="&#9917;&#9917;&#9917;&#9917;<br>4.04" data-btts=""
        data-status="upcoming"
@@ -2499,7 +2331,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="14" data-league="Northern Ireland - Premiership" data-home="Larne"
+  <div class="mrow tier-high" data-match-index="15" data-league="Northern Ireland - Premiership" data-home="Larne"
        data-away="Glentoran" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="56%" data-total-goals="&#9917;&#9917;<br>2.49" data-btts=""
        data-status="upcoming"
@@ -2583,7 +2415,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="15" data-league="Thailand - Thai League 2" data-home="Uttaradit"
+  <div class="mrow tier-high" data-match-index="16" data-league="Thailand - Thai League 2" data-home="Uttaradit"
        data-away="Muangthong United" data-date="Fri. 04 Sep." data-time="13:00"
        data-confidence="56%" data-total-goals="&#9917;&#9917;&#9917;<br>2.59" data-btts=""
        data-status="upcoming"
@@ -2667,7 +2499,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="16" data-league="Nicaragua - Primera Division" data-home="Managua"
+  <div class="mrow tier-high" data-match-index="17" data-league="Nicaragua - Primera Division" data-home="Managua"
        data-away="Diriangén" data-date="Fri. 04 Sep." data-time="00:00"
        data-confidence="55%" data-total-goals="&#9917;&#9917;<br>1.57" data-btts=""
        data-status="finished"
@@ -2751,7 +2583,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="17" data-league="Lithuania - 1 Lyga" data-home="Jonava"
+  <div class="mrow tier-high" data-match-index="18" data-league="Lithuania - 1 Lyga" data-home="Jonava"
        data-away="Dainava" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="55%" data-total-goals="&#9917;<br>0.89" data-btts=""
        data-status="upcoming"
@@ -2835,7 +2667,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="18" data-league="Uzbekistan - Super League" data-home="Pakhtakor"
+  <div class="mrow tier-lean" data-match-index="19" data-league="Uzbekistan - Super League" data-home="Pakhtakor"
        data-away="Andijan" data-date="Fri. 04 Sep." data-time="16:15"
        data-confidence="54%" data-total-goals="&#9917;&#9917;<br>1.83" data-btts=""
        data-status="upcoming"
@@ -2919,7 +2751,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="19" data-league="Northern Ireland - Championship" data-home="Annagh United"
+  <div class="mrow tier-lean" data-match-index="20" data-league="Northern Ireland - Championship" data-home="Annagh United"
        data-away="Ards" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="54%" data-total-goals="&#9917;&#9917;&#9917;<br>2.94" data-btts=""
        data-status="upcoming"
@@ -3003,7 +2835,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="20" data-league="Kyrgyzstan - Premier League" data-home="Toktogul"
+  <div class="mrow tier-lean" data-match-index="21" data-league="Kyrgyzstan - Premier League" data-home="Toktogul"
        data-away="Talant" data-date="Fri. 04 Sep." data-time="15:00"
        data-confidence="54%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -3087,7 +2919,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="21" data-league="Wales - Premier League" data-home="Holywell"
+  <div class="mrow tier-lean" data-match-index="22" data-league="Wales - Premier League" data-home="Holywell"
        data-away="Trefelin" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="53%" data-total-goals="&#9917;&#9917;&#9917;<br>2.52" data-btts=""
        data-status="upcoming"
@@ -3171,7 +3003,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="22" data-league="Wales - Premier League" data-home="Briton Ferry"
+  <div class="mrow tier-lean" data-match-index="23" data-league="Wales - Premier League" data-home="Briton Ferry"
        data-away="Airbus UK" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="53%" data-total-goals="&#9917;&#9917;&#9917;&#9917;<br>3.51" data-btts=""
        data-status="upcoming"
@@ -3255,7 +3087,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="23" data-league="Norway - Eliteserien" data-home="Fredrikstad"
+  <div class="mrow tier-lean" data-match-index="24" data-league="Norway - Eliteserien" data-home="Fredrikstad"
        data-away="Bodo/Glimt" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="53%" data-total-goals="&#9917;&#9917;&#9917;<br>2.52" data-btts=""
        data-status="upcoming"
@@ -3339,7 +3171,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="24" data-league="Peru - Primera División" data-home="FC Cajamarca"
+  <div class="mrow tier-lean" data-match-index="25" data-league="Peru - Primera División" data-home="FC Cajamarca"
        data-away="Cienciano" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="52%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -3423,7 +3255,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="25" data-league="Ukraine - Persha Liga" data-home="SK Poltava"
+  <div class="mrow tier-lean" data-match-index="26" data-league="Ukraine - Persha Liga" data-home="SK Poltava"
        data-away="Inhulets" data-date="Fri. 04 Sep." data-time="13:00"
        data-confidence="51%" data-total-goals="&#9917;&#9917;&#9917;<br>2.9" data-btts=""
        data-status="upcoming"
@@ -3507,7 +3339,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="26" data-league="Romania - Liga I" data-home="CFR 1907 Cluj"
+  <div class="mrow tier-lean" data-match-index="27" data-league="Romania - Liga I" data-home="CFR 1907 Cluj"
        data-away="Farul Constanta" data-date="Fri. 04 Sep." data-time="18:30"
        data-confidence="51%" data-total-goals="&#9917;&#9917;<br>2.38" data-btts=""
        data-status="upcoming"
@@ -3591,7 +3423,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="27" data-league="Georgia - Erovnuli Liga" data-home="Rustavi"
+  <div class="mrow tier-lean" data-match-index="28" data-league="Georgia - Erovnuli Liga" data-home="Rustavi"
        data-away="Dinamo Batumi" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="49%" data-total-goals="&#9917;&#9917;&#9917;<br>2.72" data-btts=""
        data-status="upcoming"
@@ -3675,7 +3507,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="28" data-league="Belgium - Challenger Pro League" data-home="Dender"
+  <div class="mrow tier-lean" data-match-index="29" data-league="Belgium - Challenger Pro League" data-home="Dender"
        data-away="Seraing United" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="49%" data-total-goals="&#9917;&#9917;<br>2.32" data-btts=""
        data-status="upcoming"
@@ -3759,7 +3591,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="29" data-league="Moldova - Liga 1" data-home="Oguzsport"
+  <div class="mrow tier-lean" data-match-index="30" data-league="Moldova - Liga 1" data-home="Oguzsport"
        data-away="Victoria Bardar" data-date="Fri. 04 Sep." data-time="15:00"
        data-confidence="48%" data-total-goals="&#9917;&#9917;&#9917;<br>3.0" data-btts=""
        data-status="upcoming"
@@ -3843,7 +3675,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="30" data-league="Albania - Superliga" data-home="Egnatia Rrogozhinë"
+  <div class="mrow tier-lean" data-match-index="31" data-league="Albania - Superliga" data-home="Egnatia Rrogozhinë"
        data-away="Skenderbeu Korce" data-date="Fri. 04 Sep." data-time="17:30"
        data-confidence="46%" data-total-goals="&#9917;&#9917;<br>2.27" data-btts=""
        data-status="upcoming"
@@ -3927,7 +3759,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="31" data-league="Scotland - Championship" data-home="Livingston"
+  <div class="mrow tier-lean" data-match-index="32" data-league="Scotland - Championship" data-home="Livingston"
        data-away="Stenhousemuir" data-date="Fri. 04 Sep." data-time="19:30"
        data-confidence="46%" data-total-goals="&#9917;&#9917;<br>2.04" data-btts=""
        data-status="upcoming"
@@ -4011,7 +3843,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="32" data-league="Jamaica - CONCACAF Caribbean Club Championship" data-home="Cavalier"
+  <div class="mrow tier-lean" data-match-index="33" data-league="Jamaica - CONCACAF Caribbean Club Championship" data-home="Cavalier"
        data-away="Portmore United" data-date="Fri. 04 Sep." data-time="01:00"
        data-confidence="45%" data-total-goals="&#9917;&#9917;<br>1.68" data-btts=""
        data-status="finished"
@@ -4095,7 +3927,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="33" data-league="International - ASEAN Club Championship" data-home="Manila Digger"
+  <div class="mrow tier-lean" data-match-index="34" data-league="International - ASEAN Club Championship" data-home="Manila Digger"
        data-away="Kasuka" data-date="Fri. 04 Sep." data-time="12:00"
        data-confidence="44%" data-total-goals="&#9917;&#9917;&#9917;<br>2.52" data-btts=""
        data-status="upcoming"
@@ -4179,7 +4011,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="34" data-league="North Macedonia - First League" data-home="Shkendija"
+  <div class="mrow tier-lean" data-match-index="35" data-league="North Macedonia - First League" data-home="Shkendija"
        data-away="Tikveš" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="43%" data-total-goals="&#9917;&#9917;<br>1.7" data-btts=""
        data-status="upcoming"
@@ -4263,7 +4095,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="35" data-league="Uzbekistan - Super League" data-home="Nasaf"
+  <div class="mrow tier-lean" data-match-index="36" data-league="Uzbekistan - Super League" data-home="Nasaf"
        data-away="Neftchi" data-date="Fri. 04 Sep." data-time="15:00"
        data-confidence="40%" data-total-goals="&#9917;<br>0.66" data-btts=""
        data-status="upcoming"
@@ -4347,7 +4179,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="36" data-league="Peru - Segunda División" data-home="Comerciantes"
+  <div class="mrow tier-lean" data-match-index="37" data-league="Peru - Segunda División" data-home="Comerciantes"
        data-away="Ayacucho FC" data-date="Fri. 04 Sep." data-time="21:15"
        data-confidence="39%" data-total-goals="&#9917;&#9917;<br>1.65" data-btts=""
        data-status="upcoming"
@@ -4431,7 +4263,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="37" data-league="Norway - Eliteserien" data-home="Sandefjord"
+  <div class="mrow tier-lean" data-match-index="38" data-league="Norway - Eliteserien" data-home="Sandefjord"
        data-away="Viking" data-date="Fri. 04 Sep." data-time="20:00"
        data-confidence="39%" data-total-goals="&#9917;&#9917;&#9917;<br>3.0" data-btts=""
        data-status="upcoming"
@@ -4515,7 +4347,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="38" data-league="Denmark - 1. Division" data-home="Vejle"
+  <div class="mrow tier-lean" data-match-index="39" data-league="Denmark - 1. Division" data-home="Vejle"
        data-away="Vendsyssel FF" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="37%" data-total-goals="&#9917;&#9917;<br>1.68" data-btts=""
        data-status="upcoming"
@@ -4599,7 +4431,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="39" data-league="Wales - Premier League" data-home="GAP Connah S Quay FC"
+  <div class="mrow tier-lean" data-match-index="40" data-league="Wales - Premier League" data-home="GAP Connah S Quay FC"
        data-away="Haverfordwest County AFC" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="36%" data-total-goals="&#9917;&#9917;<br>2.36" data-btts=""
        data-status="upcoming"
@@ -4683,7 +4515,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="40" data-league="Sweden - Superettan" data-home="IFK Norrkoping"
+  <div class="mrow tier-lean" data-match-index="41" data-league="Sweden - Superettan" data-home="IFK Norrkoping"
        data-away="Ljungskile SK" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="35%" data-total-goals="&#9917;&#9917;&#9917;&#9917;<br>4.32" data-btts=""
        data-status="upcoming"
@@ -4767,7 +4599,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="41" data-league="Iraq - Iraqi League" data-home="Al Shorta"
+  <div class="mrow tier-lean" data-match-index="42" data-league="Iraq - Iraqi League" data-home="Al Shorta"
        data-away="Erbil" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="35%" data-total-goals="&#9917;&#9917;&#9917;<br>3.07" data-btts=""
        data-status="upcoming"
@@ -4851,7 +4683,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-lean" data-match-index="42" data-league="Switzerland - Challenge League" data-home="FC Aarau"
+  <div class="mrow tier-lean" data-match-index="43" data-league="Switzerland - Challenge League" data-home="FC Aarau"
        data-away="Rapperswil" data-date="Fri. 04 Sep." data-time="18:30"
        data-confidence="35%" data-total-goals="&#9917;&#9917;<br>2.38" data-btts=""
        data-status="upcoming"
@@ -4935,7 +4767,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="43" data-league="Slovakia - 2. liga" data-home="Liptovský Mikuláš"
+  <div class="mrow tier-low" data-match-index="44" data-league="Slovakia - 2. liga" data-home="Liptovský Mikuláš"
        data-away="Inter Bratislava" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="33%" data-total-goals="&#9917;&#9917;&#9917;&#9917;&#9917;&#9917;&#9917;<br>7.15" data-btts=""
        data-status="upcoming"
@@ -5019,7 +4851,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="44" data-league="Ukraine - Premier League" data-home="Polessya"
+  <div class="mrow tier-low" data-match-index="45" data-league="Ukraine - Premier League" data-home="Polessya"
        data-away="Kudrivka" data-date="Fri. 04 Sep." data-time="16:00"
        data-confidence="32%" data-total-goals="&#9917;&#9917;<br>1.84" data-btts=""
        data-status="upcoming"
@@ -5103,7 +4935,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="45" data-league="Hungary - NB I" data-home="Vasas"
+  <div class="mrow tier-low" data-match-index="46" data-league="Hungary - NB I" data-home="Vasas"
        data-away="Nyiregyhaza" data-date="Fri. 04 Sep." data-time="17:30"
        data-confidence="32%" data-total-goals="&#9917;&#9917;&#9917;<br>2.57" data-btts=""
        data-status="upcoming"
@@ -5187,7 +5019,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="46" data-league="Uzbekistan - Super League" data-home="Navbahor"
+  <div class="mrow tier-low" data-match-index="47" data-league="Uzbekistan - Super League" data-home="Navbahor"
        data-away="Lokomotiv" data-date="Fri. 04 Sep." data-time="15:00"
        data-confidence="31%" data-total-goals="&#9917;&#9917;<br>1.71" data-btts=""
        data-status="upcoming"
@@ -5271,7 +5103,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="47" data-league="Ireland - FAI Cup" data-home="Waterford"
+  <div class="mrow tier-low" data-match-index="48" data-league="Ireland - FAI Cup" data-home="Waterford"
        data-away="Sligo Rovers" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="29%" data-total-goals="&#9917;&#9917;<br>1.72" data-btts=""
        data-status="upcoming"
@@ -5355,7 +5187,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="48" data-league="Netherlands - Eredivisie" data-home="Sparta Rotterdam"
+  <div class="mrow tier-low" data-match-index="49" data-league="Netherlands - Eredivisie" data-home="Sparta Rotterdam"
        data-away="PEC Zwolle" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="29%" data-total-goals="&#9917;&#9917;<br>2.21" data-btts=""
        data-status="upcoming"
@@ -5439,7 +5271,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="49" data-league="Thailand - Thai League 1" data-home="Pattani"
+  <div class="mrow tier-low" data-match-index="50" data-league="Thailand - Thai League 1" data-home="Pattani"
        data-away="BG Pathum United" data-date="Fri. 04 Sep." data-time="13:00"
        data-confidence="29%" data-total-goals="&#9917;&#9917;&#9917;<br>2.64" data-btts=""
        data-status="upcoming"
@@ -5523,7 +5355,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="50" data-league="Ireland - First Division" data-home="Bray Wanderers"
+  <div class="mrow tier-low" data-match-index="51" data-league="Ireland - First Division" data-home="Bray Wanderers"
        data-away="Cork City" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="28%" data-total-goals="&#9917;<br>1.3" data-btts=""
        data-status="upcoming"
@@ -5607,7 +5439,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="51" data-league="South Africa - Premier Soccer League" data-home="Richards Bay"
+  <div class="mrow tier-low" data-match-index="52" data-league="South Africa - Premier Soccer League" data-home="Richards Bay"
        data-away="Amazulu" data-date="Fri. 04 Sep." data-time="18:30"
        data-confidence="28%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -5691,7 +5523,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="52" data-league="Belgium - Challenger Pro League" data-home="Beerschot VA"
+  <div class="mrow tier-low" data-match-index="53" data-league="Belgium - Challenger Pro League" data-home="Beerschot VA"
        data-away="Patro Eisden" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="28%" data-total-goals="&#9917;&#9917;<br>1.56" data-btts=""
        data-status="upcoming"
@@ -5775,7 +5607,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-high" data-match-index="53" data-league="England - Premier League" data-home="Ipswich"
+  <div class="mrow tier-high" data-match-index="54" data-league="England - Premier League" data-home="Ipswich"
        data-away="Liverpool" data-date="Fri. 04 Sep." data-time="20:00"
        data-confidence="62%" data-total-goals="&#9917;&#9917;&#9917;<br>3.11" data-btts=""
        data-status="upcoming"
@@ -5859,7 +5691,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="54" data-league="Wales - FAW Championship" data-home="llanelli AFC"
+  <div class="mrow tier-low" data-match-index="55" data-league="Wales - FAW Championship" data-home="llanelli AFC"
        data-away="Treowen Stars" data-date="Fri. 04 Sep." data-time="19:30"
        data-confidence="27%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -5943,7 +5775,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="55" data-league="Montenegro - First League" data-home="Petrovac"
+  <div class="mrow tier-low" data-match-index="56" data-league="Montenegro - First League" data-home="Petrovac"
        data-away="Sutjeska" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="27%" data-total-goals="&#9917;<br>1.43" data-btts=""
        data-status="upcoming"
@@ -6027,7 +5859,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="56" data-league="Bulgaria - First League" data-home="Septemvri Sofia"
+  <div class="mrow tier-low" data-match-index="57" data-league="Bulgaria - First League" data-home="Septemvri Sofia"
        data-away="Botev Vratsa" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="25%" data-total-goals="&#9917;&#9917;<br>2.32" data-btts=""
        data-status="upcoming"
@@ -6111,7 +5943,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="57" data-league="Jordan - League" data-home="Shabab Al Ordon"
+  <div class="mrow tier-low" data-match-index="58" data-league="Jordan - League" data-home="Shabab Al Ordon"
        data-away="Al Ramtha" data-date="Fri. 04 Sep." data-time="16:00"
        data-confidence="24%" data-total-goals="&#9917;&#9917;<br>1.5" data-btts=""
        data-status="upcoming"
@@ -6195,7 +6027,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="58" data-league="Paraguay - Division Intermedia" data-home="Resistencia"
+  <div class="mrow tier-low" data-match-index="59" data-league="Paraguay - Division Intermedia" data-home="Resistencia"
        data-away="Guairena FC" data-date="Fri. 04 Sep." data-time="23:00"
        data-confidence="24%" data-total-goals="&#9917;&#9917;<br>1.57" data-btts=""
        data-status="upcoming"
@@ -6279,7 +6111,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="59" data-league="Ireland - Premier Division" data-home="Shamrock Rovers"
+  <div class="mrow tier-low" data-match-index="60" data-league="Ireland - Premier Division" data-home="Shamrock Rovers"
        data-away="Shelbourne" data-date="Fri. 04 Sep." data-time="20:00"
        data-confidence="24%" data-total-goals="&#9917;<br>1.33" data-btts=""
        data-status="upcoming"
@@ -6363,7 +6195,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="60" data-league="Northern Ireland - Championship" data-home="Newry City AFC"
+  <div class="mrow tier-low" data-match-index="61" data-league="Northern Ireland - Championship" data-home="Newry City AFC"
        data-away="Armagh City" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="24%" data-total-goals="&#9917;&#9917;&#9917;&#9917;<br>4.03" data-btts=""
        data-status="upcoming"
@@ -6447,7 +6279,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="61" data-league="Germany - Bundesliga" data-home="VfB Stuttgart"
+  <div class="mrow tier-low" data-match-index="62" data-league="Germany - Bundesliga" data-home="VfB Stuttgart"
        data-away="1. FC Köln" data-date="Fri. 04 Sep." data-time="19:30"
        data-confidence="24%" data-total-goals="&#9917;&#9917;&#9917;<br>3.23" data-btts=""
        data-status="upcoming"
@@ -6531,7 +6363,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="62" data-league="United Arab Emirates - Pro League" data-home="Al-Ittihad Kalba"
+  <div class="mrow tier-low" data-match-index="63" data-league="United Arab Emirates - Pro League" data-home="Al-Ittihad Kalba"
        data-away="Al Ain" data-date="Fri. 04 Sep." data-time="14:45"
        data-confidence="23%" data-total-goals="&#9917;&#9917;&#9917;<br>2.95" data-btts=""
        data-status="upcoming"
@@ -6615,7 +6447,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="63" data-league="Italy - Serie A" data-home="Genoa"
+  <div class="mrow tier-low" data-match-index="64" data-league="Italy - Serie A" data-home="Genoa"
        data-away="Como" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="23%" data-total-goals="&#9917;&#9917;<br>1.61" data-btts=""
        data-status="upcoming"
@@ -6699,7 +6531,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="64" data-league="Poland - Ekstraklasa" data-home="Piast Gliwice"
+  <div class="mrow tier-low" data-match-index="65" data-league="Poland - Ekstraklasa" data-home="Piast Gliwice"
        data-away="GKS Katowice" data-date="Fri. 04 Sep." data-time="19:30"
        data-confidence="23%" data-total-goals="&#9917;&#9917;<br>1.86" data-btts=""
        data-status="upcoming"
@@ -6783,7 +6615,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="65" data-league="Cyprus - 1. Division" data-home="Omonia 29is Maiou"
+  <div class="mrow tier-low" data-match-index="66" data-league="Cyprus - 1. Division" data-home="Omonia 29is Maiou"
        data-away="Karmiotissa" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="23%" data-total-goals="&#9917;&#9917;<br>2.34" data-btts=""
        data-status="upcoming"
@@ -6867,7 +6699,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="66" data-league="Denmark - 1. Division" data-home="HB Koge"
+  <div class="mrow tier-low" data-match-index="67" data-league="Denmark - 1. Division" data-home="HB Koge"
        data-away="Hillerød" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="22%" data-total-goals="&#9917;&#9917;&#9917;&#9917;<br>3.67" data-btts=""
        data-status="upcoming"
@@ -6951,7 +6783,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="67" data-league="Brazil - Serie B" data-home="Criciuma"
+  <div class="mrow tier-low" data-match-index="68" data-league="Brazil - Serie B" data-home="Criciuma"
        data-away="Cuiaba" data-date="Fri. 04 Sep." data-time="23:30"
        data-confidence="22%" data-total-goals="&#9917;&#9917;<br>2.17" data-btts=""
        data-status="upcoming"
@@ -7035,7 +6867,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="68" data-league="Slovenia - 1. SNL" data-home="Nafta"
+  <div class="mrow tier-low" data-match-index="69" data-league="Slovenia - 1. SNL" data-home="Nafta"
        data-away="Radomlje" data-date="Fri. 04 Sep." data-time="19:15"
        data-confidence="20%" data-total-goals="&#9917;&#9917;<br>1.99" data-btts=""
        data-status="upcoming"
@@ -7119,7 +6951,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="69" data-league="Colombia - Primera A" data-home="Deportivo Pereira"
+  <div class="mrow tier-low" data-match-index="70" data-league="Colombia - Primera A" data-home="Deportivo Pereira"
        data-away="Independiente Medellin" data-date="Fri. 04 Sep." data-time="02:00"
        data-confidence="20%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="finished"
@@ -7203,7 +7035,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="70" data-league="Indonesia - Liga 1" data-home="Arema FC"
+  <div class="mrow tier-low" data-match-index="71" data-league="Indonesia - Liga 1" data-home="Arema FC"
        data-away="Adhyaksa" data-date="Fri. 04 Sep." data-time="09:30"
        data-confidence="19%" data-total-goals="&#9917;&#9917;&#9917;<br>2.82" data-btts=""
        data-status="upcoming"
@@ -7287,7 +7119,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="71" data-league="Bolivia - Primera División" data-home="Real Oruro"
+  <div class="mrow tier-low" data-match-index="72" data-league="Bolivia - Primera División" data-home="Real Oruro"
        data-away="San Antonio Bulo Bulo" data-date="Fri. 04 Sep." data-time="20:00"
        data-confidence="19%" data-total-goals="&#9917;&#9917;<br>1.56" data-btts=""
        data-status="upcoming"
@@ -7371,7 +7203,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="72" data-league="Bolivia - Copa de la División Profesional" data-home="Nacional Potosí"
+  <div class="mrow tier-low" data-match-index="73" data-league="Bolivia - Copa de la División Profesional" data-home="Nacional Potosí"
        data-away="Real Tomayapo" data-date="Fri. 04 Sep." data-time="00:00"
        data-confidence="19%" data-total-goals="&#9917;&#9917;<br>1.76" data-btts=""
        data-status="finished"
@@ -7455,7 +7287,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="73" data-league="Poland - I Liga" data-home="Nieciecza"
+  <div class="mrow tier-low" data-match-index="74" data-league="Poland - I Liga" data-home="Nieciecza"
        data-away="Lechia Gdansk" data-date="Fri. 04 Sep." data-time="20:00"
        data-confidence="19%" data-total-goals="&#9917;&#9917;<br>2.46" data-btts=""
        data-status="upcoming"
@@ -7539,7 +7371,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="74" data-league="Iraq - Iraqi League" data-home="Karbala"
+  <div class="mrow tier-low" data-match-index="75" data-league="Iraq - Iraqi League" data-home="Karbala"
        data-away="Al Karkh" data-date="Fri. 04 Sep." data-time="16:45"
        data-confidence="19%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -7623,7 +7455,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="75" data-league="Qatar - Stars League" data-home="Al Shamal"
+  <div class="mrow tier-low" data-match-index="76" data-league="Qatar - Stars League" data-home="Al Shamal"
        data-away="Al Shahaniya" data-date="Fri. 04 Sep." data-time="15:00"
        data-confidence="19%" data-total-goals="&#9917;<br>1.16" data-btts=""
        data-status="upcoming"
@@ -7707,7 +7539,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="76" data-league="Netherlands - Eerste Divisie" data-home="Helmond Sport"
+  <div class="mrow tier-low" data-match-index="77" data-league="Netherlands - Eerste Divisie" data-home="Helmond Sport"
        data-away="VVV Venlo" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="19%" data-total-goals="&#9917;<br>1.46" data-btts=""
        data-status="upcoming"
@@ -7791,7 +7623,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="77" data-league="Czech Republic - FNL" data-home="Prostějov"
+  <div class="mrow tier-low" data-match-index="78" data-league="Czech Republic - FNL" data-home="Prostějov"
        data-away="Táborsko" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="19%" data-total-goals="&#9917;&#9917;&#9917;<br>2.62" data-btts=""
        data-status="upcoming"
@@ -7875,7 +7707,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="78" data-league="Serbia - Super Liga" data-home="Novi Pazar"
+  <div class="mrow tier-low" data-match-index="79" data-league="Serbia - Super Liga" data-home="Novi Pazar"
        data-away="Železničar Pančevo" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="19%" data-total-goals="&#9917;&#9917;<br>1.8" data-btts=""
        data-status="upcoming"
@@ -7959,7 +7791,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="79" data-league="Bulgaria - First League" data-home="Arda Kardzhali"
+  <div class="mrow tier-low" data-match-index="80" data-league="Bulgaria - First League" data-home="Arda Kardzhali"
        data-away="Botev Plovdiv" data-date="Fri. 04 Sep." data-time="19:15"
        data-confidence="18%" data-total-goals="&#9917;<br>1.42" data-btts=""
        data-status="upcoming"
@@ -8043,7 +7875,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="80" data-league="Germany - 2. Bundesliga" data-home="Hannover 96"
+  <div class="mrow tier-low" data-match-index="81" data-league="Germany - 2. Bundesliga" data-home="Hannover 96"
        data-away="Karlsruher SC" data-date="Fri. 04 Sep." data-time="17:30"
        data-confidence="18%" data-total-goals="&#9917;&#9917;&#9917;<br>2.85" data-btts=""
        data-status="upcoming"
@@ -8127,7 +7959,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="81" data-league="Denmark - 1. Division" data-home="Hobro"
+  <div class="mrow tier-low" data-match-index="82" data-league="Denmark - 1. Division" data-home="Hobro"
        data-away="Hvidovre" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="18%" data-total-goals="&#9917;&#9917;<br>2.02" data-btts=""
        data-status="upcoming"
@@ -8211,7 +8043,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="82" data-league="Slovenia - 2. SNL" data-home="Ilirija"
+  <div class="mrow tier-low" data-match-index="83" data-league="Slovenia - 2. SNL" data-home="Ilirija"
        data-away="Primorje" data-date="Fri. 04 Sep." data-time="16:00"
        data-confidence="18%" data-total-goals="&#9917;&#9917;<br>2.3" data-btts=""
        data-status="upcoming"
@@ -8295,7 +8127,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="83" data-league="Brazil - Copa Do Brasil" data-home="Gremio"
+  <div class="mrow tier-low" data-match-index="84" data-league="Brazil - Copa Do Brasil" data-home="Gremio"
        data-away="Internacional" data-date="Fri. 04 Sep." data-time="00:00"
        data-confidence="18%" data-total-goals="&#9917;&#9917;<br>2.2" data-btts=""
        data-status="finished"
@@ -8379,7 +8211,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="84" data-league="Ireland - First Division" data-home="Cobh Ramblers"
+  <div class="mrow tier-low" data-match-index="85" data-league="Ireland - First Division" data-home="Cobh Ramblers"
        data-away="UCD" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="17%" data-total-goals="&#9917;&#9917;<br>2.0" data-btts=""
        data-status="upcoming"
@@ -8463,7 +8295,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="85" data-league="Uruguay - Primera División" data-home="Atletico Torque"
+  <div class="mrow tier-low" data-match-index="86" data-league="Uruguay - Primera División" data-home="Atletico Torque"
        data-away="Cerro Largo" data-date="Fri. 04 Sep." data-time="23:00"
        data-confidence="17%" data-total-goals="&#9917;&#9917;<br>1.92" data-btts=""
        data-status="upcoming"
@@ -8547,7 +8379,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="86" data-league="Wales - FAW Championship" data-home="Ruthin Town"
+  <div class="mrow tier-low" data-match-index="87" data-league="Wales - FAW Championship" data-home="Ruthin Town"
        data-away="Caersws" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="17%" data-total-goals="&#9917;&#9917;&#9917;<br>2.51" data-btts=""
        data-status="upcoming"
@@ -8631,7 +8463,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="87" data-league="France - Ligue 2" data-home="Boulogne"
+  <div class="mrow tier-low" data-match-index="88" data-league="France - Ligue 2" data-home="Boulogne"
        data-away="Dijon" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="17%" data-total-goals="&#9917;&#9917;<br>1.54" data-btts=""
        data-status="upcoming"
@@ -8715,7 +8547,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="88" data-league="Netherlands - Eerste Divisie" data-home="Emmen"
+  <div class="mrow tier-low" data-match-index="89" data-league="Netherlands - Eerste Divisie" data-home="Emmen"
        data-away="FC Volendam" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="17%" data-total-goals="&#9917;&#9917;<br>2.05" data-btts=""
        data-status="upcoming"
@@ -8799,7 +8631,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="89" data-league="Denmark - Superliga" data-home="Viborg"
+  <div class="mrow tier-low" data-match-index="90" data-league="Denmark - Superliga" data-home="Viborg"
        data-away="Lyngby" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="17%" data-total-goals="&#9917;&#9917;<br>2.48" data-btts=""
        data-status="upcoming"
@@ -8883,7 +8715,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="90" data-league="Slovenia - 2. SNL" data-home="Triglav"
+  <div class="mrow tier-low" data-match-index="91" data-league="Slovenia - 2. SNL" data-home="Triglav"
        data-away="Bistrica" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="17%" data-total-goals="&#9917;&#9917;&#9917;<br>2.94" data-btts=""
        data-status="upcoming"
@@ -8967,7 +8799,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="91" data-league="Venezuela - Primera División" data-home="Puerto Cabello"
+  <div class="mrow tier-low" data-match-index="92" data-league="Venezuela - Primera División" data-home="Puerto Cabello"
        data-away="Deportivo La Guaira" data-date="Fri. 04 Sep." data-time="00:00"
        data-confidence="16%" data-total-goals="&#9917;<br>1.1" data-btts=""
        data-status="finished"
@@ -9051,7 +8883,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="92" data-league="Switzerland - Challenge League" data-home="Étoile Carouge"
+  <div class="mrow tier-low" data-match-index="93" data-league="Switzerland - Challenge League" data-home="Étoile Carouge"
        data-away="FC WIL 1900" data-date="Fri. 04 Sep." data-time="19:15"
        data-confidence="16%" data-total-goals="&#9917;&#9917;<br>2.35" data-btts=""
        data-status="upcoming"
@@ -9135,7 +8967,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="93" data-league="Belarus - Premier League" data-home="Slavia Mozyr"
+  <div class="mrow tier-low" data-match-index="94" data-league="Belarus - Premier League" data-home="Slavia Mozyr"
        data-away="FC Vitebsk" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="16%" data-total-goals="&#9917;<br>1.15" data-btts=""
        data-status="upcoming"
@@ -9219,7 +9051,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="94" data-league="Switzerland - Challenge League" data-home="SC Kriens"
+  <div class="mrow tier-low" data-match-index="95" data-league="Switzerland - Challenge League" data-home="SC Kriens"
        data-away="Stade Lausanne-Ouchy" data-date="Fri. 04 Sep." data-time="18:30"
        data-confidence="16%" data-total-goals="&#9917;&#9917;&#9917;&#9917;<br>4.35" data-btts=""
        data-status="upcoming"
@@ -9303,7 +9135,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="95" data-league="Slovenia - 2. SNL" data-home="Dekani"
+  <div class="mrow tier-low" data-match-index="96" data-league="Slovenia - 2. SNL" data-home="Dekani"
        data-away="Tabor Sežana" data-date="Fri. 04 Sep." data-time="16:00"
        data-confidence="16%" data-total-goals="&#9917;&#9917;&#9917;<br>2.75" data-btts=""
        data-status="upcoming"
@@ -9387,7 +9219,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="96" data-league="Wales - Premier League" data-home="Cardiff MET"
+  <div class="mrow tier-low" data-match-index="97" data-league="Wales - Premier League" data-home="Cardiff MET"
        data-away="Cambrian & Clydach" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="16%" data-total-goals="&#9917;&#9917;&#9917;<br>3.3" data-btts=""
        data-status="upcoming"
@@ -9471,7 +9303,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="97" data-league="Wales - Premier League" data-home="Llandudno"
+  <div class="mrow tier-low" data-match-index="98" data-league="Wales - Premier League" data-home="Llandudno"
        data-away="Ammanford AFC" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="16%" data-total-goals="&#9917;&#9917;&#9917;<br>3.44" data-btts=""
        data-status="upcoming"
@@ -9555,7 +9387,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="98" data-league="Ireland - FAI Cup" data-home="Drogheda United"
+  <div class="mrow tier-low" data-match-index="99" data-league="Ireland - FAI Cup" data-home="Drogheda United"
        data-away="Galway United" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="15%" data-total-goals="&#9917;&#9917;&#9917;<br>2.57" data-btts=""
        data-status="upcoming"
@@ -9639,7 +9471,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="99" data-league="Chile - Primera B" data-home="Santiago Wanderers"
+  <div class="mrow tier-low" data-match-index="100" data-league="Chile - Primera B" data-home="Santiago Wanderers"
        data-away="Deportes Iquique" data-date="Fri. 04 Sep." data-time="23:00"
        data-confidence="15%" data-total-goals="&#9917;&#9917;<br>2.41" data-btts=""
        data-status="upcoming"
@@ -9723,7 +9555,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="100" data-league="Argentina - Primera Nacional" data-home="Defensores De Belgrano"
+  <div class="mrow tier-low" data-match-index="101" data-league="Argentina - Primera Nacional" data-home="Defensores De Belgrano"
        data-away="Racing Cordoba" data-date="Fri. 04 Sep." data-time="19:30"
        data-confidence="15%" data-total-goals="&#9917;<br>1.39" data-btts=""
        data-status="upcoming"
@@ -9807,7 +9639,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="101" data-league="Austria - Cup" data-home="Floridsdorfer AC"
+  <div class="mrow tier-low" data-match-index="102" data-league="Austria - Cup" data-home="Floridsdorfer AC"
        data-away="Schwarz-Weiß Bregenz" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="15%" data-total-goals="&#9917;&#9917;<br>1.61" data-btts=""
        data-status="upcoming"
@@ -9891,7 +9723,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="102" data-league="Vietnam - V.League 1" data-home="Bình Phước"
+  <div class="mrow tier-low" data-match-index="103" data-league="Vietnam - V.League 1" data-home="Bình Phước"
        data-away="Viettel" data-date="Fri. 04 Sep." data-time="12:00"
        data-confidence="15%" data-total-goals="&#9917;<br>1.01" data-btts=""
        data-status="upcoming"
@@ -9975,7 +9807,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="103" data-league="Uganda - Premier League" data-home="URA"
+  <div class="mrow tier-low" data-match-index="104" data-league="Uganda - Premier League" data-home="URA"
        data-away="SC Villa" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="15%" data-total-goals="&#9917;&#9917;<br>1.85" data-btts=""
        data-status="upcoming"
@@ -10059,7 +9891,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="104" data-league="Romania - Liga II" data-home="Slatina"
+  <div class="mrow tier-low" data-match-index="105" data-league="Romania - Liga II" data-home="Slatina"
        data-away="Chindia Targoviste" data-date="Fri. 04 Sep." data-time="15:30"
        data-confidence="15%" data-total-goals="&#9917;<br>1.02" data-btts=""
        data-status="upcoming"
@@ -10143,7 +9975,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="105" data-league="Wales - FAW Championship" data-home="Baglan Dragons"
+  <div class="mrow tier-low" data-match-index="106" data-league="Wales - FAW Championship" data-home="Baglan Dragons"
        data-away="Afan Lido" data-date="Fri. 04 Sep." data-time="19:30"
        data-confidence="14%" data-total-goals="&#9917;&#9917;&#9917;<br>2.7" data-btts=""
        data-status="upcoming"
@@ -10227,7 +10059,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="106" data-league="San Marino - Campionato" data-home="Domagnano"
+  <div class="mrow tier-low" data-match-index="107" data-league="San Marino - Campionato" data-home="Domagnano"
        data-away="San Giovanni" data-date="Fri. 04 Sep." data-time="20:15"
        data-confidence="14%" data-total-goals="&#9917;<br>1.47" data-btts=""
        data-status="upcoming"
@@ -10311,7 +10143,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="107" data-league="Uzbekistan - Super League" data-home="Bunyodkor"
+  <div class="mrow tier-low" data-match-index="108" data-league="Uzbekistan - Super League" data-home="Bunyodkor"
        data-away="Surkhon" data-date="Fri. 04 Sep." data-time="14:00"
        data-confidence="14%" data-total-goals="&#9917;&#9917;<br>2.15" data-btts=""
        data-status="upcoming"
@@ -10395,7 +10227,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="108" data-league="Nicaragua - Primera Division" data-home="Matagalpa"
+  <div class="mrow tier-low" data-match-index="109" data-league="Nicaragua - Primera Division" data-home="Matagalpa"
        data-away="UNAN Managua" data-date="Fri. 04 Sep." data-time="02:00"
        data-confidence="13%" data-total-goals="&#9917;&#9917;&#9917;<br>2.56" data-btts=""
        data-status="finished"
@@ -10479,7 +10311,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="109" data-league="Croatia - HNL" data-home="NK Varazdin"
+  <div class="mrow tier-low" data-match-index="110" data-league="Croatia - HNL" data-home="NK Varazdin"
        data-away="Istra 1961" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="13%" data-total-goals="&#9917;&#9917;<br>1.84" data-btts=""
        data-status="upcoming"
@@ -10563,7 +10395,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="110" data-league="Azerbaijan - Premyer Liqa" data-home="Kapaz"
+  <div class="mrow tier-low" data-match-index="111" data-league="Azerbaijan - Premyer Liqa" data-home="Kapaz"
        data-away="Şamaxı FK" data-date="Fri. 04 Sep." data-time="17:15"
        data-confidence="13%" data-total-goals="&#9917;&#9917;<br>1.94" data-btts=""
        data-status="upcoming"
@@ -10647,7 +10479,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="111" data-league="Argentina - Liga Profesional Argentina" data-home="Platense"
+  <div class="mrow tier-low" data-match-index="112" data-league="Argentina - Liga Profesional Argentina" data-home="Platense"
        data-away="Deportivo Riestra" data-date="Fri. 04 Sep." data-time="23:00"
        data-confidence="13%" data-total-goals="&#9917;<br>0.65" data-btts=""
        data-status="upcoming"
@@ -10731,7 +10563,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="112" data-league="Ireland - Premier Division" data-home="Shamrock Rovers"
+  <div class="mrow tier-low" data-match-index="113" data-league="Ireland - Premier Division" data-home="Shamrock Rovers"
        data-away="Bohemians" data-date="Fri. 04 Sep." data-time="20:00"
        data-confidence="13%" data-total-goals="&#9917;&#9917;<br>1.52" data-btts=""
        data-status="upcoming"
@@ -10815,7 +10647,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="113" data-league="San Marino - Campionato" data-home="Tre Penne"
+  <div class="mrow tier-low" data-match-index="114" data-league="San Marino - Campionato" data-home="Tre Penne"
        data-away="Cosmos" data-date="Fri. 04 Sep." data-time="20:15"
        data-confidence="12%" data-total-goals="&#9917;&#9917;<br>2.27" data-btts=""
        data-status="upcoming"
@@ -10899,7 +10731,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="114" data-league="Ecuador - Liga Pro Serie B" data-home="22 de Julio"
+  <div class="mrow tier-low" data-match-index="115" data-league="Ecuador - Liga Pro Serie B" data-home="22 de Julio"
        data-away="Gualaceo SC" data-date="Fri. 04 Sep." data-time="21:30"
        data-confidence="12%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -10983,7 +10815,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="115" data-league="Ireland - First Division" data-home="Treaty United"
+  <div class="mrow tier-low" data-match-index="116" data-league="Ireland - First Division" data-home="Treaty United"
        data-away="Wexford" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="12%" data-total-goals="&#9917;&#9917;<br>1.62" data-btts=""
        data-status="upcoming"
@@ -11067,7 +10899,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="116" data-league="Netherlands - Eerste Divisie" data-home="Vitesse"
+  <div class="mrow tier-low" data-match-index="117" data-league="Netherlands - Eerste Divisie" data-home="Vitesse"
        data-away="FC OSS" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="12%" data-total-goals="&#9917;<br>0.85" data-btts=""
        data-status="upcoming"
@@ -11151,7 +10983,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="117" data-league="Chile - Primera B" data-home="Rangers de Talca"
+  <div class="mrow tier-low" data-match-index="118" data-league="Chile - Primera B" data-home="Rangers de Talca"
        data-away="Deportes Temuco" data-date="Fri. 04 Sep." data-time="23:00"
        data-confidence="12%" data-total-goals="&#9917;<br>1.49" data-btts=""
        data-status="upcoming"
@@ -11235,7 +11067,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="118" data-league="France - Ligue 2" data-home="Grenoble"
+  <div class="mrow tier-low" data-match-index="119" data-league="France - Ligue 2" data-home="Grenoble"
        data-away="Annecy" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="11%" data-total-goals="&#9917;&#9917;<br>1.6" data-btts=""
        data-status="upcoming"
@@ -11319,7 +11151,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="119" data-league="Paraguay - Division Intermedia" data-home="Sportivo Carapeguá"
+  <div class="mrow tier-low" data-match-index="120" data-league="Paraguay - Division Intermedia" data-home="Sportivo Carapeguá"
        data-away="Paraguari AC" data-date="Fri. 04 Sep." data-time="20:30"
        data-confidence="11%" data-total-goals="&#9917;&#9917;<br>2.07" data-btts=""
        data-status="upcoming"
@@ -11403,7 +11235,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="120" data-league="Egypt - Second League" data-home="El Dakhleya"
+  <div class="mrow tier-low" data-match-index="121" data-league="Egypt - Second League" data-home="El Dakhleya"
        data-away="Pharco" data-date="Fri. 04 Sep." data-time="14:30"
        data-confidence="11%" data-total-goals="&#9917;<br>1.18" data-btts=""
        data-status="upcoming"
@@ -11487,7 +11319,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="121" data-league="Ireland - First Division" data-home="Finn Harps"
+  <div class="mrow tier-low" data-match-index="122" data-league="Ireland - First Division" data-home="Finn Harps"
        data-away="Athlone Town" data-date="Fri. 04 Sep." data-time="19:45"
        data-confidence="11%" data-total-goals="&#9917;<br>1.39" data-btts=""
        data-status="upcoming"
@@ -11571,7 +11403,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="122" data-league="France - Ligue 2" data-home="Laval"
+  <div class="mrow tier-low" data-match-index="123" data-league="France - Ligue 2" data-home="Laval"
        data-away="RED Star FC 93" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="11%" data-total-goals="&#9917;&#9917;<br>1.51" data-btts=""
        data-status="upcoming"
@@ -11655,7 +11487,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="123" data-league="Ukraine - Premier League" data-home="Chornomorets"
+  <div class="mrow tier-low" data-match-index="124" data-league="Ukraine - Premier League" data-home="Chornomorets"
        data-away="Livyi Bereh" data-date="Fri. 04 Sep." data-time="11:00"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>2.48" data-btts=""
        data-status="upcoming"
@@ -11739,7 +11571,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="124" data-league="Netherlands - Eerste Divisie" data-home="Waalwijk"
+  <div class="mrow tier-low" data-match-index="125" data-league="Netherlands - Eerste Divisie" data-home="Waalwijk"
        data-away="NAC Breda" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>2.24" data-btts=""
        data-status="upcoming"
@@ -11823,7 +11655,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="125" data-league="Indonesia - Liga 1" data-home="Bali United"
+  <div class="mrow tier-low" data-match-index="126" data-league="Indonesia - Liga 1" data-home="Bali United"
        data-away="PSS Sleman" data-date="Fri. 04 Sep." data-time="13:00"
        data-confidence="10%" data-total-goals="&#9917;&#9917;&#9917;<br>2.81" data-btts=""
        data-status="upcoming"
@@ -11907,7 +11739,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="126" data-league="San Marino - Campionato" data-home="Faetano"
+  <div class="mrow tier-low" data-match-index="127" data-league="San Marino - Campionato" data-home="Faetano"
        data-away="Tre Fiori" data-date="Fri. 04 Sep." data-time="20:15"
        data-confidence="10%" data-total-goals="&#9917;&#9917;&#9917;<br>2.8" data-btts=""
        data-status="upcoming"
@@ -11991,7 +11823,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="127" data-league="Saudi Arabia - Pro League" data-home="Abha"
+  <div class="mrow tier-low" data-match-index="128" data-league="Saudi Arabia - Pro League" data-home="Abha"
        data-away="Al-Ettifaq" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="11%" data-total-goals="&#9917;&#9917;&#9917;<br>3.49" data-btts=""
        data-status="upcoming"
@@ -12075,7 +11907,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="128" data-league="Spain - Segunda División" data-home="Las Palmas"
+  <div class="mrow tier-low" data-match-index="129" data-league="Spain - Segunda División" data-home="Las Palmas"
        data-away="Leganes" data-date="Fri. 04 Sep." data-time="19:30"
        data-confidence="11%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -12159,7 +11991,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="129" data-league="Algeria - Ligue 1" data-home="Khenchela"
+  <div class="mrow tier-low" data-match-index="130" data-league="Algeria - Ligue 1" data-home="Khenchela"
        data-away="USM Alger" data-date="Fri. 04 Sep." data-time="17:00"
        data-confidence="11%" data-total-goals="&#9917;&#9917;<br>2.3" data-btts=""
        data-status="upcoming"
@@ -12243,7 +12075,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="130" data-league="France - Ligue 2" data-home="Dunkerque"
+  <div class="mrow tier-low" data-match-index="131" data-league="France - Ligue 2" data-home="Dunkerque"
        data-away="Clermont Foot" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="10%" data-total-goals="&#9917;<br>1.39" data-btts=""
        data-status="upcoming"
@@ -12327,7 +12159,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="131" data-league="Ecuador - Liga Pro" data-home="Libertad"
+  <div class="mrow tier-low" data-match-index="132" data-league="Ecuador - Liga Pro" data-home="Libertad"
        data-away="Emelec" data-date="Fri. 04 Sep." data-time="01:00"
        data-confidence="10%" data-total-goals="&#9917;<br>0.6" data-btts=""
        data-status="finished"
@@ -12411,7 +12243,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="132" data-league="Ecuador - Liga Pro Serie B" data-home="Santo Domingo"
+  <div class="mrow tier-low" data-match-index="133" data-league="Ecuador - Liga Pro Serie B" data-home="Santo Domingo"
        data-away="Cumbayá" data-date="Fri. 04 Sep." data-time="01:00"
        data-confidence="10%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="finished"
@@ -12495,7 +12327,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="133" data-league="Norway - Eliteserien" data-home="Aalesund"
+  <div class="mrow tier-low" data-match-index="134" data-league="Norway - Eliteserien" data-home="Aalesund"
        data-away="Start" data-date="Fri. 04 Sep." data-time="18:00"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>2.06" data-btts=""
        data-status="upcoming"
@@ -12579,7 +12411,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="134" data-league="Korea - K League 2" data-home="Cheongju"
+  <div class="mrow tier-low" data-match-index="135" data-league="Korea - K League 2" data-home="Cheongju"
        data-away="Seoul E-Land FC" data-date="Fri. 04 Sep." data-time="11:30"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>1.59" data-btts=""
        data-status="upcoming"
@@ -12663,7 +12495,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="135" data-league="Germany - 2. Bundesliga" data-home="Arminia Bielefeld"
+  <div class="mrow tier-low" data-match-index="136" data-league="Germany - 2. Bundesliga" data-home="Arminia Bielefeld"
        data-away="FC St. Pauli" data-date="Fri. 04 Sep." data-time="17:30"
        data-confidence="9%" data-total-goals="&#9917;&#9917;<br>2.02" data-btts=""
        data-status="upcoming"
@@ -12747,7 +12579,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="136" data-league="Uruguay - Copa Uruguay" data-home="Oriental"
+  <div class="mrow tier-low" data-match-index="137" data-league="Uruguay - Copa Uruguay" data-home="Oriental"
        data-away="Racing Montevideo" data-date="Fri. 04 Sep." data-time="00:00"
        data-confidence="9%" data-total-goals="&#9917;&#9917;<br>2.41" data-btts=""
        data-status="finished"
@@ -12831,7 +12663,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="137" data-league="France - Ligue 2" data-home="PAU"
+  <div class="mrow tier-low" data-match-index="138" data-league="France - Ligue 2" data-home="PAU"
        data-away="Sochaux" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="9%" data-total-goals="&#9917;&#9917;&#9917;<br>2.66" data-btts=""
        data-status="upcoming"
@@ -12915,7 +12747,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="138" data-league="Uganda - Premier League" data-home="Kitara"
+  <div class="mrow tier-low" data-match-index="139" data-league="Uganda - Premier League" data-home="Kitara"
        data-away="Mbarara City" data-date="Fri. 04 Sep." data-time="14:00"
        data-confidence="8%" data-total-goals="&#128564;<br>0" data-btts=""
        data-status="upcoming"
@@ -12999,7 +12831,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="139" data-league="South Africa - Premier Soccer League" data-home="Marumo Gallants"
+  <div class="mrow tier-low" data-match-index="140" data-league="South Africa - Premier Soccer League" data-home="Marumo Gallants"
        data-away="Polokwane City" data-date="Fri. 04 Sep." data-time="18:30"
        data-confidence="7%" data-total-goals="&#9917;&#9917;<br>2.02" data-btts=""
        data-status="upcoming"
@@ -13083,7 +12915,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="140" data-league="Switzerland - Challenge League" data-home="FC Winterthur"
+  <div class="mrow tier-low" data-match-index="141" data-league="Switzerland - Challenge League" data-home="FC Winterthur"
        data-away="Neuchatel Xamax FC" data-date="Fri. 04 Sep." data-time="19:15"
        data-confidence="6%" data-total-goals="&#9917;&#9917;&#9917;<br>2.69" data-btts=""
        data-status="upcoming"
@@ -13167,7 +12999,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="141" data-league="Peru - Primera División" data-home="Alianza Atletico"
+  <div class="mrow tier-low" data-match-index="142" data-league="Peru - Primera División" data-home="Alianza Atletico"
        data-away="UTC Cajamarca" data-date="Fri. 04 Sep." data-time="21:15"
        data-confidence="6%" data-total-goals="&#9917;<br>1.15" data-btts=""
        data-status="upcoming"
@@ -13251,7 +13083,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="142" data-league="Netherlands - Eerste Divisie" data-home="Heracles"
+  <div class="mrow tier-low" data-match-index="143" data-league="Netherlands - Eerste Divisie" data-home="Heracles"
        data-away="De Graafschap" data-date="Fri. 04 Sep." data-time="19:00"
        data-confidence="4%" data-total-goals="&#9917;&#9917;&#9917;<br>2.51" data-btts=""
        data-status="upcoming"
@@ -13335,7 +13167,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="143" data-league="Qatar - Stars League" data-home="Lusail City"
+  <div class="mrow tier-low" data-match-index="144" data-league="Qatar - Stars League" data-home="Lusail City"
        data-away="Al Wakrah" data-date="Fri. 04 Sep." data-time="17:15"
        data-confidence="1%" data-total-goals="&#9917;&#9917;<br>2.32" data-btts=""
        data-status="upcoming"
@@ -13419,7 +13251,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="144" data-league="Mexico - Liga de Expansión MX" data-home="Tepatitlán"
+  <div class="mrow tier-low" data-match-index="145" data-league="Mexico - Liga de Expansión MX" data-home="Tepatitlán"
        data-away="Dorados" data-date="Fri. 04 Sep." data-time="02:00"
        data-confidence="1%" data-total-goals="&#9917;&#9917;&#9917;<br>3.14" data-btts=""
        data-status="finished"
@@ -13503,7 +13335,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
   
   
-  <div class="mrow tier-low" data-match-index="145" data-league="Faroe Islands - 1. Deild" data-home="ÍF II"
+  <div class="mrow tier-low" data-match-index="146" data-league="Faroe Islands - 1. Deild" data-home="ÍF II"
        data-away="Hoyvík" data-date="Fri. 04 Sep." data-time="17:30"
        data-confidence="1%" data-total-goals="&#9917;&#9917;<br>2.24" data-btts=""
        data-status="upcoming"
@@ -27594,7 +27426,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="dayInlineAd" class="ad-container ad-rect day-inline-ad adsense-slot" data-adsense-slot="9058921308"><ins class="adsbygoogle" style="display:block;width:300px;height:250px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="9058921308" data-ad-format="rectangle" data-full-width-responsive="false"></ins></div>
+  <div id="dayInlineAd" class="ad-container ad-megabanner day-inline-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
 
   <footer>
     <div>
@@ -27618,7 +27450,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 </div>
 
 <script>
-const I18N = {"about_model": "About the model", "account": "Account", "accuracy": "accuracy", "ai_pick": "AI pick", "ai_predictions_prefix": "AI Football Predictions", "all_matches": "All matches", "around_2_3_goals": "Around 2-3 goals", "best_available_evidence": "Strong overall evidence", "both_to_score": "Both to score", "btts_chance": "Both teams to score chance", "by_league": "By league", "confidence": "Confidence", "confidence_75_plus": "75%+ confidence", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "confidence", "csv_login_alert": "Please log in to access CSV.", "csv_pro_alert": "Go Pro to download CSV.", "csv_unavailable_alert": "CSV is not available right now.", "discipline_model": "Discipline is part of the model", "download_csv": "Download CSV", "expected_goals_per_team": "Expected goals (per team)", "filter_all": "All", "finished_short": "FT", "full_prediction_analysis": "Full prediction \u0026 analysis \u2192", "global_view": "Global", "go_pro": "Go Pro", "graded_calls": "graded calls", "high_data_depth": "High data depth", "high_scoring": "High scoring", "historical_backtest": "Historical backtest", "language": "Language", "league": "League", "league_accuracy_all": "League accuracy all picks", "league_accuracy_conf50": "League accuracy \u226550%", "live": "Live", "loading_pro_picks": "Loading Pro Picks\u2026", "low_scoring": "Low scoring", "manage_billing": "Manage billing", "matches": "matches", "matches_today": "matches today", "model_accuracy_history": "Model accuracy history", "model_disclaimer": "Model outputs, not guarantees. 18+ \u00b7 Gamble responsibly.", "model_pick": "Model pick", "more_history_needed": "More history needed", "more_options": "More options", "new_badge": "New", "new_match_ranking": "New match rankings", "new_match_ranking_copy": "Use \u22ef to rank matches by confidence, predicted goals, BTTS chance (Pro), or kick-off time.", "new_pro_picks": "Today\u0027s Pro Picks", "new_pro_picks_copy": "Up to three matches are shortlisted from every game worldwide. We add fewer\u2014or none\u2014when the evidence is not strong enough.", "new_simulator": "New simulator", "next_day": "Next day", "no_matches": "No matches.", "no_pro_picks_copy": "No match met AIGoalie\u0027s shortlist standard. We never add weaker selections just to fill the table.", "no_pro_picks_today": "No Pro Picks today", "odds": "Odds", "over_25_likely": "Over 2.5 likely", "pick_hit": "Hit", "pick_missed": "Missed", "picked_team": "Picked team", "positive_value_signal": "Value signal", "predicted_goals_short": "goals", "predicted_total_goals": "Predicted total goals", "predictions": "predictions", "previous_day": "Previous day", "privacy": "Privacy", "pro_modal_subtitle": "Unlock expected goals, BTTS, CSV export, opponent strength, and an ad-free site.", "pro_picks_historical_win_rate": "Pro Picks historical win rate", "pro_picks_win_rate": "Pro Picks win rate", "pro_shortlist": "Pro shortlist", "public_total_goals_band": "Public total-goals band", "qualified": "qualified", "rank_matches_by": "Rank matches by", "ranked_by_btts": "Ranked worldwide by BTTS chance", "ranked_by_goals": "Ranked worldwide by predicted goals", "ranked_worldwide": "Ranked worldwide by AI confidence", "search_placeholder": "Search team or league\u2026", "shortlist_ready": "Today\u0027s shortlist is ready", "shortlisted_worldwide": "Shortlisted from every match worldwide", "sign_in": "Sign in", "sign_out": "Sign out", "similar_accuracy_short": "Similar", "similar_confidence_accuracy": "Similar-confidence accuracy", "simulate_any_matchup": "Simulate any football matchup", "simulator_teaser": "Pick two teams and see what AIGoalie predicts. Pro unlocks unlimited simulations and exact xG.", "sort_by_btts": "BTTS chance", "sort_by_confidence": "Sort by confidence", "sort_by_goals": "Predicted goals", "sort_by_time": "Sort by time", "strong_confidence_history": "Strong confidence-range accuracy", "strong_league_history": "Strong league accuracy", "tap_for_prediction": "Tap for prediction", "todays_matches": "Today\u0027s Matches", "todays_pro_picks": "Today\u0027s Pro Picks", "total_goals": "Total goals", "try_it": "Try it", "under_25_likely": "Under 2.5 likely", "unlock_pro_picks": "Unlock Pro Picks", "unlock_supporting_evidence": "Unlock the picks and supporting evidence.", "up_to_three": "Up to 3", "upcoming_short": "Upcoming", "weaker_never_added": "Up to 3 daily \u00b7 weaker matches are never added", "whats_new": "What\u0027s new?", "world_cup": "World Cup"};
+const I18N = {"about_model": "About the model", "account": "Account", "accuracy": "accuracy", "ai_pick": "AI pick", "ai_predictions_prefix": "AI Football Predictions", "all_matches": "All matches", "around_2_3_goals": "Around 2-3 goals", "best_available_evidence": "Strong overall evidence", "both_to_score": "Both to score", "btts_chance": "Both teams to score chance", "by_league": "By league", "calendar_available_only": "Only available prediction dates can be opened.", "choose_date": "Choose a date", "close": "Close", "confidence": "Confidence", "confidence_75_plus": "75%+ confidence", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "confidence", "csv_login_alert": "Please log in to access CSV.", "csv_pro_alert": "Go Pro to download CSV.", "csv_unavailable_alert": "CSV is not available right now.", "discipline_model": "Discipline is part of the model", "download_csv": "Download CSV", "expected_goals_per_team": "Expected goals (per team)", "filter_all": "All", "finished_short": "FT", "full_prediction_analysis": "Full prediction \u0026 analysis \u2192", "global_view": "Global", "go_pro": "Go Pro", "graded_calls": "graded calls", "high_data_depth": "High data depth", "high_scoring": "High scoring", "historical_backtest": "Historical backtest", "language": "Language", "league": "League", "league_accuracy_all": "League accuracy all picks", "league_accuracy_conf50": "League accuracy \u226550%", "league_view": "League", "live": "Live", "loading_pro_picks": "Loading Pro Picks\u2026", "low_scoring": "Low scoring", "manage_billing": "Manage billing", "matches": "matches", "matches_today": "matches today", "model_accuracy_history": "Model accuracy history", "model_disclaimer": "Model outputs, not guarantees. 18+ \u00b7 Gamble responsibly.", "model_pick": "Model pick", "more_history_needed": "More history needed", "more_options": "More options", "new_badge": "New", "new_match_ranking": "New match rankings", "new_match_ranking_copy": "Use \u22ef to rank matches by confidence, predicted goals, BTTS chance (Pro), or kick-off time.", "new_pro_picks": "Today\u0027s Pro Picks", "new_pro_picks_copy": "Up to three matches are shortlisted from every game worldwide. We add fewer\u2014or none\u2014when the evidence is not strong enough.", "new_simulator": "New simulator", "next_day": "Next day", "next_month": "Next month", "no_matches": "No matches.", "no_pro_picks_copy": "No match met AIGoalie\u0027s shortlist standard. We never add weaker selections just to fill the table.", "no_pro_picks_today": "No Pro Picks today", "odds": "Odds", "over_25_likely": "Over 2.5 likely", "pick_hit": "Hit", "pick_missed": "Missed", "picked_team": "Picked team", "positive_value_signal": "Value signal", "predicted_goals_short": "goals", "predicted_total_goals": "Predicted total goals", "predictions": "predictions", "previous_day": "Previous day", "previous_month": "Previous month", "privacy": "Privacy", "pro_modal_subtitle": "Unlock expected goals, BTTS, CSV export, opponent strength, and an ad-free site.", "pro_picks_historical_win_rate": "Pro Picks historical win rate", "pro_picks_win_rate": "Pro Picks win rate", "pro_shortlist": "Pro shortlist", "public_total_goals_band": "Public total-goals band", "qualified": "qualified", "rank_matches_by": "Rank matches by", "ranked_by_btts": "Ranked worldwide by BTTS chance", "ranked_by_goals": "Ranked worldwide by predicted goals", "ranked_worldwide": "Ranked worldwide by AI confidence", "search_placeholder": "Search team or league\u2026", "shortlist_ready": "Today\u0027s shortlist is ready", "shortlisted_worldwide": "Shortlisted from every match worldwide", "sign_in": "Sign in", "sign_out": "Sign out", "similar_accuracy_short": "Similar", "similar_confidence_accuracy": "Similar-confidence accuracy", "simulate_any_matchup": "Simulate any football matchup", "simulator_teaser": "Pick two teams and see what AIGoalie predicts. Pro unlocks unlimited simulations and exact xG.", "sort_by_btts": "BTTS chance", "sort_by_confidence": "Sort by confidence", "sort_by_goals": "Predicted goals", "sort_by_time": "Sort by time", "strong_confidence_history": "Strong confidence-range accuracy", "strong_league_history": "Strong league accuracy", "tap_for_prediction": "Tap for prediction", "todays_matches": "Today\u0027s Matches", "todays_pro_picks": "Today\u0027s Pro Picks", "total_goals": "Total goals", "try_it": "Try it", "under_25_likely": "Under 2.5 likely", "unlock_pro_picks": "Unlock Pro Picks", "unlock_supporting_evidence": "Unlock the picks and supporting evidence.", "up_to_three": "Up to 3", "upcoming_short": "Upcoming", "weaker_never_added": "Up to 3 daily \u00b7 weaker matches are never added", "whats_new": "What\u0027s new?", "world_cup": "World Cup"};
 const COUNTRY_FLAGS = {"Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao", "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at", "Azerbaijan": "az", "Bangladesh": "bd", "Belarus": "by", "Belgium": "be", "Bhutan": "bt", "Bolivia": "bo", "Bosnia-Herzegovina": "ba", "Brazil": "br", "Bulgaria": "bg", "Cambodia": "kh", "Canada": "ca", "Chile": "cl", "China": "cn", "Chinese Taipei": "tw", "Colombia": "co", "Comoros": "km", "Costa Rica": "cr", "Croatia": "hr", "Cyprus": "cy", "Czech Republic": "cz", "Denmark": "dk", "Dominican Republic": "do", "Ecuador": "ec", "Egypt": "eg", "El Salvador": "sv", "England": "gb-eng", "Estonia": "ee", "Ethiopia": "et", "Faroe Islands": "fo", "Fiji": "fj", "Finland": "fi", "France": "fr", "Georgia": "ge", "Germany": "de", "Ghana": "gh", "Gibraltar": "gi", "Greece": "gr", "Guatemala": "gt", "Honduras": "hn", "Hongkong": "hk", "Hungary": "hu", "Iceland": "is", "India": "in", "Indonesia": "id", "Iran": "ir", "Iraq": "iq", "Ireland": "ie", "Israel": "il", "Italy": "it", "Jamaica": "jm", "Japan": "jp", "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Korea": "kr", "Kosovo": "xk", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv", "Lebanon": "lb", "Libya": "ly", "Lithuania": "lt", "Luxembourg": "lu", "Malaysia": "my", "Malta": "mt", "Mexico": "mx", "Moldova": "md", "Montenegro": "me", "Morocco": "ma", "Myanmar": "mm", "Netherlands": "nl", "New Zealand": "nz", "Nicaragua": "ni", "Nigeria": "ng", "North Macedonia": "mk", "Northern Ireland": "gb-nir", "Norway": "no", "Oman": "om", "Panama": "pa", "Paraguay": "py", "Peru": "pe", "Philippines": "ph", "Poland": "pl", "Portugal": "pt", "Puerto Rico": "pr", "Qatar": "qa", "Romania": "ro", "Russia": "ru", "San Marino": "sm", "Saudi Arabia": "sa", "Scotland": "gb-sct", "Senegal": "sn", "Serbia": "rs", "Singapore": "sg", "Slovakia": "sk", "Slovenia": "si", "South Africa": "za", "South Korea": "kr", "Spain": "es", "Sweden": "se", "Switzerland": "ch", "Tajikistan": "tj", "Thailand": "th", "Tunisia": "tn", "Turkey": "tr", "T\u00fcrkiye": "tr", "Uganda": "ug", "Ukraine": "ua", "United Arab Emirates": "ae", "United States": "us", "Uruguay": "uy", "Uzbekistan": "uz", "Venezuela": "ve", "Vietnam": "vn", "Wales": "gb-wls"};
 function i18n(key, fallback){ return Object.prototype.hasOwnProperty.call(I18N, key) ? I18N[key] : fallback; }
 function trackEvent(name, data){
@@ -27864,23 +27696,12 @@ function bestFeaturedLeague(){
   return sortLeaguesByPriority(candidates)[0];
 }
 function renderGlobal(){
-  // WC pinned section first; if there is no WC, feature the top league from league view.
-  const wc = ALL.filter(m=>m.isWC);
-  const featuredLeague = wc.length ? null : bestFeaturedLeague();
-  let rest = ALL.filter(m=>!m.isWC && (!featuredLeague || m.league !== featuredLeague.key));
-  if (SORT_BY_CONF){ wc.sort((a,b)=>winNum(b.total)-winNum(a.total)); rest.sort((a,b)=>winNum(b.total)-winNum(a.total)); }
+  const rest = ALL.slice();
+  if (SORT_BY_CONF) rest.sort((a,b)=>winNum(b.total)-winNum(a.total));
   let html="";
-  if (wc.length){
-    html += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${wc.length} matches today</span></div>`;
-    html += wc.map((m,i)=>cardHTML(m,'wc'+i)).join("") + `</div>`;
-  } else if (featuredLeague) {
-    const fl = leagueHeaderIcon(featuredLeague);
-    html += `<section class="league-section featured-section"><div class="league-head">${fl}<span class="lname">${esc(featuredLeague.key)}</span><span class="featured-label">Featured league</span><span class="lsub">${featuredLeague.matches.length} matches</span></div>`;
-    html += featuredLeague.matches.map((m,i)=>cardHTML(Object.assign({league:featuredLeague.key},m),'featured'+i)).join("") + `</section>`;
-  }
   if (rest.length){
     html += `<section class="all-section"><div class="all-head"><span><span class="lname">All matches</span><span class="ranking-note">Ranked worldwide by AI confidence</span></span><span class="lsub">${rest.length} matches</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
-  } else if (!wc.length && !featuredLeague) {
+  } else {
     html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
   }
   document.getElementById("globalView").innerHTML = html;
@@ -27901,79 +27722,45 @@ function renderLeague(){
     }
   });
   document.getElementById("leagueView").innerHTML = html;
+  orderLeagueSections();
   placeFeaturedInlineAd();
+}
+function orderLeagueSections(){
+  const root=document.getElementById("leagueView");if(!root)return;
+  Array.from(root.children).filter(section=>section.matches?.(".wc-section,.league-section")).map((section,index)=>({section,index})).sort((a,b)=>{
+    const priority=section=>section.classList.contains("wc-section")?100000:Number(section.dataset.featuredPriority||0);
+    const priorityDiff=priority(b.section)-priority(a.section);
+    const valueDiff=Number(b.section.dataset.featuredValue||0)-Number(a.section.dataset.featuredValue||0);
+    return priorityDiff||valueDiff||a.index-b.index;
+  }).forEach(item=>root.appendChild(item.section));
 }
 function placeFeaturedInlineAd(){
   const ad = document.querySelector(".day-inline-ad");
   if (!ad) return;
-  const active = document.getElementById(document.getElementById("viewSelect")?.value === "league" ? "leagueView" : "globalView");
+  const leagueMode = document.getElementById("viewSelect")?.value === "league";
+  const active = document.getElementById(leagueMode ? "leagueView" : "globalView");
   if (!active) return;
-  const firstSection = Array.from(active.querySelectorAll(".wc-section,.league-section,.all-section")).find(section=>section.style.display!=="none");
-  if (firstSection && firstSection.parentNode) firstSection.insertAdjacentElement("afterend", ad);
-}
-function promoteTopLeagueToGlobal(){
-  const gv = document.getElementById("globalView");
-  const lv = document.getElementById("leagueView");
-  if (!gv || !lv) return;
-  const liveWc = Array.from(gv.querySelectorAll(".wc-section")).find(sec => sec.querySelector(".mrow"));
-  if (liveWc) return;
-  const sections = Array.from(lv.children).filter(sec => sec.classList?.contains("league-section") && sec.querySelector(".mrow"));
-  const ordered = sections.map((section,index)=>({section,index})).sort((a,b)=>{
-    const priorityDiff=Number(b.section.dataset.featuredPriority||0)-Number(a.section.dataset.featuredPriority||0);
-    const visibleValue=section=>Math.max(0,...Array.from(section.querySelectorAll(".mrow")).map(row=>Number(row.dataset.featuredValue||0)));
-    const valueDiff=visibleValue(b.section)-visibleValue(a.section);
-    return priorityDiff||valueDiff||a.index-b.index;
-  }).map(item=>item.section);
-  ordered.forEach(section=>lv.appendChild(section));
-  const source = ordered.find(sec => sec.dataset.featuredEligible === "true" && Number(sec.dataset.featuredPriority||0) > 0);
-  if (!source) return;
-  const leagueName = source.querySelector(".lname")?.textContent?.trim() || "";
-  const current = gv.querySelector(".featured-section");
-  if (current && (current.querySelector(".lname")?.textContent?.trim() || "") === leagueName) return;
-  const all = gv.querySelector(".all-section");
-  if (all) {
-    ordered.forEach(section=>{
-      const sectionLeague=section.querySelector(".lname")?.textContent?.trim()||"";
-      if (sectionLeague===leagueName) return;
-      section.querySelectorAll(".mrow").forEach(row=>{
-        const exists=Array.from(all.querySelectorAll(".mrow")).some(existing=>existing.dataset.league===row.dataset.league&&existing.dataset.home===row.dataset.home&&existing.dataset.away===row.dataset.away);
-        if (!exists) all.appendChild(row.cloneNode(true));
-      });
-    });
-  }
-  if (current) current.remove();
-  const featured = source.cloneNode(true);
-  featured.classList.add("featured-section");
-  const featuredHead = featured.querySelector(".league-head");
-  if (featuredHead && !featuredHead.querySelector("img.league-logo,.flag,.league-icon")) {
-    const logoMarkup = leagueHeaderIcon({key: leagueName});
-    if (logoMarkup) featuredHead.insertAdjacentHTML("afterbegin", logoMarkup);
-  }
-  if (featuredHead && !featuredHead.querySelector(".featured-label")) {
-    const count=featuredHead.querySelector(".lsub");
-    const label=document.createElement("span");
-    label.className="featured-label";
-    label.textContent="Featured league";
-    featuredHead.insertBefore(label,count||null);
-  }
-  gv.insertBefore(featured, all || gv.firstChild);
-  if (leagueName && all) {
-    all.querySelectorAll(".mrow").forEach(row => { if ((row.dataset.league || "") === leagueName) row.remove(); });
-    Array.from(all.children).filter(child=>child.classList?.contains("mrow")).sort((a,b)=>winNum(b.querySelector(".win-pill")?.textContent)-winNum(a.querySelector(".win-pill")?.textContent)).forEach(row=>all.appendChild(row));
-    const n = all.querySelectorAll(".mrow").length;
-    const sub = all.querySelector(".lsub");
-    if (sub) sub.textContent = sub.textContent.replace(/^\s*\d+/, String(n));
-    if (n === 0) all.remove();
+  const visibleRows = Array.from(active.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none");
+  if (!visibleRows.length) return;
+  if (!leagueMode && visibleRows[4]) visibleRows[4].insertAdjacentElement("afterend", ad);
+  else {
+    const firstSection = Array.from(active.querySelectorAll(".wc-section,.league-section,.all-section")).find(section=>section.style.display!=="none");
+    if (firstSection?.parentNode) firstSection.insertAdjacentElement("afterend", ad);
   }
 }
-function setView(v){
-  trackEvent("view_toggle", { view: v });
+const VIEW_STORAGE_KEY="aigoalie-match-view";
+function setView(v,options={}){
+  if(v!=="league")v="global";
+  if(options.track!==false)trackEvent("view_toggle", { view: v });
   const select=document.getElementById("viewSelect");
   if(select)select.value=v;
+  document.querySelectorAll(".view-btn").forEach(button=>button.classList.toggle("on",button.dataset.view===v));
   document.getElementById("globalView").style.display=v==="global"?"block":"none";
   document.getElementById("leagueView").style.display=v==="league"?"block":"none";
+  if(options.persist!==false){try{localStorage.setItem(VIEW_STORAGE_KEY,v)}catch(e){}}
   applyFilters();
 }
+function restoreView(){let stored="global";try{stored=localStorage.getItem(VIEW_STORAGE_KEY)||"global"}catch(e){}setView(stored==="league"?"league":"global",{track:false,persist:false})}
 function rowStatus(row){
   if(row.dataset.status)return row.dataset.status;
   if(row.querySelector(".ko.live"))return "live";
@@ -28005,8 +27792,10 @@ function doSearch(q){
   applyFilters();
 }
 function setStatusFilter(status,button){
+  if(!["all","live","upcoming","finished"].includes(status))status="all";
   ACTIVE_STATUS=status;
-  document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item===button));
+  document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item.dataset.statusFilter===status));
+  const statusSelect=document.getElementById("statusSelect");if(statusSelect)statusSelect.value=status;
   trackEvent("status_filter",{status});
   applyFilters();
 }
@@ -28102,8 +27891,8 @@ document.addEventListener("click",event=>{
   if(menu?.open&&!menu.contains(event.target))menu.removeAttribute("open");
 });
 
-promoteTopLeagueToGlobal();
-placeFeaturedInlineAd();
+orderLeagueSections();
+restoreView();
 restoreSortMode();
 openDefaultRows();
 </script>
@@ -28114,24 +27903,12 @@ const SafeStore = {
   set(k,v){ try { localStorage.setItem(k, v); return; } catch(e){} __memStore[k] = String(v); },
   del(k){ try { localStorage.removeItem(k); } catch(e){} delete __memStore[k]; }
 };
-const WHATS_NEW_STORAGE_KEY='aigoalie-whats-new-seen';
-function initWhatsNew(){
-  const panel=document.getElementById('whatsNew');
-  const badge=document.getElementById('whatsNewBadge');
-  if(!panel||!badge)return;
-  const version=panel.dataset.updateVersion||'';
-  if(SafeStore.get(WHATS_NEW_STORAGE_KEY)===version)badge.classList.add('seen');
-  panel.addEventListener('toggle',()=>{
-    if(!panel.open)return;
-    SafeStore.set(WHATS_NEW_STORAGE_KEY,version);
-    badge.classList.add('seen');
-    if(typeof trackEvent==='function')trackEvent('whats_new_open',{version});
-  });
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initWhatsNew);else initWhatsNew();
 const buildHref = (href) => href;
-const validDates = `['14.06.2024', '15.06.2024', '16.06.2024', '17.06.2024', '18.06.2024', '19.06.2024', '20.06.2024', '21.06.2024', '22.06.2024', '23.06.2024', '24.06.2024', '25.06.2024', '26.06.2024', '27.06.2024', '28.06.2024', '29.06.2024', '30.06.2024', '01.07.2024', '02.07.2024', '03.07.2024', '04.07.2024', '05.07.2024', '06.07.2024', '07.07.2024', '08.07.2024', '09.07.2024', '10.07.2024', '11.07.2024', '12.07.2024', '13.07.2024', '14.07.2024', '15.07.2024', '16.07.2024', '17.07.2024', '18.07.2024', '19.07.2024', '20.07.2024', '21.07.2024', '22.07.2024', '23.07.2024', '24.07.2024', '25.07.2024', '26.07.2024', '27.07.2024', '28.07.2024', '29.07.2024', '30.07.2024', '31.07.2024', '01.08.2024', '02.08.2024', '03.08.2024', '04.08.2024', '05.08.2024', '06.08.2024', '07.08.2024', '08.08.2024', '09.08.2024', '10.08.2024', '11.08.2024', '12.08.2024', '13.08.2024', '14.08.2024', '15.08.2024', '16.08.2024', '17.08.2024', '18.08.2024', '19.08.2024', '20.08.2024', '21.08.2024', '22.08.2024', '23.08.2024', '24.08.2024', '25.08.2024', '26.08.2024', '27.08.2024', '28.08.2024', '29.08.2024', '30.08.2024', '31.08.2024', '01.09.2024', '02.09.2024', '03.09.2024', '04.09.2024', '05.09.2024', '06.09.2024', '07.09.2024', '08.09.2024', '09.09.2024', '10.09.2024', '11.09.2024', '12.09.2024', '13.09.2024', '14.09.2024', '15.09.2024', '16.09.2024', '17.09.2024', '18.09.2024', '19.09.2024', '20.09.2024', '21.09.2024', '22.09.2024', '23.09.2024', '24.09.2024', '25.09.2024', '26.09.2024', '27.09.2024', '28.09.2024', '29.09.2024', '30.09.2024', '01.10.2024', '02.10.2024', '03.10.2024', '04.10.2024', '05.10.2024', '06.10.2024', '07.10.2024', '08.10.2024', '09.10.2024', '10.10.2024', '11.10.2024', '12.10.2024', '13.10.2024', '14.10.2024', '15.10.2024', '16.10.2024', '17.10.2024', '18.10.2024', '19.10.2024', '20.10.2024', '21.10.2024', '22.10.2024', '23.10.2024', '24.10.2024', '25.10.2024', '26.10.2024', '27.10.2024', '28.10.2024', '29.10.2024', '30.10.2024', '31.10.2024', '01.11.2024', '02.11.2024', '03.11.2024', '04.11.2024', '05.11.2024', '06.11.2024', '07.11.2024', '08.11.2024', '09.11.2024', '10.11.2024', '11.11.2024', '12.11.2024', '13.11.2024', '14.11.2024', '15.11.2024', '16.11.2024', '17.11.2024', '18.11.2024', '19.11.2024', '20.11.2024', '21.11.2024', '22.11.2024', '23.11.2024', '24.11.2024', '25.11.2024', '26.11.2024', '27.11.2024', '28.11.2024', '29.11.2024', '30.11.2024', '01.12.2024', '02.12.2024', '03.12.2024', '04.12.2024', '05.12.2024', '06.12.2024', '07.12.2024', '08.12.2024', '09.12.2024', '10.12.2024', '11.12.2024', '12.12.2024', '13.12.2024', '14.12.2024', '15.12.2024', '16.12.2024', '17.12.2024', '18.12.2024', '19.12.2024', '20.12.2024', '21.12.2024', '22.12.2024', '23.12.2024', '24.12.2024', '25.12.2024', '26.12.2024', '27.12.2024', '28.12.2024', '29.12.2024', '30.12.2024', '31.12.2024', '01.01.2026', '02.01.2026', '03.01.2026', '04.01.2026', '05.01.2026', '06.01.2026', '07.01.2026', '08.01.2026', '09.01.2026', '10.01.2026', '11.01.2026', '12.01.2026', '13.01.2026', '14.01.2026', '15.01.2026', '16.01.2026', '17.01.2026', '18.01.2026', '19.01.2026', '20.01.2026', '21.01.2026', '22.01.2026', '23.01.2026', '24.01.2026', '25.01.2026', '26.01.2026', '27.01.2026', '28.01.2026', '29.01.2026', '30.01.2026', '31.01.2026', '01.02.2026', '02.02.2026', '03.02.2026', '04.02.2026', '05.02.2026', '06.02.2026', '07.02.2026', '08.02.2026', '09.02.2026', '10.02.2026', '11.02.2026', '12.02.2026', '13.02.2026', '14.02.2026', '15.02.2026', '16.02.2026', '17.02.2026', '18.02.2026', '19.02.2026', '20.02.2026', '21.02.2026', '22.02.2026', '23.02.2026', '24.02.2026', '25.02.2026', '26.02.2026', '27.02.2026', '28.02.2026', '01.05.2026', '02.05.2026', '03.05.2026', '04.05.2026', '05.05.2026', '06.05.2026', '07.05.2026', '08.05.2026', '09.05.2026', '10.05.2026', '11.05.2026', '12.05.2026', '13.05.2026', '14.05.2026', '15.05.2026', '16.05.2026', '17.05.2026', '18.05.2026', '19.05.2026', '20.05.2026', '21.05.2026', '22.05.2026', '23.05.2026', '24.05.2026', '25.05.2026', '26.05.2026', '27.05.2026', '28.05.2026', '29.05.2026', '30.05.2026', '31.05.2026', '01.06.2026', '02.06.2026', '03.06.2026', '04.06.2026', '05.06.2026', '06.06.2026', '07.06.2026', '08.06.2026', '09.06.2026', '10.06.2026', '11.06.2026', '12.06.2026', '13.06.2026', '14.06.2026', '15.06.2026', '16.06.2026', '17.06.2026', '18.06.2026', '19.06.2026', '20.06.2026', '21.06.2026', '22.06.2026', '23.06.2026', '24.06.2026', '25.06.2026', '26.06.2026', '27.06.2026', '28.06.2026', '29.06.2026', '30.06.2026', '01.07.2026', '02.07.2026', '03.07.2026', '04.07.2026', '05.07.2026', '06.07.2026', '07.07.2026', '08.07.2026', '09.07.2026', '10.07.2026', '11.07.2026', '12.07.2026', '13.07.2026', '14.07.2026', '15.07.2026', '16.07.2026', '17.07.2026', '18.07.2026', '19.07.2026', '20.07.2026', '21.07.2026', '22.07.2026', '23.07.2026', '24.07.2026', '25.07.2026', '26.07.2026', '27.07.2026', '28.07.2026', '29.07.2026', '30.07.2026', '31.07.2026', '01.08.2026', '02.08.2026', '03.08.2026', '04.08.2026', '05.08.2026', '06.08.2026', '07.08.2026', '08.08.2026', '09.08.2026', '10.08.2026', '11.08.2026', '12.08.2026', '13.08.2026', '14.08.2026', '15.08.2026', '16.08.2026', '17.08.2026', '18.08.2026', '19.08.2026', '20.08.2026', '21.08.2026', '22.08.2026', '23.08.2026', '24.08.2026', '25.08.2026', '26.08.2026', '27.08.2026', '28.08.2026', '29.08.2026', '30.08.2026', '31.08.2026', '01.09.2026', '02.09.2026', '03.09.2026', '04.09.2026', '05.09.2026', '06.09.2026', '07.09.2026', '08.09.2026', '09.09.2026', '10.09.2026', '11.09.2026']`;
+const validDates = ["14.06.2024", "15.06.2024", "16.06.2024", "17.06.2024", "18.06.2024", "19.06.2024", "20.06.2024", "21.06.2024", "22.06.2024", "23.06.2024", "24.06.2024", "25.06.2024", "26.06.2024", "27.06.2024", "28.06.2024", "29.06.2024", "30.06.2024", "01.07.2024", "02.07.2024", "03.07.2024", "04.07.2024", "05.07.2024", "06.07.2024", "07.07.2024", "08.07.2024", "09.07.2024", "10.07.2024", "11.07.2024", "12.07.2024", "13.07.2024", "14.07.2024", "15.07.2024", "16.07.2024", "17.07.2024", "18.07.2024", "19.07.2024", "20.07.2024", "21.07.2024", "22.07.2024", "23.07.2024", "24.07.2024", "25.07.2024", "26.07.2024", "27.07.2024", "28.07.2024", "29.07.2024", "30.07.2024", "31.07.2024", "01.08.2024", "02.08.2024", "03.08.2024", "04.08.2024", "05.08.2024", "06.08.2024", "07.08.2024", "08.08.2024", "09.08.2024", "10.08.2024", "11.08.2024", "12.08.2024", "13.08.2024", "14.08.2024", "15.08.2024", "16.08.2024", "17.08.2024", "18.08.2024", "19.08.2024", "20.08.2024", "21.08.2024", "22.08.2024", "23.08.2024", "24.08.2024", "25.08.2024", "26.08.2024", "27.08.2024", "28.08.2024", "29.08.2024", "30.08.2024", "31.08.2024", "01.09.2024", "02.09.2024", "03.09.2024", "04.09.2024", "05.09.2024", "06.09.2024", "07.09.2024", "08.09.2024", "09.09.2024", "10.09.2024", "11.09.2024", "12.09.2024", "13.09.2024", "14.09.2024", "15.09.2024", "16.09.2024", "17.09.2024", "18.09.2024", "19.09.2024", "20.09.2024", "21.09.2024", "22.09.2024", "23.09.2024", "24.09.2024", "25.09.2024", "26.09.2024", "27.09.2024", "28.09.2024", "29.09.2024", "30.09.2024", "01.10.2024", "02.10.2024", "03.10.2024", "04.10.2024", "05.10.2024", "06.10.2024", "07.10.2024", "08.10.2024", "09.10.2024", "10.10.2024", "11.10.2024", "12.10.2024", "13.10.2024", "14.10.2024", "15.10.2024", "16.10.2024", "17.10.2024", "18.10.2024", "19.10.2024", "20.10.2024", "21.10.2024", "22.10.2024", "23.10.2024", "24.10.2024", "25.10.2024", "26.10.2024", "27.10.2024", "28.10.2024", "29.10.2024", "30.10.2024", "31.10.2024", "01.11.2024", "02.11.2024", "03.11.2024", "04.11.2024", "05.11.2024", "06.11.2024", "07.11.2024", "08.11.2024", "09.11.2024", "10.11.2024", "11.11.2024", "12.11.2024", "13.11.2024", "14.11.2024", "15.11.2024", "16.11.2024", "17.11.2024", "18.11.2024", "19.11.2024", "20.11.2024", "21.11.2024", "22.11.2024", "23.11.2024", "24.11.2024", "25.11.2024", "26.11.2024", "27.11.2024", "28.11.2024", "29.11.2024", "30.11.2024", "01.12.2024", "02.12.2024", "03.12.2024", "04.12.2024", "05.12.2024", "06.12.2024", "07.12.2024", "08.12.2024", "09.12.2024", "10.12.2024", "11.12.2024", "12.12.2024", "13.12.2024", "14.12.2024", "15.12.2024", "16.12.2024", "17.12.2024", "18.12.2024", "19.12.2024", "20.12.2024", "21.12.2024", "22.12.2024", "23.12.2024", "24.12.2024", "25.12.2024", "26.12.2024", "27.12.2024", "28.12.2024", "29.12.2024", "30.12.2024", "31.12.2024", "01.01.2026", "02.01.2026", "03.01.2026", "04.01.2026", "05.01.2026", "06.01.2026", "07.01.2026", "08.01.2026", "09.01.2026", "10.01.2026", "11.01.2026", "12.01.2026", "13.01.2026", "14.01.2026", "15.01.2026", "16.01.2026", "17.01.2026", "18.01.2026", "19.01.2026", "20.01.2026", "21.01.2026", "22.01.2026", "23.01.2026", "24.01.2026", "25.01.2026", "26.01.2026", "27.01.2026", "28.01.2026", "29.01.2026", "30.01.2026", "31.01.2026", "01.02.2026", "02.02.2026", "03.02.2026", "04.02.2026", "05.02.2026", "06.02.2026", "07.02.2026", "08.02.2026", "09.02.2026", "10.02.2026", "11.02.2026", "12.02.2026", "13.02.2026", "14.02.2026", "15.02.2026", "16.02.2026", "17.02.2026", "18.02.2026", "19.02.2026", "20.02.2026", "21.02.2026", "22.02.2026", "23.02.2026", "24.02.2026", "25.02.2026", "26.02.2026", "27.02.2026", "28.02.2026", "01.05.2026", "02.05.2026", "03.05.2026", "04.05.2026", "05.05.2026", "06.05.2026", "07.05.2026", "08.05.2026", "09.05.2026", "10.05.2026", "11.05.2026", "12.05.2026", "13.05.2026", "14.05.2026", "15.05.2026", "16.05.2026", "17.05.2026", "18.05.2026", "19.05.2026", "20.05.2026", "21.05.2026", "22.05.2026", "23.05.2026", "24.05.2026", "25.05.2026", "26.05.2026", "27.05.2026", "28.05.2026", "29.05.2026", "30.05.2026", "31.05.2026", "01.06.2026", "02.06.2026", "03.06.2026", "04.06.2026", "05.06.2026", "06.06.2026", "07.06.2026", "08.06.2026", "09.06.2026", "10.06.2026", "11.06.2026", "12.06.2026", "13.06.2026", "14.06.2026", "15.06.2026", "16.06.2026", "17.06.2026", "18.06.2026", "19.06.2026", "20.06.2026", "21.06.2026", "22.06.2026", "23.06.2026", "24.06.2026", "25.06.2026", "26.06.2026", "27.06.2026", "28.06.2026", "29.06.2026", "30.06.2026", "01.07.2026", "02.07.2026", "03.07.2026", "04.07.2026", "05.07.2026", "06.07.2026", "07.07.2026", "08.07.2026", "09.07.2026", "10.07.2026", "11.07.2026", "12.07.2026", "13.07.2026", "14.07.2026", "15.07.2026", "16.07.2026", "17.07.2026", "18.07.2026", "19.07.2026", "20.07.2026", "21.07.2026", "22.07.2026", "23.07.2026", "24.07.2026", "25.07.2026", "26.07.2026", "27.07.2026", "28.07.2026", "29.07.2026", "30.07.2026", "31.07.2026", "01.08.2026", "02.08.2026", "03.08.2026", "04.08.2026", "05.08.2026", "06.08.2026", "07.08.2026", "08.08.2026", "09.08.2026", "10.08.2026", "11.08.2026", "12.08.2026", "13.08.2026", "14.08.2026", "15.08.2026", "16.08.2026", "17.08.2026", "18.08.2026", "19.08.2026", "20.08.2026", "21.08.2026", "22.08.2026", "23.08.2026", "24.08.2026", "25.08.2026", "26.08.2026", "27.08.2026", "28.08.2026", "29.08.2026", "30.08.2026", "31.08.2026", "01.09.2026", "02.09.2026", "03.09.2026", "04.09.2026", "05.09.2026", "06.09.2026", "07.09.2026", "08.09.2026", "09.09.2026", "10.09.2026", "11.09.2026"];
 const windowDates = ["02.09.2026", "03.09.2026", "04.09.2026", "05.09.2026", "06.09.2026", "07.09.2026", "08.09.2026", "09.09.2026", "10.09.2026", "11.09.2026"];
+const AVAILABLE_DATE_SET = new Set([...(Array.isArray(validDates)?validDates:[]),...(Array.isArray(windowDates)?windowDates:[])]
+  .map(value=>String(value||'').match(/\d{2}\.\d{2}\.\d{4}/)?.[0])
+  .filter(Boolean));
 const QA_SUFFIX = '';
 const PRO_API_BASE = (() => {
   try {
@@ -28203,6 +27980,54 @@ function adjustDate(days) {
 }
 document.getElementById('prevDay')?.addEventListener('click', () => { trackEvent('day_nav', { direction: 'prev' }); adjustDate(-1); });
 document.getElementById('nextDay')?.addEventListener('click', () => { trackEvent('day_nav', { direction: 'next' }); adjustDate(1); });
+
+let calendarCursor = (()=>{const d=parseDateFromURL();return new Date(d.getFullYear(),d.getMonth(),1)})();
+function calendarDateAvailable(date){return AVAILABLE_DATE_SET.has(formatDate(date))}
+function calendarDateAccessible(date){
+  const today=new Date();today.setHours(0,0,0,0);
+  const target=new Date(date.getFullYear(),date.getMonth(),date.getDate());
+  return window.__isPro===true||Math.round((target-today)/86400000)<=2;
+}
+function renderCalendarMonth(){
+  const month=document.getElementById('calendarMonth'),grid=document.getElementById('calendarGrid'),weekdays=document.getElementById('calendarWeekdays');
+  if(!month||!grid||!weekdays)return;
+  const locale="en";
+  month.textContent=new Intl.DateTimeFormat(locale,{month:'long',year:'numeric'}).format(calendarCursor);
+  const monday=new Date(2024,0,1);
+  weekdays.innerHTML=Array.from({length:7},(_,index)=>`<span>${new Intl.DateTimeFormat(locale,{weekday:'narrow'}).format(new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+index))}</span>`).join('');
+  const selected=parseDateFromURL();selected.setHours(0,0,0,0);
+  const today=new Date();today.setHours(0,0,0,0);
+  const first=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),1);
+  const offset=(first.getDay()+6)%7;
+  const days=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,0).getDate();
+  let html='';
+  for(let index=0;index<offset;index++)html+='<span></span>';
+  for(let day=1;day<=days;day++){
+    const date=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),day);
+    const available=calendarDateAvailable(date),accessible=available&&calendarDateAccessible(date);
+    const classes=['calendar-day',available?'available':'',available&&!accessible?'pro-locked':'',date.getTime()===today.getTime()?'today':'',date.getTime()===selected.getTime()?'selected':''].filter(Boolean).join(' ');
+    const label=new Intl.DateTimeFormat(locale,{dateStyle:'full'}).format(date);
+    html+=`<button type="button" class="${classes}" data-calendar-date="${formatDate(date)}" ${accessible?'': 'disabled'} aria-label="${label}${available&&!accessible?' · Pro':''}">${day}</button>`;
+  }
+  grid.innerHTML=html;
+  grid.querySelectorAll('[data-calendar-date]:not([disabled])').forEach(button=>button.addEventListener('click',()=>{
+    const parts=button.dataset.calendarDate.split('.').map(Number);
+    trackEvent('calendar_date_select',{date:button.dataset.calendarDate});
+    navigateToDate(new Date(parts[2],parts[1]-1,parts[0]));
+  }));
+}
+function setCalendarOpen(open){
+  document.getElementById('calendarPopover')?.classList.toggle('open',open);
+  document.getElementById('calendarTrigger')?.setAttribute('aria-expanded',open?'true':'false');
+  document.body.style.overflow=open?'hidden':'';
+  if(open){const d=parseDateFromURL();calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendarMonth();trackEvent('calendar_open');}
+}
+document.getElementById('calendarTrigger')?.addEventListener('click',()=>setCalendarOpen(true));
+document.getElementById('calendarClose')?.addEventListener('click',()=>setCalendarOpen(false));
+document.getElementById('calendarPopover')?.addEventListener('click',event=>{if(event.target.id==='calendarPopover')setCalendarOpen(false)});
+document.getElementById('calendarPrevMonth')?.addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()-1,1);renderCalendarMonth()});
+document.getElementById('calendarNextMonth')?.addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,1);renderCalendarMonth()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape')setCalendarOpen(false)});
 
 function switchLang(lng) {
   trackEvent('language_change', { language: lng });
@@ -28567,16 +28392,10 @@ async function renderV12MatchesFromApi(matches){
   const cards = (matches || []).map(proApiMatchToV12).filter(m => m.home && m.away);
   await loadModelContext().then(ctx => attachClientModelContext(cards, ctx));
 
-  const wc = cards.filter(m => m.isWC);
-  const rest = cards.filter(m => !m.isWC);
+  const rest = cards.slice();
   rest.sort((a,b)=>winNum(b.total)-winNum(a.total));
-  wc.sort((a,b)=>winNum(b.total)-winNum(a.total));
 
   let ghtml = "";
-  if (wc.length){
-    ghtml += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${wc.length} matches</span></div>`;
-    ghtml += wc.map((m,i)=>cardHTML(m,"wc"+i)).join("") + `</div>`;
-  }
   if (rest.length){
     ghtml += `<section class="all-section"><div class="all-head"><span><span class="lname">All matches</span><span class="ranking-note">Ranked worldwide by AI confidence</span></span><span class="lsub">${rest.length} matches</span></div>` + rest.map((m,i)=>cardHTML(m,i)).join("") + `</section>`;
   }
@@ -28591,7 +28410,7 @@ async function renderV12MatchesFromApi(matches){
     grouped.get(k).push(m);
   });
   let lhtml = "";
-  grouped.forEach((arr, league) => {
+  Array.from(grouped.entries()).sort((a,b)=>leagueFeaturePriority(b[0])-leagueFeaturePriority(a[0])).forEach(([league,arr]) => {
     arr.sort((a,b)=>winNum(b.total)-winNum(a.total));
     if (league === "International - World Cup") {
       lhtml += `<div class="wc-section"><div class="wc-head"><span class="trophy">🏆</span><span class="wtitle">World Cup</span><span class="badge">Live</span><span class="wsub">${arr.length} matches</span></div>`;
@@ -28604,6 +28423,7 @@ async function renderV12MatchesFromApi(matches){
   });
   const lv = document.getElementById("leagueView");
   if (lv) lv.innerHTML = lhtml || `<div class="empty">No Pro predictions available for this date yet.</div>`;
+  orderLeagueSections();
 
   if (window.__isPro === true) applyProUnlockedDom();
   if (PENDING_PRO_SORT_MODE === "btts") setSortMode("btts", {track:false});
@@ -28679,11 +28499,14 @@ function updateProUI(isPro) {
   if (isPro) hideAdsenseAds();
   if (isPro) setTimeout(loadProFullForDateV12, 0);
   else showFutureProGate();
+  if (typeof renderCalendarMonth === 'function') renderCalendarMonth();
 }
 
 function setProPicksState(state){
   const ids = { locked:'proPicksLocked', loading:'proPicksLoading', member:'proPicksMember', empty:'proPicksEmpty' };
   Object.entries(ids).forEach(([name,id]) => document.getElementById(id)?.classList.toggle('on', name === state));
+  const section=document.getElementById('proPicks');
+  if(section){Object.keys(ids).forEach(name=>section.classList.toggle(`state-${name}`,name===state));}
 }
 const PRO_PICK_REASON_LABELS = {
   high_data_depth: "High data depth",
