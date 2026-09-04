@@ -60,7 +60,7 @@ async function loadCandidates(){
   const button=$("loadBtn");button.disabled=true;button.textContent="Loading…";
   try{
     const token=await user.getIdToken(true),date=displayDate($("dateInput").value);
-    const response=await fetch(`${PRO_API_BASE}/admin/pro-picks?date=${encodeURIComponent(date)}`,{headers:{Authorization:`Bearer ${token}`},cache:"no-store"});
+    const response=await fetch(`${location.origin}/admin/pro-picks?date=${encodeURIComponent(date)}`,{headers:{Authorization:`Bearer ${token}`},cache:"no-store"});
     const payload=await response.json().catch(()=>({}));
     if(!response.ok)throw new Error(payload.detail||"Unable to load diagnostics");
     currentPayload=payload;render();$("content").hidden=false;$("exportBtn").disabled=false;
