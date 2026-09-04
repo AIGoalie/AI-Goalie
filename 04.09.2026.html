@@ -972,6 +972,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
         <div class="account-dropdown" id="accountDropdown" role="menu">
           <a href="#" id="dd_signin" class="account-item" role="menuitem">Sign in</a>
           <a href="#" id="manageBilling" class="account-item" role="menuitem" style="display:none;">Manage billing</a>
+          <a href="/pro-picks-lab.html" id="adminProPicksLab" class="account-item" role="menuitem" style="display:none;">Pro Picks Lab</a>
           <a href="#" id="dd_signout" class="account-item" role="menuitem" style="display:none;">Sign out</a>
         </div>
       </div>
@@ -11499,7 +11500,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   <div class="mrow tier-low" data-match-index="124" data-league="Ukraine - Premier League" data-home="Chornomorets"
        data-away="Livyi Bereh" data-date="Fri. 04 Sep." data-time="11:00"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>2.48" data-btts=""
-       data-status="upcoming"
+       data-status="live"
        data-kickoff-utc="2026-09-04T10:00:00Z"
        data-featured-value="6.15"
        data-search="chornomorets livyi bereh ukraine - premier league">
@@ -11513,7 +11514,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-09-04T10:00:00Z">11:00</div>
+          <div class="ko live" data-kickoff-utc="2026-09-04T10:00:00Z"><b><span style='color: #b30000;'>0:0'</span></b></div>
         </div>
         <div class="side away">
           
@@ -12423,7 +12424,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   <div class="mrow tier-low" data-match-index="135" data-league="Korea - K League 2" data-home="Cheongju"
        data-away="Seoul E-Land FC" data-date="Fri. 04 Sep." data-time="11:30"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>1.59" data-btts=""
-       data-status="upcoming"
+       data-status="live"
        data-kickoff-utc="2026-09-04T10:30:00Z"
        data-featured-value="11.48"
        data-search="cheongju seoul e-land fc korea - k league 2">
@@ -12437,7 +12438,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-09-04T10:30:00Z">11:30</div>
+          <div class="ko live" data-kickoff-utc="2026-09-04T10:30:00Z"><b><span style='color: #b30000;'>0:0'</span></b></div>
         </div>
         <div class="side away">
           
@@ -16517,7 +16518,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   <div class="mrow tier-low" data-match-index="1" data-league="Ukraine - Premier League" data-home="Chornomorets"
        data-away="Livyi Bereh" data-date="Fri. 04 Sep." data-time="11:00"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>2.48" data-btts=""
-       data-status="upcoming"
+       data-status="live"
        data-kickoff-utc="2026-09-04T10:00:00Z"
        data-featured-value="6.15"
        data-search="chornomorets livyi bereh ukraine - premier league">
@@ -16531,7 +16532,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-09-04T10:00:00Z">11:00</div>
+          <div class="ko live" data-kickoff-utc="2026-09-04T10:00:00Z"><b><span style='color: #b30000;'>0:0'</span></b></div>
         </div>
         <div class="side away">
           
@@ -20375,7 +20376,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   <div class="mrow tier-low" data-match-index="0" data-league="Korea - K League 2" data-home="Cheongju"
        data-away="Seoul E-Land FC" data-date="Fri. 04 Sep." data-time="11:30"
        data-confidence="10%" data-total-goals="&#9917;&#9917;<br>1.59" data-btts=""
-       data-status="upcoming"
+       data-status="live"
        data-kickoff-utc="2026-09-04T10:30:00Z"
        data-featured-value="11.48"
        data-search="cheongju seoul e-land fc korea - k league 2">
@@ -20389,7 +20390,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-09-04T10:30:00Z">11:30</div>
+          <div class="ko live" data-kickoff-utc="2026-09-04T10:30:00Z"><b><span style='color: #b30000;'>0:0'</span></b></div>
         </div>
         <div class="side away">
           
@@ -28675,6 +28676,7 @@ function applyLocalKickoffTimes(){
     const signin = document.getElementById('dd_signin');
     const signout = document.getElementById('dd_signout');
     const manageBilling = document.getElementById('manageBilling');
+    const adminProPicksLab = document.getElementById('adminProPicksLab');
     signin?.addEventListener('click', function(ev){ ev.preventDefault(); trackEvent('sign_in_click', { source:'day_account_menu' }); window.AIGoalieAuthUI?.open({ mode:'signin' }); });
     signout?.addEventListener('click', async function(ev){ ev.preventDefault(); await window.__auth.signOut(); });
     manageBilling?.addEventListener('click', async function(ev){
@@ -28698,6 +28700,7 @@ function applyLocalKickoffTimes(){
       if (signout) signout.style.display = user ? 'block' : 'none';
       try {
         if (!user) {
+          if (adminProPicksLab) adminProPicksLab.style.display = 'none';
           updateProUI(false);
           clearPricingTable();
           loadAdsenseAds();
@@ -28714,6 +28717,7 @@ function applyLocalKickoffTimes(){
         const res = await fetch(PRO_API_BASE + '/me', { headers: { Authorization: 'Bearer ' + tok } });
         const j = res.ok ? await res.json() : null;
         const isPro = !!(j && j.pro);
+        if (adminProPicksLab) adminProPicksLab.style.display = j && j.admin ? 'block' : 'none';
         updateProUI(isPro);
         if (!isPro) loadAdsenseAds();
         if (!isPro && (SafeStore.get(CHECKOUT_PENDING_KEY) === '1' || checkoutRequestedFromUrl())) {
