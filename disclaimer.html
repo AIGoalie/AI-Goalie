@@ -1,181 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DP174X78CW');
-</script>
 <meta charset="utf-8">
-<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
-<script type="text/javascript" async=true>
-(function() {
-  var host = "www.themoneytizer.com";
-  var element = document.createElement('script');
-  var firstScript = document.getElementsByTagName('script')[0];
-  var url = 'https://cmp.inmobi.com'
-    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
-  var uspTries = 0;
-  var uspTriesLimit = 3;
-  element.async = true;
-  element.type = 'text/javascript';
-  element.src = url;
-
-  firstScript.parentNode.insertBefore(element, firstScript);
-
-  function makeStub() {
-    var TCF_LOCATOR_NAME = '__tcfapiLocator';
-    var queue = [];
-    var win = window;
-    var cmpFrame;
-
-    function addFrame() {
-      var doc = win.document;
-      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
-
-      if (!otherCMP) {
-        if (doc.body) {
-          var iframe = doc.createElement('iframe');
-
-          iframe.style.cssText = 'display:none';
-          iframe.name = TCF_LOCATOR_NAME;
-          doc.body.appendChild(iframe);
-        } else {
-          setTimeout(addFrame, 5);
-        }
-      }
-      return !otherCMP;
-    }
-
-    function tcfAPIHandler() {
-      var gdprApplies;
-      var args = arguments;
-
-      if (!args.length) {
-        return queue;
-      } else if (args[0] === 'setGdprApplies') {
-        if (
-          args.length > 3 &&
-          args[2] === 2 &&
-          typeof args[3] === 'boolean'
-        ) {
-          gdprApplies = args[3];
-          if (typeof args[2] === 'function') {
-            args[2]('set', true);
-          }
-        }
-      } else if (args[0] === 'ping') {
-        var retr = {
-          gdprApplies: gdprApplies,
-          cmpLoaded: false,
-          cmpStatus: 'stub'
-        };
-
-        if (typeof args[2] === 'function') {
-          args[2](retr);
-        }
-      } else {
-        if(args[0] === 'init' && typeof args[3] === 'object') {
-          args[3] = Object.assign(args[3], { tag_version: 'V3' });
-        }
-        queue.push(args);
-      }
-    }
-
-    function postMessageEventHandler(event) {
-      var msgIsString = typeof event.data === 'string';
-      var json = {};
-
-      try {
-        if (msgIsString) {
-          json = JSON.parse(event.data);
-        } else {
-          json = event.data;
-        }
-      } catch (ignore) {}
-
-      var payload = json.__tcfapiCall;
-
-      if (payload) {
-        window.__tcfapi(
-          payload.command,
-          payload.version,
-          function(retValue, success) {
-            var returnMsg = {
-              __tcfapiReturn: {
-                returnValue: retValue,
-                success: success,
-                callId: payload.callId
-              }
-            };
-            if (msgIsString) {
-              returnMsg = JSON.stringify(returnMsg);
-            }
-            if (event && event.source && event.source.postMessage) {
-              event.source.postMessage(returnMsg, '*');
-            }
-          },
-          payload.parameter
-        );
-      }
-    }
-
-    while (win) {
-      try {
-        if (win.frames[TCF_LOCATOR_NAME]) {
-          cmpFrame = win;
-          break;
-        }
-      } catch (ignore) {}
-
-      if (win === window.top) {
-        break;
-      }
-      win = win.parent;
-    }
-    if (!cmpFrame) {
-      addFrame();
-      win.__tcfapi = tcfAPIHandler;
-      win.addEventListener('message', postMessageEventHandler, false);
-    }
-  };
-
-  makeStub();
-
-  var uspStubFunction = function() {
-    var arg = arguments;
-    if (typeof window.__uspapi !== uspStubFunction) {
-      setTimeout(function() {
-        if (typeof window.__uspapi !== 'undefined') {
-          window.__uspapi.apply(window.__uspapi, arg);
-        }
-      }, 500);
-    }
-  };
-
-  var checkIfUspIsReady = function() {
-    uspTries++;
-    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
-      console.warn('USP is not accessible');
-    } else {
-      clearInterval(uspInterval);
-    }
-  };
-
-  if (typeof window.__uspapi === 'undefined') {
-    window.__uspapi = uspStubFunction;
-    var uspInterval = setInterval(checkIfUspIsReady, 6000);
-  }
-})();
-</script>
-<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIGoalie - Disclaimer</title>
-<meta name="description" content="AIGoalie terms, disclaimer, and responsible-use notice for AI football predictions.">
+<title>AIGoalie Disclaimer — AI Goalie</title>
+<meta name="description" content="AIGoalie, also written AI Goalie, terms, disclaimer, and responsible-use notice for AI football predictions.">
+<meta property="og:site_name" content="AIGoalie">
+<meta property="og:title" content="AIGoalie Disclaimer — AI Goalie">
+<meta name="twitter:title" content="AIGoalie Disclaimer — AI Goalie">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AIGoalie","alternateName":["AI Goalie","AI-Goalie","ai-goalie.com"],"url":"https://ai-goalie.com","logo":"https://ai-goalie.com/logo_mm.webp"}</script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -186,9 +19,10 @@
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="logo" href="index.html"><img src="/logo_mm.webp" alt="AIGoalie logo" width="25" height="25">AI<b>Goalie</b></a>
+    <a class="logo" href="index.html"><img src="/logo_mm.webp" alt="AIGoalie / AI Goalie logo" width="25" height="25">AI<b>Goalie</b></a>
     <button class="navtoggle" onclick="document.querySelector('header nav').classList.toggle('show')">☰</button>
     <nav>
+      <a href="index.html">Home</a>
       <a href="results.html">Track record</a>
       <a href="matchup.html">Simulator</a>
       <a href="contact.html">Contact</a>
@@ -197,6 +31,8 @@
       <a href="https://rapidapi.com/aigoaliemail/api/aigoalie">API</a>
     </nav>
     <div class="acct">
+      <div class="language-select"><select class="lang-switcher" aria-label="Language" onchange="switchSiteLang(this.value)"><option value="en" selected>🇬🇧 English</option><option value="ja">🇯🇵 日本語</option><option value="es">🇪🇸 Español</option><option value="de">🇩🇪 Deutsch</option><option value="fr">🇫🇷 Français</option><option value="pt">🇧🇷 Português</option></select></div>
+
       <a class="btn pro" href="index.html?pro=1">Go Pro</a>
     </div>
   </header>
@@ -259,5 +95,9 @@
     <div>Model outputs, not guarantees. 18+ · Gamble responsibly.</div>
   </footer>
 </div>
+<script>
+function switchSiteLang(lang){const p=location.pathname;const m=p.match(/^\/(ja|es|de|fr|pt)(\/.*)?$/);const rest=m?(m[2]||'/'):p;let page='';if(rest==='/'||rest==='/index.html')page='';else{const sm=rest.match(/^\/(results|matchup|contact|about|disclaimer|privacy-policy)(?:\.html|\/)?$/);if(sm)page=sm[1];else page='';}if(lang==='en'){location.href=page?`/${page}.html`:'/';return;}location.href=page?`/${lang}/${page}/`:`/${lang}/`;}
+(function(){const m=location.pathname.match(/^\/(ja|es|de|fr|pt)(?:\/|$)/);const lang=m?m[1]:'en';document.querySelectorAll('.lang-switcher').forEach(s=>{s.value=lang;});})();
+</script>
 </body>
 </html>
