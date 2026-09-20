@@ -920,6 +920,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{min-width:48px;padding:4px 5px;font-size:10.5px}
 }
 
+.win-pill .metric-target{display:block;font-size:9px;line-height:1.2;font-weight:600;margin-top:2px}
 </style>
 </head>
 <body>
@@ -33185,7 +33186,7 @@ function cardHTML(m,idx){
   const hl=m.home_logo_url||logoURL(m.hid), al=m.away_logo_url||logoURL(m.aid);
   const matchStatus=isLiveResult(m)?"live":((m.status==="finished"||["W","D","L"].includes(String(m.outcome||"").toUpperCase()))?"finished":"upcoming");
   return `
-  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-date="${esc(m.date||'')}" data-time="${esc(m.time||'')}" data-kickoff-utc="${esc(m.kickoff_utc||'')}" data-featured-value="${Number(m._featured_matchup_value||m.featured_matchup_value||0)}" data-confidence="${esc(m.total||'')}" data-total-goals="${m.total_xg!=null?Number(m.total_xg):''}" data-btts="${m.btts!=null?normalizePercent(m.btts):''}" data-status="${matchStatus}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
+  <div class="mrow tier-${tier}" data-league="${esc(m.league)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}" data-date="${esc(m.date||'')}" data-time="${esc(m.time||'')}" data-kickoff-utc="${esc(m.kickoff_utc||'')}" data-featured-value="${Number(m._featured_matchup_value||m.featured_matchup_value||0)}" data-confidence="${esc(m.total||'')}" data-total-goals="${m.total_xg!=null?Number(m.total_xg):''}" data-btts="${m.btts!=null?normalizePercent(m.btts):''}" data-status="${matchStatus}" data-settlement-status="${esc(m.settlement_status||m.api_status?.short||'')}" data-idx="${idx}" data-search="${esc((m.home+' '+m.away+' '+m.league).toLowerCase())}">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -33402,7 +33403,7 @@ function rowTimeValue(row){
   return match?Number(match[1])*60+Number(match[2]):Number.MAX_SAFE_INTEGER;
 }
 function numericMetric(value){
-  const match=String(value==null?"":value).replace(",",".").match(/-?\d+(?:\.\d+)?/);
+  const match=String(value==null?"":value).replace(/<[^>]*>|&#?\w+;/g,"").replace(",",".").match(/-?\d+(?:\.\d+)?/);
   return match?Number(match[0]):0;
 }
 function rowMetricValue(row,mode){
@@ -33410,24 +33411,67 @@ function rowMetricValue(row,mode){
   if(mode==="btts")return numericMetric(row.dataset.btts);
   return numericMetric(row.dataset.confidence||row.querySelector(".win-pill")?.textContent);
 }
+function metricPredictionGrade(mode,value,status,score,apiStatus=""){
+  const result={target:null,outcome:""};
+  if(!Number.isFinite(value))return result;
+  if(mode==="goals"&&value>0.5){
+    result.target=Math.ceil(value-0.5)-0.5;
+  }else if(mode==="btts"&&value>=0&&value<=100&&value!==50){
+    result.target=value>50?"yes":"no";
+  }
+  if(result.target===null||status!=="finished")return result;
+  if(apiStatus&&!['FT','FINISHED','GRADED'].includes(String(apiStatus).toUpperCase()))return result;
+  const goals=String(score).replace(/<[^>]*>/g,'').match(/^\s*(\d+)\s*[:–-]\s*(\d+)\s*(?:FT)?\s*$/i);
+  if(!goals)return result;
+  const home=Number(goals[1]),away=Number(goals[2]);
+  const hit=mode==="goals"?home+away>result.target:((home>0&&away>0)===(result.target==="yes"));
+  result.outcome=hit?"W":"L";
+  return result;
+}
+function updateMetricResult(row,mode,value){
+  const mark=row.querySelector('.mhead .resmark');
+  if(!mark)return {target:null,outcome:""};
+  if(row._winnerResultMarkup===undefined)row._winnerResultMarkup=mark.outerHTML;
+  if(!['goals','btts'].includes(mode)){
+    mark.outerHTML=row._winnerResultMarkup;
+    return {target:null,outcome:""};
+  }
+  const grade=metricPredictionGrade(mode,value,row.dataset.status,row.querySelector('.center .ko')?.textContent||'',row.dataset.settlementStatus||'');
+  mark.outerHTML=resMark(grade.outcome);
+  const updated=row.querySelector('.mhead .resmark');
+  if(grade.outcome){
+    const label=mode==='goals'?`Over ${grade.target}`:`BTTS ${grade.target==='yes'?'Yes':'No'}`;
+    updated.title=`${label}: ${grade.outcome==='W'?'correct':'incorrect'} · full-time result`;
+    updated.setAttribute('aria-label',updated.title);
+    updated.removeAttribute('aria-hidden');
+  }
+  return grade;
+}
 function updateMetricBadge(row,mode){
   const pill=row.querySelector(".win-pill");
   if(!pill)return;
   if(!pill.dataset.confidenceText)pill.dataset.confidenceText=pill.textContent.trim();
   pill.classList.remove("metric-goals","metric-btts");
+  const rawValue=mode==='btts'?row.dataset.btts:row.dataset.totalGoals;
+  const value=String(rawValue||'').trim()===''?NaN:rowMetricValue(row,mode);
+  const grade=updateMetricResult(row,mode,value);
   if(mode==="goals"){
-    const value=rowMetricValue(row,"goals");
     pill.textContent=value?`${value.toFixed(2).replace(/0+$/,"").replace(/\.$/,"")} ${RANKING_COPY.goals.unit}`:`— ${RANKING_COPY.goals.unit}`;
-    pill.title=RANKING_COPY.goals.title;
+    pill.title=`${RANKING_COPY.goals.title} · Derived Over target; graded on full-time goals`;
     pill.classList.add("metric-goals");
   }else if(mode==="btts"){
-    const value=rowMetricValue(row,"btts");
-    pill.textContent=value?`${Math.round(value)}% BTTS`:`— BTTS`;
+    pill.textContent=Number.isFinite(value)?`${Math.round(value)}% BTTS`:`— BTTS`;
     pill.title=RANKING_COPY.btts.title;
     pill.classList.add("metric-btts");
   }else{
     pill.textContent=pill.dataset.confidenceText;
     pill.title=RANKING_COPY.confidence.title;
+  }
+  if(['goals','btts'].includes(mode)){
+    const target=document.createElement('span');
+    target.className='metric-target';
+    target.textContent=grade.target===null?'No target':mode==='goals'?`Over ${grade.target}`:`${grade.target==='yes'?'Yes':'No'}`;
+    pill.appendChild(target);
   }
 }
 function updateRankingNotes(mode){
@@ -33902,7 +33946,8 @@ function proApiMatchToV12(m){
     total_xg: m.total_xg != null ? Number(m.total_xg) : ((homeXg != null && awayXg != null) ? homeXg + awayXg : null),
     home_xg: homeXg,
     away_xg: awayXg,
-    btts: m.btts || m.pro_btts || null,
+    btts: m.btts ?? m.pro_btts ?? null,
+    settlement_status: m.api_status?.short || m.api_status_short || m.status_short || '',
     opp_iso: (m.opp_iso != null ? m.opp_iso : (m.pro_opp_iso != null ? m.pro_opp_iso : Math.max(numOrNull(m.home_iso) || 0, numOrNull(m.away_iso) || 0))),
     odds: m.odds || "",
     goal_prob: m.goal_prob || "",
