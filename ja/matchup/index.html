@@ -251,7 +251,7 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
   </section>
   <section class="result" id="result"></section>
   <div id="128244-6" class="ad-container hidden" data-moneytizer-slot="6"></div>
-  <p class="note">無料シミュレーションはこのブラウザでは回数制限があります。Proでは無制限のシミュレーション、正確なxG、BTTS、引き分け確率、広告なしのサイトが利用できます。</p>
+  <p class="note">Free simulations are limited in this browser. Pro unlocks unlimited simulations, exact xG, BTTS, draw probability, an ad-free site and 30 AIGoalie chat questions per month.</p>
 </main>
 <footer><a href="/ja/">ホーム</a> · <a href="/ja/results/">実績</a> · <a href="/ja/matchup/">シミュレーター</a> · <a href="/ja/privacy-policy/">プライバシー</a> · <a href="/ja/disclaimer/">免責事項</a></footer>
 </div>
@@ -337,7 +337,7 @@ function render(r){const locked=!IS_PRO;document.body.classList.toggle("pro-unlo
   <div class="card ${locked?"locked":""}"><div class="k">引き分け</div><div class="v">${pct(r.p.draw)}</div><div class="s">Simulation probability</div></div>
   <div class="card ${locked?"locked":""}"><div class="k">${esc(r.away.name)} 勝利</div><div class="v">${pct(r.p.away)}</div><div class="s">Venue-adjusted</div></div>
 </div>
-${locked?`<div class="pro-note"><span>Proで無制限シミュレーションと詳細な確率パネルが利用できます。</span><a href="index.html?pro=1" onclick="trackEvent('go_pro_click',{source:'simulator_result'})">Proにする</a></div>`:""}
+${locked?`<div class="pro-note"><span>Pro unlocks unlimited simulations, the advanced probability panel and 30 AIGoalie chat questions per month.</span><a href="index.html?pro=1" onclick="trackEvent('go_pro_click',{source:'simulator_result'})">Proにする</a></div>`:""}
 <p class="note">Hypothetical simulation based on current model signals. It does not include confirmed lineups, injuries or a scheduled venue unless shown.</p>`;}
 function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="リストから2チームを選んでください。";trackEvent("simulator_error",{reason:"missing_team"});return;}if(h.id===a.id){err.textContent="異なる2チームを選んでください。";trackEvent("simulator_error",{reason:"same_team"});return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="本日の無料シミュレーションを使い切りました。無制限はProで。";trackEvent("simulator_pro_limit_hit",{logged_in:!!currentUser(),limit:lim});return;}if(!IS_PRO){q.count+=1;saveQuota(q);}const venue=document.getElementById("venue").value;const result=simulate(h,a,venue);trackEvent("simulator_run",{venue,pro:IS_PRO,home_league:h.league||"",away_league:a.league||"",confidence:Math.round(result.conf*100)});render(result);updateQuota();}
 async function loadTeams(){const res=await fetch("/matchup_data.json",{cache:"no-store"});const data=await res.json();TEAMS=data.teams||[];const dl=document.getElementById("teamList");TEAMS.forEach(t=>{const label=`${t.name} — ${t.league||t.country||"Team"}`;LABELS.set(label.toLowerCase(),t);LABELS.set(t.name.toLowerCase(),t);const o=document.createElement("option");o.value=label;dl.appendChild(o);});updateQuota();}

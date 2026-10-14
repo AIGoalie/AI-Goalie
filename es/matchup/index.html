@@ -251,7 +251,7 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
   </section>
   <section class="result" id="result"></section>
   <div id="128244-6" class="ad-container hidden" data-moneytizer-slot="6"></div>
-  <p class="note">Las simulaciones gratuitas están limitadas en este navegador. Pro desbloquea simulaciones ilimitadas, xG exacto, BTTS, probabilidad de empate y un sitio sin anuncios.</p>
+  <p class="note">Free simulations are limited in this browser. Pro unlocks unlimited simulations, exact xG, BTTS, draw probability, an ad-free site and 30 AIGoalie chat questions per month.</p>
 </main>
 <footer><a href="/es/">Inicio</a> · <a href="/es/results/">Historial</a> · <a href="/es/matchup/">Simulador</a> · <a href="/es/privacy-policy/">Privacidad</a> · <a href="/es/disclaimer/">Aviso legal</a></footer>
 </div>
@@ -337,7 +337,7 @@ function render(r){const locked=!IS_PRO;document.body.classList.toggle("pro-unlo
   <div class="card ${locked?"locked":""}"><div class="k">Empate</div><div class="v">${pct(r.p.draw)}</div><div class="s">Simulation probability</div></div>
   <div class="card ${locked?"locked":""}"><div class="k">${esc(r.away.name)} gana</div><div class="v">${pct(r.p.away)}</div><div class="s">Venue-adjusted</div></div>
 </div>
-${locked?`<div class="pro-note"><span>Pro desbloquea simulaciones ilimitadas y el panel de probabilidades avanzado.</span><a href="index.html?pro=1" onclick="trackEvent('go_pro_click',{source:'simulator_result'})">Hazte Pro</a></div>`:""}
+${locked?`<div class="pro-note"><span>Pro unlocks unlimited simulations, the advanced probability panel and 30 AIGoalie chat questions per month.</span><a href="index.html?pro=1" onclick="trackEvent('go_pro_click',{source:'simulator_result'})">Hazte Pro</a></div>`:""}
 <p class="note">Hypothetical simulation based on current model signals. It does not include confirmed lineups, injuries or a scheduled venue unless shown.</p>`;}
 function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="Elige dos equipos de la lista.";trackEvent("simulator_error",{reason:"missing_team"});return;}if(h.id===a.id){err.textContent="Elige dos equipos distintos.";trackEvent("simulator_error",{reason:"same_team"});return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="Has usado las simulaciones gratuitas de hoy. Hazte Pro para tenerlas ilimitadas.";trackEvent("simulator_pro_limit_hit",{logged_in:!!currentUser(),limit:lim});return;}if(!IS_PRO){q.count+=1;saveQuota(q);}const venue=document.getElementById("venue").value;const result=simulate(h,a,venue);trackEvent("simulator_run",{venue,pro:IS_PRO,home_league:h.league||"",away_league:a.league||"",confidence:Math.round(result.conf*100)});render(result);updateQuota();}
 async function loadTeams(){const res=await fetch("/matchup_data.json",{cache:"no-store"});const data=await res.json();TEAMS=data.teams||[];const dl=document.getElementById("teamList");TEAMS.forEach(t=>{const label=`${t.name} — ${t.league||t.country||"Team"}`;LABELS.set(label.toLowerCase(),t);LABELS.set(t.name.toLowerCase(),t);const o=document.createElement("option");o.value=label;dl.appendChild(o);});updateQuota();}
