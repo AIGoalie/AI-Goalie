@@ -21,7 +21,8 @@
     .summary{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}
     .candidate-row.rejected{opacity:.76}
   </style>
-</head>
+<style>.lab-views,.strategy-tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}.lab-views{margin-bottom:8px}.lab-views button,.strategy-tabs button{flex-shrink:0}.strategy-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap}.strategy-controls label{display:grid;gap:5px;font-size:12px;color:var(--muted)}.strategy-controls input,.strategy-controls select,#strategyMetric,#strategyDailyDate{min-height:40px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:7px 10px}.strategy-notice{padding:12px;border-left:3px solid var(--blue);background:var(--surface);color:var(--muted);border-radius:6px}.strategy-table table{min-width:700px}.strategy-table th:first-child{text-align:left}.strategy-chart-panel{margin-top:16px}.strategy-chart-panel svg{width:100%;height:auto;display:block;min-height:200px}.chart-empty{text-align:center;padding:40px 16px;color:var(--muted)}.strategy-history{max-height:460px;overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.history-pick{padding:13px 15px;border-bottom:1px solid var(--line)}.history-pick>div{display:flex;align-items:start;justify-content:space-between;gap:12px}.history-pick p{margin:5px 0}.history-pick small{display:block;color:var(--muted);overflow-wrap:anywhere}.strategy-cards{display:none}.strategy-daily-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}.strategy-daily-cards .panel h3{margin:0 0 10px}.strategy-daily-cards .history-pick{padding:12px 0}.strategy-daily-cards small{display:block;color:var(--muted)}#strategyDashboard details{margin-top:15px;color:var(--muted)}@media(max-width:760px){.strategy-table{display:none}.strategy-cards{display:grid;gap:10px}.strategy-card{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface)}.strategy-card h3{margin:0 0 9px;font-size:14px}.strategy-card>div{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.strategy-card span{font-size:11px;color:var(--muted)}.strategy-card strong{display:block;font-size:16px;color:var(--text)}.strategy-controls{display:grid;grid-template-columns:1fr 1fr}.strategy-controls input,.strategy-controls select{width:100%;min-width:0}.lab-views button{font-size:12px;padding:0 10px}.strategy-tabs button{font-size:12px}.strategy-chart-panel{padding:9px}.history-pick strong{overflow-wrap:anywhere}.strategy-daily-cards{grid-template-columns:1fr}}
+</style></head>
 <body>
 <main class="shell">
   <header class="topbar">
@@ -31,16 +32,27 @@
   <section id="authGate" class="gate"><h2>Private area</h2><p>Sign in with the authorized account to continue.</p><button class="btn primary" data-auth-open>Sign in</button></section>
   <div id="ownerApp" hidden>
   <section class="hero">
-    <div><div class="eyebrow">Owner diagnostics</div><h1>Pro Picks Lab</h1><p>Every candidate eligible under the live shortlist policy, including its exact model and price-score composition. Public selections remain frozen and unchanged.</p></div>
+    <div><div class="eyebrow">Owner research</div><h1>Pro Picks Lab</h1><p>Compare strategies, review daily picks and track performance. Public selections remain unchanged.</p></div>
   </section>
-  <section class="controls" id="controls">
+  <nav class="lab-views"><button class="btn primary" data-lab-view="strategies">Strategy performance</button><button class="btn" data-lab-view="daily">Daily strategies</button><button class="btn" data-lab-view="diagnostics">Existing diagnostics</button></nav>
+  <section id="strategyDashboard">
+    <div class="strategy-controls"><label>Record<select id="strategyScope"><option value="forward">Forward tracking</option><option value="backtest">Reconstructed backtest</option></select></label><label>From<input type="date" id="strategyFrom"></label><label>Through<input type="date" id="strategyThrough"></label><button class="btn" id="strategyRefresh">Refresh</button></div>
+    <p id="strategyNotice" class="strategy-notice"></p><div id="strategyTabs" class="strategy-tabs"></div><p class="sub" id="strategyDescription"></p>
+    <section class="panel strategy-chart-panel"><label>Chart <select id="strategyMetric"><option value="profit">Cumulative profit · units</option><option value="accuracy">Cumulative win rate</option><option value="roi">Cumulative ROI</option></select></label><div id="strategyChart"></div></section>
+    <div id="strategyCards" class="strategy-cards"></div>
+    <div class="table-wrap strategy-table"><table><thead><tr><th>Strategy</th><th>Wins / settled</th><th>Accuracy</th><th>Avg odds</th><th>ROI</th><th>Profit</th><th>Pending</th></tr></thead><tbody id="strategySummary"></tbody></table></div>
+    <p class="sub" id="strategyCaptureNote"></p><h3>Selection history</h3><div id="strategyHistory" class="strategy-history"></div><p class="sub" id="strategyUpdated"></p>
+    <details class="panel"><summary>Tracking methodology</summary><p>One unit per settled priced selection; draws count as non-wins. Unknown odds and void fixtures are excluded from ROI. Backtests and forward results are never combined. Selections lock at first pre-kickoff capture; later settlement corrections are retained as separate events.</p><p>Research v1 uses a fixed dated valuation seed and weekly expanding model fits. New formulas or valuation baselines require a new strategy version. These are research estimates, not guaranteed returns.</p></details>
+  </section>
+  <section id="strategyDaily" hidden><label>Daily comparison <input type="date" id="strategyDailyDate"></label><p id="strategyDailyNotice" class="strategy-notice"></p><div id="strategyDailyCards" class="strategy-daily-cards"></div></section>
+  <section class="controls" id="controls" hidden>
     <input type="date" id="dateInput" aria-label="Prediction date">
     <button class="btn primary" id="loadBtn">Load candidates</button>
     <select id="viewFilter" aria-label="Candidate filter"><option value="all">All evaluated</option><option value="selected">Selected top picks</option><option value="eligible">All eligible</option><option value="rejected">Rejected / near misses</option><option value="preferred">Eligible odds 1.20+</option><option value="fallback">Eligible fallback 1.18–1.19</option></select>
     <input type="search" id="searchInput" placeholder="Search team or league…" aria-label="Search candidates">
     <button class="btn" id="exportBtn" disabled>Export CSV</button>
   </section>
-  <section id="content">
+  <section id="content" hidden>
     <div class="summary">
       <div class="stat"><span>Evaluated</span><strong id="evaluatedCount">—</strong></div>
       <div class="stat"><span>Eligible</span><strong id="eligibleCount">—</strong></div>
@@ -57,7 +69,7 @@
 </main>
 <script>
 const FIREBASE_CONFIG={apiKey:"AIzaSyAaqlt7k7ELZV_WSLw-0uTL6Yhmg93uyTw",authDomain:"aigoalie-5286d.firebaseapp.com",projectId:"aigoalie-5286d",appId:"1:164078880718:web:710dec15b47cec22928d9f"};
-let auth=null,currentPayload=null,ownerAuthorized=false;
+let auth=null,currentPayload=null,ownerAuthorized=false,authGeneration=0;
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 const pct=value=>Number.isFinite(Number(value))?`${(Number(value)*100).toFixed(1)}%`:"—";
@@ -65,9 +77,10 @@ const num=(value,digits=3)=>Number.isFinite(Number(value))?Number(value).toFixed
 const displayDate=value=>{const [year,month,day]=value.split("-");return `${day}.${month}.${year}`};
 function todayValue(){const now=new Date(),offset=now.getTimezoneOffset();return new Date(now.getTime()-offset*60000).toISOString().slice(0,10)}
 function startGoogleSignIn(currentAuth){const provider=new firebase.auth.GoogleAuthProvider();return currentAuth.signInWithPopup(provider)}
-function setGate(message,isError=false){ownerAuthorized=false;$("authGate").hidden=false;$("ownerApp").hidden=true;$("ownerState").hidden=true;$("authGate").innerHTML=`<h2 class="${isError?'error':''}">${esc(message)}</h2><p>${isError?'This account is not authorized.':'Sign in with the authorized account to continue.'}</p>${isError?'':'<button class="btn primary" data-auth-open>Sign in</button>'}`}
+function setGate(message,isError=false){ownerAuthorized=false;currentPayload=null;$("candidateRows").innerHTML='';$("exportBtn").disabled=true;$("authGate").hidden=false;$("ownerApp").hidden=true;$("ownerState").hidden=true;$("authGate").innerHTML=`<h2 class="${isError?'error':''}">${esc(message)}</h2><p>${isError?'This account is not authorized.':'Sign in with the authorized account to continue.'}</p>${isError?'':'<button class="btn primary" data-auth-open>Sign in</button>'}`}
 async function loadCandidates(){
   const user=auth&&auth.currentUser;if(!user)return setGate("Sign in required");
+  const generation=authGeneration;
   const button=$("loadBtn");button.disabled=true;button.textContent="Loading…";
   let responseStatus=0;
   try{
@@ -75,9 +88,10 @@ async function loadCandidates(){
     const response=await fetch(`${location.origin}/admin/pro-picks?date=${encodeURIComponent(date)}`,{headers:{Authorization:`Bearer ${token}`},cache:"no-store"});
     responseStatus=response.status;
     const payload=await response.json().catch(()=>({}));
+    if(generation!==authGeneration||!auth.currentUser||auth.currentUser.uid!==user.uid)return;
     if(!response.ok)throw new Error(payload.detail||"Unable to load diagnostics");
     currentPayload=payload;ownerAuthorized=true;$("authGate").hidden=true;$("ownerApp").hidden=false;$("ownerState").hidden=false;$("ownerState").textContent=user.email||"Owner";render();$("exportBtn").disabled=false;
-  }catch(error){currentPayload=null;if(!ownerAuthorized)return setGate(responseStatus===403?"Owner access required":"Access check failed",true);$("candidateRows").innerHTML="";$("emptyState").hidden=false;$("emptyState").textContent=error.message||String(error)}
+  }catch(error){if(generation!==authGeneration)return;currentPayload=null;if(!ownerAuthorized)return setGate(responseStatus===403?"Owner access required":"Access check failed",true);$("candidateRows").innerHTML="";$("emptyState").hidden=false;$("emptyState").textContent=error.message||String(error)}
   finally{button.disabled=false;button.textContent="Load candidates"}
 }
 function filteredCandidates(){
@@ -108,8 +122,127 @@ function exportCsv(){const rows=filteredCandidates(),headers=['rank','selected_r
 window.addEventListener('DOMContentLoaded',()=>{
   $("dateInput").value=todayValue();$("loadBtn").addEventListener('click',loadCandidates);$("viewFilter").addEventListener('change',render);$("searchInput").addEventListener('input',render);$("exportBtn").addEventListener('click',exportCsv);
   try{firebase.initializeApp(FIREBASE_CONFIG)}catch(error){try{firebase.app()}catch(_){return setGate('Firebase unavailable',true)}}auth=firebase.auth();auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});window.AIGoalieAuthUI?.init({auth,googleSignIn:startGoogleSignIn,source:'pro_picks_lab',locale:'en'});
-  auth.onAuthStateChanged(async user=>{if(!user)return setGate('Private area');await loadCandidates()});
+  auth.onAuthStateChanged(async user=>{authGeneration++;setGate(user?'Checking access':'Private area');if(user)await loadCandidates()});
 });
 </script>
-</body>
+<script>(() => {
+  const escape = value => String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+  const colours = ['#F4F4F5','#71b7ff','#ffd35e','#62ec82','#c29bff','#ff9c70','#68d7d0'];
+  let payload = null, selected = 'all', loading = false, epoch = 0;
+  const element = id => document.getElementById(id);
+  const percent = value => value == null ? '—' : `${(100 * value).toFixed(1)}%`;
+  const number = value => value == null ? '—' : Number(value).toFixed(2);
+  function metrics(rows) {
+    const settled = rows.filter(row => ['won','draw','lost'].includes(row.status));
+    const priced = settled.filter(row => Number.isFinite(row.odds) && row.odds > 1);
+    const wins = settled.filter(row => row.status === 'won').length;
+    const profit = priced.reduce((sum,row) => sum + (row.status === 'won' ? row.odds - 1 : -1), 0);
+    return {n:settled.length,wins,profit,roi:priced.length ? profit / priced.length : null,
+      rate:settled.length ? wins / settled.length : null,odds:priced.length ? priced.reduce((sum,row)=>sum+row.odds,0)/priced.length:null,
+      pending:rows.filter(row=>['pending','ungraded'].includes(row.status)).length,voids:rows.filter(row=>row.status==='void').length,priced:priced.length};
+  }
+  function filtered() {
+    return (payload?.rows || []).filter(row => row.source === element('strategyScope').value &&
+      row.date >= element('strategyFrom').value && row.date <= element('strategyThrough').value && (selected==='all'||row.strategy===selected));
+  }
+  function chart(rows) {
+    const captureDates=element('strategyScope').value==='forward'?payload.captures.filter(capture=>capture.date>=element('strategyFrom').value&&capture.date<=element('strategyThrough').value&&(selected==='all'||capture.strategy===selected)).map(capture=>capture.date):[];
+    const metric = element('strategyMetric').value, dates = [...new Set([...rows.map(row=>row.date),...captureDates])].sort();
+    const strategies = payload.strategies.filter(strategy=>selected==='all'||strategy.id===selected);
+    if (!dates.length || !rows.some(row=>['won','draw','lost'].includes(row.status))) return '<div class="chart-empty">No settled selections in this view yet. Pending picks appear below.</div>';
+    const series = strategies.map(strategy => ({strategy, points:dates.map(day=>{
+      const value=metrics(rows.filter(row=>row.strategy===strategy.id&&row.date<=day));
+      return {day,value:metric==='profit'?value.profit:metric==='accuracy'?value.rate:value.roi,n:value.n};
+    }).filter(point=>point.value!=null)}));
+    const values=series.flatMap(line=>line.points.map(point=>point.value));
+    let minimum=Math.min(0,...values), maximum=Math.max(0,...values);
+    if (minimum===maximum) maximum=minimum+1;
+    const timestamp=day=>Date.parse(day+'T00:00:00Z');
+    const horizontal=day=>60+(timestamp(day)-timestamp(dates[0]))/Math.max(1,timestamp(dates[dates.length-1])-timestamp(dates[0]))*840;
+    const vertical=value=>230-(value-minimum)/(maximum-minimum)*190;
+    const tick=value=>metric==='profit'?`${value.toFixed(1)}u`:percent(value);
+    return `<svg viewBox="0 0 940 280" role="img" aria-label="Cumulative ${escape(metric)} by selection date">${[0,.5,1].map(fraction=>{const value=minimum+(maximum-minimum)*fraction;return `<line x1="60" x2="900" y1="${vertical(value)}" y2="${vertical(value)}" stroke="#3a3a3d"/><text x="8" y="${vertical(value)+4}" fill="#aeafb3" font-size="12">${escape(tick(value))}</text>`}).join('')}${series.map(line=>{const colour=colours[payload.strategies.findIndex(strategy=>strategy.id===line.strategy.id)];return `<polyline fill="none" stroke="${colour}" stroke-width="2.5" points="${line.points.map(point=>`${horizontal(point.day)},${vertical(point.value)}`).join(' ')}"/>${line.points.map(point=>`<circle cx="${horizontal(point.day)}" cy="${vertical(point.value)}" r="3" fill="${colour}"><title>${escape(line.strategy.title)} · ${point.day} · ${escape(tick(point.value))} · n=${point.n}</title></circle>`).join('')}`}).join('')}<text x="60" y="264" fill="#aeafb3" font-size="12">${dates[0]}</text><text x="900" y="264" text-anchor="end" fill="#aeafb3" font-size="12">${dates[dates.length-1]}</text></svg>`;
+  }
+  function renderStrategies() {
+    if (!payload) return;
+    const rows=filtered(), scope=element('strategyScope').value;
+    element('strategyTabs').innerHTML=[{id:'all',title:'Compare all'},...payload.strategies].map(strategy=>`<button class="btn ${selected===strategy.id?'primary':''}" data-strategy="${escape(strategy.id)}" aria-pressed="${selected===strategy.id}">${escape(strategy.title)}</button>`).join('');
+    element('strategyTabs').querySelectorAll('button').forEach(button=>button.onclick=()=>{selected=button.dataset.strategy;renderStrategies()});
+    element('strategyNotice').textContent=scope==='forward'?'Forward tracking · selections locked before kickoff · first capture from 18 October 2026. No reconstructed picks are included.':'Reconstructed backtest · October 1–16, 2026 · previously examined data and stored prices, not a prospective record. Current policy is a reconstructed reference in this view.';
+    element('strategyDescription').textContent=selected==='all'?'Same daily maximum and qualification rules. Each model has its own sample; strategies may select the same match.':payload.strategies.find(strategy=>strategy.id===selected)?.description || '';
+    element('strategySummary').innerHTML=payload.strategies.filter(strategy=>selected==='all'||strategy.id===selected).map((strategy,index)=>{
+      const value=metrics(rows.filter(row=>row.strategy===strategy.id));
+      return `<tr><td style="text-align:left"><span style="color:${colours[payload.strategies.findIndex(item=>item.id===strategy.id)]}">●</span> ${escape(strategy.title)}</td><td>${value.wins}/${value.n}</td><td>${percent(value.rate)}</td><td>${number(value.odds)}</td><td>${percent(value.roi)}</td><td>${value.profit>=0?'+':''}${number(value.profit)}u</td><td>${value.pending}</td></tr>`;
+    }).join('');
+    element('strategyCards').innerHTML=payload.strategies.filter(strategy=>selected==='all'||strategy.id===selected).map(strategy=>{
+      const value=metrics(rows.filter(row=>row.strategy===strategy.id));
+      return `<section class="strategy-card"><h3>${escape(strategy.title)}</h3><div><span>Wins / settled<strong>${value.wins}/${value.n}</strong></span><span>Accuracy<strong>${percent(value.rate)}</strong></span><span>ROI<strong>${percent(value.roi)}</strong></span><span>Avg odds<strong>${number(value.odds)}</strong></span><span>Profit<strong>${number(value.profit)}u</strong></span><span>Pending<strong>${value.pending}</strong></span></div></section>`;
+    }).join('');
+    element('strategyChart').innerHTML=chart(rows);
+    const ordered=rows.slice().sort((left,right)=>right.date.localeCompare(left.date)||left.strategy.localeCompare(right.strategy));
+    element('strategyHistory').innerHTML=ordered.length?ordered.map(row=>{
+      const strategy=payload.strategies.find(item=>item.id===row.strategy), probability=row.probability==null?'':` · Model ${percent(row.probability)}`;
+      return `<article class="history-pick"><div><strong>${escape(row.home)} <span class="sub">vs</span> ${escape(row.away)}</strong><span class="badge ${row.status==='won'?'positive':row.status==='pending'?'':'negative'}">${escape(row.status)}</span></div><p>${escape(row.picked_team)} · Odds ${number(row.odds)}${probability}${row.result?` · ${escape(row.result)}`:''}</p><small>${row.date} · ${escape(strategy?.title)} · ${escape(row.league || '')}</small>${row.recorded_at?`<small>Locked ${escape(row.recorded_at)} · fixture snapshot ${escape(row.snapshot_captured_at || 'published policy')}</small>`:''}</article>`;
+    }).join(''):'<div class="chart-empty">No selections in this date range. Forward results will appear automatically after pre-kickoff capture and settlement.</div>';
+    const captures=payload.captures.filter(capture=>capture.date>=element('strategyFrom').value&&capture.date<=element('strategyThrough').value&&(selected==='all'||capture.strategy===selected));
+    element('strategyCaptureNote').textContent=scope==='forward'?`${captures.length} daily strategy captures · ${captures.filter(capture=>capture.count===0).length} empty slates · empty days are retained, never force-filled.`:`${ordered.length} reconstructed selection rows. ROI is flat-stake at stored odds; profitability is not established.`;
+    const now=new Date(),today=now.toISOString().slice(0,10),stale=now-new Date(payload.generated_at)>26*60*60*1000;
+    const awaiting=today>=payload.forward_start&&now.getUTCHours()>=6&&!payload.captures.some(capture=>capture.date===today);
+    element('strategyUpdated').classList.toggle('error',stale||awaiting);
+    element('strategyUpdated').textContent=`${stale?'Refresh delayed · ':awaiting?'Today’s capture pending · ':''}Updated ${new Date(payload.generated_at).toLocaleString()} · ${payload.version}`;
+  }
+  function renderDaily() {
+    if(!payload)return;
+    const day=element('strategyDailyDate').value, preview=payload.reconstructed_preview;
+    const captured=payload.captures.some(item=>item.date===day), experimental=preview?.date===day?preview.full_day_selections:{};
+    element('strategyDailyNotice').textContent=captured?'Locked forward selections. No additions or replacements after capture.':preview?.date===day?'Reconstructed research comparison from saved pre-kickoff inputs. Computed after some matches started; not a committed forward record.':'No captured comparison for this date.';
+    element('strategyDailyCards').innerHTML=payload.strategies.map(strategy=>{
+      const rows=captured?payload.rows.filter(row=>row.source==='forward'&&row.date===day&&row.strategy===strategy.id):experimental?.[strategy.id]||[];
+      return `<section class="panel"><h3>${escape(strategy.title)}</h3>${rows.length?rows.map(row=>`<article class="history-pick"><strong>${escape(row.home)} vs ${escape(row.away)}</strong><p class="positive">${escape(row.picked_team)}</p><small>${row.probability==null?'Published pick':`Model ${percent(row.probability)}`} · Odds ${number(row.odds)}${row.status?` · ${escape(row.status)}`:''}</small><small>${escape(row.league)} · ${escape(row.kickoff_utc || '')}</small></article>`).join(''):'<p class="sub">No saved selections.</p>'}</section>`;
+    }).join('');
+  }
+  function setDates() {
+    const scope=element('strategyScope').value, dates=(payload?.rows||[]).filter(row=>row.source===scope).map(row=>row.date).sort();
+    const today=new Date().toISOString().slice(0,10);
+    element('strategyFrom').value=dates[0] || payload?.forward_start || today;
+    element('strategyThrough').value=dates[dates.length-1] || (today > element('strategyFrom').value ? today : element('strategyFrom').value);
+    renderStrategies();
+  }
+  async function loadStrategies() {
+    if (loading || element('ownerApp').hidden) return;
+    loading=true;const generation=epoch;
+    element('strategyUpdated').textContent='Loading private strategy records…';
+    try {
+      const user=firebase.auth().currentUser;if(!user) return;
+      const token=await user.getIdToken();
+      const response=await fetch('/admin/pro-picks?date=strategies',{headers:{Authorization:`Bearer ${token}`},cache:'no-store'});
+      if(!response.ok) throw new Error(response.status===403?'Owner access required':'Strategy records unavailable');
+      const result=await response.json();
+      if(generation!==epoch||element('ownerApp').hidden)return;
+      payload=result;setDates();
+      const days=[...payload.captures.map(item=>item.date),payload.reconstructed_preview?.date].filter(Boolean).sort();
+      element('strategyDailyDate').value=days[days.length-1]||new Date().toISOString().slice(0,10);renderDaily();
+    } catch(error) { element('strategyUpdated').textContent=error.message; }
+    finally { loading=false;if(generation!==epoch&&!element('ownerApp').hidden)loadStrategies(); }
+  }
+  document.addEventListener('DOMContentLoaded',()=>{
+    const root=element('ownerApp');
+    element('strategyScope').onchange=setDates;
+    element('strategyDailyDate').onchange=renderDaily;
+    ['strategyFrom','strategyThrough','strategyMetric'].forEach(id=>element(id).onchange=renderStrategies);
+    element('strategyRefresh').onclick=loadStrategies;
+    document.querySelectorAll('[data-lab-view]').forEach(button=>button.onclick=()=>{
+      const comparison=button.dataset.labView==='strategies',daily=button.dataset.labView==='daily';
+      element('strategyDashboard').hidden=!comparison;element('strategyDaily').hidden=!daily;element('controls').hidden=comparison||daily;element('content').hidden=comparison||daily;
+      document.querySelectorAll('[data-lab-view]').forEach(item=>item.classList.toggle('primary',item===button));
+      if((comparison||daily)&&!payload)loadStrategies();
+    });
+    new MutationObserver(()=>{
+      if(root.hidden){epoch++;payload=null;['strategySummary','strategyHistory','strategyChart','strategyCards','strategyDailyCards'].forEach(id=>element(id).innerHTML='');}
+      else if(!payload)loadStrategies();
+    }).observe(root,{attributes:true,attributeFilter:['hidden']});
+    if(!root.hidden)loadStrategies();
+  });
+})();
+</script></body>
 </html>
