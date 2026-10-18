@@ -921,9 +921,12 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .win-pill{min-width:48px;padding:4px 5px;font-size:10.5px}
 }
 
+.threeway-strip{display:inline-grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;width:126px;flex:none;vertical-align:middle}.threeway-strip[hidden]{display:none!important}.probability-chip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:0;min-height:36px;padding:3px 2px;border-radius:7px;background:var(--surface-2);color:var(--text);font-variant-numeric:tabular-nums;line-height:1.12}.probability-chip small{font-size:9px;font-weight:650;opacity:.8}.probability-chip b{font-size:12px;font-weight:750}.probability-locked{color:var(--muted);cursor:pointer}.probability-locked b{font-size:11px}.threeway-strip .probability-chip:focus-visible{outline:2px solid var(--green);outline-offset:2px}@media(max-width:680px){.threeway-strip{width:94px;gap:2px}.probability-chip{min-height:34px}.probability-chip b{font-size:10.5px}.probability-chip small{font-size:8px}.mhead:has(.threeway-strip){gap:6px}}@media(max-width:380px){.threeway-strip{width:84px}.probability-chip b{font-size:10px}}
 </style>
 </head>
 <body>
+
+
 
 
 
@@ -1060,13 +1063,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
       <div class="pro-picks-copy">
         <h2 id="proPicksTitle">Palpites Pro</h2>
       </div>
-      <a class="pro-picks-record" href="/pt/results/#pro-picks"><strong>79.6% precisão</strong><br>Histórico →</a>
+      <a class="pro-picks-record" href="/pt/results/#pro-picks"><strong>79.7% precisão</strong><br>Histórico →</a>
     </header>
     <div class="pro-picks-state on" id="proPicksLocked">
       <div class="pro-picks-locked">
         <div class="pro-picks-lockbar">
           <div class="pro-picks-icon" aria-hidden="true">👑</div>
-          <div class="pro-picks-lock-copy"><strong>Palpites Pro</strong><span><b class="pro-picks-lock-rate">79.6%</b> de taxa de acerto verificada</span></div>
+          <div class="pro-picks-lock-copy"><strong>Palpites Pro</strong><span><b class="pro-picks-lock-rate">79.7%</b> de taxa de acerto verificada</span></div>
           <button type="button" data-buy-pro="1">Desbloquear Pro Picks</button>
         </div>
       </div>
@@ -1168,6 +1171,15 @@ LEAGUES.forEach(l=> l.matches.forEach(m=> ALL.push(Object.assign({league:l.key, 
 const tierOf=(c)=>c>=.55?"high":c>=.35?"lean":"low";
 const esc=(s)=>String(s==null?"":s).replace(/&(?!#)/g,"&amp;").replace(/</g,"&lt;");
 const winNum=(t)=>parseFloat(String(t).replace("%",""))||0;
+function probabilityMarkup(publicForecast,secureForecast){
+  if(!publicForecast)return '';
+  return `<span class="threeway-strip" data-forecast-model="${esc(publicForecast.model_id||'')}" data-favourite="${esc(publicForecast.favourite)}" data-favourite-percent="${Number(publicForecast.percent)}" aria-label="1X2 probabilities">${[['home','1'],['draw','X'],['away','2']].map(([side,label])=>{
+    const available=secureForecast&&secureForecast[side]!=null&&Number.isFinite(Number(secureForecast[side]))?Number(secureForecast[side]):side===publicForecast.favourite?Number(publicForecast.percent):null;
+    const unlocked=available!==null;
+    const style=unlocked?`background:hsl(${Math.max(0,Math.min(100,available))*1.2} 78% 46%);color:#111`:'';
+    return `<span class="probability-chip${unlocked?'':' probability-locked'}" data-probability-side="${side}" style="${style}" ${unlocked?'':'role="button" tabindex="0" onclick="event.stopPropagation();startCheckout(event)" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();event.stopPropagation();startCheckout(event)}"'} aria-label="${side} ${unlocked?available+' percent':'Pro required'}"><small>${label}</small><b>${unlocked?available+'%':'🔒'}</b></span>`;
+  }).join('')}</span>`;
+}
 function fmtPct(v){
   if (v == null || v === "") return "—";
   const s = String(v).trim();
@@ -1271,7 +1283,7 @@ function cardHTML(m,idx){
       </div>
       <div class="winwrap">
         ${resMark(m.outcome)}
-        <span class="win-pill" title="Palpite IA" style="background:${bg}">${esc(m.total)}</span>
+        ${m.forecast_public?probabilityMarkup(m.forecast_public,m.forecast_1x2)+`<span class="win-pill metric-only" style="display:none">${esc(m.total)}</span>`:`<span class="win-pill" title="Palpite IA" style="background:${bg}">${esc(m.total)}</span>`}
         <span class="chev" title="Toque para ver o palpite">▾</span>
       </div>
     </div>
@@ -1520,6 +1532,8 @@ function updateMetricResult(row,mode,value){
 function updateMetricBadge(row,mode){
   const pill=row.querySelector(".win-pill");
   if(!pill)return;
+  const probabilities=row.querySelector('.threeway-strip');
+  if(probabilities){probabilities.hidden=['goals','btts'].includes(mode);pill.style.display=probabilities.hidden?'':'none';}
   if(!pill.dataset.confidenceText)pill.dataset.confidenceText=pill.textContent.trim();
   pill.classList.remove("metric-goals","metric-btts");
   const rawValue=mode==='btts'?row.dataset.btts:row.dataset.totalGoals;
@@ -1961,6 +1975,8 @@ function proApiMatchToV12(m){
   const away = m.away || m.away_team || "";
   return {
     league,
+    forecast_public: m.forecast_public || null,
+    forecast_1x2: m.forecast_1x2 || null,
     isWC: /(^| - )World Cup$/i.test(league) || league === "International - World Cup",
     home,
     away,
@@ -2020,8 +2036,9 @@ function confidenceBucketFor(total){
 function attachClientModelContext(cards, context){
   context = context || {};
   cards.forEach(m => {
+    const sourceContext=m.forecast_public?(context.forecast_versions||{})[m.forecast_public.model_id]||{}:context;
     const bucket = confidenceBucketFor(m.total);
-    if (bucket && context.confidence) m.context_conf = context.confidence[bucket] || null;
+    if (bucket) m.context_conf = (sourceContext.confidence||{})[bucket] || null;
     if (context.leagues_conf50 && numOrNull(m.total) >= 50 && context.leagues_conf50[m.league]) {
       m.context_league = context.leagues_conf50[m.league];
       m.context_league_scope = "conf50";
@@ -2057,6 +2074,8 @@ function populateRenderedProFields(items){
   document.querySelectorAll(".mrow").forEach(row => {
     const match = findProMatchForRow(items, row);
     if (!match) return;
+    const strip=row.querySelector('.threeway-strip');
+    if(strip&&match.forecast_public&&match.forecast_1x2)strip.outerHTML=probabilityMarkup(match.forecast_public,match.forecast_1x2);
     const homeXg = numOrNull(match.home_xg ?? match.pro_home_xg);
     const awayXg = numOrNull(match.away_xg ?? match.pro_away_xg);
     const totalXg = numOrNull(match.total_xg ?? match.pro_total_xg);
@@ -2191,6 +2210,7 @@ function updateProUI(isPro) {
     setProPicksState('loading');
   }
   else {
+    document.querySelectorAll('.mrow .threeway-strip').forEach(strip=>{strip.outerHTML=probabilityMarkup({model_id:strip.dataset.forecastModel,favourite:strip.dataset.favourite,percent:Number(strip.dataset.favouritePercent)},null);});
     document.querySelectorAll('.pro').forEach(el => el.classList.add('locked'));
     document.querySelectorAll('.pro-tag').forEach(el => { el.style.display = ''; });
     document.body.classList.remove('pro-unlocked');
@@ -2287,6 +2307,11 @@ function renderProPicks(payload){
     const signalsHtml = signalItems ? `<span class="pro-pick-signals">${signalItems}</span>` : '';
     return `<article class="pro-pick-item"><a class="pro-pick-row" href="${href}" onclick="trackEvent('pro_pick_click',{rank:${index + 1}})"><span class="pro-pick-main"><span class="pro-pick-fixture"><span class="pro-pick-side home${homePicked ? ' picked' : ''}"><span class="name">${esc(pick.home)}</span>${homeCrest}</span><span class="pro-pick-center${status === 'live' ? ' live' : ''}">${esc(centerLabel)}</span><span class="pro-pick-side away${awayPicked ? ' picked' : ''}">${awayCrest}<span class="name">${esc(pick.away)}</span></span></span><span class="pro-pick-meta"><span class="league">${esc(pick.league)}</span>${oddsHtml}</span>${signalsHtml}</span><span class="pro-pick-winwrap">${outcomeHtml}<span class="pro-pick-confidence" style="background:${proPickConfidenceColor(confidence)}">${confidence}%</span><span class="pro-pick-arrow">›</span></span></a></article>`;
   }).join('');
+  picks.forEach((pick,index)=>{
+    const match=(payload.matches||[]).find(item=>String(item.api_fixture_id||'')===String(pick.api_fixture_id||String(pick.match_key||'').replace(/^api:/,'')));
+    const badge=list.children[index]?.querySelector('.pro-pick-confidence');
+    if(badge&&match?.forecast_public&&match?.forecast_1x2)badge.outerHTML=probabilityMarkup(match.forecast_public,match.forecast_1x2);
+  });
   setProPicksState('member');
 }
 
