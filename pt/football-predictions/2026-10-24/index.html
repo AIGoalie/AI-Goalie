@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
+
+
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
@@ -838,6 +840,9 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .metric:last-child{border-right:0}
 .metric.pro-metric{border-color:var(--line);background:rgba(255,213,102,.025)}
 .metric .ms{min-height:12px}
+.metric .ms{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
+.metric .ms.history-stat{display:block}
+.metric .ms.history-stat span{display:inline;white-space:normal;overflow:visible;text-overflow:clip}
 .detail-actions{margin-top:8px}
 .matchlink{padding:3px 0;border:0;background:transparent}
 .matchlink:hover{border:0;color:#8cffaa}
@@ -1189,6 +1194,12 @@ function fmtPct(v){
   if (!Number.isFinite(n)) return s;
   return `${Math.round((Math.abs(n) <= 1 ? n * 100 : n))}%`;
 }
+const HISTORY_COPY = {"earlier": "Modelo anterior", "help": "Hist\u00f3rico do modelo anterior, n\u00e3o calibra\u00e7\u00e3o da probabilidade atual.", "score": "pontua\u00e7\u00e3o"};
+function contextHistoryNote(stat){
+  if(!stat)return "Mais histórico necessário";
+  const label=stat.basis==='historical_model'?`<span title="${esc(HISTORY_COPY.help)}">${esc(HISTORY_COPY.earlier)}${stat.score_bucket?` · ${esc(stat.score_bucket)} ${esc(HISTORY_COPY.score)}`:''}</span><br>`:'';
+  return `${label}${Number(stat.n)} previsões`;
+}
 function normalizePercent(v){
   const n = Number(String(v == null ? "" : v).replace("%", "").replace(",", "."));
   if (!Number.isFinite(n)) return "";
@@ -1293,8 +1304,8 @@ function cardHTML(m,idx){
         <div class="metric pro-metric"><div class="ml">xG/team</div><div class="mv locked pro"><span class="pro-xgh">${m.home_xg!=null ? Number(m.home_xg).toFixed(2) : "—"}</span> - <span class="pro-xga">${m.away_xg!=null ? Number(m.away_xg).toFixed(2) : "—"}</span></div><div class="ms"><span>${esc(shortName(m.home))}</span>&nbsp;·&nbsp;<span>${esc(shortName(m.away))}</span></div><div class="pro-tag">🔒 Pro</div></div>
         <div class="metric total-goals-metric"><div class="ml">Total de gols</div><div class="mv">${gb?gb.value:'—'}</div><div class="ms"></div></div>
         <div class="metric pro-metric"><div class="ml">BTTS</div><div class="mv locked pro pro-btts">${m.btts!=null ? fmtPct(m.btts) : (m.home_xg!=null&&m.away_xg!=null ? Math.round(Number(m.home_xg)*Number(m.away_xg)*100)+"%" : "—")}</div><div class="ms"></div><div class="pro-tag">🔒 Pro</div></div>
-        <div class="metric"><div class="ml" title="Precisão com confiança semelhante">Semelhante<br>precisão</div><div class="mv">${m.context_conf ? Math.round(Number(m.context_conf.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_conf ? `${m.context_conf.n} previsões` : "Mais histórico necessário"}</div></div>
-        <div class="metric pro-metric"><div class="ml">Time escolhido<br>precisão</div><div class="mv locked pro">${m.context_team ? Math.round(Number(m.context_team.win_rate)) + "%" : "—"}</div><div class="ms">${m.context_team ? `${m.context_team.n} previsões` : "Mais histórico necessário"}</div><div class="pro-tag">🔒 Pro</div></div>
+        ${m.context_conf||!m.forecast_public?`<div class="metric"><div class="ml" title="Precisão com confiança semelhante">Semelhante<br>precisão</div><div class="mv">${m.context_conf ? Math.round(Number(m.context_conf.win_rate)) + "%" : "—"}</div><div class="ms history-stat">${contextHistoryNote(m.context_conf)}</div></div>`:''}
+        ${m.context_team||!m.forecast_public?`<div class="metric pro-metric"><div class="ml">Time escolhido<br>precisão</div><div class="mv locked pro">${m.context_team ? Math.round(Number(m.context_team.win_rate)) + "%" : "—"}</div><div class="ms history-stat">${contextHistoryNote(m.context_team)}</div><div class="pro-tag">🔒 Pro</div></div>`:''}
       </div>
       <span class="pro pro-opp" style="display:none">${fmtThreatPct(m.opp_iso)}</span>
       <div class="detail-actions">
@@ -1975,6 +1986,7 @@ function proApiMatchToV12(m){
   const away = m.away || m.away_team || "";
   return {
     league,
+    api_fixture_id: m.api_fixture_id || null,
     forecast_public: m.forecast_public || null,
     forecast_1x2: m.forecast_1x2 || null,
     isWC: /(^| - )World Cup$/i.test(league) || league === "International - World Cup",
@@ -2036,6 +2048,15 @@ function confidenceBucketFor(total){
 function attachClientModelContext(cards, context){
   context = context || {};
   cards.forEach(m => {
+    m.context_conf=m.context_team=m.context_league=null;
+    const resolved=(context.fixture_history||{})['api:'+m.api_fixture_id]||(context.fixture_history||{})['slug:'+m.slug];
+    if(m.forecast_public&&resolved&&resolved.model_id===m.forecast_public.model_id&&resolved.picked_side===m.pick){
+      m.context_conf=resolved.conf;
+      if(m.context_conf&&m.context_conf.basis==='current_model'&&resolved.probability_bucket!==confidenceBucketFor(m.total))m.context_conf=null;
+      m.context_team=resolved.team;
+      m.context_league=resolved.league;
+      return;
+    }
     const sourceContext=m.forecast_public?(context.forecast_versions||{})[m.forecast_public.model_id]||{}:context;
     const bucket = confidenceBucketFor(m.total);
     if (bucket) m.context_conf = (sourceContext.confidence||{})[bucket] || null;
