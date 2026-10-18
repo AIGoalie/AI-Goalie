@@ -30,168 +30,7 @@
 <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
-<script type="text/javascript" async=true>
-(function() {
-  var host = "www.themoneytizer.com";
-  var element = document.createElement('script');
-  var firstScript = document.getElementsByTagName('script')[0];
-  var url = 'https://cmp.inmobi.com'
-    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
-  var uspTries = 0;
-  var uspTriesLimit = 3;
-  element.async = true;
-  element.type = 'text/javascript';
-  element.src = url;
 
-  firstScript.parentNode.insertBefore(element, firstScript);
-
-  function makeStub() {
-    var TCF_LOCATOR_NAME = '__tcfapiLocator';
-    var queue = [];
-    var win = window;
-    var cmpFrame;
-
-    function addFrame() {
-      var doc = win.document;
-      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
-
-      if (!otherCMP) {
-        if (doc.body) {
-          var iframe = doc.createElement('iframe');
-
-          iframe.style.cssText = 'display:none';
-          iframe.name = TCF_LOCATOR_NAME;
-          doc.body.appendChild(iframe);
-        } else {
-          setTimeout(addFrame, 5);
-        }
-      }
-      return !otherCMP;
-    }
-
-    function tcfAPIHandler() {
-      var gdprApplies;
-      var args = arguments;
-
-      if (!args.length) {
-        return queue;
-      } else if (args[0] === 'setGdprApplies') {
-        if (
-          args.length > 3 &&
-          args[2] === 2 &&
-          typeof args[3] === 'boolean'
-        ) {
-          gdprApplies = args[3];
-          if (typeof args[2] === 'function') {
-            args[2]('set', true);
-          }
-        }
-      } else if (args[0] === 'ping') {
-        var retr = {
-          gdprApplies: gdprApplies,
-          cmpLoaded: false,
-          cmpStatus: 'stub'
-        };
-
-        if (typeof args[2] === 'function') {
-          args[2](retr);
-        }
-      } else {
-        if(args[0] === 'init' && typeof args[3] === 'object') {
-          args[3] = Object.assign(args[3], { tag_version: 'V3' });
-        }
-        queue.push(args);
-      }
-    }
-
-    function postMessageEventHandler(event) {
-      var msgIsString = typeof event.data === 'string';
-      var json = {};
-
-      try {
-        if (msgIsString) {
-          json = JSON.parse(event.data);
-        } else {
-          json = event.data;
-        }
-      } catch (ignore) {}
-
-      var payload = json.__tcfapiCall;
-
-      if (payload) {
-        window.__tcfapi(
-          payload.command,
-          payload.version,
-          function(retValue, success) {
-            var returnMsg = {
-              __tcfapiReturn: {
-                returnValue: retValue,
-                success: success,
-                callId: payload.callId
-              }
-            };
-            if (msgIsString) {
-              returnMsg = JSON.stringify(returnMsg);
-            }
-            if (event && event.source && event.source.postMessage) {
-              event.source.postMessage(returnMsg, '*');
-            }
-          },
-          payload.parameter
-        );
-      }
-    }
-
-    while (win) {
-      try {
-        if (win.frames[TCF_LOCATOR_NAME]) {
-          cmpFrame = win;
-          break;
-        }
-      } catch (ignore) {}
-
-      if (win === window.top) {
-        break;
-      }
-      win = win.parent;
-    }
-    if (!cmpFrame) {
-      addFrame();
-      win.__tcfapi = tcfAPIHandler;
-      win.addEventListener('message', postMessageEventHandler, false);
-    }
-  };
-
-  makeStub();
-
-  var uspStubFunction = function() {
-    var arg = arguments;
-    if (typeof window.__uspapi !== uspStubFunction) {
-      setTimeout(function() {
-        if (typeof window.__uspapi !== 'undefined') {
-          window.__uspapi.apply(window.__uspapi, arg);
-        }
-      }, 500);
-    }
-  };
-
-  var checkIfUspIsReady = function() {
-    uspTries++;
-    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
-      console.warn('USP is not accessible');
-    } else {
-      clearInterval(uspInterval);
-    }
-  };
-
-  if (typeof window.__uspapi === 'undefined') {
-    window.__uspapi = uspStubFunction;
-    var uspInterval = setInterval(checkIfUspIsReady, 6000);
-  }
-})();
-</script>
-<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
 <style>
 :root{--bg:#06120C;--surface:#0D1D14;--surface-2:#132A1C;--line:#254331;--line-soft:#193024;
 --green:#4EE879;--green-bright:#71F08B;--lime:#B7E85B;--amber:#FFB84D;--gold:#FFD35E;
@@ -350,8 +189,8 @@ background:
 .empty{text-align:center;color:var(--muted-2);padding:40px 0;font-size:14px}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}
 footer a{color:var(--muted);text-decoration:none;margin:0 7px}
-.ad-container{min-height:1px;margin:22px auto 4px;text-align:center;display:flex;justify-content:center}
-.ad-container.hidden{display:none}
+
+
 
 @media(max-width:680px){
   header.top{flex-wrap:wrap}
@@ -716,8 +555,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 <style id="day-ui-polish-20260802-style">
 .league-head img.league-logo{background:#dbe6dd!important;border-color:rgba(255,255,255,.16)!important}
 .all-head .ranking-note{display:block;color:var(--muted-2);font-size:10px;font-weight:600;line-height:1.25;margin-top:2px}
-#qc-cmp2-persistent-link,.qc-cmp2-persistent-link{width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;max-height:44px!important;right:10px!important;bottom:10px!important;padding:0!important;border-radius:50%!important;overflow:hidden!important;font-size:0!important;line-height:0!important}
-#qc-cmp2-persistent-link svg,.qc-cmp2-persistent-link svg{width:20px!important;height:20px!important;margin:auto!important}
+
+
 @media(max-width:680px){
 header.top{gap:5px!important;padding:5px 0 7px!important}
 header.top .logo{font-size:16px!important;gap:6px!important}
@@ -17134,7 +16973,7 @@ header.top .logo img{width:23px!important;height:23px!important}
     
   </div>
 
-  <div id="128244-6" class="ad-container" data-moneytizer-slot="6"></div>
+  
 
   <footer>
     <div>
@@ -17152,13 +16991,13 @@ header.top .logo img{width:23px!important;height:23px!important}
   <div class="pro-modal">
     <button aria-label="Close" class="close-btn" onclick="closeProBox('proBox')">×</button>
     <h2>Pro holen</h2>
-    <p style="color:var(--muted);margin-top:0">Schalte erwartete Tore, BTTS, CSV-Export, Gegnerstärke und eine werbefreie Seite frei.</p>
+    <p style="color:var(--muted);margin-top:0">Schalte erwartete Tore, BTTS, CSV-Export, Gegnerstärke frei.</p>
     <div id="proTableContainer"></div>
   </div>
 </div>
 
 <script>
-const I18N = {"about_model": "\u00dcber das Modell", "account": "Konto", "ai_predictions_prefix": "KI-Fu\u00dfballvorhersagen", "all_matches": "Alle Spiele", "around_2_3_goals": "Etwa 2-3 Tore", "both_to_score": "Beide treffen", "by_league": "Nach Liga", "confidence": "Konfidenz", "confidence_75_plus": "75%+ Konfidenz", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "Konfidenz", "csv_login_alert": "Bitte melde dich an, um auf die CSV zuzugreifen.", "csv_pro_alert": "Hol dir Pro, um die CSV herunterzuladen.", "csv_unavailable_alert": "Die CSV ist derzeit nicht verf\u00fcgbar.", "download_csv": "CSV herunterladen", "expected_goals_per_team": "Erwartete Tore (pro Team)", "full_prediction_analysis": "Vollst\u00e4ndige Vorhersage \u0026 Analyse \u2192", "go_pro": "Pro holen", "graded_calls": "bewertete Vorhersagen", "high_scoring": "Viele Tore", "language": "Sprache", "league": "Liga", "league_accuracy_all": "Liga-Trefferquote (alle Vorhersagen)", "league_accuracy_conf50": "Liga-Trefferquote \u226550%", "live": "Live", "low_scoring": "Wenige Tore", "manage_billing": "Abrechnung verwalten", "matches": "Spiele", "matches_today": "Spiele heute", "model_accuracy_history": "Trefferquoten-Verlauf des Modells", "model_disclaimer": "Modellausgaben, keine Garantien. 18+ \u00b7 Spiele verantwortungsbewusst.", "more_history_needed": "Mehr Verlauf n\u00f6tig", "new_simulator": "Neuer Simulator", "next_day": "N\u00e4chster Tag", "no_matches": "Keine Spiele.", "odds": "Quoten", "over_25_likely": "\u00dcber 2,5 wahrscheinlich", "picked_team": "Gew\u00e4hltes Team", "previous_day": "Vorheriger Tag", "privacy": "Datenschutz", "pro_modal_subtitle": "Schalte erwartete Tore, BTTS, CSV-Export, Gegnerst\u00e4rke und eine werbefreie Seite frei.", "public_total_goals_band": "\u00d6ffentliche Gesamttor-Spanne", "search_placeholder": "Team oder Liga suchen\u2026", "sign_in": "Anmelden", "sign_out": "Abmelden", "simulate_any_matchup": "Simuliere jedes Fu\u00dfballduell", "simulator_teaser": "W\u00e4hle zwei Teams und sieh, was AIGoalie vorhersagt. Pro schaltet unbegrenzte Simulationen und exakte xG frei.", "sort_by_confidence": "Nach Konfidenz sortieren", "tap_for_prediction": "Tippen f\u00fcr Vorhersage", "todays_matches": "Heutige Spiele", "total_goals": "Tore insgesamt", "try_it": "Ausprobieren", "under_25_likely": "Unter 2,5 wahrscheinlich", "world_cup": "Weltmeisterschaft"};
+const I18N = {"about_model": "\u00dcber das Modell", "account": "Konto", "ai_predictions_prefix": "KI-Fu\u00dfballvorhersagen", "all_matches": "Alle Spiele", "around_2_3_goals": "Etwa 2-3 Tore", "both_to_score": "Beide treffen", "by_league": "Nach Liga", "confidence": "Konfidenz", "confidence_75_plus": "75%+ Konfidenz", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "Konfidenz", "csv_login_alert": "Bitte melde dich an, um auf die CSV zuzugreifen.", "csv_pro_alert": "Hol dir Pro, um die CSV herunterzuladen.", "csv_unavailable_alert": "Die CSV ist derzeit nicht verf\u00fcgbar.", "download_csv": "CSV herunterladen", "expected_goals_per_team": "Erwartete Tore (pro Team)", "full_prediction_analysis": "Vollst\u00e4ndige Vorhersage \u0026 Analyse \u2192", "go_pro": "Pro holen", "graded_calls": "bewertete Vorhersagen", "high_scoring": "Viele Tore", "language": "Sprache", "league": "Liga", "league_accuracy_all": "Liga-Trefferquote (alle Vorhersagen)", "league_accuracy_conf50": "Liga-Trefferquote \u226550%", "live": "Live", "low_scoring": "Wenige Tore", "manage_billing": "Abrechnung verwalten", "matches": "Spiele", "matches_today": "Spiele heute", "model_accuracy_history": "Trefferquoten-Verlauf des Modells", "model_disclaimer": "Modellausgaben, keine Garantien. 18+ \u00b7 Spiele verantwortungsbewusst.", "more_history_needed": "Mehr Verlauf n\u00f6tig", "new_simulator": "Neuer Simulator", "next_day": "N\u00e4chster Tag", "no_matches": "Keine Spiele.", "odds": "Quoten", "over_25_likely": "\u00dcber 2,5 wahrscheinlich", "picked_team": "Gew\u00e4hltes Team", "previous_day": "Vorheriger Tag", "privacy": "Datenschutz", "pro_modal_subtitle": "Schalte erwartete Tore, BTTS, CSV-Export, Gegnerst\u00e4rke frei.", "public_total_goals_band": "\u00d6ffentliche Gesamttor-Spanne", "search_placeholder": "Team oder Liga suchen\u2026", "sign_in": "Anmelden", "sign_out": "Abmelden", "simulate_any_matchup": "Simuliere jedes Fu\u00dfballduell", "simulator_teaser": "W\u00e4hle zwei Teams und sieh, was AIGoalie vorhersagt. Pro schaltet unbegrenzte Simulationen und exakte xG frei.", "sort_by_confidence": "Nach Konfidenz sortieren", "tap_for_prediction": "Tippen f\u00fcr Vorhersage", "todays_matches": "Heutige Spiele", "total_goals": "Tore insgesamt", "try_it": "Ausprobieren", "under_25_likely": "Unter 2,5 wahrscheinlich", "world_cup": "Weltmeisterschaft"};
 function i18n(key, fallback){ return Object.prototype.hasOwnProperty.call(I18N, key) ? I18N[key] : fallback; }
 function trackEvent(name, data){
   return;
@@ -17379,16 +17218,9 @@ function setView(v){
 }
 function doSearch(q){ trackSearch(q); q=(q||"").trim().toLowerCase();
   document.querySelectorAll(".mrow").forEach(r=>{ r.style.display=(!q||r.getAttribute("data-search").includes(q))?"":"none"; });
-  openDefaultRows();
+  
 }
-function openDefaultRows(){
-  ["globalView","leagueView"].forEach(id=>{
-    const root = document.getElementById(id);
-    if (!root) return;
-    const rows = Array.from(root.querySelectorAll(".mrow")).filter(r=>r.style.display!=="none");
-    if (rows.length && !rows.some(r=>r.classList.contains("open"))) rows[0].classList.add("open");
-  });
-}
+
 function toggleSort(){
   SORT_BY_CONF=!SORT_BY_CONF;
   trackEvent("sort_toggle", { sort_by_confidence: SORT_BY_CONF });
@@ -17408,7 +17240,7 @@ document.getElementById("sortIcon").style.color="var(--green-bright)";
 /* Visitor-local-day grouping (Stage 1). The page ships a ±1-day window of cards;
    keep only those whose kick-off, in the VISITOR's timezone, lands on this page's
    date, then recompute section counts and drop empty sections. Search/sort/
-   openDefaultRows then operate on the pruned DOM unchanged. Gated by the
+   Filtering then operates on the pruned DOM unchanged. Gated by the
    `local_grouping` context flag so production output is unaffected. */
 (function(){
   var TARGET_ISO = "2026-07-01";
@@ -17438,7 +17270,7 @@ document.getElementById("sortIcon").style.color="var(--green-bright)";
   });
 })();
 
-openDefaultRows();
+
 </script>
 <script>
 const __memStore = {};
@@ -17908,7 +17740,7 @@ async function renderV12MatchesFromApi(matches){
 
   if (window.__isPro === true) applyProUnlockedDom();
   doSearch(document.getElementById("search")?.value || "");
-  openDefaultRows();
+  
 }
 
 async function loadProFullForDateV12(){
@@ -17949,32 +17781,14 @@ function updateProUI(isPro) {
   const accountBtn = document.getElementById('accountBtn');
   if (accountBtn) { accountBtn.textContent = '👤'; accountBtn.setAttribute('aria-label', window.__auth?.currentUser ? (isPro ? 'Pro account' : 'Account') : 'Sign in'); accountBtn.title = accountBtn.getAttribute('aria-label'); }
   document.getElementById('manageBilling')?.style.setProperty('display', isPro ? 'block' : 'none');
-  if (isPro) hideMoneytizerAds();
+  
   if (isPro) setTimeout(loadProFullForDateV12, 0);
   else showFutureProGate();
 }
 
-function hideMoneytizerAds(){
-  document.querySelectorAll('.ad-container').forEach(el => el.classList.add('hidden'));
-}
 
-function loadMoneytizerAds(){
-  try {
-    if (window.__isPro === true || window.__moneytizerLoaded || location.protocol === 'file:') return;
-    const slot = document.getElementById('128244-6');
-    if (!slot) return;
-    slot.classList.remove('hidden');
-    window.__moneytizerLoaded = true;
-    const gen = document.createElement('script');
-    gen.src = '//ads.themoneytizer.com/s/gen.js?type=6';
-    const req = document.createElement('script');
-    req.src = '//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6';
-    slot.appendChild(gen);
-    slot.appendChild(req);
-  } catch(e) {
-    console.warn('AIGoalie: Moneytizer load failed.', e);
-  }
-}
+
+
 
 function applyLocalKickoffTimes(){
   document.querySelectorAll('.ko[data-kickoff-utc]').forEach(el => {
@@ -17996,7 +17810,7 @@ function applyLocalKickoffTimes(){
     applyLocalKickoffTimes();
     updateProUI(false);
     setTimeout(showFutureProGate, 0);
-    if (!window.firebase || !window.firebase.initializeApp) { loadMoneytizerAds(); return; }
+    if (!window.firebase || !window.firebase.initializeApp) {  return; }
     try { window.__fbapp = firebase.initializeApp(cfg); } catch(e) { try { window.__fbapp = firebase.app(); } catch(_){} }
     window.__auth = firebase.auth();
     window.getAuthToken = async function(){ const u = window.__auth && window.__auth.currentUser; return u ? u.getIdToken() : null; };
@@ -18011,7 +17825,7 @@ function applyLocalKickoffTimes(){
         if (!user) {
           updateProUI(false);
           clearPricingTable();
-          loadMoneytizerAds();
+          
           if (checkoutRequestedFromUrl()) setTimeout(startCheckout, 0);
           return;
         }
@@ -18020,11 +17834,11 @@ function applyLocalKickoffTimes(){
         const j = res.ok ? await res.json() : null;
         const isPro = !!(j && j.pro);
         updateProUI(isPro);
-        if (!isPro) loadMoneytizerAds();
+        
         if (!isPro && (SafeStore.get(CHECKOUT_PENDING_KEY) === '1' || checkoutRequestedFromUrl())) {
           setTimeout(startCheckout, 0);
         }
-      } catch(e) { updateProUI(false); loadMoneytizerAds(); }
+      } catch(e) { updateProUI(false);  }
     });
   });
 })();
@@ -18038,7 +17852,7 @@ function applyLocalKickoffTimes(){
   function rowStatus(row){if(row.dataset.status)return row.dataset.status;if(row.querySelector(".ko.live"))return "live";if(row.querySelector(".resmark.w,.resmark.d,.resmark.l"))return "finished";return "upcoming"}
   function rowTime(row){const utc=Date.parse(row.dataset.kickoffUtc||"");if(Number.isFinite(utc))return utc;const match=String(row.dataset.time||"").match(/(\d{1,2}):(\d{2})/);return match?Number(match[1])*60+Number(match[2]):Number.MAX_SAFE_INTEGER}
   function placeAd(){const ad=document.querySelector(".day-inline-ad"),view=document.getElementById(document.getElementById("viewSelect")?.value==="league"?"leagueView":"globalView");if(!ad||!view)return;const section=Array.from(view.querySelectorAll(".wc-section,.league-section,.all-section")).find(item=>item.style.display!=="none");if(section)section.insertAdjacentElement("afterend",ad)}
-  function apply(){const q=(document.getElementById("search")?.value||"").trim().toLowerCase();document.querySelectorAll(".mrow").forEach(row=>{const visible=(!q||(row.dataset.search||"").includes(q))&&(activeStatus==="all"||rowStatus(row)===activeStatus);row.style.display=visible?"":"none";if(!visible)row.classList.remove("open")});["globalView","leagueView"].forEach(id=>{const root=document.getElementById(id);if(!root)return;root.querySelectorAll(".wc-section,.all-section,.league-section").forEach(section=>{const count=Array.from(section.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none").length;section.style.display=count?"":"none";const sub=section.querySelector(".wsub,.lsub");if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(count))})});if(window.openDefaultRows)openDefaultRows();placeAd()}
+  function apply(){const q=(document.getElementById("search")?.value||"").trim().toLowerCase();document.querySelectorAll(".mrow").forEach(row=>{const visible=(!q||(row.dataset.search||"").includes(q))&&(activeStatus==="all"||rowStatus(row)===activeStatus);row.style.display=visible?"":"none";if(!visible)row.classList.remove("open")});["globalView","leagueView"].forEach(id=>{const root=document.getElementById(id);if(!root)return;root.querySelectorAll(".wc-section,.all-section,.league-section").forEach(section=>{const count=Array.from(section.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none").length;section.style.display=count?"":"none";const sub=section.querySelector(".wsub,.lsub");if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(count))})});if(window.openDefaultRows)placeAd()}
   window.setView=function(view){if(window.trackEvent)trackEvent("view_toggle",{view});const select=document.getElementById("viewSelect");if(select)select.value=view;const global=document.getElementById("globalView"),league=document.getElementById("leagueView");if(global)global.style.display=view==="global"?"block":"none";if(league)league.style.display=view==="league"?"block":"none";apply()};
   window.doSearch=function(value){if(window.trackSearch)trackSearch(value);apply()};
   window.setStatusFilter=function(status,button){activeStatus=status;document.querySelectorAll(".status-btn").forEach(item=>item.classList.toggle("on",item===button));if(window.trackEvent)trackEvent("status_filter",{status});apply()};

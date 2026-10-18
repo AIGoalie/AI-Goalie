@@ -30,168 +30,7 @@
 <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script defer src="/auth-ui-20260817-2.js"></script>
-<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
-<script type="text/javascript" async=true>
-(function() {
-  var host = "www.themoneytizer.com";
-  var element = document.createElement('script');
-  var firstScript = document.getElementsByTagName('script')[0];
-  var url = 'https://cmp.inmobi.com'
-    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
-  var uspTries = 0;
-  var uspTriesLimit = 3;
-  element.async = true;
-  element.type = 'text/javascript';
-  element.src = url;
 
-  firstScript.parentNode.insertBefore(element, firstScript);
-
-  function makeStub() {
-    var TCF_LOCATOR_NAME = '__tcfapiLocator';
-    var queue = [];
-    var win = window;
-    var cmpFrame;
-
-    function addFrame() {
-      var doc = win.document;
-      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
-
-      if (!otherCMP) {
-        if (doc.body) {
-          var iframe = doc.createElement('iframe');
-
-          iframe.style.cssText = 'display:none';
-          iframe.name = TCF_LOCATOR_NAME;
-          doc.body.appendChild(iframe);
-        } else {
-          setTimeout(addFrame, 5);
-        }
-      }
-      return !otherCMP;
-    }
-
-    function tcfAPIHandler() {
-      var gdprApplies;
-      var args = arguments;
-
-      if (!args.length) {
-        return queue;
-      } else if (args[0] === 'setGdprApplies') {
-        if (
-          args.length > 3 &&
-          args[2] === 2 &&
-          typeof args[3] === 'boolean'
-        ) {
-          gdprApplies = args[3];
-          if (typeof args[2] === 'function') {
-            args[2]('set', true);
-          }
-        }
-      } else if (args[0] === 'ping') {
-        var retr = {
-          gdprApplies: gdprApplies,
-          cmpLoaded: false,
-          cmpStatus: 'stub'
-        };
-
-        if (typeof args[2] === 'function') {
-          args[2](retr);
-        }
-      } else {
-        if(args[0] === 'init' && typeof args[3] === 'object') {
-          args[3] = Object.assign(args[3], { tag_version: 'V3' });
-        }
-        queue.push(args);
-      }
-    }
-
-    function postMessageEventHandler(event) {
-      var msgIsString = typeof event.data === 'string';
-      var json = {};
-
-      try {
-        if (msgIsString) {
-          json = JSON.parse(event.data);
-        } else {
-          json = event.data;
-        }
-      } catch (ignore) {}
-
-      var payload = json.__tcfapiCall;
-
-      if (payload) {
-        window.__tcfapi(
-          payload.command,
-          payload.version,
-          function(retValue, success) {
-            var returnMsg = {
-              __tcfapiReturn: {
-                returnValue: retValue,
-                success: success,
-                callId: payload.callId
-              }
-            };
-            if (msgIsString) {
-              returnMsg = JSON.stringify(returnMsg);
-            }
-            if (event && event.source && event.source.postMessage) {
-              event.source.postMessage(returnMsg, '*');
-            }
-          },
-          payload.parameter
-        );
-      }
-    }
-
-    while (win) {
-      try {
-        if (win.frames[TCF_LOCATOR_NAME]) {
-          cmpFrame = win;
-          break;
-        }
-      } catch (ignore) {}
-
-      if (win === window.top) {
-        break;
-      }
-      win = win.parent;
-    }
-    if (!cmpFrame) {
-      addFrame();
-      win.__tcfapi = tcfAPIHandler;
-      win.addEventListener('message', postMessageEventHandler, false);
-    }
-  };
-
-  makeStub();
-
-  var uspStubFunction = function() {
-    var arg = arguments;
-    if (typeof window.__uspapi !== uspStubFunction) {
-      setTimeout(function() {
-        if (typeof window.__uspapi !== 'undefined') {
-          window.__uspapi.apply(window.__uspapi, arg);
-        }
-      }, 500);
-    }
-  };
-
-  var checkIfUspIsReady = function() {
-    uspTries++;
-    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
-      console.warn('USP is not accessible');
-    } else {
-      clearInterval(uspInterval);
-    }
-  };
-
-  if (typeof window.__uspapi === 'undefined') {
-    window.__uspapi = uspStubFunction;
-    var uspInterval = setInterval(checkIfUspIsReady, 6000);
-  }
-})();
-</script>
-<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
 <style>
 :root{--bg:#0C0C0D;--surface:#1B1B1D;--surface-2:#29292C;--line:#3A3A3D;--line-soft:#2B2B2E;--green:#4EE879;--green-bright:#62EC82;--gold:#FFD35E;--text:#F4F4F5;--muted:#AEAFB3;--muted-2:#77787E;--loss:#EF6F6C}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -204,7 +43,7 @@ header.top nav{display:flex;gap:4px;align-items:center;margin-left:6px;flex-wrap
 .hero{padding:34px 0 18px}.eyebrow{color:var(--muted-2);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}h1{font-size:36px;letter-spacing:-.035em;line-height:1.08;margin:0 0 10px}.lead{max-width:720px;color:var(--muted);font-size:16px}
 .sim{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin:18px 0}.field{display:flex;flex-direction:column;gap:7px}label{font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}input,select{width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:11px;color:var(--text);padding:11px 12px;font:inherit}.actions{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.submit{background:var(--green);border:1px solid var(--green);color:#04120b;border-radius:11px;padding:11px 15px;font-weight:900;cursor:pointer}.quota{font-size:12px;color:var(--muted)}
 .result{display:none;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(78,232,121,.07),transparent 55%),var(--surface);padding:18px;margin:18px 0}.scoreline{display:flex;align-items:center;justify-content:space-between;gap:12px}.team{flex:1;text-align:center}.team img{width:56px;height:56px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line);object-fit:contain;padding:5px}.team .name{font-weight:800;margin-top:7px}.team.pick .name{color:var(--green-bright)}.mid{text-align:center}.pill{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:#06130b;border-radius:12px;padding:8px 14px;font-size:24px;font-weight:950;min-width:86px}.sub{font-size:12px;color:var(--muted);margin-top:6px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.card{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:center}.card .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-2);font-weight:900}.card .v{font-size:22px;font-weight:900;margin-top:5px}.card .s{font-size:12px;color:var(--muted);margin-top:3px}.locked .v{filter:blur(5px);user-select:none}.pro-note{margin-top:12px;border:1px solid rgba(113,240,139,.28);background:rgba(78,232,121,.07);border-radius:12px;padding:11px 12px;color:var(--text);font-size:13px;display:flex;justify-content:space-between;gap:10px;align-items:center}.pro-note a{color:var(--green-bright);font-weight:900;text-decoration:none}.pro-unlocked .locked .v{filter:none;user-select:auto}.pro-unlocked .pro-note,.pro-unlocked .ad-container{display:none}.note{font-size:12px;color:var(--muted-2);margin-top:12px}.error{color:var(--loss);font-size:13px;font-weight:800}.navtoggle{display:none}.ad-container{min-height:1px;margin:22px auto 4px;text-align:center;display:flex;justify-content:center}.ad-container.hidden{display:none}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.card{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:center}.card .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-2);font-weight:900}.card .v{font-size:22px;font-weight:900;margin-top:5px}.card .s{font-size:12px;color:var(--muted);margin-top:3px}.locked .v{filter:blur(5px);user-select:none}.pro-note{margin-top:12px;border:1px solid rgba(113,240,139,.28);background:rgba(78,232,121,.07);border-radius:12px;padding:11px 12px;color:var(--text);font-size:13px;display:flex;justify-content:space-between;gap:10px;align-items:center}.pro-note a{color:var(--green-bright);font-weight:900;text-decoration:none}.pro-unlocked .locked .v{filter:none;user-select:auto}.pro-unlocked .pro-note{display:none}.note{font-size:12px;color:var(--muted-2);margin-top:12px}.error{color:var(--loss);font-size:13px;font-weight:800}.navtoggle{display:none}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}footer a{color:var(--muted);text-decoration:none;margin:0 7px}
 .result{background:var(--surface)}
 @media(max-width:720px){header.top{position:relative;gap:7px;padding:10px 0;flex-wrap:nowrap}.navtoggle{display:block;order:2;background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 11px}header.top nav{display:none;position:absolute;top:58px;left:0;right:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;flex-direction:column;z-index:50}header.top nav.show{display:flex}.acct{margin-left:auto;width:auto;display:flex;justify-content:flex-end;gap:6px;order:3}.language-select{position:relative;min-width:0;width:46px;height:42px;padding:0;justify-content:center;overflow:hidden}.language-select select{width:46px;height:40px;padding:0;font-size:0;color:transparent}.language-select select option{font-size:13px;color:var(--text)}.language-select::before{content:"🇬🇧";position:absolute;pointer-events:none;font-size:18px}html[lang^="de"] .language-select::before{content:"🇩🇪"}html[lang^="es"] .language-select::before{content:"🇪🇸"}html[lang^="fr"] .language-select::before{content:"🇫🇷"}html[lang^="pt"] .language-select::before{content:"🇧🇷"}html[lang^="ja"] .language-select::before{content:"🇯🇵"}.pro-state{display:none}.sim{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.scoreline{align-items:stretch}.team img{width:46px;height:46px}h1{font-size:29px}}
@@ -250,8 +89,8 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);co
     <datalist id="teamList"></datalist>
   </section>
   <section class="result" id="result"></section>
-  <div id="128244-6" class="ad-container hidden" data-moneytizer-slot="6"></div>
-  <p class="note">Free simulations are limited in this browser. Pro unlocks unlimited simulations, exact xG, BTTS, draw probability, an ad-free site and 30 AIGoalie chat questions per month.</p>
+  
+  <p class="note">Free simulations are limited in this browser. Pro unlocks unlimited simulations, exact xG, BTTS, draw probability and 30 AIGoalie chat questions per month.</p>
 </main>
 <footer><a href="/de/">Start</a> · <a href="/de/results/">Bilanz</a> · <a href="/de/matchup/">Simulator</a> · <a href="/de/privacy-policy/">Datenschutz</a> · <a href="/de/disclaimer/">Haftungsausschluss</a></footer>
 </div>
@@ -273,8 +112,8 @@ function quotaLimit(){return IS_PRO?Infinity:(currentUser()?FREE_LOGIN_LIMIT:FRE
 function updateQuota(){const q=quota(), lim=quotaLimit();document.getElementById("quotaText").textContent=IS_PRO?"Pro aktiv: unbegrenzte Simulationen":`${Math.max(0,lim-q.count)} kostenlose Simulationen heute übrig`;}
 function setProState(text){const el=document.getElementById("proState");if(el)el.textContent=text;}
 function updateAuthUI(user){const account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn"),goPro=document.getElementById("goProBtn");if(account){account.textContent="👤";account.setAttribute("aria-label",user?(IS_PRO?"Pro account":"Konto"):"Anmelden");account.title=account.getAttribute("aria-label");}if(signIn)signIn.style.display=user?"none":"block";if(signOut)signOut.style.display=user?"block":"none";if(goPro)goPro.style.display=IS_PRO?"none":"inline-flex";document.body.classList.toggle("pro-unlocked",IS_PRO);}
-function hideMoneytizerAds(){document.querySelectorAll(".ad-container").forEach(el=>el.classList.add("hidden"));}
-function loadMoneytizerAds(){try{if(window.__moneytizerLoaded||IS_PRO||location.protocol==="file:")return;const slot=document.getElementById("128244-6");if(!slot)return;slot.classList.remove("hidden");window.__moneytizerLoaded=true;const gen=document.createElement("script");gen.src="//ads.themoneytizer.com/s/gen.js?type=6";const req=document.createElement("script");req.src="//ads.themoneytizer.com/s/requestform.js?siteId=128244&formatId=6";slot.appendChild(gen);slot.appendChild(req);}catch(e){console.warn("AIGoalie: Moneytizer load failed.",e);}}
+
+
 function resolveTeam(value){const exact=LABELS.get(String(value||"").trim().toLowerCase());if(exact)return exact;const q=String(value||"").trim().toLowerCase();return TEAMS.find(t=>t.name.toLowerCase()===q)||TEAMS.find(t=>(t.name+" "+t.league).toLowerCase().includes(q));}
 function formRelative(team){
   const hist=String(team.history||"").split("");
@@ -341,7 +180,7 @@ ${locked?`<div class="pro-note"><span>Pro unlocks unlimited simulations, the adv
 <p class="note">Hypothetical simulation based on current model signals. It does not include confirmed lineups, injuries or a scheduled venue unless shown.</p>`;}
 function run(){const err=document.getElementById("err");err.textContent="";const h=resolveTeam(document.getElementById("homeTeam").value),a=resolveTeam(document.getElementById("awayTeam").value);if(!h||!a){err.textContent="Wähle zwei Teams aus der Liste.";trackEvent("simulator_error",{reason:"missing_team"});return;}if(h.id===a.id){err.textContent="Wähle zwei verschiedene Teams.";trackEvent("simulator_error",{reason:"same_team"});return;}const q=quota(),lim=quotaLimit();if(!IS_PRO&&q.count>=lim){err.textContent="Kostenlose Simulationen für heute aufgebraucht. Hol dir Pro für unbegrenzte.";trackEvent("simulator_pro_limit_hit",{logged_in:!!currentUser(),limit:lim});return;}if(!IS_PRO){q.count+=1;saveQuota(q);}const venue=document.getElementById("venue").value;const result=simulate(h,a,venue);trackEvent("simulator_run",{venue,pro:IS_PRO,home_league:h.league||"",away_league:a.league||"",confidence:Math.round(result.conf*100)});render(result);updateQuota();}
 async function loadTeams(){const res=await fetch("/matchup_data.json",{cache:"no-store"});const data=await res.json();TEAMS=data.teams||[];const dl=document.getElementById("teamList");TEAMS.forEach(t=>{const label=`${t.name} — ${t.league||t.country||"Team"}`;LABELS.set(label.toLowerCase(),t);LABELS.set(t.name.toLowerCase(),t);const o=document.createElement("option");o.value=label;dl.appendChild(o);});updateQuota();}
-function initAuth(){const menu=document.getElementById("accountDropdown"),account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn");document.getElementById("goProBtn")?.addEventListener("click",()=>trackEvent("go_pro_click",{source:"simulator_header"}));account&&account.addEventListener("click",()=>{menu&&menu.classList.toggle("show");account.setAttribute("aria-expanded",menu&&menu.classList.contains("show")?"true":"false");});document.addEventListener("click",ev=>{if(menu&&account&&!account.contains(ev.target)&&!menu.contains(ev.target))menu.classList.remove("show");});if(!window.firebase){IS_PRO=false;setProState("Anmelden");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){try{firebase.app();}catch(_){}}const auth=firebase.auth();signIn&&signIn.addEventListener("click",async ev=>{ev.preventDefault();trackEvent("sign_in_click",{source:"simulator"});await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());});signOut&&signOut.addEventListener("click",async ev=>{ev.preventDefault();await auth.signOut();});auth.onAuthStateChanged(async user=>{try{if(!user){IS_PRO=false;setProState("Anmelden");updateAuthUI(null);updateQuota();loadMoneytizerAds();return;}setProState("Pro wird geprüft…");const tok=await user.getIdToken();const res=await fetch(PRO_API_BASE+"/me",{headers:{Authorization:"Bearer "+tok}});const j=res.ok?await res.json():null;IS_PRO=!!(j&&j.pro);setProState(IS_PRO?"Pro active":"Kostenloses Konto");updateAuthUI(user);updateQuota();if(IS_PRO)hideMoneytizerAds();else loadMoneytizerAds();}catch(e){IS_PRO=false;setProState("Kostenloses Konto");updateAuthUI(user);updateQuota();loadMoneytizerAds();}});}
+function initAuth(){const menu=document.getElementById("accountDropdown"),account=document.getElementById("accountBtn"),signIn=document.getElementById("signInBtn"),signOut=document.getElementById("signOutBtn");document.getElementById("goProBtn")?.addEventListener("click",()=>trackEvent("go_pro_click",{source:"simulator_header"}));account&&account.addEventListener("click",()=>{menu&&menu.classList.toggle("show");account.setAttribute("aria-expanded",menu&&menu.classList.contains("show")?"true":"false");});document.addEventListener("click",ev=>{if(menu&&account&&!account.contains(ev.target)&&!menu.contains(ev.target))menu.classList.remove("show");});if(!window.firebase){IS_PRO=false;setProState("Anmelden");updateAuthUI(null);updateQuota();return;}try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){try{firebase.app();}catch(_){}}const auth=firebase.auth();signIn&&signIn.addEventListener("click",async ev=>{ev.preventDefault();trackEvent("sign_in_click",{source:"simulator"});await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());});signOut&&signOut.addEventListener("click",async ev=>{ev.preventDefault();await auth.signOut();});auth.onAuthStateChanged(async user=>{try{if(!user){IS_PRO=false;setProState("Anmelden");updateAuthUI(null);updateQuota();return;}setProState("Pro wird geprüft…");const tok=await user.getIdToken();const res=await fetch(PRO_API_BASE+"/me",{headers:{Authorization:"Bearer "+tok}});const j=res.ok?await res.json():null;IS_PRO=!!(j&&j.pro);setProState(IS_PRO?"Pro active":"Kostenloses Konto");updateAuthUI(user);updateQuota();}catch(e){IS_PRO=false;setProState("Kostenloses Konto");updateAuthUI(user);updateQuota();}});}
 document.getElementById("simulateBtn").addEventListener("click",run);
 loadTeams().catch(()=>{document.getElementById("quotaText").textContent="Teams konnten nicht geladen werden.";});
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initAuth);else initAuth();

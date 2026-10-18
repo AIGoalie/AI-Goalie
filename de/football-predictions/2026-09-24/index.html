@@ -12,9 +12,8 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-adsense-account" content="ca-pub-1341511551805856">
-<!-- ad-provider: adsense-20260810 -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341511551805856" crossorigin="anonymous"></script>
+
+
 
 
 
@@ -43,168 +42,7 @@
 <script defer src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script defer src="/auth-ui-20260817-2.js"></script>
 <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
-<script type="text/javascript" async=true>
-(function() {
-  var host = "www.themoneytizer.com";
-  var element = document.createElement('script');
-  var firstScript = document.getElementsByTagName('script')[0];
-  var url = 'https://cmp.inmobi.com'
-    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
-  var uspTries = 0;
-  var uspTriesLimit = 3;
-  element.async = true;
-  element.type = 'text/javascript';
-  element.src = url;
 
-  firstScript.parentNode.insertBefore(element, firstScript);
-
-  function makeStub() {
-    var TCF_LOCATOR_NAME = '__tcfapiLocator';
-    var queue = [];
-    var win = window;
-    var cmpFrame;
-
-    function addFrame() {
-      var doc = win.document;
-      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
-
-      if (!otherCMP) {
-        if (doc.body) {
-          var iframe = doc.createElement('iframe');
-
-          iframe.style.cssText = 'display:none';
-          iframe.name = TCF_LOCATOR_NAME;
-          doc.body.appendChild(iframe);
-        } else {
-          setTimeout(addFrame, 5);
-        }
-      }
-      return !otherCMP;
-    }
-
-    function tcfAPIHandler() {
-      var gdprApplies;
-      var args = arguments;
-
-      if (!args.length) {
-        return queue;
-      } else if (args[0] === 'setGdprApplies') {
-        if (
-          args.length > 3 &&
-          args[2] === 2 &&
-          typeof args[3] === 'boolean'
-        ) {
-          gdprApplies = args[3];
-          if (typeof args[2] === 'function') {
-            args[2]('set', true);
-          }
-        }
-      } else if (args[0] === 'ping') {
-        var retr = {
-          gdprApplies: gdprApplies,
-          cmpLoaded: false,
-          cmpStatus: 'stub'
-        };
-
-        if (typeof args[2] === 'function') {
-          args[2](retr);
-        }
-      } else {
-        if(args[0] === 'init' && typeof args[3] === 'object') {
-          args[3] = Object.assign(args[3], { tag_version: 'V3' });
-        }
-        queue.push(args);
-      }
-    }
-
-    function postMessageEventHandler(event) {
-      var msgIsString = typeof event.data === 'string';
-      var json = {};
-
-      try {
-        if (msgIsString) {
-          json = JSON.parse(event.data);
-        } else {
-          json = event.data;
-        }
-      } catch (ignore) {}
-
-      var payload = json.__tcfapiCall;
-
-      if (payload) {
-        window.__tcfapi(
-          payload.command,
-          payload.version,
-          function(retValue, success) {
-            var returnMsg = {
-              __tcfapiReturn: {
-                returnValue: retValue,
-                success: success,
-                callId: payload.callId
-              }
-            };
-            if (msgIsString) {
-              returnMsg = JSON.stringify(returnMsg);
-            }
-            if (event && event.source && event.source.postMessage) {
-              event.source.postMessage(returnMsg, '*');
-            }
-          },
-          payload.parameter
-        );
-      }
-    }
-
-    while (win) {
-      try {
-        if (win.frames[TCF_LOCATOR_NAME]) {
-          cmpFrame = win;
-          break;
-        }
-      } catch (ignore) {}
-
-      if (win === window.top) {
-        break;
-      }
-      win = win.parent;
-    }
-    if (!cmpFrame) {
-      addFrame();
-      win.__tcfapi = tcfAPIHandler;
-      win.addEventListener('message', postMessageEventHandler, false);
-    }
-  };
-
-  makeStub();
-
-  var uspStubFunction = function() {
-    var arg = arguments;
-    if (typeof window.__uspapi !== uspStubFunction) {
-      setTimeout(function() {
-        if (typeof window.__uspapi !== 'undefined') {
-          window.__uspapi.apply(window.__uspapi, arg);
-        }
-      }, 500);
-    }
-  };
-
-  var checkIfUspIsReady = function() {
-    uspTries++;
-    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
-      console.warn('USP is not accessible');
-    } else {
-      clearInterval(uspInterval);
-    }
-  };
-
-  if (typeof window.__uspapi === 'undefined') {
-    window.__uspapi = uspStubFunction;
-    var uspInterval = setInterval(checkIfUspIsReady, 6000);
-  }
-})();
-</script>
-<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.3) -->
 <style>
 :root{--bg:#0C0C0D;--surface:#1B1B1D;--surface-2:#29292C;--line:#3A3A3D;--line-soft:#2B2B2E;
 --green:#4EE879;--green-bright:#62EC82;--lime:#B7E85B;--amber:#FFB84D;--gold:#FFD35E;
@@ -401,14 +239,14 @@ background:var(--surface);
 .empty{text-align:center;color:var(--muted-2);padding:40px 0;font-size:14px}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-size:12px;text-align:center;line-height:1.8}
 footer a{color:var(--muted);text-decoration:none;margin:0 7px}
-.ad-container{width:100%;max-width:100%;min-height:1px;margin:22px auto 4px;text-align:center;display:flex;justify-content:center;align-items:center;overflow:hidden}
-.ad-container iframe,.ad-container img,.ad-container ins,.ad-container > div{position:static!important;left:auto!important;right:auto!important;transform:none!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important}
-.ad-container.ad-megabanner{margin:14px auto 0}
-.ad-container.ad-rect{width:min(300px,100%);max-width:300px;margin:18px auto}
-.ad-container.hidden{display:none}
-.ad-desktop{display:flex}
-.day-top-ad{width:min(468px,100%);max-width:468px;min-height:60px}
-.day-inline-ad{width:min(468px,100%);max-width:468px;min-height:60px;margin:16px auto}
+
+
+
+
+
+
+
+
 .whats-new{margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:rgba(113,240,139,.035);overflow:hidden}
 .whats-new summary{min-height:42px;padding:0 13px;display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;color:var(--text);font-size:12px;font-weight:800}
 .whats-new summary::-webkit-details-marker{display:none}.whats-new summary::after{content:'\203A';margin-left:auto;color:var(--muted);font-size:18px;transform:rotate(90deg);transition:transform .15s}.whats-new[open] summary::after{transform:rotate(-90deg)}
@@ -432,7 +270,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   header.top nav.show{display:flex}
   header.top nav a{padding:9px}
   .navtoggle{display:block}
-  .ad-desktop{display:none}
+
 }
 @media(max-width:680px){.pro-picks{margin:7px 0 15px;border-radius:14px}.pro-picks-head{padding:9px 10px;gap:7px}.pro-picks-icon{width:27px;height:27px;flex-basis:27px;font-size:14px}.pro-picks-copy h2{font-size:14px}.pro-picks-record{font-size:8.5px}.pro-pick-row{gap:8px;min-height:62px;padding:8px 10px}.pro-pick-fixture{grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr);gap:7px}.pro-pick-side{gap:6px}.pro-pick-side .name{font-size:13px;white-space:normal;overflow:hidden;text-overflow:clip;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.pro-pick-crest{width:20px;height:20px;flex-basis:20px;padding:1.5px}.pro-pick-center{min-width:54px;height:30px;padding:3px 5px;font-size:12px}.pro-pick-confidence{min-width:48px;padding:4px 7px;font-size:12px}.pro-pick-winwrap{gap:6px}.pro-pick-arrow{width:20px;height:20px;font-size:10px}.pro-pick-meta{margin-top:3px;font-size:8px;overflow:hidden}.pro-pick-signals{gap:4px;margin-top:2px}.pro-pick-signal{font-size:7.5px}}
 @media(max-width:430px){.pro-pick-fixture{grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);gap:5px}.pro-pick-side{gap:4px}.pro-pick-side .name{max-width:104px;font-size:11.5px;line-height:1.12}.pro-pick-crest{width:19px;height:19px;flex-basis:19px}.pro-pick-center{min-width:52px}.pro-pick-winwrap{gap:4px}.pro-pick-confidence{min-width:48px;padding:4px 5px;font-size:10.5px}}
@@ -476,8 +314,8 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .utility summary{width:34px;height:34px;border-radius:9px;font-size:17px}
   .csv-quick{width:34px;height:34px;border-radius:9px;font-size:14px}
   .control-search{height:38px;margin-top:8px}
-  .day-top-ad{width:320px;max-width:100%;margin-left:auto;margin-right:auto}
-  .day-top-ad ins{width:320px!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important}
+
+
 
   .league-section .league-head{
     display:grid;
@@ -857,29 +695,9 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   .metric .ms{min-height:10px}
 }
 
-/* Keep the CMP preference control available without covering match actions. */
-#qc-cmp2-persistent-link,
-.qc-cmp2-persistent-link{
-  width:44px!important;
-  min-width:44px!important;
-  max-width:44px!important;
-  height:44px!important;
-  min-height:44px!important;
-  max-height:44px!important;
-  right:10px!important;
-  bottom:10px!important;
-  padding:0!important;
-  border-radius:50%!important;
-  overflow:hidden!important;
-  font-size:0!important;
-  line-height:0!important;
-}
-#qc-cmp2-persistent-link svg,
-.qc-cmp2-persistent-link svg{
-  width:20px!important;
-  height:20px!important;
-  margin:auto!important;
-}
+
+
+
 
 @media(max-width:680px){
   header.top{
@@ -1052,7 +870,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   </div>
   </section>
 
-  <div class="ad-container ad-megabanner day-top-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
+  
 
   <section class="pro-picks state-locked" id="proPicks" aria-labelledby="proPicksTitle">
     <header class="pro-picks-head">
@@ -18550,7 +18368,7 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
     
   </div>
 
-  <div id="dayInlineAd" class="ad-container ad-megabanner day-inline-ad adsense-slot" data-adsense-slot="8259703311"><ins class="adsbygoogle" style="display:block;width:100%;height:60px" data-ad-client="ca-pub-1341511551805856" data-ad-slot="8259703311" data-ad-format="horizontal" data-full-width-responsive="false"></ins></div>
+  
 
   <footer>
     <div>
@@ -18568,13 +18386,13 @@ footer a{color:var(--muted);text-decoration:none;margin:0 7px}
   <div class="pro-modal">
     <button aria-label="Close" class="close-btn" onclick="closeProBox('proBox')">×</button>
     <h2>Pro holen</h2>
-    <p style="color:var(--muted);margin-top:0">Schalte erwartete Tore, BTTS, CSV-Export, Gegnerstärke und eine werbefreie Seite frei.</p>
+    <p style="color:var(--muted);margin-top:0">Schalte erwartete Tore, BTTS, CSV-Export, Gegnerstärke frei.</p>
     <div id="proTableContainer"></div>
   </div>
 </div>
 
 <script>
-const I18N = {"about_model": "\u00dcber das Modell", "account": "Konto", "accuracy": "Genauigkeit", "ai_pick": "KI-Tipp", "ai_predictions_prefix": "KI-Fu\u00dfballvorhersagen", "all_matches": "Alle Spiele", "around_2_3_goals": "Etwa 2-3 Tore", "best_available_evidence": "Starke Gesamtevidenz", "both_to_score": "Beide treffen", "btts_chance": "Wahrscheinlichkeit, dass beide Teams treffen", "by_league": "Nach Liga", "calendar_available_only": "Nur verf\u00fcgbare Vorhersagetage k\u00f6nnen ge\u00f6ffnet werden.", "choose_date": "Datum ausw\u00e4hlen", "close": "Schlie\u00dfen", "confidence": "Konfidenz", "confidence_75_plus": "75%+ Konfidenz", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "Konfidenz", "csv_login_alert": "Bitte melde dich an, um auf die CSV zuzugreifen.", "csv_pro_alert": "Hol dir Pro, um die CSV herunterzuladen.", "csv_unavailable_alert": "Die CSV ist derzeit nicht verf\u00fcgbar.", "discipline_model": "Disziplin ist Teil des Modells", "download_csv": "CSV herunterladen", "expected_goals_per_team": "Erwartete Tore (pro Team)", "filter_all": "Alle", "finished_short": "FT", "full_prediction_analysis": "Vollst\u00e4ndige Vorhersage \u0026 Analyse \u2192", "global_view": "Global", "go_pro": "Pro holen", "graded_calls": "bewertete Vorhersagen", "high_data_depth": "Hohe Datentiefe", "high_scoring": "Viele Tore", "historical_backtest": "Historischer Backtest", "language": "Sprache", "league": "Liga", "league_accuracy_all": "Liga-Trefferquote (alle Vorhersagen)", "league_accuracy_conf50": "Liga-Trefferquote \u226550%", "league_view": "Liga", "live": "Live", "loading_pro_picks": "Pro Picks werden geladen\u2026", "low_scoring": "Wenige Tore", "manage_billing": "Abrechnung verwalten", "matches": "Spiele", "matches_today": "Spiele heute", "model_accuracy_history": "Trefferquoten-Verlauf des Modells", "model_disclaimer": "Modellausgaben, keine Garantien. 18+ \u00b7 Spiele verantwortungsbewusst.", "model_pick": "Modell-Pick", "more_history_needed": "Mehr Verlauf n\u00f6tig", "more_options": "Mehr Optionen", "new_badge": "Neu", "new_match_ranking": "Neue Spiel-Ranglisten", "new_match_ranking_copy": "Mit \u22ef kannst du Spiele nach Konfidenz, erwarteten Toren, BTTS-Chance (Pro) oder Ansto\u00dfzeit sortieren.", "new_pro_picks": "Heutige Pro Picks", "new_pro_picks_copy": "Aus allen Spielen weltweit werden bis zu drei ausgew\u00e4hlt. Bei unzureichender Datenlage zeigen wir weniger oder keine Picks.", "new_simulator": "Neuer Simulator", "next_day": "N\u00e4chster Tag", "next_month": "N\u00e4chster Monat", "no_matches": "Keine Spiele.", "no_pro_picks_copy": "Kein Spiel erf\u00fcllte heute den AIGoalie-Standard. Wir erg\u00e4nzen keine schw\u00e4cheren Tipps, nur um die Liste zu f\u00fcllen.", "no_pro_picks_today": "Heute keine Pro Picks", "odds": "Quoten", "over_25_likely": "\u00dcber 2,5 wahrscheinlich", "pick_hit": "Treffer", "pick_missed": "Verfehlt", "picked_team": "Gew\u00e4hltes Team", "positive_value_signal": "Value-Signal", "predicted_goals_short": "Tore", "predicted_total_goals": "Erwartete Gesamttore", "predictions": "Prognosen", "previous_day": "Vorheriger Tag", "previous_month": "Vorheriger Monat", "privacy": "Datenschutz", "pro_modal_subtitle": "Schalte erwartete Tore, BTTS, CSV-Export, Gegnerst\u00e4rke und eine werbefreie Seite frei.", "pro_picks": "Pro Picks", "pro_picks_historical_win_rate": "Historische Trefferquote der Pro Picks", "pro_picks_unlock_record": "Pro Picks mit einer best\u00e4tigten Trefferquote freischalten:", "pro_picks_win_rate": "Trefferquote der Pro Picks", "pro_shortlist": "Pro-Auswahl", "public_total_goals_band": "\u00d6ffentliche Gesamttor-Spanne", "qualified": "qualifiziert", "rank_matches_by": "Spiele sortieren nach", "ranked_by_btts": "Weltweite Spiele nach BTTS-Wahrscheinlichkeit sortiert", "ranked_by_goals": "Weltweite Spiele nach erwarteten Toren sortiert", "ranked_worldwide": "Weltweite Spiele nach KI-Konfidenz sortiert", "search_placeholder": "Team oder Liga suchen\u2026", "shortlist_ready": "Die heutige Auswahl ist bereit", "shortlisted_worldwide": "Aus allen Spielen weltweit ausgew\u00e4hlt", "sign_in": "Anmelden", "sign_out": "Abmelden", "similar_accuracy_short": "\u00c4hnliche", "similar_confidence_accuracy": "Genauigkeit bei \u00e4hnlicher Konfidenz", "simulate_any_matchup": "Simuliere jedes Fu\u00dfballduell", "simulator_teaser": "W\u00e4hle zwei Teams und sieh, was AIGoalie vorhersagt. Pro schaltet unbegrenzte Simulationen und exakte xG frei.", "sort_by_btts": "BTTS-Wahrscheinlichkeit", "sort_by_confidence": "Nach Konfidenz sortieren", "sort_by_goals": "Erwartete Tore", "sort_by_time": "Nach Zeit sortieren", "strong_confidence_history": "Starke Genauigkeit im Bereich", "strong_league_history": "Starke Liga-Genauigkeit", "tap_for_prediction": "Tippen f\u00fcr Vorhersage", "todays_matches": "Heutige Spiele", "todays_pro_picks": "Heutige Pro Picks", "total_goals": "Tore insgesamt", "try_it": "Ausprobieren", "under_25_likely": "Unter 2,5 wahrscheinlich", "unlock_pro_picks": "Pro Picks freischalten", "unlock_supporting_evidence": "Picks und Begr\u00fcndungen freischalten.", "up_to_three": "Bis zu 3", "upcoming_short": "Bevorstehend", "verified_win_rate": "best\u00e4tigte Trefferquote", "weaker_never_added": "Bis zu 3 t\u00e4glich \u00b7 schw\u00e4chere Spiele werden nie erg\u00e4nzt", "whats_new": "Was ist neu?", "world_cup": "Weltmeisterschaft"};
+const I18N = {"about_model": "\u00dcber das Modell", "account": "Konto", "accuracy": "Genauigkeit", "ai_pick": "KI-Tipp", "ai_predictions_prefix": "KI-Fu\u00dfballvorhersagen", "all_matches": "Alle Spiele", "around_2_3_goals": "Etwa 2-3 Tore", "best_available_evidence": "Starke Gesamtevidenz", "both_to_score": "Beide treffen", "btts_chance": "Wahrscheinlichkeit, dass beide Teams treffen", "by_league": "Nach Liga", "calendar_available_only": "Nur verf\u00fcgbare Vorhersagetage k\u00f6nnen ge\u00f6ffnet werden.", "choose_date": "Datum ausw\u00e4hlen", "close": "Schlie\u00dfen", "confidence": "Konfidenz", "confidence_75_plus": "75%+ Konfidenz", "confidence_bucket_prefix": "", "confidence_bucket_suffix": "Konfidenz", "csv_login_alert": "Bitte melde dich an, um auf die CSV zuzugreifen.", "csv_pro_alert": "Hol dir Pro, um die CSV herunterzuladen.", "csv_unavailable_alert": "Die CSV ist derzeit nicht verf\u00fcgbar.", "discipline_model": "Disziplin ist Teil des Modells", "download_csv": "CSV herunterladen", "expected_goals_per_team": "Erwartete Tore (pro Team)", "filter_all": "Alle", "finished_short": "FT", "full_prediction_analysis": "Vollst\u00e4ndige Vorhersage \u0026 Analyse \u2192", "global_view": "Global", "go_pro": "Pro holen", "graded_calls": "bewertete Vorhersagen", "high_data_depth": "Hohe Datentiefe", "high_scoring": "Viele Tore", "historical_backtest": "Historischer Backtest", "language": "Sprache", "league": "Liga", "league_accuracy_all": "Liga-Trefferquote (alle Vorhersagen)", "league_accuracy_conf50": "Liga-Trefferquote \u226550%", "league_view": "Liga", "live": "Live", "loading_pro_picks": "Pro Picks werden geladen\u2026", "low_scoring": "Wenige Tore", "manage_billing": "Abrechnung verwalten", "matches": "Spiele", "matches_today": "Spiele heute", "model_accuracy_history": "Trefferquoten-Verlauf des Modells", "model_disclaimer": "Modellausgaben, keine Garantien. 18+ \u00b7 Spiele verantwortungsbewusst.", "model_pick": "Modell-Pick", "more_history_needed": "Mehr Verlauf n\u00f6tig", "more_options": "Mehr Optionen", "new_badge": "Neu", "new_match_ranking": "Neue Spiel-Ranglisten", "new_match_ranking_copy": "Mit \u22ef kannst du Spiele nach Konfidenz, erwarteten Toren, BTTS-Chance (Pro) oder Ansto\u00dfzeit sortieren.", "new_pro_picks": "Heutige Pro Picks", "new_pro_picks_copy": "Aus allen Spielen weltweit werden bis zu drei ausgew\u00e4hlt. Bei unzureichender Datenlage zeigen wir weniger oder keine Picks.", "new_simulator": "Neuer Simulator", "next_day": "N\u00e4chster Tag", "next_month": "N\u00e4chster Monat", "no_matches": "Keine Spiele.", "no_pro_picks_copy": "Kein Spiel erf\u00fcllte heute den AIGoalie-Standard. Wir erg\u00e4nzen keine schw\u00e4cheren Tipps, nur um die Liste zu f\u00fcllen.", "no_pro_picks_today": "Heute keine Pro Picks", "odds": "Quoten", "over_25_likely": "\u00dcber 2,5 wahrscheinlich", "pick_hit": "Treffer", "pick_missed": "Verfehlt", "picked_team": "Gew\u00e4hltes Team", "positive_value_signal": "Value-Signal", "predicted_goals_short": "Tore", "predicted_total_goals": "Erwartete Gesamttore", "predictions": "Prognosen", "previous_day": "Vorheriger Tag", "previous_month": "Vorheriger Monat", "privacy": "Datenschutz", "pro_modal_subtitle": "Schalte erwartete Tore, BTTS, CSV-Export, Gegnerst\u00e4rke frei.", "pro_picks": "Pro Picks", "pro_picks_historical_win_rate": "Historische Trefferquote der Pro Picks", "pro_picks_unlock_record": "Pro Picks mit einer best\u00e4tigten Trefferquote freischalten:", "pro_picks_win_rate": "Trefferquote der Pro Picks", "pro_shortlist": "Pro-Auswahl", "public_total_goals_band": "\u00d6ffentliche Gesamttor-Spanne", "qualified": "qualifiziert", "rank_matches_by": "Spiele sortieren nach", "ranked_by_btts": "Weltweite Spiele nach BTTS-Wahrscheinlichkeit sortiert", "ranked_by_goals": "Weltweite Spiele nach erwarteten Toren sortiert", "ranked_worldwide": "Weltweite Spiele nach KI-Konfidenz sortiert", "search_placeholder": "Team oder Liga suchen\u2026", "shortlist_ready": "Die heutige Auswahl ist bereit", "shortlisted_worldwide": "Aus allen Spielen weltweit ausgew\u00e4hlt", "sign_in": "Anmelden", "sign_out": "Abmelden", "similar_accuracy_short": "\u00c4hnliche", "similar_confidence_accuracy": "Genauigkeit bei \u00e4hnlicher Konfidenz", "simulate_any_matchup": "Simuliere jedes Fu\u00dfballduell", "simulator_teaser": "W\u00e4hle zwei Teams und sieh, was AIGoalie vorhersagt. Pro schaltet unbegrenzte Simulationen und exakte xG frei.", "sort_by_btts": "BTTS-Wahrscheinlichkeit", "sort_by_confidence": "Nach Konfidenz sortieren", "sort_by_goals": "Erwartete Tore", "sort_by_time": "Nach Zeit sortieren", "strong_confidence_history": "Starke Genauigkeit im Bereich", "strong_league_history": "Starke Liga-Genauigkeit", "tap_for_prediction": "Tippen f\u00fcr Vorhersage", "todays_matches": "Heutige Spiele", "todays_pro_picks": "Heutige Pro Picks", "total_goals": "Tore insgesamt", "try_it": "Ausprobieren", "under_25_likely": "Unter 2,5 wahrscheinlich", "unlock_pro_picks": "Pro Picks freischalten", "unlock_supporting_evidence": "Picks und Begr\u00fcndungen freischalten.", "up_to_three": "Bis zu 3", "upcoming_short": "Bevorstehend", "verified_win_rate": "best\u00e4tigte Trefferquote", "weaker_never_added": "Bis zu 3 t\u00e4glich \u00b7 schw\u00e4chere Spiele werden nie erg\u00e4nzt", "whats_new": "Was ist neu?", "world_cup": "Weltmeisterschaft"};
 const COUNTRY_FLAGS = {};
 function i18n(key, fallback){ return Object.prototype.hasOwnProperty.call(I18N, key) ? I18N[key] : fallback; }
 function trackEvent(name, data){
@@ -18829,7 +18647,7 @@ function renderGlobal(){
     html += `<div class="empty">${i18n('no_matches','No matches.')}</div>`;
   }
   document.getElementById("globalView").innerHTML = html;
-  placeFeaturedInlineAd();
+  
 }
 function renderLeague(){
   // Keep high-value competitions above generic friendlies in the league view.
@@ -18847,7 +18665,7 @@ function renderLeague(){
   });
   document.getElementById("leagueView").innerHTML = html;
   orderLeagueSections();
-  placeFeaturedInlineAd();
+  
 }
 function orderLeagueSections(){
   const root=document.getElementById("leagueView");if(!root)return;
@@ -18858,20 +18676,7 @@ function orderLeagueSections(){
     return priorityDiff||valueDiff||a.index-b.index;
   }).forEach(item=>root.appendChild(item.section));
 }
-function placeFeaturedInlineAd(){
-  const ad = document.querySelector(".day-inline-ad");
-  if (!ad) return;
-  const leagueMode = document.getElementById("viewSelect")?.value === "league";
-  const active = document.getElementById(leagueMode ? "leagueView" : "globalView");
-  if (!active) return;
-  const visibleRows = Array.from(active.querySelectorAll(".mrow")).filter(row=>row.style.display!=="none");
-  if (!visibleRows.length) return;
-  if (!leagueMode && visibleRows[4]) visibleRows[4].insertAdjacentElement("afterend", ad);
-  else {
-    const firstSection = Array.from(active.querySelectorAll(".wc-section,.league-section,.all-section")).find(section=>section.style.display!=="none");
-    if (firstSection?.parentNode) firstSection.insertAdjacentElement("afterend", ad);
-  }
-}
+
 const VIEW_STORAGE_KEY="aigoalie-match-view";
 function setView(v,options={}){
   if(v!=="league")v="global";
@@ -18908,8 +18713,8 @@ function applyFilters(){
       if(sub)sub.textContent=sub.textContent.replace(/^\s*\d+/,String(visible));
     });
   });
-  openDefaultRows();
-  placeFeaturedInlineAd();
+  
+  
 }
 function doSearch(q){
   trackSearch(q);
@@ -18923,14 +18728,7 @@ function setStatusFilter(status,button){
   trackEvent("status_filter",{status});
   applyFilters();
 }
-function openDefaultRows(){
-  ["globalView","leagueView"].forEach(id=>{
-    const root = document.getElementById(id);
-    if (!root) return;
-    const rows = Array.from(root.querySelectorAll(".mrow")).filter(r=>r.style.display!=="none");
-    if (rows.length && !rows.some(r=>r.classList.contains("open"))) rows[0].classList.add("open");
-  });
-}
+
 function rowTimeValue(row){
   const utc=Date.parse(row.dataset.kickoffUtc||"");
   if(Number.isFinite(utc))return utc;
@@ -19061,7 +18859,7 @@ document.addEventListener("click",event=>{
 /* Visitor-local-day grouping (Stage 1). The page ships a ±1-day window of cards;
    keep only those whose kick-off, in the VISITOR's timezone, lands on this page's
    date, then recompute section counts and drop empty sections. Search/sort/
-   openDefaultRows then operate on the pruned DOM unchanged. Gated by the
+   Filtering then operates on the pruned DOM unchanged. Gated by the
    `local_grouping` context flag so production output is unaffected. */
 (function(){
   var TARGET_ISO = "2026-09-24";
@@ -19098,7 +18896,7 @@ document.addEventListener("click",event=>{
 orderLeagueSections();
 restoreView();
 restoreSortMode();
-openDefaultRows();
+
 </script>
 <script>
 const __memStore = {};
@@ -19645,7 +19443,7 @@ async function renderV12MatchesFromApi(matches){
   if (PENDING_PRO_SORT_MODE === "btts") setSortMode("btts", {track:false});
   else setSortMode(SORT_MODE, {track:false,persist:false});
   doSearch(document.getElementById("search")?.value || "");
-  openDefaultRows();
+  
 }
 
 /* featured-pro-adjacent-dates-20260803 */
@@ -19712,7 +19510,7 @@ function updateProUI(isPro) {
   const accountBtn = document.getElementById('accountBtn');
   if (accountBtn) { accountBtn.textContent = '👤'; accountBtn.setAttribute('aria-label', window.__auth?.currentUser ? (isPro ? 'Pro account' : 'Account') : 'Sign in'); accountBtn.title = accountBtn.getAttribute('aria-label'); }
   document.getElementById('manageBilling')?.style.setProperty('display', isPro ? 'block' : 'none');
-  if (isPro) hideAdsenseAds();
+  
   if (isPro) setTimeout(loadProFullForDateV12, 0);
   else showFutureProGate();
   if (typeof renderCalendarMonth === 'function') renderCalendarMonth();
@@ -19803,37 +19601,9 @@ function renderProPicks(payload){
   setProPicksState('member');
 }
 
-function hideAdsenseAds(){
-  document.querySelectorAll('.ad-container').forEach(el => el.classList.add('hidden'));
-}
 
-function loadAdsenseAds(){
-  if (window.__isPro === true || window.__adsenseLoading || location.protocol === 'file:') return;
-  window.__adsenseLoading = true;
-  let attempts = 0;
-  const attempt = () => {
-    try {
-      if (window.__isPro === true) { window.__adsenseLoading = false; return; }
-      const slots = Array.from(document.querySelectorAll('.adsense-slot'))
-        .filter(slot => slot.dataset.adsenseLoaded !== '1' && window.getComputedStyle(slot).display !== 'none');
-      slots.forEach(slot => {
-        const ins = slot.querySelector('ins.adsbygoogle');
-        if (!ins || slot.getBoundingClientRect().width <= 1 || ins.getBoundingClientRect().width <= 1) return;
-        slot.classList.remove('hidden');
-        slot.dataset.adsenseLoaded = '1';
-        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); }
-        catch (e) { console.warn('AIGoalie: AdSense slot failed.', e); }
-      });
-      const pending = slots.some(slot => slot.dataset.adsenseLoaded !== '1');
-      if (pending && attempts++ < 12) setTimeout(attempt, attempts < 3 ? 100 : 400);
-      else window.__adsenseLoading = false;
-    } catch(e) {
-      window.__adsenseLoading = false;
-      console.warn('AIGoalie: AdSense load failed.', e);
-    }
-  };
-  requestAnimationFrame(attempt);
-}
+
+
 
 async function openBillingPortal(){
   const user = window.__auth && window.__auth.currentUser;
@@ -19868,7 +19638,7 @@ function applyLocalKickoffTimes(){
     applyLocalKickoffTimes();
     updateProUI(false);
     setTimeout(showFutureProGate, 0);
-    if (!window.firebase || !window.firebase.initializeApp) { loadAdsenseAds(); return; }
+    if (!window.firebase || !window.firebase.initializeApp) {  return; }
     try { window.__fbapp = firebase.initializeApp(cfg); } catch(e) { try { window.__fbapp = firebase.app(); } catch(_){} }
     window.__auth = firebase.auth();
     try { window.__auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch(e) {}
@@ -19910,14 +19680,14 @@ function applyLocalKickoffTimes(){
           if (adminProPicksLab) adminProPicksLab.style.display = 'none';
           updateProUI(false);
           clearPricingTable();
-          loadAdsenseAds();
+          
           if (checkoutRequestedFromUrl()) setTimeout(startCheckout, 0);
           return;
         }
         if (window.AIGoalieAuthUI && !window.AIGoalieAuthUI.isVerified(user)) {
           updateProUI(false);
           clearPricingTable();
-          loadAdsenseAds();
+          
           return;
         }
         const tok = await user.getIdToken();
@@ -19926,11 +19696,11 @@ function applyLocalKickoffTimes(){
         const isPro = !!(j && j.pro);
         if (adminProPicksLab) adminProPicksLab.style.display = j && j.admin ? 'block' : 'none';
         updateProUI(isPro);
-        if (!isPro) loadAdsenseAds();
+        
         if (!isPro && (SafeStore.get(CHECKOUT_PENDING_KEY) === '1' || checkoutRequestedFromUrl())) {
           setTimeout(startCheckout, 0);
         }
-      } catch(e) { updateProUI(false); loadAdsenseAds(); }
+      } catch(e) { updateProUI(false);  }
     });
   });
 })();
