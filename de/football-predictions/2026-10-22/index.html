@@ -2039,16 +2039,16 @@ function attachClientModelContext(cards, context){
     const sourceContext=m.forecast_public?(context.forecast_versions||{})[m.forecast_public.model_id]||{}:context;
     const bucket = confidenceBucketFor(m.total);
     if (bucket) m.context_conf = (sourceContext.confidence||{})[bucket] || null;
-    if (context.leagues_conf50 && numOrNull(m.total) >= 50 && context.leagues_conf50[m.league]) {
-      m.context_league = context.leagues_conf50[m.league];
+    if (sourceContext.leagues_conf50 && numOrNull(m.total) >= 50 && sourceContext.leagues_conf50[m.league]) {
+      m.context_league = sourceContext.leagues_conf50[m.league];
       m.context_league_scope = "conf50";
-    } else if (context.leagues) {
-      m.context_league = context.leagues[m.league] || null;
+    } else if (sourceContext.leagues) {
+      m.context_league = sourceContext.leagues[m.league] || null;
       m.context_league_scope = "all";
     }
     const pickedName = m.pick === 'home' ? m.home : m.away;
     const teamKey = normMatchKey(pickedName);
-    if (context.teams && teamKey) m.context_team = context.teams[teamKey] || null;
+    if (sourceContext.teams && teamKey) m.context_team = sourceContext.teams[teamKey] || null;
   });
   return cards;
 }
