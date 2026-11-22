@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-aig-initial="20261108-v1" lang="ja">
+<html data-aig-meters="1" data-aig-initial="20261108-v1" lang="ja">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
@@ -641,10 +641,57 @@ html[data-aig-view] .aig-refined-day .view-btn{background:none!important;color:#
  @container aig-team (max-width:110px){.aig-refined-day .mhead .side .nm::after,.aig-refined-day .pro-pick-side .name::after{content:attr(data-aig-compact-name)}}
  @container aig-team (max-width:65px){.aig-refined-day .mhead .side .nm::after,.aig-refined-day .pro-pick-side .name::after{content:attr(data-aig-tiny-name)}}
 }
+
+.aig-refined-day .threeway-strip .probability-chip[data-probability-side][data-aig-meter],
+.aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side][data-aig-meter]{
+ position:relative;background:#292b30!important;color:#f3f4f5!important;box-shadow:none;--aig-meter-ink:#a1a9b8
+}
+.aig-refined-day .threeway-strip .probability-chip[data-aig-meter]{padding-block:1px 7px}
+.aig-refined-fixture .fixture-probabilities .probability-card[data-aig-meter]{padding-bottom:10px}
+.aig-refined-day .threeway-strip .probability-chip[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]),
+.aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]){
+ box-shadow:inset 0 0 0 1px #a1a9b8;--aig-meter-ink:#a9d6ff
+}
+.aig-refined-day .threeway-strip .probability-chip[data-probability-side][data-aig-meter="strong"],
+.aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side][data-aig-meter="strong"]{--aig-meter-ink:#7bdfa2}
+.aig-refined-day .threeway-strip .probability-chip[data-aig-meter]:not([data-aig-meter="unavailable"],.probability-locked,:has(.locked))::after,
+.aig-refined-fixture .fixture-probabilities .probability-card[data-aig-meter]:not([data-aig-meter="unavailable"],.is-locked,:has(.locked))::after{
+ content:"";position:absolute;inset:auto 4px 3px;height:3px;border-radius:4px;pointer-events:none;
+ background:linear-gradient(to right,var(--aig-meter-ink) 0 var(--aig-meter-width,0%),#484c55 var(--aig-meter-width,0%) 100%)
+}
 </style><script id="aig-paint-ready">(()=>{
- if(window.AIGPaint)return;
- try{document.documentElement.dataset.aigView=localStorage.getItem('aigoalie-match-view')==='league'?'league':'global';const mode=localStorage.getItem('aigoalie-ranking-metric')||'confidence';document.documentElement.dataset.aigMetric=['goals','time'].includes(mode)?mode:'confidence';}catch{document.documentElement.dataset.aigView='global';document.documentElement.dataset.aigMetric='confidence';}
  const all=(root,selector)=>[...(root.matches?.(selector)?[root]:[]),...root.querySelectorAll(selector)];
+ if(window.AIGPaint){
+  const paint=window.AIGPaint;
+  if(!paint.probabilityBars){
+   const colours=paint.colours.bind(paint);
+   const prepare=paint.prepare.bind(paint);
+   const addOdds=!paint.compactOdds;
+   paint.compactOdds ||= compactOdds;
+   paint.probabilityBars=probabilityBars;
+   paint.colours=(root=document)=>{colours(root);probabilityBars(root);};
+   paint.prepare=(root=document)=>{prepare(root);if(addOdds)compactOdds(root);probabilityBars(root);};
+   probabilityBars();
+  }
+  return;
+ }
+
+ function probabilityBars(root=document){
+  all(root,'.probability-chip,.probability-card').forEach(badge=>{
+   const value=badge.querySelector('.probability-value,b')||badge;
+   const locked=badge.matches('.probability-locked,.is-locked')||value.classList.contains('locked');
+   const amount=Number(value.textContent.trim().match(/^(\d+(?:\.\d+)?)\s*%$/)?.[1]);
+   const selected=badge.matches('.aig-favourite,.is-favourite');
+   const valid=!locked&&Number.isFinite(amount)&&amount>=0&&amount<=100;
+   const meter=valid?(selected?(amount>=80?'strong':'pick'):'alternative'):'unavailable';
+   if(badge.dataset.aigMeter!==meter)badge.dataset.aigMeter=meter;
+   if(valid){
+    const width=amount+'%';
+    if(badge.style.getPropertyValue('--aig-meter-width')!==width)badge.style.setProperty('--aig-meter-width',width);
+   }else badge.style.removeProperty('--aig-meter-width');
+  });
+ }
+ try{document.documentElement.dataset.aigView=localStorage.getItem('aigoalie-match-view')==='league'?'league':'global';const mode=localStorage.getItem('aigoalie-ranking-metric')||'confidence';document.documentElement.dataset.aigMetric=['goals','time'].includes(mode)?mode:'confidence';}catch{document.documentElement.dataset.aigView='global';document.documentElement.dataset.aigMetric='confidence';}
 function nameLabels(full) {
   const aliases={'manchester united':'Man Utd','manchester city':'Man City','wolverhampton wanderers':'Wolves','wolverhampton':'Wolves','brighton & hove albion':'Brighton','brighton and hove albion':'Brighton','tottenham hotspur':'Spurs','borussia mönchengladbach':'Gladbach','borussia monchengladbach':'Gladbach','paris saint germain':'PSG','paris saint-germain':'PSG','nottingham forest':'Nott’m Forest','west bromwich albion':'West Brom','queens park rangers':'QPR','sheffield wednesday':'Sheff Wed','sheffield united':'Sheff Utd','bayern münchen':'Bayern','bayern munich':'Bayern','fc internazionale milano':'Inter','internazionale':'Inter','sporting clube de portugal':'Sporting CP','sporting club de portugal':'Sporting CP'};
   const known={'Man Utd':'MUN','Man City':'MCI','Liverpool':'LIV','Chelsea':'CHE','Barcelona':'BAR','Real Madrid':'RMA','Brighton':'BHA','Wolves':'WOL','Spurs':'TOT','Bayern':'BAY','Gladbach':'BMG','Nott’m Forest':'NFO','Crystal Palace':'CRY','Olympiakos Piraeus':'OLY','Olympiakos':'OLY','Bayer Leverkusen':'B04'};
@@ -694,7 +741,18 @@ function nameLabels(full) {
    const row=node.closest('.mrow');if(row?.dataset.search!==undefined){for(const label of [value.short,value.compact,value.tiny])if(!row.dataset.search.includes(label.toLowerCase()))row.dataset.search+=' '+label.toLowerCase();}
   });
  }
- window.AIGPaint={colours,names,prepare(root=document){names(root);colours(root);}};
+ function compactOdds(root=document){
+  const language=(document.documentElement.lang||'en').split('-')[0];
+  const label={de:'Quote',es:'Cuota',fr:'Cote',pt:'Cotação',ja:'オッズ'}[language]||'Odds';
+  all(root,'.aig-pick-odds').forEach(node=>{
+   const value=node.textContent.match(/\d+(?:[.,]\d+)?/)?.[0]||'—';
+   node.textContent=value;
+   node.setAttribute('aria-label',label+' '+value);node.title=label+' '+value;
+   Object.assign(node.style,{display:'block',fontSize:'9px',lineHeight:'1.3',maxWidth:'100%',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',textAlign:'center'});
+  });
+ }
+ window.AIGPaint={colours(root=document){colours(root);probabilityBars(root);},names,compactOdds,probabilityBars,
+  prepare(root=document){names(root);colours(root);compactOdds(root);probabilityBars(root);}};
 })();
 </script></head>
 <body class="aig-refined-day">
