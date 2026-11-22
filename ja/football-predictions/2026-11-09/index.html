@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-aig-meters="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="ja">
+<html data-aig-meters="1" data-aig-over25="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="ja">
 
 
 <head>
@@ -848,6 +848,12 @@ html[data-aig-view] .aig-refined-day .view-btn{background:none!important;color:#
   :root .aig-refined-day .center .ko,
   :root .aig-refined-day .pro-pick-center{width:58px}
 }
+
+.aig-refined-day .aig-over25-odds{display:none;font-size:9px;line-height:1.3;white-space:nowrap;text-align:center;overflow:hidden;text-overflow:ellipsis;color:#a3aab2;font-variant-numeric:tabular-nums}
+.aig-refined-day .aig-over25-odds b{color:#eceef2;font-weight:600}
+:root:not([data-aig-metric-ready])[data-aig-metric="goals"] .aig-refined-day .aig-over25-odds,
+:root[data-aig-rank-mode="goals"] .aig-refined-day .aig-over25-odds{display:block}
+:root[data-aig-rank-mode="goals"] .aig-refined-day .aig-listing-odds{display:none}
 </style><script id="aig-paint-ready">(()=>{
  const all=(root,selector)=>[...(root.matches?.(selector)?[root]:[]),...root.querySelectorAll(selector)];
  if(window.AIGPaint){
@@ -902,8 +908,9 @@ function nameLabels(full) {
     if(badge.classList.contains('aig-favourite')!==selected)badge.classList.toggle('aig-favourite',selected);
    }else if(badge.matches('.probability-card'))selected=badge.classList.contains('is-favourite');
    const value=badge.querySelector('.probability-value,b')||badge;
-   const metricGoals=badge.matches('.win-pill.metric-goals'),metricBtts=badge.matches('.win-pill.metric-btts');
-   const text=(metricGoals||metricBtts?[...badge.childNodes].filter(node=>node.nodeType===3).map(node=>node.textContent).join(''):value.textContent).trim();
+   const over25=badge.matches('.aig-over25-probability');
+   const metricGoals=badge.matches('.win-pill.metric-goals')&&!over25,metricBtts=badge.matches('.win-pill.metric-btts');
+   const text=(metricGoals||metricBtts||over25?[...badge.childNodes].filter(node=>node.nodeType===3).map(node=>node.textContent).join(''):value.textContent).trim();
    const match=text.match(metricGoals?/^(\d+(?:[.,]\d+)?)(?:\s|$)/:metricBtts?/^(\d+(?:\.\d+)?)\s*%\s*BTTS$/i:/^(\d+(?:\.\d+)?)\s*%$/);
    const locked=badge.classList.contains('probability-locked')||value.classList.contains('locked');
    const amount=match?Number(match[1].replace(',','.')):NaN;
@@ -911,7 +918,7 @@ function nameLabels(full) {
     if(badge.classList.contains('aig-probability-colour'))badge.classList.remove('aig-probability-colour');
     badge.style.removeProperty('--aig-probability-fill');return;
    }
-   const scale=metricGoals?goalsScale:metricBtts?[[0,[43,45,48]],...probabilityScale]:probabilityScale;
+   const scale=metricGoals?goalsScale:metricBtts||over25?[[0,[43,45,48]],...probabilityScale]:probabilityScale;
    const probability=Math.max(scale[0][0],Math.min(scale[scale.length-1][0],amount));
    const upper=scale.findIndex(([point])=>point>=probability),lower=Math.max(0,upper-1);
    const span=scale[upper][0]-scale[lower][0],weight=span?(probability-scale[lower][0])/span:0;
@@ -1122,7 +1129,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:30:00Z"
        data-featured-value="18.81"
-       data-search="universitario ucv moquegua peru - primera división universitario univer. uni ucv moquegua ucv moquegua um" style="--aig-order-confidence:-8400;--aig-order-goals:-1240;--aig-order-time:29903130">
+       data-search="universitario ucv moquegua peru - primera división universitario univer. uni ucv moquegua ucv moquegua um" data-over25="12.930076506498423" data-over25-odds="" style="--aig-order-confidence:-8400;--aig-order-goals:-12930;--aig-order-time:29903130">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1145,7 +1152,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(51.27 59.05 55.44)">1.24 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.60 49.42 50.34)">13%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1218,7 +1225,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:30:00Z"
        data-featured-value="5.85"
-       data-search="cd marathon atlético choloma honduras - liga nacional cd marathon cd marathon cm atlético choloma atlético choloma ac" style="--aig-order-confidence:-7600;--aig-order-goals:-1230;--aig-order-time:29903130">
+       data-search="cd marathon atlético choloma honduras - liga nacional cd marathon cd marathon cm atlético choloma atlético choloma ac" data-over25="12.708283138499732" data-over25-odds="" style="--aig-order-confidence:-7600;--aig-order-goals:-12708;--aig-order-time:29903130">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1241,7 +1248,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(51.20 58.94 55.38)">1.23 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.60 49.42 50.34)">13%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1314,7 +1321,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:30:00Z"
        data-featured-value="4.98"
-       data-search="fratria sportist svoge bulgaria - second league fratria fratria fra sportist svoge sportist svoge ss" style="--aig-order-confidence:-7600;--aig-order-goals:-1550;--aig-order-time:29903970">
+       data-search="fratria sportist svoge bulgaria - second league fratria fratria fra sportist svoge sportist svoge ss" data-over25="20.38047881824302" data-over25-odds="" style="--aig-order-confidence:-7600;--aig-order-goals:-20380;--aig-order-time:29903970">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1337,7 +1344,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.25 62.95 57.50)">1.55 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.00 51.80 51.60)">20%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1410,7 +1417,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T09:00:00Z"
        data-featured-value="3.0500000000000003"
-       data-search="shortan buxdu uzbekistan - pro league a shortan shortan sho buxdu buxdu bux" style="--aig-order-confidence:-7300;--aig-order-goals:-1630;--aig-order-time:29903580">
+       data-search="shortan buxdu uzbekistan - pro league a shortan shortan sho buxdu buxdu bux" data-over25="22.442257729733562" data-over25-odds="" style="--aig-order-confidence:-7300;--aig-order-goals:-22442;--aig-order-time:29903580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1433,7 +1440,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.65 64.47 58.30)">1.63 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.40 52.48 51.96)">22%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1501,7 +1508,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T13:00:00Z"
        data-featured-value="9.23"
-       data-search="zakynthos niki volos greece - super league 2 zakynthos zakynt. zak niki volos niki volos nv" style="--aig-order-confidence:-7300;--aig-order-goals:-950;--aig-order-time:29903820">
+       data-search="zakynthos niki volos greece - super league 2 zakynthos zakynt. zak niki volos niki volos nv" data-over25="7.133811742987883" data-over25-odds="" style="--aig-order-confidence:-7300;--aig-order-goals:-7134;--aig-order-time:29903820">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1524,7 +1531,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(49.33 55.77 53.70)">0.95 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.40 47.38 49.26)">7%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1597,7 +1604,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T16:00:00Z"
        data-featured-value="1.215"
-       data-search="liptovský mikuláš mfk bytča slovakia - 2. liga liptovský mikuláš liptov. mikuláš lm mfk bytča mfk bytča mb" style="--aig-order-confidence:-7300;--aig-order-goals:-2730;--aig-order-time:29904000">
+       data-search="liptovský mikuláš mfk bytča slovakia - 2. liga liptovský mikuláš liptov. mikuláš lm mfk bytča mfk bytča mb" data-over25="51.36956275540905" data-over25-odds="" style="--aig-order-confidence:-7300;--aig-order-goals:-51370;--aig-order-time:29904000">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1620,7 +1627,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 2.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(58.23 84.91 68.61)">2.73 得点<span class="metric-target">Over 2.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(53.42 63.58 57.83)">51%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1693,7 +1700,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:00:00Z"
        data-featured-value="6.07"
-       data-search="fas fuerte san francisco el salvador - primera division fas fas fas fuerte san francisco fuerte san franci. fsf" style="--aig-order-confidence:-6700;--aig-order-goals:-2060;--aig-order-time:29903100">
+       data-search="fas fuerte san francisco el salvador - primera division fas fas fas fuerte san francisco fuerte san franci. fsf" data-over25="33.95590187990179" data-over25-odds="" style="--aig-order-confidence:-6700;--aig-order-goals:-33956;--aig-order-time:29903100">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1716,7 +1723,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.80 72.64 62.60)">2.06 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.80 56.56 54.12)">34%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1789,7 +1796,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:00:00Z"
        data-featured-value="4.6899999999999995"
-       data-search="etar veliko tarnovo montana bulgaria - second league etar veliko tarnovo etar veliko tarnovo evt montana montana mon" style="--aig-order-confidence:-6700;--aig-order-goals:-2020;--aig-order-time:29903940">
+       data-search="etar veliko tarnovo montana bulgaria - second league etar veliko tarnovo etar veliko tarnovo evt montana montana mon" data-over25="32.87368156015681" data-over25-odds="" style="--aig-order-confidence:-6700;--aig-order-goals:-32874;--aig-order-time:29903940">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1812,7 +1819,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.60 71.88 62.20)">2.02 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.60 56.22 53.94)">33%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1885,7 +1892,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T00:00:00Z"
        data-featured-value="8.15"
-       data-search="antigua gfc malacateco guatemala - liga nacional antigua gfc antigua gfc ag malacateco malaca. mal" style="--aig-order-confidence:-6700;--aig-order-goals:-1430;--aig-order-time:29903040">
+       data-search="antigua gfc malacateco guatemala - liga nacional antigua gfc antigua gfc ag malacateco malaca. mal" data-over25="17.37979113995497" data-over25-odds="" style="--aig-order-confidence:-6700;--aig-order-goals:-17380;--aig-order-time:29903040">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1908,7 +1915,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.53 61.21 56.58)">1.43 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">17%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -1981,7 +1988,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:00:00Z"
        data-featured-value="1.36"
-       data-search="ikorodu city inter lagos nigeria - npfl ikorodu city ikorodu city ic inter lagos inter lagos il" style="--aig-order-confidence:-6600;--aig-order-goals:-950;--aig-order-time:29903940">
+       data-search="ikorodu city inter lagos nigeria - npfl ikorodu city ikorodu city ic inter lagos inter lagos il" data-over25="7.133811742987883" data-over25-odds="" style="--aig-order-confidence:-6600;--aig-order-goals:-7134;--aig-order-time:29903940">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2004,7 +2011,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(49.33 55.77 53.70)">0.95 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.40 47.38 49.26)">7%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2077,7 +2084,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="2.51"
-       data-search="ironi modi'in hapoel acre israel - liga leumit ironi modi'in ironi modi'in im hapoel acre hapoel acre ha" style="--aig-order-confidence:-6100;--aig-order-goals:-1050;--aig-order-time:29904060">
+       data-search="ironi modi'in hapoel acre israel - liga leumit ironi modi'in ironi modi'in im hapoel acre hapoel acre ha" data-over25="8.97244301246073" data-over25-odds="" style="--aig-order-confidence:-6100;--aig-order-goals:-8972;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2100,7 +2107,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.00 56.90 54.30)">1.05 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2168,7 +2175,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T00:30:00Z"
        data-featured-value="8.51"
-       data-search="aurora universitario de vinto bolivia - primera división aurora aurora aur universitario de vinto univer. de vinto udv" style="--aig-order-confidence:-5900;--aig-order-goals:-2200;--aig-order-time:29904510">
+       data-search="aurora universitario de vinto bolivia - primera división aurora aurora aur universitario de vinto univer. de vinto udv" data-over25="37.72862500036835" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-37729;--aig-order-time:29904510">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2191,7 +2198,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(56.50 75.30 64.00)">2.2 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(50.60 57.92 54.84)">38%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2264,7 +2271,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T02:10:00Z"
        data-featured-value="142.43"
-       data-search="leon guadalajara chivas mexico - liga mx leon leon leo guadalajara chivas guadal. chivas gc" style="--aig-order-confidence:-5900;--aig-order-goals:-1600;--aig-order-time:29903170">
+       data-search="leon guadalajara chivas mexico - liga mx leon leon leo guadalajara chivas guadal. chivas gc" data-over25="21.664151018073706" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-21664;--aig-order-time:29903170">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2287,7 +2294,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.50 63.90 58.00)">1.6 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.40 52.48 51.96)">22%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2360,7 +2367,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:30:00Z"
        data-featured-value="7.1"
-       data-search="fc politehnica timisoara csm reşiţa romania - liga ii fc politehnica timisoara fc polite. timiso. pt csm reşiţa csm reşiţa cr" style="--aig-order-confidence:-5900;--aig-order-goals:-1790;--aig-order-time:29903790">
+       data-search="fc politehnica timisoara csm reşiţa romania - liga ii fc politehnica timisoara fc polite. timiso. pt csm reşiţa csm reşiţa cr" data-over25="26.670258681387395" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-26670;--aig-order-time:29903790">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2383,7 +2390,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="Over 1.5: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(54.45 67.51 59.90)">1.79 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">27%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2451,7 +2458,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T13:15:00Z"
        data-featured-value="5.21"
-       data-search="pars jonoubi jam naft bandar abbas iran - azadegan league pars jonoubi jam pars jonoubi jam pjj naft bandar abbas naft bandar abbas nba" style="--aig-order-confidence:-5900;--aig-order-goals:-510;--aig-order-time:29903835">
+       data-search="pars jonoubi jam naft bandar abbas iran - azadegan league pars jonoubi jam pars jonoubi jam pjj naft bandar abbas naft bandar abbas nba" data-over25="1.515722596894331" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-1516;--aig-order-time:29903835">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2474,7 +2481,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">0.51 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.40 45.68 48.36)">2%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2547,7 +2554,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="15.23"
-       data-search="javor tsc backa topola serbia - prva liga javor javor jav tsc backa topola tsc backa topola tbt" style="--aig-order-confidence:-5800;--aig-order-goals:-1680;--aig-order-time:29904060">
+       data-search="javor tsc backa topola serbia - prva liga javor javor jav tsc backa topola tsc backa topola tbt" data-over25="23.750678922756595" data-over25-odds="" style="--aig-order-confidence:-5800;--aig-order-goals:-23751;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2570,7 +2577,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.90 65.42 58.80)">1.68 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.80 53.16 52.32)">24%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2643,7 +2650,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T18:00:00Z"
        data-featured-value="10.23"
-       data-search="hvidovre aarhus fremad denmark - 1. division hvidovre hvidovre hvi aarhus fremad aarhus fremad af" style="--aig-order-confidence:-5800;--aig-order-goals:-750;--aig-order-time:29904120">
+       data-search="hvidovre aarhus fremad denmark - 1. division hvidovre hvidovre hvi aarhus fremad aarhus fremad af" data-over25="4.050543974481391" data-over25-odds="" style="--aig-order-confidence:-5800;--aig-order-goals:-4051;--aig-order-time:29904120">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2666,7 +2673,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(48.00 53.50 52.50)">0.75 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.80 46.36 48.72)">4%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2739,7 +2746,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:00:00Z"
        data-featured-value="2.805"
-       data-search="saipa havadar iran - azadegan league saipa saipa sai havadar havadar hav" style="--aig-order-confidence:-5700;--aig-order-goals:-310;--aig-order-time:29903760">
+       data-search="saipa havadar iran - azadegan league saipa saipa sai havadar havadar hav" data-over25="0.3942361099603997" data-over25-odds="" style="--aig-order-confidence:-5700;--aig-order-goals:-394;--aig-order-time:29903760">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2762,7 +2769,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(45.07 48.51 49.86)">0.31 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">0%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2835,7 +2842,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T18:00:00Z"
        data-featured-value="17.880000000000003"
-       data-search="fc botosani oţelul romania - liga i fc botosani fc botosani b oţelul oţelul oţe" style="--aig-order-confidence:-5500;--aig-order-goals:-1950;--aig-order-time:29904120">
+       data-search="fc botosani oţelul romania - liga i fc botosani fc botosani b oţelul oţelul oţe" data-over25="30.97929102159259" data-over25-odds="" style="--aig-order-confidence:-5500;--aig-order-goals:-30979;--aig-order-time:29904120">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2858,7 +2865,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.25 70.55 61.50)">1.95 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.20 55.54 53.58)">31%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -2931,7 +2938,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T21:30:00Z"
        data-featured-value="5.99"
-       data-search="cacahuatique firpo el salvador - primera division cacahuatique cacahu. cac firpo firpo fir" style="--aig-order-confidence:-5400;--aig-order-goals:-1460;--aig-order-time:29905770">
+       data-search="cacahuatique firpo el salvador - primera division cacahuatique cacahu. cac firpo firpo fir" data-over25="18.118134255781637" data-over25-odds="" style="--aig-order-confidence:-5400;--aig-order-goals:-18118;--aig-order-time:29905770">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2954,7 +2961,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.73 61.55 56.76)">1.46 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.60 51.12 51.24)">18%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3027,7 +3034,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T00:00:00Z"
        data-featured-value="24.05"
-       data-search="deportivo maldonado club nacional uruguay - copa uruguay deportivo maldonado deport. maldon. dm club nacional club nacional cn" style="--aig-order-confidence:-5300;--aig-order-goals:-1300;--aig-order-time:29904480">
+       data-search="deportivo maldonado club nacional uruguay - copa uruguay deportivo maldonado deport. maldon. dm club nacional club nacional cn" data-over25="14.288751090803043" data-over25-odds="" style="--aig-order-confidence:-5300;--aig-order-goals:-14289;--aig-order-time:29904480">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3050,7 +3057,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(51.67 59.73 55.80)">1.3 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.80 49.76 50.52)">14%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3123,7 +3130,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T19:30:00Z"
        data-featured-value="20.13"
-       data-search="boston river atletico torque uruguay - copa uruguay boston river boston river br atletico torque atletico torque at" style="--aig-order-confidence:-5200;--aig-order-goals:-2150;--aig-order-time:29905650">
+       data-search="boston river atletico torque uruguay - copa uruguay boston river boston river br atletico torque atletico torque at" data-over25="36.385089335948976" data-over25-odds="" style="--aig-order-confidence:-5200;--aig-order-goals:-36385;--aig-order-time:29905650">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3146,7 +3153,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(56.25 74.35 63.50)">2.15 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(50.20 57.24 54.48)">36%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3219,7 +3226,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:30:00Z"
        data-featured-value="5.41"
-       data-search="chernomorets 1919 burgas yantra 2019 bulgaria - second league chernomorets 1919 burgas cherno. 1919 burgas c1b yantra 2019 yantra 2019 y2" style="--aig-order-confidence:-5200;--aig-order-goals:-1450;--aig-order-time:29903790">
+       data-search="chernomorets 1919 burgas yantra 2019 bulgaria - second league chernomorets 1919 burgas cherno. 1919 burgas c1b yantra 2019 yantra 2019 y2" data-over25="17.871077881159092" data-over25-odds="" style="--aig-order-confidence:-5200;--aig-order-goals:-17871;--aig-order-time:29903790">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3242,7 +3249,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.67 61.43 56.70)">1.45 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.60 51.12 51.24)">18%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3315,7 +3322,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T00:00:00Z"
        data-featured-value="45.68"
-       data-search="club queretaro puebla mexico - liga mx club queretaro club queret. cq puebla puebla pue" style="--aig-order-confidence:-5100;--aig-order-goals:-1100;--aig-order-time:29903040">
+       data-search="club queretaro puebla mexico - liga mx club queretaro club queret. cq puebla puebla pue" data-over25="9.95837185966949" data-over25-odds="" style="--aig-order-confidence:-5100;--aig-order-goals:-9958;--aig-order-time:29903040">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3338,7 +3345,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.33 57.47 54.60)">1.1 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.00 48.40 49.80)">10%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3406,7 +3413,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T17:30:00Z"
        data-featured-value="6.19"
-       data-search="metalul buzău csa steaua bucureşti romania - liga ii metalul buzău metalul buzău mb csa steaua bucureşti csa steaua bucure. csb" style="--aig-order-confidence:-5000;--aig-order-goals:-1660;--aig-order-time:29905530">
+       data-search="metalul buzău csa steaua bucureşti romania - liga ii metalul buzău metalul buzău mb csa steaua bucureşti csa steaua bucure. csb" data-over25="23.225682614608047" data-over25-odds="" style="--aig-order-confidence:-5000;--aig-order-goals:-23226;--aig-order-time:29905530">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3429,7 +3436,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.80 65.04 58.60)">1.66 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.60 52.82 52.14)">23%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3502,7 +3509,7 @@ function nameLabels(full) {
        data-status="live" data-settlement-status="1H"
        data-kickoff-utc="2026-11-10T23:30:00Z"
        data-featured-value="24.63"
-       data-search="internacional de bogota america de cali colombia - copa colombia internacional de bogota intern. de bogota idb america de cali america de cali adc" style="--aig-order-confidence:-5000;--aig-order-goals:-1420;--aig-order-time:29905890">
+       data-search="internacional de bogota america de cali colombia - copa colombia internacional de bogota intern. de bogota idb america de cali america de cali adc" data-over25="17.135600727357968" data-over25-odds="" style="--aig-order-confidence:-5000;--aig-order-goals:-17136;--aig-order-time:29905890">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3525,7 +3532,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.47 61.09 56.52)">1.42 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">17%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3598,7 +3605,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:00:00Z"
        data-featured-value="1.13"
-       data-search="ferizaj suhareka kosovo - liga e pare ferizaj ferizaj fer suhareka suhareka suh" style="--aig-order-confidence:-5000;--aig-order-goals:-1600;--aig-order-time:29903760">
+       data-search="ferizaj suhareka kosovo - liga e pare ferizaj ferizaj fer suhareka suhareka suh" data-over25="21.664151018073706" data-over25-odds="" style="--aig-order-confidence:-5000;--aig-order-goals:-21664;--aig-order-time:29903760">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3621,7 +3628,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="Over 1.5: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.50 63.90 58.00)">1.6 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.40 52.48 51.96)">22%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3689,7 +3696,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T09:00:00Z"
        data-featured-value="4.71"
-       data-search="metalourg aral uzbekistan - pro league a metalourg metalo. met aral aral ara" style="--aig-order-confidence:-4900;--aig-order-goals:-410;--aig-order-time:29903580">
+       data-search="metalourg aral uzbekistan - pro league a metalourg metalo. met aral aral ara" data-over25="0.8473343783832132" data-over25-odds="" style="--aig-order-confidence:-4900;--aig-order-goals:-847;--aig-order-time:29903580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3712,7 +3719,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(45.73 49.65 50.46)">0.41 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.20 45.34 48.18)">1%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3780,7 +3787,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T20:15:00Z"
        data-featured-value="29.86"
-       data-search="torreense união de leiria portugal - segunda liga torreense torree. tor união de leiria união de leiria udl" style="--aig-order-confidence:-4900;--aig-order-goals:-1800;--aig-order-time:29904255">
+       data-search="torreense união de leiria portugal - segunda liga torreense torree. tor união de leiria união de leiria udl" data-over25="26.937891406058757" data-over25-odds="" style="--aig-order-confidence:-4900;--aig-order-goals:-26938;--aig-order-time:29904255">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3803,7 +3810,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(54.50 67.70 60.00)">1.8 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">27%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3876,7 +3883,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T18:00:00Z"
        data-featured-value="11.58"
-       data-search="mushuc runa sc delfin sc ecuador - liga pro mushuc runa sc mushuc runa sc mr delfin sc delfin sc d" style="--aig-order-confidence:-4500;--aig-order-goals:-1050;--aig-order-time:29904120">
+       data-search="mushuc runa sc delfin sc ecuador - liga pro mushuc runa sc mushuc runa sc mr delfin sc delfin sc d" data-over25="8.97244301246073" data-over25-odds="" style="--aig-order-confidence:-4500;--aig-order-goals:-8972;--aig-order-time:29904120">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3899,7 +3906,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.00 56.90 54.30)">1.05 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -3967,7 +3974,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:00:00Z"
        data-featured-value="2.4699999999999998"
-       data-search="cs dinamo bucurești csm ramnicu valcea romania - liga ii cs dinamo bucurești cs dinamo bucure. cdb csm ramnicu valcea csm ramnicu valcea crv" style="--aig-order-confidence:-4400;--aig-order-goals:-2590;--aig-order-time:29903940">
+       data-search="cs dinamo bucurești csm ramnicu valcea romania - liga ii cs dinamo bucurești cs dinamo bucure. cdb csm ramnicu valcea csm ramnicu valcea crv" data-over25="47.90570906454853" data-over25-odds="" style="--aig-order-confidence:-4400;--aig-order-goals:-47906;--aig-order-time:29903940">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3990,7 +3997,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 2.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(58.09 82.53 67.63)">2.59 得点<span class="metric-target">Over 2.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(52.60 61.32 56.64)">48%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4058,7 +4065,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T11:30:00Z"
        data-featured-value="1.88"
-       data-search="mes soongoun naft gachsaran iran - azadegan league mes soongoun mes soongoun ms naft gachsaran naft gachsa. ng" style="--aig-order-confidence:-4400;--aig-order-goals:-360;--aig-order-time:29903730">
+       data-search="mes soongoun naft gachsaran iran - azadegan league mes soongoun mes soongoun ms naft gachsaran naft gachsa. ng" data-over25="0.5950770613995071" data-over25-odds="" style="--aig-order-confidence:-4400;--aig-order-goals:-595;--aig-order-time:29903730">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4081,7 +4088,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(45.40 49.08 50.16)">0.36 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.20 45.34 48.18)">1%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4154,7 +4161,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T22:05:00Z"
        data-featured-value="0.1"
-       data-search="chapelton racing united jamaica - premier league chapelton chapel. cha racing united racing united ru" style="--aig-order-confidence:-4300;--aig-order-goals:-1440;--aig-order-time:29904365">
+       data-search="chapelton racing united jamaica - premier league chapelton chapel. cha racing united racing united ru" data-over25="17.62495686139991" data-over25-odds="" style="--aig-order-confidence:-4300;--aig-order-goals:-17625;--aig-order-time:29904365">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4177,7 +4184,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="Over 0.5: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.60 61.32 56.64)">1.44 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.60 51.12 51.24)">18%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4250,7 +4257,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:15:00Z"
        data-featured-value="10.68"
-       data-search="alianza valledupar llaneros colombia - primera a alianza valledupar alianza valled. av llaneros llaneros lla" style="--aig-order-confidence:-4300;--aig-order-goals:-1030;--aig-order-time:29903115">
+       data-search="alianza valledupar llaneros colombia - primera a alianza valledupar alianza valled. av llaneros llaneros lla" data-over25="8.590152781072646" data-over25-odds="" style="--aig-order-confidence:-4300;--aig-order-goals:-8590;--aig-order-time:29903115">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4273,7 +4280,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(49.87 56.67 54.18)">1.03 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4346,7 +4353,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:00:00Z"
        data-featured-value="9.71"
-       data-search="piratas cancún mexico - liga de expansión mx piratas piratas pir cancún cancún can" style="--aig-order-confidence:-4300;--aig-order-goals:-2030;--aig-order-time:29903100">
+       data-search="piratas cancún mexico - liga de expansión mx piratas piratas pir cancún cancún can" data-over25="33.14430963696534" data-over25-odds="" style="--aig-order-confidence:-4300;--aig-order-goals:-33144;--aig-order-time:29903100">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4369,7 +4376,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.65 72.07 62.30)">2.03 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.60 56.22 53.94)">33%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4437,7 +4444,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="4.43"
-       data-search="hapoel kfar saba maccabi bnei raina israel - liga leumit hapoel kfar saba hapoel kfar saba hks maccabi bnei raina maccabi bnei raina mbr" style="--aig-order-confidence:-4200;--aig-order-goals:-1800;--aig-order-time:29904060">
+       data-search="hapoel kfar saba maccabi bnei raina israel - liga leumit hapoel kfar saba hapoel kfar saba hks maccabi bnei raina maccabi bnei raina mbr" data-over25="26.937891406058757" data-over25-odds="" style="--aig-order-confidence:-4200;--aig-order-goals:-26938;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4460,7 +4467,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(54.50 67.70 60.00)">1.8 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">27%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4533,7 +4540,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T20:30:00Z"
        data-featured-value="10.8"
-       data-search="tecnico universitario manta fc ecuador - liga pro tecnico universitario tecnico univer. tu manta fc manta fc m" style="--aig-order-confidence:-4200;--aig-order-goals:-1050;--aig-order-time:29904270">
+       data-search="tecnico universitario manta fc ecuador - liga pro tecnico universitario tecnico univer. tu manta fc manta fc m" data-over25="8.97244301246073" data-over25-odds="" style="--aig-order-confidence:-4200;--aig-order-goals:-8972;--aig-order-time:29904270">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4556,7 +4563,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.00 56.90 54.30)">1.05 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4629,7 +4636,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="3.29"
-       data-search="kafr qasim hapoel afula israel - liga leumit kafr qasim kafr qasim kq hapoel afula hapoel afula ha" style="--aig-order-confidence:-4200;--aig-order-goals:-810;--aig-order-time:29904060">
+       data-search="kafr qasim hapoel afula israel - liga leumit kafr qasim kafr qasim kq hapoel afula hapoel afula ha" data-over25="4.887121151204066" data-over25-odds="" style="--aig-order-confidence:-4200;--aig-order-goals:-4887;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4652,7 +4659,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">0.81 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.00 46.70 48.90)">5%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4725,7 +4732,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T22:30:00Z"
        data-featured-value="11.85"
-       data-search="sportivo luqueno 2 de mayo paraguay - division profesional - clausura sportivo luqueno sportivo luqueno sl 2 de mayo 2 de mayo 2dm" style="--aig-order-confidence:-4100;--aig-order-goals:-1150;--aig-order-time:29904390">
+       data-search="sportivo luqueno 2 de mayo paraguay - division profesional - clausura sportivo luqueno sportivo luqueno sl 2 de mayo 2 de mayo 2dm" data-over25="10.985488208313654" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-10985;--aig-order-time:29904390">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4748,7 +4755,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.67 58.03 54.90)">1.15 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.20 48.74 49.98)">11%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4816,7 +4823,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T01:00:00Z"
        data-featured-value="0.0"
-       data-search="arnett gardens waterhouse jamaica - premier league arnett gardens arnett gardens ag waterhouse waterh. wat" style="--aig-order-confidence:-4100;--aig-order-goals:-1410;--aig-order-time:29904540">
+       data-search="arnett gardens waterhouse jamaica - premier league arnett gardens arnett gardens ag waterhouse waterh. wat" data-over25="16.892405698154246" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-16892;--aig-order-time:29904540">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4839,7 +4846,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.40 60.98 56.46)">1.41 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">17%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -4912,7 +4919,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T09:00:00Z"
        data-featured-value="4.6"
-       data-search="viktoriya mykolaivka ahrobiznes volochysk ukraine - persha liga viktoriya mykolaivka viktor. mykola. vm ahrobiznes volochysk ahrobi. voloch. av" style="--aig-order-confidence:-4100;--aig-order-goals:-850;--aig-order-time:29903580">
+       data-search="viktoriya mykolaivka ahrobiznes volochysk ukraine - persha liga viktoriya mykolaivka viktor. mykola. vm ahrobiznes volochysk ahrobi. voloch. av" data-over25="5.487873172837798" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-5488;--aig-order-time:29903580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4935,7 +4942,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(48.67 54.63 53.10)">0.85 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.00 46.70 48.90)">5%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5008,7 +5015,7 @@ function nameLabels(full) {
        data-status="upcoming" data-settlement-status="PEN"
        data-kickoff-utc="2026-11-09T12:30:00Z"
        data-featured-value="7.98"
-       data-search="wadi degla kahraba ismailia egypt - cup wadi degla wadi degla wd kahraba ismailia kahraba ismailia ki" style="--aig-order-confidence:-4100;--aig-order-goals:-2310;--aig-order-time:29903790">
+       data-search="wadi degla kahraba ismailia egypt - cup wadi degla wadi degla wd kahraba ismailia kahraba ismailia ki" data-over25="40.66112751138603" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-40661;--aig-order-time:29903790">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5031,7 +5038,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(57.05 77.39 65.10)">2.31 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(51.20 58.94 55.38)">41%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5104,7 +5111,7 @@ function nameLabels(full) {
        data-status="upcoming" data-settlement-status="NS"
        data-kickoff-utc="2026-11-10T15:00:00Z"
        data-featured-value="2.9949999999999997"
-       data-search="sporting lagos rivers united nigeria - npfl sporting lagos sporting lagos sl rivers united rivers united ru" style="--aig-order-confidence:-3600;--aig-order-goals:-1910;--aig-order-time:29905380">
+       data-search="sporting lagos rivers united nigeria - npfl sporting lagos sporting lagos sl rivers united rivers united ru" data-over25="29.898004583775094" data-over25-odds="" style="--aig-order-confidence:-3600;--aig-order-goals:-29898;--aig-order-time:29905380">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5127,7 +5134,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.05 69.79 61.10)">1.91 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.00 55.20 53.40)">30%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5214,7 +5221,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T02:10:00Z"
        data-featured-value="142.43"
-       data-search="leon guadalajara chivas mexico - liga mx leon leon leo guadalajara chivas guadal. chivas gc" style="--aig-order-confidence:-5900;--aig-order-goals:-1600;--aig-order-time:29903170">
+       data-search="leon guadalajara chivas mexico - liga mx leon leon leo guadalajara chivas guadal. chivas gc" data-over25="21.664151018073706" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-21664;--aig-order-time:29903170">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5237,7 +5244,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.50 63.90 58.00)">1.6 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.40 52.48 51.96)">22%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5310,7 +5317,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T00:00:00Z"
        data-featured-value="45.68"
-       data-search="club queretaro puebla mexico - liga mx club queretaro club queret. cq puebla puebla pue" style="--aig-order-confidence:-5100;--aig-order-goals:-1100;--aig-order-time:29903040">
+       data-search="club queretaro puebla mexico - liga mx club queretaro club queret. cq puebla puebla pue" data-over25="9.95837185966949" data-over25-odds="" style="--aig-order-confidence:-5100;--aig-order-goals:-9958;--aig-order-time:29903040">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5333,7 +5340,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.33 57.47 54.60)">1.1 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.00 48.40 49.80)">10%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5418,7 +5425,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T20:15:00Z"
        data-featured-value="29.86"
-       data-search="torreense união de leiria portugal - segunda liga torreense torree. tor união de leiria união de leiria udl" style="--aig-order-confidence:-4900;--aig-order-goals:-1800;--aig-order-time:29904255">
+       data-search="torreense união de leiria portugal - segunda liga torreense torree. tor união de leiria união de leiria udl" data-over25="26.937891406058757" data-over25-odds="" style="--aig-order-confidence:-4900;--aig-order-goals:-26938;--aig-order-time:29904255">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5441,7 +5448,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(54.50 67.70 60.00)">1.8 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">27%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5531,7 +5538,7 @@ function nameLabels(full) {
        data-status="live" data-settlement-status="1H"
        data-kickoff-utc="2026-11-10T23:30:00Z"
        data-featured-value="24.63"
-       data-search="internacional de bogota america de cali colombia - copa colombia internacional de bogota intern. de bogota idb america de cali america de cali adc" style="--aig-order-confidence:-5000;--aig-order-goals:-1420;--aig-order-time:29905890">
+       data-search="internacional de bogota america de cali colombia - copa colombia internacional de bogota intern. de bogota idb america de cali america de cali adc" data-over25="17.135600727357968" data-over25-odds="" style="--aig-order-confidence:-5000;--aig-order-goals:-17136;--aig-order-time:29905890">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5554,7 +5561,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.47 61.09 56.52)">1.42 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">17%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5644,7 +5651,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T00:00:00Z"
        data-featured-value="24.05"
-       data-search="deportivo maldonado club nacional uruguay - copa uruguay deportivo maldonado deport. maldon. dm club nacional club nacional cn" style="--aig-order-confidence:-5300;--aig-order-goals:-1300;--aig-order-time:29904480">
+       data-search="deportivo maldonado club nacional uruguay - copa uruguay deportivo maldonado deport. maldon. dm club nacional club nacional cn" data-over25="14.288751090803043" data-over25-odds="" style="--aig-order-confidence:-5300;--aig-order-goals:-14289;--aig-order-time:29904480">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5667,7 +5674,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(51.67 59.73 55.80)">1.3 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.80 49.76 50.52)">14%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5740,7 +5747,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T19:30:00Z"
        data-featured-value="20.13"
-       data-search="boston river atletico torque uruguay - copa uruguay boston river boston river br atletico torque atletico torque at" style="--aig-order-confidence:-5200;--aig-order-goals:-2150;--aig-order-time:29905650">
+       data-search="boston river atletico torque uruguay - copa uruguay boston river boston river br atletico torque atletico torque at" data-over25="36.385089335948976" data-over25-odds="" style="--aig-order-confidence:-5200;--aig-order-goals:-36385;--aig-order-time:29905650">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5763,7 +5770,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(56.25 74.35 63.50)">2.15 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(50.20 57.24 54.48)">36%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5853,7 +5860,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:30:00Z"
        data-featured-value="18.81"
-       data-search="universitario ucv moquegua peru - primera división universitario univer. uni ucv moquegua ucv moquegua um" style="--aig-order-confidence:-8400;--aig-order-goals:-1240;--aig-order-time:29903130">
+       data-search="universitario ucv moquegua peru - primera división universitario univer. uni ucv moquegua ucv moquegua um" data-over25="12.930076506498423" data-over25-odds="" style="--aig-order-confidence:-8400;--aig-order-goals:-12930;--aig-order-time:29903130">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5876,7 +5883,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(51.27 59.05 55.44)">1.24 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.60 49.42 50.34)">13%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -5966,7 +5973,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T18:00:00Z"
        data-featured-value="17.880000000000003"
-       data-search="fc botosani oţelul romania - liga i fc botosani fc botosani b oţelul oţelul oţe" style="--aig-order-confidence:-5500;--aig-order-goals:-1950;--aig-order-time:29904120">
+       data-search="fc botosani oţelul romania - liga i fc botosani fc botosani b oţelul oţelul oţe" data-over25="30.97929102159259" data-over25-odds="" style="--aig-order-confidence:-5500;--aig-order-goals:-30979;--aig-order-time:29904120">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5989,7 +5996,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.25 70.55 61.50)">1.95 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.20 55.54 53.58)">31%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6079,7 +6086,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="15.23"
-       data-search="javor tsc backa topola serbia - prva liga javor javor jav tsc backa topola tsc backa topola tbt" style="--aig-order-confidence:-5800;--aig-order-goals:-1680;--aig-order-time:29904060">
+       data-search="javor tsc backa topola serbia - prva liga javor javor jav tsc backa topola tsc backa topola tbt" data-over25="23.750678922756595" data-over25-odds="" style="--aig-order-confidence:-5800;--aig-order-goals:-23751;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6102,7 +6109,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.90 65.42 58.80)">1.68 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.80 53.16 52.32)">24%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6192,7 +6199,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T22:30:00Z"
        data-featured-value="11.85"
-       data-search="sportivo luqueno 2 de mayo paraguay - division profesional - clausura sportivo luqueno sportivo luqueno sl 2 de mayo 2 de mayo 2dm" style="--aig-order-confidence:-4100;--aig-order-goals:-1150;--aig-order-time:29904390">
+       data-search="sportivo luqueno 2 de mayo paraguay - division profesional - clausura sportivo luqueno sportivo luqueno sl 2 de mayo 2 de mayo 2dm" data-over25="10.985488208313654" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-10985;--aig-order-time:29904390">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6215,7 +6222,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.67 58.03 54.90)">1.15 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.20 48.74 49.98)">11%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6300,7 +6307,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T18:00:00Z"
        data-featured-value="11.58"
-       data-search="mushuc runa sc delfin sc ecuador - liga pro mushuc runa sc mushuc runa sc mr delfin sc delfin sc d" style="--aig-order-confidence:-4500;--aig-order-goals:-1050;--aig-order-time:29904120">
+       data-search="mushuc runa sc delfin sc ecuador - liga pro mushuc runa sc mushuc runa sc mr delfin sc delfin sc d" data-over25="8.97244301246073" data-over25-odds="" style="--aig-order-confidence:-4500;--aig-order-goals:-8972;--aig-order-time:29904120">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6323,7 +6330,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.00 56.90 54.30)">1.05 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6391,7 +6398,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T20:30:00Z"
        data-featured-value="10.8"
-       data-search="tecnico universitario manta fc ecuador - liga pro tecnico universitario tecnico univer. tu manta fc manta fc m" style="--aig-order-confidence:-4200;--aig-order-goals:-1050;--aig-order-time:29904270">
+       data-search="tecnico universitario manta fc ecuador - liga pro tecnico universitario tecnico univer. tu manta fc manta fc m" data-over25="8.97244301246073" data-over25-odds="" style="--aig-order-confidence:-4200;--aig-order-goals:-8972;--aig-order-time:29904270">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6414,7 +6421,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.00 56.90 54.30)">1.05 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6504,7 +6511,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:15:00Z"
        data-featured-value="10.68"
-       data-search="alianza valledupar llaneros colombia - primera a alianza valledupar alianza valled. av llaneros llaneros lla" style="--aig-order-confidence:-4300;--aig-order-goals:-1030;--aig-order-time:29903115">
+       data-search="alianza valledupar llaneros colombia - primera a alianza valledupar alianza valled. av llaneros llaneros lla" data-over25="8.590152781072646" data-over25-odds="" style="--aig-order-confidence:-4300;--aig-order-goals:-8590;--aig-order-time:29903115">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6527,7 +6534,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(49.87 56.67 54.18)">1.03 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6617,7 +6624,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T18:00:00Z"
        data-featured-value="10.23"
-       data-search="hvidovre aarhus fremad denmark - 1. division hvidovre hvidovre hvi aarhus fremad aarhus fremad af" style="--aig-order-confidence:-5800;--aig-order-goals:-750;--aig-order-time:29904120">
+       data-search="hvidovre aarhus fremad denmark - 1. division hvidovre hvidovre hvi aarhus fremad aarhus fremad af" data-over25="4.050543974481391" data-over25-odds="" style="--aig-order-confidence:-5800;--aig-order-goals:-4051;--aig-order-time:29904120">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6640,7 +6647,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(48.00 53.50 52.50)">0.75 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.80 46.36 48.72)">4%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6730,7 +6737,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:00:00Z"
        data-featured-value="9.71"
-       data-search="piratas cancún mexico - liga de expansión mx piratas piratas pir cancún cancún can" style="--aig-order-confidence:-4300;--aig-order-goals:-2030;--aig-order-time:29903100">
+       data-search="piratas cancún mexico - liga de expansión mx piratas piratas pir cancún cancún can" data-over25="33.14430963696534" data-over25-odds="" style="--aig-order-confidence:-4300;--aig-order-goals:-33144;--aig-order-time:29903100">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6753,7 +6760,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.65 72.07 62.30)">2.03 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.60 56.22 53.94)">33%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6838,7 +6845,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T13:00:00Z"
        data-featured-value="9.23"
-       data-search="zakynthos niki volos greece - super league 2 zakynthos zakynt. zak niki volos niki volos nv" style="--aig-order-confidence:-7300;--aig-order-goals:-950;--aig-order-time:29903820">
+       data-search="zakynthos niki volos greece - super league 2 zakynthos zakynt. zak niki volos niki volos nv" data-over25="7.133811742987883" data-over25-odds="" style="--aig-order-confidence:-7300;--aig-order-goals:-7134;--aig-order-time:29903820">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6861,7 +6868,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(49.33 55.77 53.70)">0.95 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.40 47.38 49.26)">7%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -6951,7 +6958,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T00:30:00Z"
        data-featured-value="8.51"
-       data-search="aurora universitario de vinto bolivia - primera división aurora aurora aur universitario de vinto univer. de vinto udv" style="--aig-order-confidence:-5900;--aig-order-goals:-2200;--aig-order-time:29904510">
+       data-search="aurora universitario de vinto bolivia - primera división aurora aurora aur universitario de vinto univer. de vinto udv" data-over25="37.72862500036835" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-37729;--aig-order-time:29904510">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6974,7 +6981,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(56.50 75.30 64.00)">2.2 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(50.60 57.92 54.84)">38%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7064,7 +7071,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T00:00:00Z"
        data-featured-value="8.15"
-       data-search="antigua gfc malacateco guatemala - liga nacional antigua gfc antigua gfc ag malacateco malaca. mal" style="--aig-order-confidence:-6700;--aig-order-goals:-1430;--aig-order-time:29903040">
+       data-search="antigua gfc malacateco guatemala - liga nacional antigua gfc antigua gfc ag malacateco malaca. mal" data-over25="17.37979113995497" data-over25-odds="" style="--aig-order-confidence:-6700;--aig-order-goals:-17380;--aig-order-time:29903040">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7087,7 +7094,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.53 61.21 56.58)">1.43 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">17%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7175,7 +7182,7 @@ function nameLabels(full) {
        data-status="upcoming" data-settlement-status="PEN"
        data-kickoff-utc="2026-11-09T12:30:00Z"
        data-featured-value="7.98"
-       data-search="wadi degla kahraba ismailia egypt - cup wadi degla wadi degla wd kahraba ismailia kahraba ismailia ki" style="--aig-order-confidence:-4100;--aig-order-goals:-2310;--aig-order-time:29903790">
+       data-search="wadi degla kahraba ismailia egypt - cup wadi degla wadi degla wd kahraba ismailia kahraba ismailia ki" data-over25="40.66112751138603" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-40661;--aig-order-time:29903790">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7198,7 +7205,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(57.05 77.39 65.10)">2.31 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(51.20 58.94 55.38)">41%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7288,7 +7295,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:30:00Z"
        data-featured-value="7.1"
-       data-search="fc politehnica timisoara csm reşiţa romania - liga ii fc politehnica timisoara fc polite. timiso. pt csm reşiţa csm reşiţa cr" style="--aig-order-confidence:-5900;--aig-order-goals:-1790;--aig-order-time:29903790">
+       data-search="fc politehnica timisoara csm reşiţa romania - liga ii fc politehnica timisoara fc polite. timiso. pt csm reşiţa csm reşiţa cr" data-over25="26.670258681387395" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-26670;--aig-order-time:29903790">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7311,7 +7318,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="Over 1.5: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(54.45 67.51 59.90)">1.79 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">27%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7379,7 +7386,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T17:30:00Z"
        data-featured-value="6.19"
-       data-search="metalul buzău csa steaua bucureşti romania - liga ii metalul buzău metalul buzău mb csa steaua bucureşti csa steaua bucure. csb" style="--aig-order-confidence:-5000;--aig-order-goals:-1660;--aig-order-time:29905530">
+       data-search="metalul buzău csa steaua bucureşti romania - liga ii metalul buzău metalul buzău mb csa steaua bucureşti csa steaua bucure. csb" data-over25="23.225682614608047" data-over25-odds="" style="--aig-order-confidence:-5000;--aig-order-goals:-23226;--aig-order-time:29905530">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7402,7 +7409,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.80 65.04 58.60)">1.66 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.60 52.82 52.14)">23%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7475,7 +7482,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:00:00Z"
        data-featured-value="2.4699999999999998"
-       data-search="cs dinamo bucurești csm ramnicu valcea romania - liga ii cs dinamo bucurești cs dinamo bucure. cdb csm ramnicu valcea csm ramnicu valcea crv" style="--aig-order-confidence:-4400;--aig-order-goals:-2590;--aig-order-time:29903940">
+       data-search="cs dinamo bucurești csm ramnicu valcea romania - liga ii cs dinamo bucurești cs dinamo bucure. cdb csm ramnicu valcea csm ramnicu valcea crv" data-over25="47.90570906454853" data-over25-odds="" style="--aig-order-confidence:-4400;--aig-order-goals:-47906;--aig-order-time:29903940">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7498,7 +7505,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 2.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(58.09 82.53 67.63)">2.59 得点<span class="metric-target">Over 2.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(52.60 61.32 56.64)">48%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7583,7 +7590,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:00:00Z"
        data-featured-value="6.07"
-       data-search="fas fuerte san francisco el salvador - primera division fas fas fas fuerte san francisco fuerte san franci. fsf" style="--aig-order-confidence:-6700;--aig-order-goals:-2060;--aig-order-time:29903100">
+       data-search="fas fuerte san francisco el salvador - primera division fas fas fas fuerte san francisco fuerte san franci. fsf" data-over25="33.95590187990179" data-over25-odds="" style="--aig-order-confidence:-6700;--aig-order-goals:-33956;--aig-order-time:29903100">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7606,7 +7613,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.80 72.64 62.60)">2.06 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.80 56.56 54.12)">34%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7679,7 +7686,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T21:30:00Z"
        data-featured-value="5.99"
-       data-search="cacahuatique firpo el salvador - primera division cacahuatique cacahu. cac firpo firpo fir" style="--aig-order-confidence:-5400;--aig-order-goals:-1460;--aig-order-time:29905770">
+       data-search="cacahuatique firpo el salvador - primera division cacahuatique cacahu. cac firpo firpo fir" data-over25="18.118134255781637" data-over25-odds="" style="--aig-order-confidence:-5400;--aig-order-goals:-18118;--aig-order-time:29905770">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7702,7 +7709,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.73 61.55 56.76)">1.46 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.60 51.12 51.24)">18%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7792,7 +7799,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T01:30:00Z"
        data-featured-value="5.85"
-       data-search="cd marathon atlético choloma honduras - liga nacional cd marathon cd marathon cm atlético choloma atlético choloma ac" style="--aig-order-confidence:-7600;--aig-order-goals:-1230;--aig-order-time:29903130">
+       data-search="cd marathon atlético choloma honduras - liga nacional cd marathon cd marathon cm atlético choloma atlético choloma ac" data-over25="12.708283138499732" data-over25-odds="" style="--aig-order-confidence:-7600;--aig-order-goals:-12708;--aig-order-time:29903130">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7815,7 +7822,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(51.20 58.94 55.38)">1.23 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(45.60 49.42 50.34)">13%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -7905,7 +7912,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:30:00Z"
        data-featured-value="4.98"
-       data-search="fratria sportist svoge bulgaria - second league fratria fratria fra sportist svoge sportist svoge ss" style="--aig-order-confidence:-7600;--aig-order-goals:-1550;--aig-order-time:29903970">
+       data-search="fratria sportist svoge bulgaria - second league fratria fratria fra sportist svoge sportist svoge ss" data-over25="20.38047881824302" data-over25-odds="" style="--aig-order-confidence:-7600;--aig-order-goals:-20380;--aig-order-time:29903970">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7928,7 +7935,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.25 62.95 57.50)">1.55 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.00 51.80 51.60)">20%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8001,7 +8008,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:00:00Z"
        data-featured-value="4.6899999999999995"
-       data-search="etar veliko tarnovo montana bulgaria - second league etar veliko tarnovo etar veliko tarnovo evt montana montana mon" style="--aig-order-confidence:-6700;--aig-order-goals:-2020;--aig-order-time:29903940">
+       data-search="etar veliko tarnovo montana bulgaria - second league etar veliko tarnovo etar veliko tarnovo evt montana montana mon" data-over25="32.87368156015681" data-over25-odds="" style="--aig-order-confidence:-6700;--aig-order-goals:-32874;--aig-order-time:29903940">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8024,7 +8031,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.60 71.88 62.20)">2.02 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.60 56.22 53.94)">33%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8097,7 +8104,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:30:00Z"
        data-featured-value="5.41"
-       data-search="chernomorets 1919 burgas yantra 2019 bulgaria - second league chernomorets 1919 burgas cherno. 1919 burgas c1b yantra 2019 yantra 2019 y2" style="--aig-order-confidence:-5200;--aig-order-goals:-1450;--aig-order-time:29903790">
+       data-search="chernomorets 1919 burgas yantra 2019 bulgaria - second league chernomorets 1919 burgas cherno. 1919 burgas c1b yantra 2019 yantra 2019 y2" data-over25="17.871077881159092" data-over25-odds="" style="--aig-order-confidence:-5200;--aig-order-goals:-17871;--aig-order-time:29903790">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8120,7 +8127,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.67 61.43 56.70)">1.45 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.60 51.12 51.24)">18%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8210,7 +8217,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T13:15:00Z"
        data-featured-value="5.21"
-       data-search="pars jonoubi jam naft bandar abbas iran - azadegan league pars jonoubi jam pars jonoubi jam pjj naft bandar abbas naft bandar abbas nba" style="--aig-order-confidence:-5900;--aig-order-goals:-510;--aig-order-time:29903835">
+       data-search="pars jonoubi jam naft bandar abbas iran - azadegan league pars jonoubi jam pars jonoubi jam pjj naft bandar abbas naft bandar abbas nba" data-over25="1.515722596894331" data-over25-odds="" style="--aig-order-confidence:-5900;--aig-order-goals:-1516;--aig-order-time:29903835">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8233,7 +8240,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">0.51 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.40 45.68 48.36)">2%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8306,7 +8313,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:00:00Z"
        data-featured-value="2.805"
-       data-search="saipa havadar iran - azadegan league saipa saipa sai havadar havadar hav" style="--aig-order-confidence:-5700;--aig-order-goals:-310;--aig-order-time:29903760">
+       data-search="saipa havadar iran - azadegan league saipa saipa sai havadar havadar hav" data-over25="0.3942361099603997" data-over25-odds="" style="--aig-order-confidence:-5700;--aig-order-goals:-394;--aig-order-time:29903760">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8329,7 +8336,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(45.07 48.51 49.86)">0.31 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">0%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8402,7 +8409,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T11:30:00Z"
        data-featured-value="1.88"
-       data-search="mes soongoun naft gachsaran iran - azadegan league mes soongoun mes soongoun ms naft gachsaran naft gachsa. ng" style="--aig-order-confidence:-4400;--aig-order-goals:-360;--aig-order-time:29903730">
+       data-search="mes soongoun naft gachsaran iran - azadegan league mes soongoun mes soongoun ms naft gachsaran naft gachsa. ng" data-over25="0.5950770613995071" data-over25-odds="" style="--aig-order-confidence:-4400;--aig-order-goals:-595;--aig-order-time:29903730">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8425,7 +8432,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(45.40 49.08 50.16)">0.36 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.20 45.34 48.18)">1%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8515,7 +8522,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T09:00:00Z"
        data-featured-value="3.0500000000000003"
-       data-search="shortan buxdu uzbekistan - pro league a shortan shortan sho buxdu buxdu bux" style="--aig-order-confidence:-7300;--aig-order-goals:-1630;--aig-order-time:29903580">
+       data-search="shortan buxdu uzbekistan - pro league a shortan shortan sho buxdu buxdu bux" data-over25="22.442257729733562" data-over25-odds="" style="--aig-order-confidence:-7300;--aig-order-goals:-22442;--aig-order-time:29903580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8538,7 +8545,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.65 64.47 58.30)">1.63 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.40 52.48 51.96)">22%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8606,7 +8613,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T09:00:00Z"
        data-featured-value="4.71"
-       data-search="metalourg aral uzbekistan - pro league a metalourg metalo. met aral aral ara" style="--aig-order-confidence:-4900;--aig-order-goals:-410;--aig-order-time:29903580">
+       data-search="metalourg aral uzbekistan - pro league a metalourg metalo. met aral aral ara" data-over25="0.8473343783832132" data-over25-odds="" style="--aig-order-confidence:-4900;--aig-order-goals:-847;--aig-order-time:29903580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8629,7 +8636,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(45.73 49.65 50.46)">0.41 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(43.20 45.34 48.18)">1%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8714,7 +8721,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T09:00:00Z"
        data-featured-value="4.6"
-       data-search="viktoriya mykolaivka ahrobiznes volochysk ukraine - persha liga viktoriya mykolaivka viktor. mykola. vm ahrobiznes volochysk ahrobi. voloch. av" style="--aig-order-confidence:-4100;--aig-order-goals:-850;--aig-order-time:29903580">
+       data-search="viktoriya mykolaivka ahrobiznes volochysk ukraine - persha liga viktoriya mykolaivka viktor. mykola. vm ahrobiznes volochysk ahrobi. voloch. av" data-over25="5.487873172837798" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-5488;--aig-order-time:29903580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8737,7 +8744,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(48.67 54.63 53.10)">0.85 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.00 46.70 48.90)">5%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8827,7 +8834,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="2.51"
-       data-search="ironi modi'in hapoel acre israel - liga leumit ironi modi'in ironi modi'in im hapoel acre hapoel acre ha" style="--aig-order-confidence:-6100;--aig-order-goals:-1050;--aig-order-time:29904060">
+       data-search="ironi modi'in hapoel acre israel - liga leumit ironi modi'in ironi modi'in im hapoel acre hapoel acre ha" data-over25="8.97244301246073" data-over25-odds="" style="--aig-order-confidence:-6100;--aig-order-goals:-8972;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8850,7 +8857,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(50.00 56.90 54.30)">1.05 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.80 48.06 49.62)">9%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -8918,7 +8925,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="4.43"
-       data-search="hapoel kfar saba maccabi bnei raina israel - liga leumit hapoel kfar saba hapoel kfar saba hks maccabi bnei raina maccabi bnei raina mbr" style="--aig-order-confidence:-4200;--aig-order-goals:-1800;--aig-order-time:29904060">
+       data-search="hapoel kfar saba maccabi bnei raina israel - liga leumit hapoel kfar saba hapoel kfar saba hks maccabi bnei raina maccabi bnei raina mbr" data-over25="26.937891406058757" data-over25-odds="" style="--aig-order-confidence:-4200;--aig-order-goals:-26938;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8941,7 +8948,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 1.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(54.50 67.70 60.00)">1.8 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">27%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -9014,7 +9021,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T17:00:00Z"
        data-featured-value="3.29"
-       data-search="kafr qasim hapoel afula israel - liga leumit kafr qasim kafr qasim kq hapoel afula hapoel afula ha" style="--aig-order-confidence:-4200;--aig-order-goals:-810;--aig-order-time:29904060">
+       data-search="kafr qasim hapoel afula israel - liga leumit kafr qasim kafr qasim kq hapoel afula hapoel afula ha" data-over25="4.887121151204066" data-over25-odds="" style="--aig-order-confidence:-4200;--aig-order-goals:-4887;--aig-order-time:29904060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9037,7 +9044,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(48.40 54.18 52.86)">0.81 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.00 46.70 48.90)">5%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -9127,7 +9134,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T15:00:00Z"
        data-featured-value="1.36"
-       data-search="ikorodu city inter lagos nigeria - npfl ikorodu city ikorodu city ic inter lagos inter lagos il" style="--aig-order-confidence:-6600;--aig-order-goals:-950;--aig-order-time:29903940">
+       data-search="ikorodu city inter lagos nigeria - npfl ikorodu city ikorodu city ic inter lagos inter lagos il" data-over25="7.133811742987883" data-over25-odds="" style="--aig-order-confidence:-6600;--aig-order-goals:-7134;--aig-order-time:29903940">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9150,7 +9157,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(49.33 55.77 53.70)">0.95 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(44.40 47.38 49.26)">7%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -9223,7 +9230,7 @@ function nameLabels(full) {
        data-status="upcoming" data-settlement-status="NS"
        data-kickoff-utc="2026-11-10T15:00:00Z"
        data-featured-value="2.9949999999999997"
-       data-search="sporting lagos rivers united nigeria - npfl sporting lagos sporting lagos sl rivers united rivers united ru" style="--aig-order-confidence:-3600;--aig-order-goals:-1910;--aig-order-time:29905380">
+       data-search="sporting lagos rivers united nigeria - npfl sporting lagos sporting lagos sl rivers united rivers united ru" data-over25="29.898004583775094" data-over25-odds="" style="--aig-order-confidence:-3600;--aig-order-goals:-29898;--aig-order-time:29905380">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9246,7 +9253,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(55.05 69.79 61.10)">1.91 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(49.00 55.20 53.40)">30%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -9331,7 +9338,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T16:00:00Z"
        data-featured-value="1.215"
-       data-search="liptovský mikuláš mfk bytča slovakia - 2. liga liptovský mikuláš liptov. mikuláš lm mfk bytča mfk bytča mb" style="--aig-order-confidence:-7300;--aig-order-goals:-2730;--aig-order-time:29904000">
+       data-search="liptovský mikuláš mfk bytča slovakia - 2. liga liptovský mikuláš liptov. mikuláš lm mfk bytča mfk bytča mb" data-over25="51.36956275540905" data-over25-odds="" style="--aig-order-confidence:-7300;--aig-order-goals:-51370;--aig-order-time:29904000">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9354,7 +9361,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 2.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(58.23 84.91 68.61)">2.73 得点<span class="metric-target">Over 2.5</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result w" title="2.5得点超: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(53.42 63.58 57.83)">51%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -9442,7 +9449,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T12:00:00Z"
        data-featured-value="1.13"
-       data-search="ferizaj suhareka kosovo - liga e pare ferizaj ferizaj fer suhareka suhareka suh" style="--aig-order-confidence:-5000;--aig-order-goals:-1600;--aig-order-time:29903760">
+       data-search="ferizaj suhareka kosovo - liga e pare ferizaj ferizaj fer suhareka suhareka suh" data-over25="21.664151018073706" data-over25-odds="" style="--aig-order-confidence:-5000;--aig-order-goals:-21664;--aig-order-time:29903760">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9465,7 +9472,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="Over 1.5: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(53.50 63.90 58.00)">1.6 得点<span class="metric-target">Over 1.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(47.40 52.48 51.96)">22%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -9550,7 +9557,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-09T22:05:00Z"
        data-featured-value="0.1"
-       data-search="chapelton racing united jamaica - premier league chapelton chapel. cha racing united racing united ru" style="--aig-order-confidence:-4300;--aig-order-goals:-1440;--aig-order-time:29904365">
+       data-search="chapelton racing united jamaica - premier league chapelton chapel. cha racing united racing united ru" data-over25="17.62495686139991" data-over25-odds="" style="--aig-order-confidence:-4300;--aig-order-goals:-17625;--aig-order-time:29904365">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9573,7 +9580,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="Over 0.5: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.60 61.32 56.64)">1.44 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.60 51.12 51.24)">18%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -9646,7 +9653,7 @@ function nameLabels(full) {
        data-status="finished" data-settlement-status="FT"
        data-kickoff-utc="2026-11-10T01:00:00Z"
        data-featured-value="0.0"
-       data-search="arnett gardens waterhouse jamaica - premier league arnett gardens arnett gardens ag waterhouse waterh. wat" style="--aig-order-confidence:-4100;--aig-order-goals:-1410;--aig-order-time:29904540">
+       data-search="arnett gardens waterhouse jamaica - premier league arnett gardens arnett gardens ag waterhouse waterh. wat" data-over25="16.892405698154246" data-over25-odds="" style="--aig-order-confidence:-4100;--aig-order-goals:-16892;--aig-order-time:29904540">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9669,7 +9676,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result w" title="Over 0.5: correct · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(52.40 60.98 56.46)">1.41 得点<span class="metric-target">Over 0.5</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result l" title="2.5得点超: incorrect · full-time result"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability aig-probability-colour" style="--aig-probability-fill:rgb(46.40 50.78 51.06)">17%<span class="metric-target">2.5得点超</span></span>
   
         
   
@@ -10123,16 +10130,23 @@ function numericMetric(value){
   const match=String(value==null?"":value).replace(/<[^>]*>|&#?\w+;/g,"").replace(",",".").match(/-?\d+(?:\.\d+)?/);
   return match?Number(match[0]):0;
 }
+'AIG_OVER25_VIEW_V1';
+const over25MarketLabel="2.5得点超";
+const over25Probability=(function over25Probability(total) {
+  return Number.isFinite(total) && total > 0 && total <= 8
+    ? 100 * (1 - Math.exp(-total) * (1 + total + total * total / 2))
+    : null;
+});
 function rowMetricValue(row,mode){
-  if(mode==="goals")return numericMetric(row.dataset.totalGoals);
+  if(mode==="goals") return row.hasAttribute("data-over25") ? (row.dataset.over25 === "" ? NaN : Number(row.dataset.over25)) : (over25Probability(numericMetric(row.dataset.totalGoals)) ?? NaN);
   if(mode==="btts")return numericMetric(row.dataset.btts);
   return numericMetric(row.dataset.confidence||row.querySelector(".win-pill")?.textContent);
 }
 function metricPredictionGrade(mode,value,status,score,apiStatus=""){
   const result={target:null,outcome:""};
   if(!Number.isFinite(value))return result;
-  if(mode==="goals"&&value>0.5){
-    result.target=Math.ceil(value-0.5)-0.5;
+  if (mode==="goals"&&value>=0&&value<=100){
+    result.target=2.5;
   }else if(mode==="btts"&&value>=0&&value<=100&&value!==50){
     result.target=value>50?"yes":"no";
   }
@@ -10170,14 +10184,14 @@ function updateMetricBadge(row,mode){
   const probabilities=row.querySelector('.threeway-strip');
   if(probabilities){probabilities.hidden=['goals','btts'].includes(mode);pill.style.display=probabilities.hidden?'':'none';}
   if(!pill.dataset.confidenceText)pill.dataset.confidenceText=pill.textContent.trim();
-  pill.classList.remove("metric-goals","metric-btts");
+  pill.classList.remove("metric-goals","metric-btts","aig-over25-probability");
   const rawValue=mode==='btts'?row.dataset.btts:row.dataset.totalGoals;
-  const value=String(rawValue||'').trim()===''?NaN:rowMetricValue(row,mode);
+  const value=mode!=='goals' && String(rawValue||'').trim()===''?NaN:rowMetricValue(row,mode);
   const grade=updateMetricResult(row,mode,value);
   if(mode==="goals"){
-    pill.textContent=value?`${value.toFixed(2).replace(/0+$/,"").replace(/\.$/,"")} ${RANKING_COPY.goals.unit}`:`— ${RANKING_COPY.goals.unit}`;
-    pill.title=`${RANKING_COPY.goals.title} · Derived Over target; graded on full-time goals`;
-    pill.classList.add("metric-goals");
+    pill.textContent=Number.isFinite(value)?Math.round(value)+"%":"—";
+    pill.title=over25MarketLabel+" · "+RANKING_COPY.goals.title;
+    pill.classList.add("metric-goals","aig-over25-probability");
   }else if(mode==="btts"){
     pill.textContent=Number.isFinite(value)?`${Math.round(value)}% BTTS`:`— BTTS`;
     pill.title=RANKING_COPY.btts.title;
@@ -10189,14 +10203,14 @@ function updateMetricBadge(row,mode){
   if(['goals','btts'].includes(mode)){
     const target=document.createElement('span');
     target.className='metric-target';
-    target.textContent=grade.target===null?'No target':mode==='goals'?`Over ${grade.target}`:`${grade.target==='yes'?'Yes':'No'}`;
+    target.textContent=mode==='goals'?over25MarketLabel:grade.target===null?'No target':`${grade.target==='yes'?'Yes':'No'}`;
     pill.appendChild(target);
   }
   window.AIGPaint?.colours(row);
 }
 function updateRankingNotes(mode){
   const copy=RANKING_COPY[mode]||RANKING_COPY.confidence;
-  document.querySelectorAll(".ranking-note").forEach(note=>{note.textContent=copy.note;});
+  document.querySelectorAll(".ranking-note").forEach(note=>{note.textContent=mode==="goals"?over25MarketLabel:copy.note;});
 }
 function setSortMode(mode,options={}){
   if(!["confidence","goals","btts","time"].includes(mode))mode="confidence";
@@ -10210,6 +10224,7 @@ function setSortMode(mode,options={}){
   }
   PENDING_PRO_SORT_MODE="";
   SORT_MODE=mode;
+  document.documentElement.dataset.aigRankMode=mode;
   SORT_BY_CONF=mode==="confidence";
   ["Confidence","Goals","Btts","Time"].forEach(name=>document.getElementById(`sort${name}`)?.classList.toggle("active",mode===name.toLowerCase()));
   const badgeMode=mode==="time"?"confidence":mode;
@@ -10219,7 +10234,7 @@ function setSortMode(mode,options={}){
     const cards=Array.from(section.children).filter(element=>element.classList?.contains("mrow"));
     cards.sort((a,b)=>{
       if(SORT_MODE==="time")return rowTimeValue(a)-rowTimeValue(b);
-      return rowMetricValue(b,SORT_MODE)-rowMetricValue(a,SORT_MODE);
+      return (rowMetricValue(b,SORT_MODE)||0)-(rowMetricValue(a,SORT_MODE)||0);
     }).forEach(card=>section.appendChild(card));
   });
   if(options.persist!==false){try{localStorage.setItem(RANKING_STORAGE_KEY,mode);}catch(e){}}

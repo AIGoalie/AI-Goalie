@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-aig-meters="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="pt">
+<html data-aig-meters="1" data-aig-over25="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="pt">
 
 
 <head>
@@ -849,6 +849,12 @@ html[data-aig-view] .aig-refined-day .view-btn{background:none!important;color:#
   :root .aig-refined-day .center .ko,
   :root .aig-refined-day .pro-pick-center{width:58px}
 }
+
+.aig-refined-day .aig-over25-odds{display:none;font-size:9px;line-height:1.3;white-space:nowrap;text-align:center;overflow:hidden;text-overflow:ellipsis;color:#a3aab2;font-variant-numeric:tabular-nums}
+.aig-refined-day .aig-over25-odds b{color:#eceef2;font-weight:600}
+:root:not([data-aig-metric-ready])[data-aig-metric="goals"] .aig-refined-day .aig-over25-odds,
+:root[data-aig-rank-mode="goals"] .aig-refined-day .aig-over25-odds{display:block}
+:root[data-aig-rank-mode="goals"] .aig-refined-day .aig-listing-odds{display:none}
 </style><script id="aig-paint-ready">(()=>{
  const all=(root,selector)=>[...(root.matches?.(selector)?[root]:[]),...root.querySelectorAll(selector)];
  if(window.AIGPaint){
@@ -903,8 +909,9 @@ function nameLabels(full) {
     if(badge.classList.contains('aig-favourite')!==selected)badge.classList.toggle('aig-favourite',selected);
    }else if(badge.matches('.probability-card'))selected=badge.classList.contains('is-favourite');
    const value=badge.querySelector('.probability-value,b')||badge;
-   const metricGoals=badge.matches('.win-pill.metric-goals'),metricBtts=badge.matches('.win-pill.metric-btts');
-   const text=(metricGoals||metricBtts?[...badge.childNodes].filter(node=>node.nodeType===3).map(node=>node.textContent).join(''):value.textContent).trim();
+   const over25=badge.matches('.aig-over25-probability');
+   const metricGoals=badge.matches('.win-pill.metric-goals')&&!over25,metricBtts=badge.matches('.win-pill.metric-btts');
+   const text=(metricGoals||metricBtts||over25?[...badge.childNodes].filter(node=>node.nodeType===3).map(node=>node.textContent).join(''):value.textContent).trim();
    const match=text.match(metricGoals?/^(\d+(?:[.,]\d+)?)(?:\s|$)/:metricBtts?/^(\d+(?:\.\d+)?)\s*%\s*BTTS$/i:/^(\d+(?:\.\d+)?)\s*%$/);
    const locked=badge.classList.contains('probability-locked')||value.classList.contains('locked');
    const amount=match?Number(match[1].replace(',','.')):NaN;
@@ -912,7 +919,7 @@ function nameLabels(full) {
     if(badge.classList.contains('aig-probability-colour'))badge.classList.remove('aig-probability-colour');
     badge.style.removeProperty('--aig-probability-fill');return;
    }
-   const scale=metricGoals?goalsScale:metricBtts?[[0,[43,45,48]],...probabilityScale]:probabilityScale;
+   const scale=metricGoals?goalsScale:metricBtts||over25?[[0,[43,45,48]],...probabilityScale]:probabilityScale;
    const probability=Math.max(scale[0][0],Math.min(scale[scale.length-1][0],amount));
    const upper=scale.findIndex(([point])=>point>=probability),lower=Math.max(0,upper-1);
    const span=scale[upper][0]-scale[lower][0],weight=span?(probability-scale[lower][0])/span:0;
@@ -1099,7 +1106,7 @@ function nameLabels(full) {
         <h2 id="proPicksTitle">Palpites Pro</h2>
       </div>
       <a class="pro-picks-record" href="/pt/results/#pro-picks">Histórico →</a>
-    <button type="button" class="bp-stats-button" hidden>Estatísticas ↗</button></header><div id="aig-beta-tabs" class="bp-compact-tabs" role="tablist" aria-labelledby="proPicksTitle"><button type="button" role="tab" id="aig-beta-daily" aria-selected="true" aria-controls="proPicksMember" data-beta="daily"><img class="bp-tab-icon" src="/logo_mm.webp" alt=""><span class="bp-tab-name">Escolhas do dia</span><span class="bp-tab-stat">80.0% precisão</span></button><button type="button" role="tab" id="aig-beta-favourite" aria-selected="false" tabindex="-1" aria-controls="aig-beta-pane" data-beta="favourite"><span class="bp-avatar" aria-hidden="true"><svg viewBox="0 0 80 90" fill="none"><circle cx="40" cy="43" r="34" fill="#303034"/><path d="M40 9V4M36 4h8" stroke="#c9c9cf" stroke-width="2"/><rect x="19" y="13" width="42" height="34" rx="12" fill="#d9d9dd"/><rect x="25" y="24" width="30" height="11" rx="5" fill="#26262b"/><path d="M31 29h5m8 0h5M35 40h10" stroke="#babcc3" stroke-width="2"/><path d="M25 51l-9 9 6 10 5-4v18h26V66l5 4 6-10-9-9-9-3H34z" fill="#53585f"/><text x="40" y="73" fill="#eee" text-anchor="middle" font-size="13" font-family="system-ui">01</text><circle cx="61" cy="78" r="10" fill="#ddd"/><path d="M61 73l4 3-2 5h-5l-2-5z" fill="#35353b"/></svg></span><span class="bp-tab-name">Steady Freddy <small>BETA</small></span><span class="bp-tab-stat"></span></button><button type="button" role="tab" id="aig-beta-goals_over25" aria-selected="false" tabindex="-1" aria-controls="aig-beta-pane" data-beta="goals_over25"><span class="bp-avatar" aria-hidden="true"><svg viewBox="0 0 80 90" fill="none"><circle cx="40" cy="43" r="34" fill="#303034"/><path d="M40 9V4M36 4h8" stroke="#c9c9cf" stroke-width="2"/><rect x="19" y="13" width="42" height="34" rx="12" fill="#d9d9dd"/><rect x="25" y="24" width="30" height="11" rx="5" fill="#26262b"/><path d="M31 29h5m8 0h5M35 40h10" stroke="#babcc3" stroke-width="2"/><path d="M25 51l-9 9 6 10 5-4v18h26V66l5 4 6-10-9-9-9-3H34z" fill="#485c71"/><text x="40" y="73" fill="#eee" text-anchor="middle" font-size="13" font-family="system-ui">03</text><circle cx="61" cy="78" r="10" fill="#ddd"/><path d="M61 73l4 3-2 5h-5l-2-5z" fill="#35353b"/></svg></span><span class="bp-tab-name">Cole-azo <small>BETA</small></span><span class="bp-tab-stat"></span></button></div><div id="aig-beta-pane" role="tabpanel" hidden></div><div class="pro-picks-state" id="proPicksLocked"><div class="bp-message"><button class="bp-unlock" type="button" data-buy-pro="1">Desbloquear com Pro</button></div></div><div class="pro-picks-state on" id="proPicksLoading" role="status"><div class="pro-picks-loading">Carregando palpites Pro…</div></div>
+    <button type="button" class="bp-stats-button" hidden>Estatísticas ↗</button></header><div id="aig-beta-tabs" class="bp-compact-tabs" role="tablist" aria-labelledby="proPicksTitle"><button type="button" role="tab" id="aig-beta-daily" aria-selected="true" aria-controls="proPicksMember" data-beta="daily"><img class="bp-tab-icon" src="/logo_mm.webp" alt=""><span class="bp-tab-name">Escolhas do dia</span><span class="bp-tab-stat">80.1% precisão</span></button><button type="button" role="tab" id="aig-beta-favourite" aria-selected="false" tabindex="-1" aria-controls="aig-beta-pane" data-beta="favourite"><span class="bp-avatar" aria-hidden="true"><svg viewBox="0 0 80 90" fill="none"><circle cx="40" cy="43" r="34" fill="#303034"/><path d="M40 9V4M36 4h8" stroke="#c9c9cf" stroke-width="2"/><rect x="19" y="13" width="42" height="34" rx="12" fill="#d9d9dd"/><rect x="25" y="24" width="30" height="11" rx="5" fill="#26262b"/><path d="M31 29h5m8 0h5M35 40h10" stroke="#babcc3" stroke-width="2"/><path d="M25 51l-9 9 6 10 5-4v18h26V66l5 4 6-10-9-9-9-3H34z" fill="#53585f"/><text x="40" y="73" fill="#eee" text-anchor="middle" font-size="13" font-family="system-ui">01</text><circle cx="61" cy="78" r="10" fill="#ddd"/><path d="M61 73l4 3-2 5h-5l-2-5z" fill="#35353b"/></svg></span><span class="bp-tab-name">Steady Freddy <small>BETA</small></span><span class="bp-tab-stat"></span></button><button type="button" role="tab" id="aig-beta-goals_over25" aria-selected="false" tabindex="-1" aria-controls="aig-beta-pane" data-beta="goals_over25"><span class="bp-avatar" aria-hidden="true"><svg viewBox="0 0 80 90" fill="none"><circle cx="40" cy="43" r="34" fill="#303034"/><path d="M40 9V4M36 4h8" stroke="#c9c9cf" stroke-width="2"/><rect x="19" y="13" width="42" height="34" rx="12" fill="#d9d9dd"/><rect x="25" y="24" width="30" height="11" rx="5" fill="#26262b"/><path d="M31 29h5m8 0h5M35 40h10" stroke="#babcc3" stroke-width="2"/><path d="M25 51l-9 9 6 10 5-4v18h26V66l5 4 6-10-9-9-9-3H34z" fill="#485c71"/><text x="40" y="73" fill="#eee" text-anchor="middle" font-size="13" font-family="system-ui">03</text><circle cx="61" cy="78" r="10" fill="#ddd"/><path d="M61 73l4 3-2 5h-5l-2-5z" fill="#35353b"/></svg></span><span class="bp-tab-name">Cole-azo <small>BETA</small></span><span class="bp-tab-stat"></span></button></div><div id="aig-beta-pane" role="tabpanel" hidden></div><div class="pro-picks-state" id="proPicksLocked"><div class="bp-message"><button class="bp-unlock" type="button" data-buy-pro="1">Desbloquear com Pro</button></div></div><div class="pro-picks-state on" id="proPicksLoading" role="status"><div class="pro-picks-loading">Carregando palpites Pro…</div></div>
     <div class="pro-picks-state" id="proPicksMember"><div class="pro-picks-list" id="proPicksList"></div></div>
     <div class="pro-picks-state" id="proPicksEmpty"><div class="pro-picks-empty"><div class="pro-picks-empty-mark">✓</div><div><strong>Sem palpites Pro hoje</strong><p>Nenhum jogo atingiu hoje o padrão da AIGoalie. Nunca adicionamos opções mais fracas apenas para preencher a lista.</p></div></div></div>
   <div class="pro-picks-state" id="proPicksUnavailable" role="status"><div class="pro-picks-loading">Escolhas temporariamente indisponíveis.</div></div></section>
@@ -1504,16 +1511,23 @@ function numericMetric(value){
   const match=String(value==null?"":value).replace(/<[^>]*>|&#?\w+;/g,"").replace(",",".").match(/-?\d+(?:\.\d+)?/);
   return match?Number(match[0]):0;
 }
+'AIG_OVER25_VIEW_V1';
+const over25MarketLabel="Mais de 2,5";
+const over25Probability=(function over25Probability(total) {
+  return Number.isFinite(total) && total > 0 && total <= 8
+    ? 100 * (1 - Math.exp(-total) * (1 + total + total * total / 2))
+    : null;
+});
 function rowMetricValue(row,mode){
-  if(mode==="goals")return numericMetric(row.dataset.totalGoals);
+  if(mode==="goals") return row.hasAttribute("data-over25") ? (row.dataset.over25 === "" ? NaN : Number(row.dataset.over25)) : (over25Probability(numericMetric(row.dataset.totalGoals)) ?? NaN);
   if(mode==="btts")return numericMetric(row.dataset.btts);
   return numericMetric(row.dataset.confidence||row.querySelector(".win-pill")?.textContent);
 }
 function metricPredictionGrade(mode,value,status,score,apiStatus=""){
   const result={target:null,outcome:""};
   if(!Number.isFinite(value))return result;
-  if(mode==="goals"&&value>0.5){
-    result.target=Math.ceil(value-0.5)-0.5;
+  if (mode==="goals"&&value>=0&&value<=100){
+    result.target=2.5;
   }else if(mode==="btts"&&value>=0&&value<=100&&value!==50){
     result.target=value>50?"yes":"no";
   }
@@ -1551,14 +1565,14 @@ function updateMetricBadge(row,mode){
   const probabilities=row.querySelector('.threeway-strip');
   if(probabilities){probabilities.hidden=['goals','btts'].includes(mode);pill.style.display=probabilities.hidden?'':'none';}
   if(!pill.dataset.confidenceText)pill.dataset.confidenceText=pill.textContent.trim();
-  pill.classList.remove("metric-goals","metric-btts");
+  pill.classList.remove("metric-goals","metric-btts","aig-over25-probability");
   const rawValue=mode==='btts'?row.dataset.btts:row.dataset.totalGoals;
-  const value=String(rawValue||'').trim()===''?NaN:rowMetricValue(row,mode);
+  const value=mode!=='goals' && String(rawValue||'').trim()===''?NaN:rowMetricValue(row,mode);
   const grade=updateMetricResult(row,mode,value);
   if(mode==="goals"){
-    pill.textContent=value?`${value.toFixed(2).replace(/0+$/,"").replace(/\.$/,"")} ${RANKING_COPY.goals.unit}`:`— ${RANKING_COPY.goals.unit}`;
-    pill.title=`${RANKING_COPY.goals.title} · Derived Over target; graded on full-time goals`;
-    pill.classList.add("metric-goals");
+    pill.textContent=Number.isFinite(value)?Math.round(value)+"%":"—";
+    pill.title=over25MarketLabel+" · "+RANKING_COPY.goals.title;
+    pill.classList.add("metric-goals","aig-over25-probability");
   }else if(mode==="btts"){
     pill.textContent=Number.isFinite(value)?`${Math.round(value)}% BTTS`:`— BTTS`;
     pill.title=RANKING_COPY.btts.title;
@@ -1570,14 +1584,14 @@ function updateMetricBadge(row,mode){
   if(['goals','btts'].includes(mode)){
     const target=document.createElement('span');
     target.className='metric-target';
-    target.textContent=grade.target===null?'No target':mode==='goals'?`Over ${grade.target}`:`${grade.target==='yes'?'Yes':'No'}`;
+    target.textContent=mode==='goals'?over25MarketLabel:grade.target===null?'No target':`${grade.target==='yes'?'Yes':'No'}`;
     pill.appendChild(target);
   }
   window.AIGPaint?.colours(row);
 }
 function updateRankingNotes(mode){
   const copy=RANKING_COPY[mode]||RANKING_COPY.confidence;
-  document.querySelectorAll(".ranking-note").forEach(note=>{note.textContent=copy.note;});
+  document.querySelectorAll(".ranking-note").forEach(note=>{note.textContent=mode==="goals"?over25MarketLabel:copy.note;});
 }
 function setSortMode(mode,options={}){
   if(!["confidence","goals","btts","time"].includes(mode))mode="confidence";
@@ -1591,6 +1605,7 @@ function setSortMode(mode,options={}){
   }
   PENDING_PRO_SORT_MODE="";
   SORT_MODE=mode;
+  document.documentElement.dataset.aigRankMode=mode;
   SORT_BY_CONF=mode==="confidence";
   ["Confidence","Goals","Btts","Time"].forEach(name=>document.getElementById(`sort${name}`)?.classList.toggle("active",mode===name.toLowerCase()));
   const badgeMode=mode==="time"?"confidence":mode;
@@ -1600,7 +1615,7 @@ function setSortMode(mode,options={}){
     const cards=Array.from(section.children).filter(element=>element.classList?.contains("mrow"));
     cards.sort((a,b)=>{
       if(SORT_MODE==="time")return rowTimeValue(a)-rowTimeValue(b);
-      return rowMetricValue(b,SORT_MODE)-rowMetricValue(a,SORT_MODE);
+      return (rowMetricValue(b,SORT_MODE)||0)-(rowMetricValue(a,SORT_MODE)||0);
     }).forEach(card=>section.appendChild(card));
   });
   if(options.persist!==false){try{localStorage.setItem(RANKING_STORAGE_KEY,mode);}catch(e){}}

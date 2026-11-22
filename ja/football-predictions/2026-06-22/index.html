@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-aig-meters="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="ja">
+<html data-aig-meters="1" data-aig-over25="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -691,6 +691,12 @@ html[data-aig-view] .aig-refined-day .view-btn{background:none!important;color:#
   :root .aig-refined-day .center .ko,
   :root .aig-refined-day .pro-pick-center{width:58px}
 }
+
+.aig-refined-day .aig-over25-odds{display:none;font-size:9px;line-height:1.3;white-space:nowrap;text-align:center;overflow:hidden;text-overflow:ellipsis;color:#a3aab2;font-variant-numeric:tabular-nums}
+.aig-refined-day .aig-over25-odds b{color:#eceef2;font-weight:600}
+:root:not([data-aig-metric-ready])[data-aig-metric="goals"] .aig-refined-day .aig-over25-odds,
+:root[data-aig-rank-mode="goals"] .aig-refined-day .aig-over25-odds{display:block}
+:root[data-aig-rank-mode="goals"] .aig-refined-day .aig-listing-odds{display:none}
 </style><script id="aig-paint-ready">(()=>{
  const all=(root,selector)=>[...(root.matches?.(selector)?[root]:[]),...root.querySelectorAll(selector)];
  if(window.AIGPaint){
@@ -745,8 +751,9 @@ function nameLabels(full) {
     if(badge.classList.contains('aig-favourite')!==selected)badge.classList.toggle('aig-favourite',selected);
    }else if(badge.matches('.probability-card'))selected=badge.classList.contains('is-favourite');
    const value=badge.querySelector('.probability-value,b')||badge;
-   const metricGoals=badge.matches('.win-pill.metric-goals'),metricBtts=badge.matches('.win-pill.metric-btts');
-   const text=(metricGoals||metricBtts?[...badge.childNodes].filter(node=>node.nodeType===3).map(node=>node.textContent).join(''):value.textContent).trim();
+   const over25=badge.matches('.aig-over25-probability');
+   const metricGoals=badge.matches('.win-pill.metric-goals')&&!over25,metricBtts=badge.matches('.win-pill.metric-btts');
+   const text=(metricGoals||metricBtts||over25?[...badge.childNodes].filter(node=>node.nodeType===3).map(node=>node.textContent).join(''):value.textContent).trim();
    const match=text.match(metricGoals?/^(\d+(?:[.,]\d+)?)(?:\s|$)/:metricBtts?/^(\d+(?:\.\d+)?)\s*%\s*BTTS$/i:/^(\d+(?:\.\d+)?)\s*%$/);
    const locked=badge.classList.contains('probability-locked')||value.classList.contains('locked');
    const amount=match?Number(match[1].replace(',','.')):NaN;
@@ -754,7 +761,7 @@ function nameLabels(full) {
     if(badge.classList.contains('aig-probability-colour'))badge.classList.remove('aig-probability-colour');
     badge.style.removeProperty('--aig-probability-fill');return;
    }
-   const scale=metricGoals?goalsScale:metricBtts?[[0,[43,45,48]],...probabilityScale]:probabilityScale;
+   const scale=metricGoals?goalsScale:metricBtts||over25?[[0,[43,45,48]],...probabilityScale]:probabilityScale;
    const probability=Math.max(scale[0][0],Math.min(scale[scale.length-1][0],amount));
    const upper=scale.findIndex(([point])=>point>=probability),lower=Math.max(0,upper-1);
    const span=scale[upper][0]-scale[lower][0],weight=span?(probability-scale[lower][0])/span:0;
@@ -876,7 +883,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="0" data-league="International - World Cup" data-home="France"
        data-away="Iraq" data-date="Mon. 22 Jun." data-time="22:00"
        data-kickoff-utc="2026-06-22T21:00:00Z"
-       data-search="france iraq international - world cup france france fra iraq iraq ira" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702700">
+       data-search="france iraq international - world cup france france fra iraq iraq ira" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702700">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -899,7 +906,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(0.0,198.9,0.0);--aig-probability-fill:rgb(59.00 98.00 74.00)">77%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -973,7 +980,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="1" data-league="International - World Cup" data-home="England"
        data-away="Ghana" data-date="Tue. 23 Jun." data-time="21:00"
        data-kickoff-utc="2026-06-23T20:00:00Z"
-       data-search="england ghana international - world cup england england eng ghana ghana gha" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704080">
+       data-search="england ghana international - world cup england england eng ghana ghana gha" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704080">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -996,7 +1003,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(0.0,216.75,0.0);--aig-probability-fill:rgb(58.87 95.73 73.07)">75%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1070,7 +1077,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="2" data-league="International - World Cup" data-home="Portugal"
        data-away="Uzbekistan" data-date="Tue. 23 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-23T17:00:00Z"
-       data-search="portugal uzbekistan international - world cup portugal portugal por uzbekistan uzbeki. uzb" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
+       data-search="portugal uzbekistan international - world cup portugal portugal por uzbekistan uzbeki. uzb" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1093,7 +1100,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(17.0,216.75,0.0);--aig-probability-fill:rgb(58.73 93.47 72.13)">73%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1167,7 +1174,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="3" data-league="International - World Cup" data-home="Jordan"
        data-away="Algeria" data-date="Tue. 23 Jun." data-time="04:00"
        data-kickoff-utc="2026-06-23T03:00:00Z"
-       data-search="jordan algeria international - world cup jordan jordan jor algeria algeria alg" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703060">
+       data-search="jordan algeria international - world cup jordan jordan jor algeria algeria alg" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1190,7 +1197,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(51.85,216.75,0.0);--aig-probability-fill:rgb(58.47 88.93 70.27)">69%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1264,7 +1271,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="4" data-league="International - World Cup" data-home="Argentina"
        data-away="Austria" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="argentina austria international - world cup argentina argent. arg austria austria aus" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="argentina austria international - world cup argentina argent. arg austria austria aus" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1287,7 +1294,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(86.7,216.75,0.0);--aig-probability-fill:rgb(58.20 84.40 68.40)">65%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1361,7 +1368,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="5" data-league="International - World Cup" data-home="Norway"
        data-away="Senegal" data-date="Tue. 23 Jun." data-time="01:00"
        data-kickoff-utc="2026-06-23T00:00:00Z"
-       data-search="norway senegal international - world cup norway norway nor senegal senegal sen" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702880">
+       data-search="norway senegal international - world cup norway norway nor senegal senegal sen" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702880">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1384,7 +1391,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,194.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">45%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1458,7 +1465,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="6" data-league="International - World Cup" data-home="New Zealand"
        data-away="Egypt" data-date="Mon. 22 Jun." data-time="02:00"
        data-kickoff-utc="2026-06-22T01:00:00Z"
-       data-search="new zealand egypt international - world cup new zealand new zealand nz egypt egypt egy" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701500">
+       data-search="new zealand egypt international - world cup new zealand new zealand nz egypt egypt egy" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701500">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1481,7 +1488,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,86.7,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">20%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1561,7 +1568,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="0" data-league="Bulgaria - Friendlies Clubs" data-home="Levski Sofia"
        data-away="Etar Veliko Tarnovo" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="levski sofia etar veliko tarnovo bulgaria - friendlies clubs levski sofia levski sofia ls etar veliko tarnovo etar veliko tarnovo evt" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="levski sofia etar veliko tarnovo bulgaria - friendlies clubs levski sofia levski sofia ls etar veliko tarnovo etar veliko tarnovo evt" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1584,7 +1591,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(68.85,216.75,0.0);--aig-probability-fill:rgb(58.33 86.67 69.33)">67%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1658,7 +1665,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="1" data-league="Czech Republic - Friendlies Clubs" data-home="Zbrojovka Brno"
        data-away="Prostějov" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="zbrojovka brno prostějov czech republic - friendlies clubs zbrojovka brno zbrojo. brno zb prostějov prostě. pro" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="zbrojovka brno prostějov czech republic - friendlies clubs zbrojovka brno zbrojo. brno zb prostějov prostě. pro" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1681,7 +1688,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(68.85,216.75,0.0);--aig-probability-fill:rgb(58.33 86.67 69.33)">67%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1755,7 +1762,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="2" data-league="International - Friendlies Clubs" data-home="Universitatea Cluj"
        data-away="Mura" data-date="Mon. 22 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-22T12:00:00Z"
-       data-search="universitatea cluj mura international - friendlies clubs universitatea cluj univer. cluj uc mura mura mur" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
+       data-search="universitatea cluj mura international - friendlies clubs universitatea cluj univer. cluj uc mura mura mur" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1778,7 +1785,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(190.4,216.75,0.0);--aig-probability-fill:rgb(54.25 66.75 59.50)">53%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1859,7 +1866,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="3" data-league="Georgia - Erovnuli Liga 2" data-home="Telavi"
        data-away="Aragvi Dusheti" data-date="Mon. 22 Jun." data-time="17:00"
        data-kickoff-utc="2026-06-22T16:00:00Z"
-       data-search="telavi aragvi dusheti georgia - erovnuli liga 2 telavi telavi tel aragvi dusheti aragvi dusheti ad" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702400">
+       data-search="telavi aragvi dusheti georgia - erovnuli liga 2 telavi telavi tel aragvi dusheti aragvi dusheti ad" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702400">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1882,7 +1889,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(190.4,216.75,0.0);--aig-probability-fill:rgb(54.25 66.75 59.50)">53%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -1956,7 +1963,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="4" data-league="Finland - Veikkausliiga" data-home="Mariehamn"
        data-away="HJK Helsinki" data-date="Tue. 23 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-23T17:00:00Z"
-       data-search="mariehamn hjk helsinki finland - veikkausliiga mariehamn marieh. mar hjk helsinki hjk helsinki hh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
+       data-search="mariehamn hjk helsinki finland - veikkausliiga mariehamn marieh. mar hjk helsinki hjk helsinki hh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -1979,7 +1986,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,211.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">49%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2060,7 +2067,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="5" data-league="International - Friendlies Clubs" data-home="Olimpija Ljubljana"
        data-away="Vllaznia Shkodër" data-date="Tue. 23 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-23T16:00:00Z"
-       data-search="olimpija ljubljana vllaznia shkodër international - friendlies clubs olimpija ljubljana olimpija ljublj. ol vllaznia shkodër vllaznia shkodër vs" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
+       data-search="olimpija ljubljana vllaznia shkodër international - friendlies clubs olimpija ljubljana olimpija ljublj. ol vllaznia shkodër vllaznia shkodër vs" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2083,7 +2090,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,203.15,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">47%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2164,7 +2171,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="6" data-league="Finland - Veikkausliiga" data-home="Lahti"
        data-away="Turku PS" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="lahti turku ps finland - veikkausliiga lahti lahti lah turku ps turku ps tp" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="lahti turku ps finland - veikkausliiga lahti lahti lah turku ps turku ps tp" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2187,7 +2194,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,198.9,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">46%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2268,7 +2275,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="7" data-league="Chile - Copa Chile" data-home="O'Higgins"
        data-away="Union Espanola" data-date="Mon. 22 Jun." data-time="01:00"
        data-kickoff-utc="2026-06-22T00:00:00Z"
-       data-search="o'higgins union espanola chile - copa chile o'higgins o'higg. o'h union espanola union espanola ue" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701440">
+       data-search="o'higgins union espanola chile - copa chile o'higgins o'higg. o'h union espanola union espanola ue" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701440">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2291,7 +2298,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,194.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">45%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2372,7 +2379,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="8" data-league="Finland - Veikkausliiga" data-home="Inter Turku"
        data-away="SJK" data-date="Tue. 23 Jun." data-time="17:00"
        data-kickoff-utc="2026-06-23T16:00:00Z"
-       data-search="inter turku sjk finland - veikkausliiga inter turku inter turku it sjk sjk sjk" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
+       data-search="inter turku sjk finland - veikkausliiga inter turku inter turku it sjk sjk sjk" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2395,7 +2402,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,194.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">45%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2476,7 +2483,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="9" data-league="Georgia - Erovnuli Liga" data-home="Dinamo Tbilisi"
        data-away="Dinamo Batumi" data-date="Tue. 23 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-23T17:00:00Z"
-       data-search="dinamo tbilisi dinamo batumi georgia - erovnuli liga dinamo tbilisi dinamo tbilisi dt dinamo batumi dinamo batumi db" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
+       data-search="dinamo tbilisi dinamo batumi georgia - erovnuli liga dinamo tbilisi dinamo tbilisi dt dinamo batumi dinamo batumi db" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2499,7 +2506,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,190.4,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">44%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2580,7 +2587,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="10" data-league="Chile - Copa Chile" data-home="Coquimbo Unido"
        data-away="Deportes Limache" data-date="Tue. 23 Jun." data-time="20:00"
        data-kickoff-utc="2026-06-23T19:00:00Z"
-       data-search="coquimbo unido deportes limache chile - copa chile coquimbo unido coquimbo unido cu deportes limache deportes limache dl" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704020">
+       data-search="coquimbo unido deportes limache chile - copa chile coquimbo unido coquimbo unido cu deportes limache deportes limache dl" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704020">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2603,7 +2610,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,186.15,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">43%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2684,7 +2691,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="11" data-league="Georgia - Erovnuli Liga" data-home="Torpedo Kutaisi"
        data-away="Spaeri" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="torpedo kutaisi spaeri georgia - erovnuli liga torpedo kutaisi torpedo kutaisi tk spaeri spaeri spa" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="torpedo kutaisi spaeri georgia - erovnuli liga torpedo kutaisi torpedo kutaisi tk spaeri spaeri spa" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2707,7 +2714,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,164.04999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">38%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2788,7 +2795,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="12" data-league="Iceland - Úrvalsdeild" data-home="KR Reykjavik"
        data-away="IA Akranes" data-date="Mon. 22 Jun." data-time="20:15"
        data-kickoff-utc="2026-06-22T19:15:00Z"
-       data-search="kr reykjavik ia akranes iceland - úrvalsdeild kr reykjavik kr reykja. kr ia akranes ia akranes ia" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702595">
+       data-search="kr reykjavik ia akranes iceland - úrvalsdeild kr reykjavik kr reykja. kr ia akranes ia akranes ia" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702595">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2811,7 +2818,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,164.04999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">38%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2892,7 +2899,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="13" data-league="Ireland - Premier Division" data-home="Shamrock Rovers"
        data-away="Derry City" data-date="Mon. 22 Jun." data-time="20:00"
        data-kickoff-utc="2026-06-22T19:00:00Z"
-       data-search="shamrock rovers derry city ireland - premier division shamrock rovers shamrock rovers sr derry city derry city dc" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702580">
+       data-search="shamrock rovers derry city ireland - premier division shamrock rovers shamrock rovers sr derry city derry city dc" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -2915,7 +2922,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,159.79999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">37%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -2996,7 +3003,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="14" data-league="Lithuania - Cup" data-home="Dainava"
        data-away="TransINVEST Vilnius" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="dainava transinvest vilnius lithuania - cup dainava dainava dai transinvest vilnius transi. vilnius tv" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="dainava transinvest vilnius lithuania - cup dainava dainava dai transinvest vilnius transi. vilnius tv" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3019,7 +3026,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,147.04999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">34%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3093,7 +3100,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="15" data-league="Sweden - Superettan" data-home="Varbergs BoIS FC"
        data-away="Landskrona BoIS" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="varbergs bois fc landskrona bois sweden - superettan varbergs bois fc varbergs bois fc vb landskrona bois landsk. bois lb" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="varbergs bois fc landskrona bois sweden - superettan varbergs bois fc varbergs bois fc vb landskrona bois landsk. bois lb" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3116,7 +3123,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,124.95,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">29%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3190,7 +3197,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="16" data-league="Lithuania - Cup" data-home="Šiauliai"
        data-away="Džiugas Telšiai" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="šiauliai džiugas telšiai lithuania - cup šiauliai šiauliai šia džiugas telšiai džiugas telšiai dt" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="šiauliai džiugas telšiai lithuania - cup šiauliai šiauliai šia džiugas telšiai džiugas telšiai dt" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3213,7 +3220,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,107.95,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">25%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3280,7 +3287,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="17" data-league="International - Friendlies Clubs" data-home="Aluminij"
        data-away="Universitatea Cluj" data-date="Tue. 23 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-23T12:00:00Z"
-       data-search="aluminij universitatea cluj international - friendlies clubs aluminij aluminij alu universitatea cluj univer. cluj uc" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703600">
+       data-search="aluminij universitatea cluj international - friendlies clubs aluminij aluminij alu universitatea cluj univer. cluj uc" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703600">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3303,7 +3310,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,103.7,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">24%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3384,7 +3391,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="18" data-league="Ireland - Premier Division" data-home="Shelbourne"
        data-away="Bohemians" data-date="Mon. 22 Jun." data-time="19:45"
        data-kickoff-utc="2026-06-22T18:45:00Z"
-       data-search="shelbourne bohemians ireland - premier division shelbourne shelbo. she bohemians bohemi. boh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702565">
+       data-search="shelbourne bohemians ireland - premier division shelbourne shelbo. she bohemians bohemi. boh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702565">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3407,7 +3414,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,86.7,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">20%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3488,7 +3495,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="19" data-league="Ethiopia - Premier League" data-home="Welayta Dicha"
        data-away="Mebrat Hayl" data-date="Mon. 22 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-22T12:00:00Z"
-       data-search="welayta dicha mebrat hayl ethiopia - premier league welayta dicha welayta dicha wd mebrat hayl mebrat hayl mh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
+       data-search="welayta dicha mebrat hayl ethiopia - premier league welayta dicha welayta dicha wd mebrat hayl mebrat hayl mh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3511,7 +3518,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,81.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">19%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3592,7 +3599,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="20" data-league="Sweden - Friendlies Clubs" data-home="AIK Stockholm"
        data-away="Kalmar FF" data-date="Mon. 22 Jun." data-time="14:00"
        data-kickoff-utc="2026-06-22T13:00:00Z"
-       data-search="aik stockholm kalmar ff sweden - friendlies clubs aik stockholm aik stockh. as kalmar ff kalmar ff kf" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702220">
+       data-search="aik stockholm kalmar ff sweden - friendlies clubs aik stockholm aik stockh. as kalmar ff kalmar ff kf" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702220">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3615,7 +3622,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,81.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">19%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3689,7 +3696,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="21" data-league="Bulgaria - Friendlies Clubs" data-home="Botev Plovdiv"
        data-away="Spartak Pleven" data-date="Tue. 23 Jun." data-time="16:30"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="botev plovdiv spartak pleven bulgaria - friendlies clubs botev plovdiv botev plovdiv bp spartak pleven spartak pleven sp" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="botev plovdiv spartak pleven bulgaria - friendlies clubs botev plovdiv botev plovdiv bp spartak pleven spartak pleven sp" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3712,7 +3719,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,77.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">18%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3786,7 +3793,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="22" data-league="Slovakia - Friendlies Clubs" data-home="Humenné"
        data-away="Zemplín Michalovce" data-date="Tue. 23 Jun." data-time="15:00"
        data-kickoff-utc="2026-06-23T14:00:00Z"
-       data-search="humenné zemplín michalovce slovakia - friendlies clubs humenné humenné hum zemplín michalovce zemplín michal. zm" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703720">
+       data-search="humenné zemplín michalovce slovakia - friendlies clubs humenné humenné hum zemplín michalovce zemplín michal. zm" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703720">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3809,7 +3816,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,73.1,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">17%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3876,7 +3883,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="23" data-league="Georgia - Erovnuli Liga 2" data-home="Sioni"
        data-away="Samtredia" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="sioni samtredia georgia - erovnuli liga 2 sioni sioni sio samtredia samtre. sam" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="sioni samtredia georgia - erovnuli liga 2 sioni sioni sio samtredia samtre. sam" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -3899,7 +3906,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,68.85,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">16%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -3980,7 +3987,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="24" data-league="International - Friendlies Clubs" data-home="Shkendija"
        data-away="HNK Hajduk Split" data-date="Tue. 23 Jun." data-time="15:00"
        data-kickoff-utc="2026-06-23T16:15:00Z"
-       data-search="shkendija hnk hajduk split international - friendlies clubs shkendija shkend. shk hnk hajduk split hnk hajduk split hhs" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703855">
+       data-search="shkendija hnk hajduk split international - friendlies clubs shkendija shkend. shk hnk hajduk split hnk hajduk split hhs" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703855">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4003,7 +4010,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4084,7 +4091,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="25" data-league="International - Friendlies Clubs" data-home="Sileks"
        data-away="Dinamo Tirana" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="sileks dinamo tirana international - friendlies clubs sileks sileks sil dinamo tirana dinamo tirana dt" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="sileks dinamo tirana international - friendlies clubs sileks sileks sil dinamo tirana dinamo tirana dt" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4107,7 +4114,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4188,7 +4195,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="26" data-league="Georgia - Erovnuli Liga" data-home="Dila"
        data-away="Rustavi" data-date="Mon. 22 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-22T15:00:00Z"
-       data-search="dila rustavi georgia - erovnuli liga dila dila dil rustavi rustavi rus" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
+       data-search="dila rustavi georgia - erovnuli liga dila dila dil rustavi rustavi rus" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4211,7 +4218,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4292,7 +4299,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="27" data-league="Georgia - Erovnuli Liga 2" data-home="Kolkheti Poti"
        data-away="Shturmi" data-date="Mon. 22 Jun." data-time="15:00"
        data-kickoff-utc="2026-06-22T14:00:00Z"
-       data-search="kolkheti poti shturmi georgia - erovnuli liga 2 kolkheti poti kolkheti poti kp shturmi shturmi sht" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702280">
+       data-search="kolkheti poti shturmi georgia - erovnuli liga 2 kolkheti poti kolkheti poti kp shturmi shturmi sht" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702280">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4315,7 +4322,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4389,7 +4396,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="28" data-league="Peru - Copa De La Liga" data-home="Cienciano"
        data-away="Deportivo Garcilaso" data-date="Mon. 22 Jun." data-time="00:00"
        data-kickoff-utc="2026-06-21T23:00:00Z"
-       data-search="cienciano deportivo garcilaso peru - copa de la liga cienciano cienci. cie deportivo garcilaso deport. garcil. dg" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701380">
+       data-search="cienciano deportivo garcilaso peru - copa de la liga cienciano cienci. cie deportivo garcilaso deport. garcil. dg" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701380">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4412,7 +4419,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4493,7 +4500,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="29" data-league="Peru - Copa De La Liga" data-home="Atletico Grau"
        data-away="Molinos El Pirata" data-date="Mon. 22 Jun." data-time="21:15"
        data-kickoff-utc="2026-06-22T20:15:00Z"
-       data-search="atletico grau molinos el pirata peru - copa de la liga atletico grau atletico grau ag molinos el pirata molinos el pirata mep" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702655">
+       data-search="atletico grau molinos el pirata peru - copa de la liga atletico grau atletico grau ag molinos el pirata molinos el pirata mep" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702655">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4516,7 +4523,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,60.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">14%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4597,7 +4604,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="30" data-league="International - Friendlies Clubs" data-home="FC Gomel"
        data-away="Enisey" data-date="Tue. 23 Jun." data-time="16:30"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="fc gomel enisey international - friendlies clubs fc gomel fc gomel g enisey enisey eni" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="fc gomel enisey international - friendlies clubs fc gomel fc gomel g enisey enisey eni" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4620,7 +4627,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,60.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">14%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4694,7 +4701,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="31" data-league="Ethiopia - Premier League" data-home="Welwalo Adigrat Uni"
        data-away="Hadiya Hosaena" data-date="Mon. 22 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-22T15:00:00Z"
-       data-search="welwalo adigrat uni hadiya hosaena ethiopia - premier league welwalo adigrat uni welwalo adigrat uni wau hadiya hosaena hadiya hosaena hh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
+       data-search="welwalo adigrat uni hadiya hosaena ethiopia - premier league welwalo adigrat uni welwalo adigrat uni wau hadiya hosaena hadiya hosaena hh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4717,7 +4724,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,56.1,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">13%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4798,7 +4805,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="32" data-league="Peru - Copa De La Liga" data-home="Deportivo Binacional"
        data-away="Cusco" data-date="Mon. 22 Jun." data-time="19:00"
        data-kickoff-utc="2026-06-22T18:00:00Z"
-       data-search="deportivo binacional cusco peru - copa de la liga deportivo binacional deport. binaci. db cusco cusco cus" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702520">
+       data-search="deportivo binacional cusco peru - copa de la liga deportivo binacional deport. binaci. db cusco cusco cus" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702520">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4821,7 +4828,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,56.1,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">13%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4902,7 +4909,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="33" data-league="Argentina - Primera Nacional" data-home="Nueva Chicago"
        data-away="Atletico DE Rafaela" data-date="Tue. 23 Jun." data-time="22:30"
        data-kickoff-utc="2026-06-23T21:30:00Z"
-       data-search="nueva chicago atletico de rafaela argentina - primera nacional nueva chicago nueva chicago nc atletico de rafaela atletico de rafaela adr" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704170">
+       data-search="nueva chicago atletico de rafaela argentina - primera nacional nueva chicago nueva chicago nc atletico de rafaela atletico de rafaela adr" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704170">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -4925,7 +4932,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,51.85,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">12%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -4999,7 +5006,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="34" data-league="Finland - Veikkausliiga" data-home="FF Jaro"
        data-away="Gnistan" data-date="Tue. 23 Jun." data-time="17:00"
        data-kickoff-utc="2026-06-23T16:00:00Z"
-       data-search="ff jaro gnistan finland - veikkausliiga ff jaro ff jaro fj gnistan gnistan gni" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
+       data-search="ff jaro gnistan finland - veikkausliiga ff jaro ff jaro fj gnistan gnistan gni" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5022,7 +5029,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,47.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">11%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5103,7 +5110,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="35" data-league="Ethiopia - Premier League" data-home="Fasil Ketema"
        data-away="Arba Minch Kenema" data-date="Mon. 22 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-22T12:00:00Z"
-       data-search="fasil ketema arba minch kenema ethiopia - premier league fasil ketema fasil ketema fk arba minch kenema arba minch kenema amk" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
+       data-search="fasil ketema arba minch kenema ethiopia - premier league fasil ketema fasil ketema fk arba minch kenema arba minch kenema amk" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5126,7 +5133,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,43.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">10%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5207,7 +5214,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="36" data-league="Brazil - Serie B" data-home="Ponte Preta"
        data-away="Novorizontino" data-date="Tue. 23 Jun." data-time="00:00"
        data-kickoff-utc="2026-06-22T23:00:00Z"
-       data-search="ponte preta novorizontino brazil - serie b ponte preta ponte preta pp novorizontino novori. nov" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702820">
+       data-search="ponte preta novorizontino brazil - serie b ponte preta ponte preta pp novorizontino novori. nov" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702820">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5230,7 +5237,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,21.25,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">5%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5311,7 +5318,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="37" data-league="Sweden - Superettan" data-home="Orebro SK"
        data-away="Sandviken" data-date="Mon. 22 Jun." data-time="18:05"
        data-kickoff-utc="2026-06-22T17:05:00Z"
-       data-search="orebro sk sandviken sweden - superettan orebro sk orebro sk os sandviken sandvi. san" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702465">
+       data-search="orebro sk sandviken sweden - superettan orebro sk orebro sk os sandviken sandvi. san" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702465">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5334,7 +5341,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,17.0,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">4%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5423,7 +5430,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="0" data-league="International - World Cup" data-home="France"
        data-away="Iraq" data-date="Mon. 22 Jun." data-time="22:00"
        data-kickoff-utc="2026-06-22T21:00:00Z"
-       data-search="france iraq international - world cup france france fra iraq iraq ira" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702700">
+       data-search="france iraq international - world cup france france fra iraq iraq ira" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702700">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5446,7 +5453,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(0.0,198.9,0.0);--aig-probability-fill:rgb(59.00 98.00 74.00)">77%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5520,7 +5527,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="1" data-league="International - World Cup" data-home="England"
        data-away="Ghana" data-date="Tue. 23 Jun." data-time="21:00"
        data-kickoff-utc="2026-06-23T20:00:00Z"
-       data-search="england ghana international - world cup england england eng ghana ghana gha" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704080">
+       data-search="england ghana international - world cup england england eng ghana ghana gha" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704080">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5543,7 +5550,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(0.0,216.75,0.0);--aig-probability-fill:rgb(58.87 95.73 73.07)">75%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5617,7 +5624,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="2" data-league="International - World Cup" data-home="Portugal"
        data-away="Uzbekistan" data-date="Tue. 23 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-23T17:00:00Z"
-       data-search="portugal uzbekistan international - world cup portugal portugal por uzbekistan uzbeki. uzb" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
+       data-search="portugal uzbekistan international - world cup portugal portugal por uzbekistan uzbeki. uzb" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5640,7 +5647,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(17.0,216.75,0.0);--aig-probability-fill:rgb(58.73 93.47 72.13)">73%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5714,7 +5721,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="3" data-league="International - World Cup" data-home="Jordan"
        data-away="Algeria" data-date="Tue. 23 Jun." data-time="04:00"
        data-kickoff-utc="2026-06-23T03:00:00Z"
-       data-search="jordan algeria international - world cup jordan jordan jor algeria algeria alg" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703060">
+       data-search="jordan algeria international - world cup jordan jordan jor algeria algeria alg" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703060">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5737,7 +5744,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(51.85,216.75,0.0);--aig-probability-fill:rgb(58.47 88.93 70.27)">69%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5811,7 +5818,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="4" data-league="International - World Cup" data-home="Argentina"
        data-away="Austria" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="argentina austria international - world cup argentina argent. arg austria austria aus" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="argentina austria international - world cup argentina argent. arg austria austria aus" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5834,7 +5841,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(86.7,216.75,0.0);--aig-probability-fill:rgb(58.20 84.40 68.40)">65%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -5908,7 +5915,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="5" data-league="International - World Cup" data-home="Norway"
        data-away="Senegal" data-date="Tue. 23 Jun." data-time="01:00"
        data-kickoff-utc="2026-06-23T00:00:00Z"
-       data-search="norway senegal international - world cup norway norway nor senegal senegal sen" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702880">
+       data-search="norway senegal international - world cup norway norway nor senegal senegal sen" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702880">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -5931,7 +5938,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,194.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">45%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6005,7 +6012,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="6" data-league="International - World Cup" data-home="New Zealand"
        data-away="Egypt" data-date="Mon. 22 Jun." data-time="02:00"
        data-kickoff-utc="2026-06-22T01:00:00Z"
-       data-search="new zealand egypt international - world cup new zealand new zealand nz egypt egypt egy" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701500">
+       data-search="new zealand egypt international - world cup new zealand new zealand nz egypt egypt egy" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701500">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6028,7 +6035,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,86.7,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">20%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6118,7 +6125,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="0" data-league="International - Friendlies Clubs" data-home="Universitatea Cluj"
        data-away="Mura" data-date="Mon. 22 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-22T12:00:00Z"
-       data-search="universitatea cluj mura international - friendlies clubs universitatea cluj univer. cluj uc mura mura mur" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
+       data-search="universitatea cluj mura international - friendlies clubs universitatea cluj univer. cluj uc mura mura mur" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6141,7 +6148,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(190.4,216.75,0.0);--aig-probability-fill:rgb(54.25 66.75 59.50)">53%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6222,7 +6229,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="1" data-league="International - Friendlies Clubs" data-home="Olimpija Ljubljana"
        data-away="Vllaznia Shkodër" data-date="Tue. 23 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-23T16:00:00Z"
-       data-search="olimpija ljubljana vllaznia shkodër international - friendlies clubs olimpija ljubljana olimpija ljublj. ol vllaznia shkodër vllaznia shkodër vs" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
+       data-search="olimpija ljubljana vllaznia shkodër international - friendlies clubs olimpija ljubljana olimpija ljublj. ol vllaznia shkodër vllaznia shkodër vs" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6245,7 +6252,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,203.15,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">47%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6326,7 +6333,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="2" data-league="International - Friendlies Clubs" data-home="Aluminij"
        data-away="Universitatea Cluj" data-date="Tue. 23 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-23T12:00:00Z"
-       data-search="aluminij universitatea cluj international - friendlies clubs aluminij aluminij alu universitatea cluj univer. cluj uc" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703600">
+       data-search="aluminij universitatea cluj international - friendlies clubs aluminij aluminij alu universitatea cluj univer. cluj uc" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703600">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6349,7 +6356,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,103.7,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">24%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6430,7 +6437,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="3" data-league="International - Friendlies Clubs" data-home="Shkendija"
        data-away="HNK Hajduk Split" data-date="Tue. 23 Jun." data-time="15:00"
        data-kickoff-utc="2026-06-23T16:15:00Z"
-       data-search="shkendija hnk hajduk split international - friendlies clubs shkendija shkend. shk hnk hajduk split hnk hajduk split hhs" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703855">
+       data-search="shkendija hnk hajduk split international - friendlies clubs shkendija shkend. shk hnk hajduk split hnk hajduk split hhs" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703855">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6453,7 +6460,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6534,7 +6541,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="4" data-league="International - Friendlies Clubs" data-home="Sileks"
        data-away="Dinamo Tirana" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="sileks dinamo tirana international - friendlies clubs sileks sileks sil dinamo tirana dinamo tirana dt" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="sileks dinamo tirana international - friendlies clubs sileks sileks sil dinamo tirana dinamo tirana dt" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6557,7 +6564,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6638,7 +6645,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="5" data-league="International - Friendlies Clubs" data-home="FC Gomel"
        data-away="Enisey" data-date="Tue. 23 Jun." data-time="16:30"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="fc gomel enisey international - friendlies clubs fc gomel fc gomel g enisey enisey eni" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="fc gomel enisey international - friendlies clubs fc gomel fc gomel g enisey enisey eni" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6661,7 +6668,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,60.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">14%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6753,7 +6760,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Argentina - Primera Nacional" data-home="Nueva Chicago"
        data-away="Atletico DE Rafaela" data-date="Tue. 23 Jun." data-time="22:30"
        data-kickoff-utc="2026-06-23T21:30:00Z"
-       data-search="nueva chicago atletico de rafaela argentina - primera nacional nueva chicago nueva chicago nc atletico de rafaela atletico de rafaela adr" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704170">
+       data-search="nueva chicago atletico de rafaela argentina - primera nacional nueva chicago nueva chicago nc atletico de rafaela atletico de rafaela adr" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704170">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6776,7 +6783,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,51.85,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">12%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6868,7 +6875,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Brazil - Serie B" data-home="Ponte Preta"
        data-away="Novorizontino" data-date="Tue. 23 Jun." data-time="00:00"
        data-kickoff-utc="2026-06-22T23:00:00Z"
-       data-search="ponte preta novorizontino brazil - serie b ponte preta ponte preta pp novorizontino novori. nov" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702820">
+       data-search="ponte preta novorizontino brazil - serie b ponte preta ponte preta pp novorizontino novori. nov" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702820">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -6891,7 +6898,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,21.25,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">5%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -6988,7 +6995,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="0" data-league="Bulgaria - Friendlies Clubs" data-home="Levski Sofia"
        data-away="Etar Veliko Tarnovo" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="levski sofia etar veliko tarnovo bulgaria - friendlies clubs levski sofia levski sofia ls etar veliko tarnovo etar veliko tarnovo evt" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="levski sofia etar veliko tarnovo bulgaria - friendlies clubs levski sofia levski sofia ls etar veliko tarnovo etar veliko tarnovo evt" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7011,7 +7018,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(68.85,216.75,0.0);--aig-probability-fill:rgb(58.33 86.67 69.33)">67%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7085,7 +7092,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="1" data-league="Bulgaria - Friendlies Clubs" data-home="Botev Plovdiv"
        data-away="Spartak Pleven" data-date="Tue. 23 Jun." data-time="16:30"
        data-kickoff-utc="2026-06-23T15:30:00Z"
-       data-search="botev plovdiv spartak pleven bulgaria - friendlies clubs botev plovdiv botev plovdiv bp spartak pleven spartak pleven sp" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
+       data-search="botev plovdiv spartak pleven bulgaria - friendlies clubs botev plovdiv botev plovdiv bp spartak pleven spartak pleven sp" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703810">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7108,7 +7115,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,77.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">18%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7200,7 +7207,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="0" data-league="Chile - Copa Chile" data-home="O'Higgins"
        data-away="Union Espanola" data-date="Mon. 22 Jun." data-time="01:00"
        data-kickoff-utc="2026-06-22T00:00:00Z"
-       data-search="o'higgins union espanola chile - copa chile o'higgins o'higg. o'h union espanola union espanola ue" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701440">
+       data-search="o'higgins union espanola chile - copa chile o'higgins o'higg. o'h union espanola union espanola ue" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701440">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7223,7 +7230,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,194.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">45%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7304,7 +7311,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="1" data-league="Chile - Copa Chile" data-home="Coquimbo Unido"
        data-away="Deportes Limache" data-date="Tue. 23 Jun." data-time="20:00"
        data-kickoff-utc="2026-06-23T19:00:00Z"
-       data-search="coquimbo unido deportes limache chile - copa chile coquimbo unido coquimbo unido cu deportes limache deportes limache dl" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704020">
+       data-search="coquimbo unido deportes limache chile - copa chile coquimbo unido coquimbo unido cu deportes limache deportes limache dl" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29704020">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7327,7 +7334,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,186.15,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">43%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7424,7 +7431,7 @@ function nameLabels(full) {
   <div class="mrow tier-high" data-match-index="0" data-league="Czech Republic - Friendlies Clubs" data-home="Zbrojovka Brno"
        data-away="Prostějov" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="zbrojovka brno prostějov czech republic - friendlies clubs zbrojovka brno zbrojo. brno zb prostějov prostě. pro" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="zbrojovka brno prostějov czech republic - friendlies clubs zbrojovka brno zbrojo. brno zb prostějov prostě. pro" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7447,7 +7454,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(68.85,216.75,0.0);--aig-probability-fill:rgb(58.33 86.67 69.33)">67%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7539,7 +7546,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Ethiopia - Premier League" data-home="Welayta Dicha"
        data-away="Mebrat Hayl" data-date="Mon. 22 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-22T12:00:00Z"
-       data-search="welayta dicha mebrat hayl ethiopia - premier league welayta dicha welayta dicha wd mebrat hayl mebrat hayl mh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
+       data-search="welayta dicha mebrat hayl ethiopia - premier league welayta dicha welayta dicha wd mebrat hayl mebrat hayl mh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7562,7 +7569,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,81.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">19%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7643,7 +7650,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="1" data-league="Ethiopia - Premier League" data-home="Welwalo Adigrat Uni"
        data-away="Hadiya Hosaena" data-date="Mon. 22 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-22T15:00:00Z"
-       data-search="welwalo adigrat uni hadiya hosaena ethiopia - premier league welwalo adigrat uni welwalo adigrat uni wau hadiya hosaena hadiya hosaena hh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
+       data-search="welwalo adigrat uni hadiya hosaena ethiopia - premier league welwalo adigrat uni welwalo adigrat uni wau hadiya hosaena hadiya hosaena hh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7666,7 +7673,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,56.1,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">13%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7747,7 +7754,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="2" data-league="Ethiopia - Premier League" data-home="Fasil Ketema"
        data-away="Arba Minch Kenema" data-date="Mon. 22 Jun." data-time="13:00"
        data-kickoff-utc="2026-06-22T12:00:00Z"
-       data-search="fasil ketema arba minch kenema ethiopia - premier league fasil ketema fasil ketema fk arba minch kenema arba minch kenema amk" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
+       data-search="fasil ketema arba minch kenema ethiopia - premier league fasil ketema fasil ketema fk arba minch kenema arba minch kenema amk" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702160">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7770,7 +7777,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,43.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">10%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7869,7 +7876,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="0" data-league="Finland - Veikkausliiga" data-home="Mariehamn"
        data-away="HJK Helsinki" data-date="Tue. 23 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-23T17:00:00Z"
-       data-search="mariehamn hjk helsinki finland - veikkausliiga mariehamn marieh. mar hjk helsinki hjk helsinki hh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
+       data-search="mariehamn hjk helsinki finland - veikkausliiga mariehamn marieh. mar hjk helsinki hjk helsinki hh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7892,7 +7899,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,211.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">49%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -7973,7 +7980,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="1" data-league="Finland - Veikkausliiga" data-home="Lahti"
        data-away="Turku PS" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="lahti turku ps finland - veikkausliiga lahti lahti lah turku ps turku ps tp" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="lahti turku ps finland - veikkausliiga lahti lahti lah turku ps turku ps tp" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -7996,7 +8003,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,198.9,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">46%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8077,7 +8084,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="2" data-league="Finland - Veikkausliiga" data-home="Inter Turku"
        data-away="SJK" data-date="Tue. 23 Jun." data-time="17:00"
        data-kickoff-utc="2026-06-23T16:00:00Z"
-       data-search="inter turku sjk finland - veikkausliiga inter turku inter turku it sjk sjk sjk" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
+       data-search="inter turku sjk finland - veikkausliiga inter turku inter turku it sjk sjk sjk" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8100,7 +8107,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,194.65,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">45%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8181,7 +8188,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="3" data-league="Finland - Veikkausliiga" data-home="FF Jaro"
        data-away="Gnistan" data-date="Tue. 23 Jun." data-time="17:00"
        data-kickoff-utc="2026-06-23T16:00:00Z"
-       data-search="ff jaro gnistan finland - veikkausliiga ff jaro ff jaro fj gnistan gnistan gni" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
+       data-search="ff jaro gnistan finland - veikkausliiga ff jaro ff jaro fj gnistan gnistan gni" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703840">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8204,7 +8211,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,47.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">11%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8303,7 +8310,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="0" data-league="Georgia - Erovnuli Liga" data-home="Dinamo Tbilisi"
        data-away="Dinamo Batumi" data-date="Tue. 23 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-23T17:00:00Z"
-       data-search="dinamo tbilisi dinamo batumi georgia - erovnuli liga dinamo tbilisi dinamo tbilisi dt dinamo batumi dinamo batumi db" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
+       data-search="dinamo tbilisi dinamo batumi georgia - erovnuli liga dinamo tbilisi dinamo tbilisi dt dinamo batumi dinamo batumi db" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703900">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8326,7 +8333,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,190.4,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">44%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8407,7 +8414,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="1" data-league="Georgia - Erovnuli Liga" data-home="Torpedo Kutaisi"
        data-away="Spaeri" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="torpedo kutaisi spaeri georgia - erovnuli liga torpedo kutaisi torpedo kutaisi tk spaeri spaeri spa" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="torpedo kutaisi spaeri georgia - erovnuli liga torpedo kutaisi torpedo kutaisi tk spaeri spaeri spa" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8430,7 +8437,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,164.04999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">38%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8511,7 +8518,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="2" data-league="Georgia - Erovnuli Liga" data-home="Dila"
        data-away="Rustavi" data-date="Mon. 22 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-22T15:00:00Z"
-       data-search="dila rustavi georgia - erovnuli liga dila dila dil rustavi rustavi rus" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
+       data-search="dila rustavi georgia - erovnuli liga dila dila dil rustavi rustavi rus" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702340">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8534,7 +8541,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8633,7 +8640,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="0" data-league="Georgia - Erovnuli Liga 2" data-home="Telavi"
        data-away="Aragvi Dusheti" data-date="Mon. 22 Jun." data-time="17:00"
        data-kickoff-utc="2026-06-22T16:00:00Z"
-       data-search="telavi aragvi dusheti georgia - erovnuli liga 2 telavi telavi tel aragvi dusheti aragvi dusheti ad" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702400">
+       data-search="telavi aragvi dusheti georgia - erovnuli liga 2 telavi telavi tel aragvi dusheti aragvi dusheti ad" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702400">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8656,7 +8663,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(190.4,216.75,0.0);--aig-probability-fill:rgb(54.25 66.75 59.50)">53%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8730,7 +8737,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="1" data-league="Georgia - Erovnuli Liga 2" data-home="Sioni"
        data-away="Samtredia" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="sioni samtredia georgia - erovnuli liga 2 sioni sioni sio samtredia samtre. sam" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="sioni samtredia georgia - erovnuli liga 2 sioni sioni sio samtredia samtre. sam" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8753,7 +8760,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,68.85,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">16%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8834,7 +8841,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="2" data-league="Georgia - Erovnuli Liga 2" data-home="Kolkheti Poti"
        data-away="Shturmi" data-date="Mon. 22 Jun." data-time="15:00"
        data-kickoff-utc="2026-06-22T14:00:00Z"
-       data-search="kolkheti poti shturmi georgia - erovnuli liga 2 kolkheti poti kolkheti poti kp shturmi shturmi sht" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702280">
+       data-search="kolkheti poti shturmi georgia - erovnuli liga 2 kolkheti poti kolkheti poti kp shturmi shturmi sht" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702280">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8857,7 +8864,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -8949,7 +8956,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="0" data-league="Iceland - Úrvalsdeild" data-home="KR Reykjavik"
        data-away="IA Akranes" data-date="Mon. 22 Jun." data-time="20:15"
        data-kickoff-utc="2026-06-22T19:15:00Z"
-       data-search="kr reykjavik ia akranes iceland - úrvalsdeild kr reykjavik kr reykja. kr ia akranes ia akranes ia" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702595">
+       data-search="kr reykjavik ia akranes iceland - úrvalsdeild kr reykjavik kr reykja. kr ia akranes ia akranes ia" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702595">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -8972,7 +8979,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,164.04999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">38%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9071,7 +9078,7 @@ function nameLabels(full) {
   <div class="mrow tier-lean" data-match-index="0" data-league="Ireland - Premier Division" data-home="Shamrock Rovers"
        data-away="Derry City" data-date="Mon. 22 Jun." data-time="20:00"
        data-kickoff-utc="2026-06-22T19:00:00Z"
-       data-search="shamrock rovers derry city ireland - premier division shamrock rovers shamrock rovers sr derry city derry city dc" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702580">
+       data-search="shamrock rovers derry city ireland - premier division shamrock rovers shamrock rovers sr derry city derry city dc" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702580">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9094,7 +9101,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,159.79999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">37%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9175,7 +9182,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="1" data-league="Ireland - Premier Division" data-home="Shelbourne"
        data-away="Bohemians" data-date="Mon. 22 Jun." data-time="19:45"
        data-kickoff-utc="2026-06-22T18:45:00Z"
-       data-search="shelbourne bohemians ireland - premier division shelbourne shelbo. she bohemians bohemi. boh" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702565">
+       data-search="shelbourne bohemians ireland - premier division shelbourne shelbo. she bohemians bohemi. boh" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702565">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9198,7 +9205,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,86.7,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">20%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9295,7 +9302,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Lithuania - Cup" data-home="Dainava"
        data-away="TransINVEST Vilnius" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="dainava transinvest vilnius lithuania - cup dainava dainava dai transinvest vilnius transi. vilnius tv" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="dainava transinvest vilnius lithuania - cup dainava dainava dai transinvest vilnius transi. vilnius tv" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9318,7 +9325,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,147.04999999999998,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">34%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9392,7 +9399,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="1" data-league="Lithuania - Cup" data-home="Šiauliai"
        data-away="Džiugas Telšiai" data-date="Tue. 23 Jun." data-time="16:00"
        data-kickoff-utc="2026-06-23T15:00:00Z"
-       data-search="šiauliai džiugas telšiai lithuania - cup šiauliai šiauliai šia džiugas telšiai džiugas telšiai dt" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
+       data-search="šiauliai džiugas telšiai lithuania - cup šiauliai šiauliai šia džiugas telšiai džiugas telšiai dt" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703780">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9415,7 +9422,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark empty" aria-hidden="true"></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,107.95,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">25%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9500,7 +9507,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Peru - Copa De La Liga" data-home="Cienciano"
        data-away="Deportivo Garcilaso" data-date="Mon. 22 Jun." data-time="00:00"
        data-kickoff-utc="2026-06-21T23:00:00Z"
-       data-search="cienciano deportivo garcilaso peru - copa de la liga cienciano cienci. cie deportivo garcilaso deport. garcil. dg" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701380">
+       data-search="cienciano deportivo garcilaso peru - copa de la liga cienciano cienci. cie deportivo garcilaso deport. garcil. dg" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29701380">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9523,7 +9530,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,64.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">15%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9604,7 +9611,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="1" data-league="Peru - Copa De La Liga" data-home="Atletico Grau"
        data-away="Molinos El Pirata" data-date="Mon. 22 Jun." data-time="21:15"
        data-kickoff-utc="2026-06-22T20:15:00Z"
-       data-search="atletico grau molinos el pirata peru - copa de la liga atletico grau atletico grau ag molinos el pirata molinos el pirata mep" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702655">
+       data-search="atletico grau molinos el pirata peru - copa de la liga atletico grau atletico grau ag molinos el pirata molinos el pirata mep" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702655">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9627,7 +9634,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark w" title="Model called it correctly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,60.35,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">14%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9708,7 +9715,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="2" data-league="Peru - Copa De La Liga" data-home="Deportivo Binacional"
        data-away="Cusco" data-date="Mon. 22 Jun." data-time="19:00"
        data-kickoff-utc="2026-06-22T18:00:00Z"
-       data-search="deportivo binacional cusco peru - copa de la liga deportivo binacional deport. binaci. db cusco cusco cus" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702520">
+       data-search="deportivo binacional cusco peru - copa de la liga deportivo binacional deport. binaci. db cusco cusco cus" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702520">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9731,7 +9738,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,56.1,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">13%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9828,7 +9835,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Slovakia - Friendlies Clubs" data-home="Humenné"
        data-away="Zemplín Michalovce" data-date="Tue. 23 Jun." data-time="15:00"
        data-kickoff-utc="2026-06-23T14:00:00Z"
-       data-search="humenné zemplín michalovce slovakia - friendlies clubs humenné humenné hum zemplín michalovce zemplín michal. zm" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703720">
+       data-search="humenné zemplín michalovce slovakia - friendlies clubs humenné humenné hum zemplín michalovce zemplín michal. zm" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29703720">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9851,7 +9858,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,73.1,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">17%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -9934,7 +9941,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Sweden - Friendlies Clubs" data-home="AIK Stockholm"
        data-away="Kalmar FF" data-date="Mon. 22 Jun." data-time="14:00"
        data-kickoff-utc="2026-06-22T13:00:00Z"
-       data-search="aik stockholm kalmar ff sweden - friendlies clubs aik stockholm aik stockh. as kalmar ff kalmar ff kf" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702220">
+       data-search="aik stockholm kalmar ff sweden - friendlies clubs aik stockholm aik stockh. as kalmar ff kalmar ff kf" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702220">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -9957,7 +9964,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,81.6,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">19%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -10049,7 +10056,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="0" data-league="Sweden - Superettan" data-home="Varbergs BoIS FC"
        data-away="Landskrona BoIS" data-date="Mon. 22 Jun." data-time="18:00"
        data-kickoff-utc="2026-06-22T17:00:00Z"
-       data-search="varbergs bois fc landskrona bois sweden - superettan varbergs bois fc varbergs bois fc vb landskrona bois landsk. bois lb" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
+       data-search="varbergs bois fc landskrona bois sweden - superettan varbergs bois fc varbergs bois fc vb landskrona bois landsk. bois lb" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702460">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -10072,7 +10079,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark l" title="Model missed this one"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,124.95,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">29%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
@@ -10146,7 +10153,7 @@ function nameLabels(full) {
   <div class="mrow tier-low" data-match-index="1" data-league="Sweden - Superettan" data-home="Orebro SK"
        data-away="Sandviken" data-date="Mon. 22 Jun." data-time="18:05"
        data-kickoff-utc="2026-06-22T17:05:00Z"
-       data-search="orebro sk sandviken sweden - superettan orebro sk orebro sk os sandviken sandvi. san" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702465">
+       data-search="orebro sk sandviken sweden - superettan orebro sk orebro sk os sandviken sandvi. san" data-over25="" data-over25-odds="" style="--aig-order-confidence:0;--aig-order-goals:0;--aig-order-time:29702465">
     <div class="mhead" onclick="toggleMatchRow(this.parentNode)">
       <div class="fixrow">
         <div class="side home">
@@ -10169,7 +10176,7 @@ function nameLabels(full) {
       </div>
       <div class="winwrap">
         
-  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-probability-colour" style="--aig-probability-fill:rgb(43.00 45.00 48.00)">— 得点<span class="metric-target">No target</span></span>
+  <span class="resmark d" title="Push (draw outcome)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></span><span class="resmark aig-initial-goal-result empty" aria-hidden="true"></span><span class="win-pill metric-goals aig-initial-goals aig-over25-probability">—<span class="metric-target">2.5得点超</span></span>
   
         <span class="win-pill aig-probability-colour" style="background:rgb(216.75,17.0,0.0);--aig-probability-fill:rgb(53.00 62.00 57.00)">4%</span>
         <span class="chev" title="タップして予測を見る">▾</span>
