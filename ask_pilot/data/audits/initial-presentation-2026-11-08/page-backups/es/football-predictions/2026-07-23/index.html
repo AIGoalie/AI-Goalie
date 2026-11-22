@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-aig-meters="1" data-aig-initial="20261108-v1" lang="es">
+<html data-aig-meters="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="es">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
@@ -650,12 +650,46 @@ html[data-aig-view] .aig-refined-day .view-btn{background:none!important;color:#
 .aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]){
  box-shadow:inset 0 0 0 1px #a1a9b8;--aig-meter-ink:#a9d6ff
 }
-.aig-refined-day .threeway-strip .probability-chip[data-probability-side][data-aig-meter="strong"],
-.aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side][data-aig-meter="strong"]{--aig-meter-ink:#7bdfa2}
 .aig-refined-day .threeway-strip .probability-chip[data-aig-meter]:not([data-aig-meter="unavailable"],.probability-locked,:has(.locked))::after,
 .aig-refined-fixture .fixture-probabilities .probability-card[data-aig-meter]:not([data-aig-meter="unavailable"],.is-locked,:has(.locked))::after{
  content:"";position:absolute;inset:auto 4px 3px;height:3px;border-radius:4px;pointer-events:none;
  background:linear-gradient(to right,var(--aig-meter-ink) 0 var(--aig-meter-width,0%),#484c55 var(--aig-meter-width,0%) 100%)
+}
+@supports (color:color-mix(in oklab,black,white)){
+ :root .aig-refined-day .threeway-strip .probability-chip[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]):not(.probability-locked,:has(.locked))::after,
+ :root .aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]):not(.is-locked,:has(.locked))::after{
+  --aig-meter-slate:clamp(0%,calc((var(--aig-meter-width) - 25%)*4),100%);
+  --aig-meter-blue:clamp(0%,calc((var(--aig-meter-width) - 48%)*4.545),100%);
+  --aig-meter-teal:clamp(0%,calc((var(--aig-meter-width) - 67%)*5.882),100%);
+  --aig-meter-green:clamp(0%,calc((var(--aig-meter-width) - 81%)*5.556),100%);
+  --aig-meter-muted:color-mix(in oklab,#858993,#9ba7bd var(--aig-meter-slate));
+  --aig-meter-cool:color-mix(in oklab,var(--aig-meter-muted),#7bb8f6 var(--aig-meter-blue));
+  --aig-meter-warm:color-mix(in oklab,var(--aig-meter-cool),#68d4c9 var(--aig-meter-teal));
+  --aig-meter-spectrum:color-mix(in oklab,var(--aig-meter-warm),#82e580 var(--aig-meter-green));
+  background:linear-gradient(to right,var(--aig-meter-spectrum) 0 var(--aig-meter-width),#484c55 var(--aig-meter-width) 100%)
+ }
+}
+
+:root .aig-refined-day .center .aig-listing-odds,
+:root .aig-refined-day .pro-pick-center .aig-pick-odds{display:block;max-width:100%;margin-inline:auto;font-size:9px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;color:#cfd5da;font-variant-numeric:tabular-nums}
+:root .aig-refined-day .aig-listing-odds span,
+:root .aig-refined-day .aig-pick-odds::before{color:#a3aab2;font-weight:400}
+:root .aig-refined-day .aig-listing-odds b{font-weight:600}
+:root .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Odds "}
+:root[lang^="fr"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cote "}
+:root[lang^="de"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Quote "}
+:root[lang^="es"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cuota "}
+:root[lang^="pt"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cotação "}
+:root[lang^="ja"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"オッズ "}
+:root .aig-refined-day .aig-postponed{font-size:9px;font-weight:500}
+:root:not([data-aig-metric-ready])[data-aig-metric="goals"] .aig-refined-day .aig-listing-odds,
+:root .aig-refined-day .mrow:has(.winwrap > .metric-goals:not(.aig-initial-goals),.winwrap > .metric-btts) .aig-listing-odds{display:none}
+@media(max-width:430px){
+  :root .aig-refined-day .fixrow,
+  :root .aig-refined-day .pro-pick-fixture{grid-template-columns:minmax(0,1fr) 58px minmax(0,1fr)}
+  :root .aig-refined-day .center,
+  :root .aig-refined-day .center .ko,
+  :root .aig-refined-day .pro-pick-center{width:58px}
 }
 </style><script id="aig-paint-ready">(()=>{
  const all=(root,selector)=>[...(root.matches?.(selector)?[root]:[]),...root.querySelectorAll(selector)];
@@ -976,7 +1010,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.39"><span>Cuotas</span> <b>1.39</b></span>
         </div>
         <div class="side away">
           
@@ -1296,7 +1330,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.6"><span>Cuotas</span> <b>1.6</b></span>
         </div>
         <div class="side away">
           
@@ -1376,7 +1410,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.07"><span>Cuotas</span> <b>2.07</b></span>
         </div>
         <div class="side away">
           
@@ -1456,7 +1490,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.44"><span>Cuotas</span> <b>1.44</b></span>
         </div>
         <div class="side away">
           
@@ -2022,7 +2056,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:45:00Z"><strong>2:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:45:00Z"><strong>2:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.2"><span>Cuotas</span> <b>1.2</b></span>
         </div>
         <div class="side away">
           
@@ -2102,7 +2136,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T21:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T21:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.81"><span>Cuotas</span> <b>1.81</b></span>
         </div>
         <div class="side away">
           
@@ -2262,7 +2296,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>5:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>5:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.36"><span>Cuotas</span> <b>1.36</b></span>
         </div>
         <div class="side away">
           
@@ -2342,7 +2376,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.36"><span>Cuotas</span> <b>1.36</b></span>
         </div>
         <div class="side away">
           
@@ -2422,7 +2456,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T19:15:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T19:15:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.4"><span>Cuotas</span> <b>2.4</b></span>
         </div>
         <div class="side away">
           
@@ -2582,7 +2616,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.2"><span>Cuotas</span> <b>1.2</b></span>
         </div>
         <div class="side away">
           
@@ -2662,7 +2696,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.09"><span>Cuotas</span> <b>2.09</b></span>
         </div>
         <div class="side away">
           
@@ -2742,7 +2776,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.35"><span>Cuotas</span> <b>1.35</b></span>
         </div>
         <div class="side away">
           
@@ -2822,7 +2856,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.7"><span>Cuotas</span> <b>1.7</b></span>
         </div>
         <div class="side away">
           
@@ -3222,7 +3256,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.25"><span>Cuotas</span> <b>2.25</b></span>
         </div>
         <div class="side away">
           
@@ -3302,7 +3336,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>1:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>1:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.95"><span>Cuotas</span> <b>1.95</b></span>
         </div>
         <div class="side away">
           
@@ -3382,7 +3416,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.11"><span>Cuotas</span> <b>1.11</b></span>
         </div>
         <div class="side away">
           
@@ -3462,7 +3496,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>4:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>4:3</strong></div><span class="aig-listing-odds" title="Cuotas 3.8"><span>Cuotas</span> <b>3.8</b></span>
         </div>
         <div class="side away">
           
@@ -3622,7 +3656,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.95"><span>Cuotas</span> <b>1.95</b></span>
         </div>
         <div class="side away">
           
@@ -3702,7 +3736,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T01:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T01:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.46"><span>Cuotas</span> <b>1.46</b></span>
         </div>
         <div class="side away">
           
@@ -3782,7 +3816,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.9"><span>Cuotas</span> <b>1.9</b></span>
         </div>
         <div class="side away">
           
@@ -3862,7 +3896,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.0"><span>Cuotas</span> <b>2.0</b></span>
         </div>
         <div class="side away">
           
@@ -4102,7 +4136,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.25"><span>Cuotas</span> <b>1.25</b></span>
         </div>
         <div class="side away">
           
@@ -4262,7 +4296,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.15"><span>Cuotas</span> <b>2.15</b></span>
         </div>
         <div class="side away">
           
@@ -4502,7 +4536,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:4</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:4</strong></div><span class="aig-listing-odds" title="Cuotas 1.46"><span>Cuotas</span> <b>1.46</b></span>
         </div>
         <div class="side away">
           
@@ -4582,7 +4616,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.22"><span>Cuotas</span> <b>1.22</b></span>
         </div>
         <div class="side away">
           
@@ -4982,7 +5016,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko live" data-kickoff-utc="2026-07-23T22:00:00Z"><b><span style='color: #b30000;'>3:2'</span></b></div>
+          <div class="ko live" data-kickoff-utc="2026-07-23T22:00:00Z"><b><span style='color: #b30000;'>3:2'</span></b></div><span class="aig-listing-odds" title="Cuotas 1.57"><span>Cuotas</span> <b>1.57</b></span>
         </div>
         <div class="side away">
           
@@ -5222,7 +5256,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>5:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>5:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.01"><span>Cuotas</span> <b>2.01</b></span>
         </div>
         <div class="side away">
           
@@ -5302,7 +5336,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.34"><span>Cuotas</span> <b>2.34</b></span>
         </div>
         <div class="side away">
           
@@ -5382,7 +5416,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>0:4</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>0:4</strong></div><span class="aig-listing-odds" title="Cuotas 1.87"><span>Cuotas</span> <b>1.87</b></span>
         </div>
         <div class="side away">
           
@@ -5462,7 +5496,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T15:00:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T15:00:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.53"><span>Cuotas</span> <b>1.53</b></span>
         </div>
         <div class="side away">
           
@@ -5542,7 +5576,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T20:00:00Z"><strong>5:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T20:00:00Z"><strong>5:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.22"><span>Cuotas</span> <b>1.22</b></span>
         </div>
         <div class="side away">
           
@@ -6262,7 +6296,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.57"><span>Cuotas</span> <b>1.57</b></span>
         </div>
         <div class="side away">
           
@@ -6422,7 +6456,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T15:30:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T15:30:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.09"><span>Cuotas</span> <b>2.09</b></span>
         </div>
         <div class="side away">
           
@@ -6502,7 +6536,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:30:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:30:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.42"><span>Cuotas</span> <b>2.42</b></span>
         </div>
         <div class="side away">
           
@@ -6582,7 +6616,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T14:00:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T14:00:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.1"><span>Cuotas</span> <b>3.1</b></span>
         </div>
         <div class="side away">
           
@@ -6662,7 +6696,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.85"><span>Cuotas</span> <b>1.85</b></span>
         </div>
         <div class="side away">
           
@@ -6742,7 +6776,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.35"><span>Cuotas</span> <b>3.35</b></span>
         </div>
         <div class="side away">
           
@@ -6822,7 +6856,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T10:30:00Z"><strong>4:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T10:30:00Z"><strong>4:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.52"><span>Cuotas</span> <b>1.52</b></span>
         </div>
         <div class="side away">
           
@@ -7062,7 +7096,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.79"><span>Cuotas</span> <b>1.79</b></span>
         </div>
         <div class="side away">
           
@@ -7222,7 +7256,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T01:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T01:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.04"><span>Cuotas</span> <b>2.04</b></span>
         </div>
         <div class="side away">
           
@@ -7302,7 +7336,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>0:5</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>0:5</strong></div><span class="aig-listing-odds" title="Cuotas 1.62"><span>Cuotas</span> <b>1.62</b></span>
         </div>
         <div class="side away">
           
@@ -7462,7 +7496,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T09:30:00Z"><strong>4:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T09:30:00Z"><strong>4:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.33"><span>Cuotas</span> <b>3.33</b></span>
         </div>
         <div class="side away">
           
@@ -7542,7 +7576,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>3:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>3:0</strong></div><span class="aig-listing-odds" title="Cuotas 4.7"><span>Cuotas</span> <b>4.7</b></span>
         </div>
         <div class="side away">
           
@@ -7622,7 +7656,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.77"><span>Cuotas</span> <b>1.77</b></span>
         </div>
         <div class="side away">
           
@@ -7862,7 +7896,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.21"><span>Cuotas</span> <b>2.21</b></span>
         </div>
         <div class="side away">
           
@@ -7942,7 +7976,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:15:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:15:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.91"><span>Cuotas</span> <b>1.91</b></span>
         </div>
         <div class="side away">
           
@@ -8022,7 +8056,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.37"><span>Cuotas</span> <b>3.37</b></span>
         </div>
         <div class="side away">
           
@@ -8182,7 +8216,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T22:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T22:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.15"><span>Cuotas</span> <b>2.15</b></span>
         </div>
         <div class="side away">
           
@@ -8262,7 +8296,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.32"><span>Cuotas</span> <b>2.32</b></span>
         </div>
         <div class="side away">
           
@@ -8342,7 +8376,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.57"><span>Cuotas</span> <b>1.57</b></span>
         </div>
         <div class="side away">
           
@@ -8502,7 +8536,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>3:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>3:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.43"><span>Cuotas</span> <b>3.43</b></span>
         </div>
         <div class="side away">
           
@@ -8582,7 +8616,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.42"><span>Cuotas</span> <b>2.42</b></span>
         </div>
         <div class="side away">
           
@@ -8822,7 +8856,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.55"><span>Cuotas</span> <b>2.55</b></span>
         </div>
         <div class="side away">
           
@@ -8902,7 +8936,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>2:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>2:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.98"><span>Cuotas</span> <b>1.98</b></span>
         </div>
         <div class="side away">
           
@@ -8982,7 +9016,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.85"><span>Cuotas</span> <b>1.85</b></span>
         </div>
         <div class="side away">
           
@@ -9142,7 +9176,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.85"><span>Cuotas</span> <b>3.85</b></span>
         </div>
         <div class="side away">
           
@@ -9382,7 +9416,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.48"><span>Cuotas</span> <b>1.48</b></span>
         </div>
         <div class="side away">
           
@@ -9542,7 +9576,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.33"><span>Cuotas</span> <b>1.33</b></span>
         </div>
         <div class="side away">
           
@@ -9782,7 +9816,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.5"><span>Cuotas</span> <b>2.5</b></span>
         </div>
         <div class="side away">
           
@@ -10102,7 +10136,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.3"><span>Cuotas</span> <b>3.3</b></span>
         </div>
         <div class="side away">
           
@@ -10342,7 +10376,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>3:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>3:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.85"><span>Cuotas</span> <b>2.85</b></span>
         </div>
         <div class="side away">
           
@@ -10422,7 +10456,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.12"><span>Cuotas</span> <b>1.12</b></span>
         </div>
         <div class="side away">
           
@@ -10502,7 +10536,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 4.85"><span>Cuotas</span> <b>4.85</b></span>
         </div>
         <div class="side away">
           
@@ -10582,7 +10616,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.63"><span>Cuotas</span> <b>2.63</b></span>
         </div>
         <div class="side away">
           
@@ -10742,7 +10776,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.5"><span>Cuotas</span> <b>1.5</b></span>
         </div>
         <div class="side away">
           
@@ -10822,7 +10856,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T11:30:00Z">12:30</div>
+          <div class="ko" data-kickoff-utc="2026-07-24T11:30:00Z">12:30</div><span class="aig-listing-odds" title="Cuotas 2.55"><span>Cuotas</span> <b>2.55</b></span>
         </div>
         <div class="side away">
           
@@ -10902,7 +10936,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.89"><span>Cuotas</span> <b>1.89</b></span>
         </div>
         <div class="side away">
           
@@ -11062,7 +11096,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T15:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T15:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.23"><span>Cuotas</span> <b>3.23</b></span>
         </div>
         <div class="side away">
           
@@ -11142,7 +11176,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.12"><span>Cuotas</span> <b>3.12</b></span>
         </div>
         <div class="side away">
           
@@ -11462,7 +11496,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.7"><span>Cuotas</span> <b>1.7</b></span>
         </div>
         <div class="side away">
           
@@ -11542,7 +11576,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T19:15:00Z"><strong>3:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T19:15:00Z"><strong>3:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.05"><span>Cuotas</span> <b>2.05</b></span>
         </div>
         <div class="side away">
           
@@ -12102,7 +12136,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:45:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:45:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.91"><span>Cuotas</span> <b>1.91</b></span>
         </div>
         <div class="side away">
           
@@ -12262,7 +12296,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>0:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>0:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.12"><span>Cuotas</span> <b>2.12</b></span>
         </div>
         <div class="side away">
           
@@ -12342,7 +12376,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.14"><span>Cuotas</span> <b>2.14</b></span>
         </div>
         <div class="side away">
           
@@ -12502,7 +12536,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.75"><span>Cuotas</span> <b>1.75</b></span>
         </div>
         <div class="side away">
           
@@ -12602,7 +12636,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.39"><span>Cuotas</span> <b>1.39</b></span>
         </div>
         <div class="side away">
           
@@ -12922,7 +12956,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.6"><span>Cuotas</span> <b>1.6</b></span>
         </div>
         <div class="side away">
           
@@ -13002,7 +13036,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.07"><span>Cuotas</span> <b>2.07</b></span>
         </div>
         <div class="side away">
           
@@ -13082,7 +13116,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.44"><span>Cuotas</span> <b>1.44</b></span>
         </div>
         <div class="side away">
           
@@ -13260,7 +13294,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:45:00Z"><strong>2:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:45:00Z"><strong>2:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.2"><span>Cuotas</span> <b>1.2</b></span>
         </div>
         <div class="side away">
           
@@ -13340,7 +13374,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>5:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>5:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.36"><span>Cuotas</span> <b>1.36</b></span>
         </div>
         <div class="side away">
           
@@ -13420,7 +13454,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T19:15:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T19:15:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.4"><span>Cuotas</span> <b>2.4</b></span>
         </div>
         <div class="side away">
           
@@ -13500,7 +13534,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.2"><span>Cuotas</span> <b>1.2</b></span>
         </div>
         <div class="side away">
           
@@ -13740,7 +13774,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.25"><span>Cuotas</span> <b>2.25</b></span>
         </div>
         <div class="side away">
           
@@ -13820,7 +13854,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.11"><span>Cuotas</span> <b>1.11</b></span>
         </div>
         <div class="side away">
           
@@ -13900,7 +13934,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:30:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.9"><span>Cuotas</span> <b>1.9</b></span>
         </div>
         <div class="side away">
           
@@ -14140,7 +14174,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.22"><span>Cuotas</span> <b>1.22</b></span>
         </div>
         <div class="side away">
           
@@ -14380,7 +14414,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>0:4</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T16:00:00Z"><strong>0:4</strong></div><span class="aig-listing-odds" title="Cuotas 1.87"><span>Cuotas</span> <b>1.87</b></span>
         </div>
         <div class="side away">
           
@@ -14700,7 +14734,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.57"><span>Cuotas</span> <b>1.57</b></span>
         </div>
         <div class="side away">
           
@@ -14940,7 +14974,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.32"><span>Cuotas</span> <b>2.32</b></span>
         </div>
         <div class="side away">
           
@@ -15020,7 +15054,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>3:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T17:00:00Z"><strong>3:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.43"><span>Cuotas</span> <b>3.43</b></span>
         </div>
         <div class="side away">
           
@@ -15100,7 +15134,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.42"><span>Cuotas</span> <b>2.42</b></span>
         </div>
         <div class="side away">
           
@@ -15340,7 +15374,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:30:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.85"><span>Cuotas</span> <b>3.85</b></span>
         </div>
         <div class="side away">
           
@@ -15660,7 +15694,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>3:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:00:00Z"><strong>3:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.85"><span>Cuotas</span> <b>2.85</b></span>
         </div>
         <div class="side away">
           
@@ -15740,7 +15774,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.12"><span>Cuotas</span> <b>1.12</b></span>
         </div>
         <div class="side away">
           
@@ -15900,7 +15934,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T15:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T15:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.23"><span>Cuotas</span> <b>3.23</b></span>
         </div>
         <div class="side away">
           
@@ -16140,7 +16174,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>0:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T18:45:00Z"><strong>0:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.12"><span>Cuotas</span> <b>2.12</b></span>
         </div>
         <div class="side away">
           
@@ -16238,7 +16272,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.36"><span>Cuotas</span> <b>1.36</b></span>
         </div>
         <div class="side away">
           
@@ -16318,7 +16352,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:30:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.35"><span>Cuotas</span> <b>1.35</b></span>
         </div>
         <div class="side away">
           
@@ -16398,7 +16432,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko live" data-kickoff-utc="2026-07-23T22:00:00Z"><b><span style='color: #b30000;'>3:2'</span></b></div>
+          <div class="ko live" data-kickoff-utc="2026-07-23T22:00:00Z"><b><span style='color: #b30000;'>3:2'</span></b></div><span class="aig-listing-odds" title="Cuotas 1.57"><span>Cuotas</span> <b>1.57</b></span>
         </div>
         <div class="side away">
           
@@ -16478,7 +16512,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.35"><span>Cuotas</span> <b>3.35</b></span>
         </div>
         <div class="side away">
           
@@ -16558,7 +16592,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.33"><span>Cuotas</span> <b>1.33</b></span>
         </div>
         <div class="side away">
           
@@ -16656,7 +16690,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.0"><span>Cuotas</span> <b>2.0</b></span>
         </div>
         <div class="side away">
           
@@ -16736,7 +16770,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:4</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>0:4</strong></div><span class="aig-listing-odds" title="Cuotas 1.46"><span>Cuotas</span> <b>1.46</b></span>
         </div>
         <div class="side away">
           
@@ -16816,7 +16850,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.21"><span>Cuotas</span> <b>2.21</b></span>
         </div>
         <div class="side away">
           
@@ -16896,7 +16930,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 4.85"><span>Cuotas</span> <b>4.85</b></span>
         </div>
         <div class="side away">
           
@@ -16994,7 +17028,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.09"><span>Cuotas</span> <b>2.09</b></span>
         </div>
         <div class="side away">
           
@@ -17172,7 +17206,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.7"><span>Cuotas</span> <b>1.7</b></span>
         </div>
         <div class="side away">
           
@@ -17252,7 +17286,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>1:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>1:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.95"><span>Cuotas</span> <b>1.95</b></span>
         </div>
         <div class="side away">
           
@@ -17332,7 +17366,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>4:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>4:3</strong></div><span class="aig-listing-odds" title="Cuotas 3.8"><span>Cuotas</span> <b>3.8</b></span>
         </div>
         <div class="side away">
           
@@ -17412,7 +17446,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.95"><span>Cuotas</span> <b>1.95</b></span>
         </div>
         <div class="side away">
           
@@ -17492,7 +17526,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T02:30:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.34"><span>Cuotas</span> <b>2.34</b></span>
         </div>
         <div class="side away">
           
@@ -17572,7 +17606,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T01:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T01:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.04"><span>Cuotas</span> <b>2.04</b></span>
         </div>
         <div class="side away">
           
@@ -17652,7 +17686,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.77"><span>Cuotas</span> <b>1.77</b></span>
         </div>
         <div class="side away">
           
@@ -17732,7 +17766,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:15:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:15:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.91"><span>Cuotas</span> <b>1.91</b></span>
         </div>
         <div class="side away">
           
@@ -17812,7 +17846,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.37"><span>Cuotas</span> <b>3.37</b></span>
         </div>
         <div class="side away">
           
@@ -17892,7 +17926,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.48"><span>Cuotas</span> <b>1.48</b></span>
         </div>
         <div class="side away">
           
@@ -18052,7 +18086,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.75"><span>Cuotas</span> <b>1.75</b></span>
         </div>
         <div class="side away">
           
@@ -18150,7 +18184,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T22:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T22:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 2.15"><span>Cuotas</span> <b>2.15</b></span>
         </div>
         <div class="side away">
           
@@ -18230,7 +18264,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>2:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T22:30:00Z"><strong>2:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.98"><span>Cuotas</span> <b>1.98</b></span>
         </div>
         <div class="side away">
           
@@ -18310,7 +18344,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:45:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:45:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.91"><span>Cuotas</span> <b>1.91</b></span>
         </div>
         <div class="side away">
           
@@ -18408,7 +18442,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T09:30:00Z"><strong>4:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T09:30:00Z"><strong>4:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.33"><span>Cuotas</span> <b>3.33</b></span>
         </div>
         <div class="side away">
           
@@ -18602,7 +18636,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-22T23:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.3"><span>Cuotas</span> <b>3.3</b></span>
         </div>
         <div class="side away">
           
@@ -18896,7 +18930,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T00:30:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.25"><span>Cuotas</span> <b>1.25</b></span>
         </div>
         <div class="side away">
           
@@ -19092,7 +19126,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 3.12"><span>Cuotas</span> <b>3.12</b></span>
         </div>
         <div class="side away">
           
@@ -19190,7 +19224,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.85"><span>Cuotas</span> <b>1.85</b></span>
         </div>
         <div class="side away">
           
@@ -19386,7 +19420,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T00:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T00:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.85"><span>Cuotas</span> <b>1.85</b></span>
         </div>
         <div class="side away">
           
@@ -19466,7 +19500,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.79"><span>Cuotas</span> <b>1.79</b></span>
         </div>
         <div class="side away">
           
@@ -19546,7 +19580,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T21:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.5"><span>Cuotas</span> <b>2.5</b></span>
         </div>
         <div class="side away">
           
@@ -19822,7 +19856,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.15"><span>Cuotas</span> <b>2.15</b></span>
         </div>
         <div class="side away">
           
@@ -20018,7 +20052,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T20:00:00Z"><strong>5:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T20:00:00Z"><strong>5:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.22"><span>Cuotas</span> <b>1.22</b></span>
         </div>
         <div class="side away">
           
@@ -20116,7 +20150,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T19:15:00Z"><strong>3:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T19:15:00Z"><strong>3:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.05"><span>Cuotas</span> <b>2.05</b></span>
         </div>
         <div class="side away">
           
@@ -20214,7 +20248,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.57"><span>Cuotas</span> <b>1.57</b></span>
         </div>
         <div class="side away">
           
@@ -20312,7 +20346,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>5:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>5:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.01"><span>Cuotas</span> <b>2.01</b></span>
         </div>
         <div class="side away">
           
@@ -20392,7 +20426,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.55"><span>Cuotas</span> <b>2.55</b></span>
         </div>
         <div class="side away">
           
@@ -20472,7 +20506,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.63"><span>Cuotas</span> <b>2.63</b></span>
         </div>
         <div class="side away">
           
@@ -20552,7 +20586,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:45:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.7"><span>Cuotas</span> <b>1.7</b></span>
         </div>
         <div class="side away">
           
@@ -20748,7 +20782,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T10:30:00Z"><strong>4:3</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T10:30:00Z"><strong>4:3</strong></div><span class="aig-listing-odds" title="Cuotas 1.52"><span>Cuotas</span> <b>1.52</b></span>
         </div>
         <div class="side away">
           
@@ -20844,7 +20878,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T21:30:00Z"><strong>1:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T21:30:00Z"><strong>1:2</strong></div><span class="aig-listing-odds" title="Cuotas 1.81"><span>Cuotas</span> <b>1.81</b></span>
         </div>
         <div class="side away">
           
@@ -21040,7 +21074,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:30:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:30:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 2.42"><span>Cuotas</span> <b>2.42</b></span>
         </div>
         <div class="side away">
           
@@ -21138,7 +21172,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T19:00:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Cuotas 1.89"><span>Cuotas</span> <b>1.89</b></span>
         </div>
         <div class="side away">
           
@@ -21236,7 +21270,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T15:30:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T15:30:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.09"><span>Cuotas</span> <b>2.09</b></span>
         </div>
         <div class="side away">
           
@@ -21414,7 +21448,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T17:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.5"><span>Cuotas</span> <b>1.5</b></span>
         </div>
         <div class="side away">
           
@@ -21512,7 +21546,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>3:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>3:0</strong></div><span class="aig-listing-odds" title="Cuotas 4.7"><span>Cuotas</span> <b>4.7</b></span>
         </div>
         <div class="side away">
           
@@ -21592,7 +21626,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>2:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T18:15:00Z"><strong>2:2</strong></div><span class="aig-listing-odds" title="Cuotas 2.14"><span>Cuotas</span> <b>2.14</b></span>
         </div>
         <div class="side away">
           
@@ -21868,7 +21902,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T01:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T01:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.46"><span>Cuotas</span> <b>1.46</b></span>
         </div>
         <div class="side away">
           
@@ -22898,7 +22932,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T14:00:00Z"><strong>3:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T14:00:00Z"><strong>3:1</strong></div><span class="aig-listing-odds" title="Cuotas 3.1"><span>Cuotas</span> <b>3.1</b></span>
         </div>
         <div class="side away">
           
@@ -23138,7 +23172,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>0:5</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-24T16:00:00Z"><strong>0:5</strong></div><span class="aig-listing-odds" title="Cuotas 1.62"><span>Cuotas</span> <b>1.62</b></span>
         </div>
         <div class="side away">
           
@@ -23730,7 +23764,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-23T15:00:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-23T15:00:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Cuotas 1.53"><span>Cuotas</span> <b>1.53</b></span>
         </div>
         <div class="side away">
           
@@ -23908,7 +23942,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-24T11:30:00Z">12:30</div>
+          <div class="ko" data-kickoff-utc="2026-07-24T11:30:00Z">12:30</div><span class="aig-listing-odds" title="Cuotas 2.55"><span>Cuotas</span> <b>2.55</b></span>
         </div>
         <div class="side away">
           

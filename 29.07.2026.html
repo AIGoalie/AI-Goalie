@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-aig-meters="1" data-aig-initial="20261108-v1" lang="en">
+<html data-aig-list-odds="1" data-aig-meters="1" data-aig-initial="20261108-v1" lang="en">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
@@ -798,12 +798,46 @@ html[data-aig-view] .aig-refined-day .view-btn{background:none!important;color:#
 .aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]){
  box-shadow:inset 0 0 0 1px #a1a9b8;--aig-meter-ink:#a9d6ff
 }
-.aig-refined-day .threeway-strip .probability-chip[data-probability-side][data-aig-meter="strong"],
-.aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side][data-aig-meter="strong"]{--aig-meter-ink:#7bdfa2}
 .aig-refined-day .threeway-strip .probability-chip[data-aig-meter]:not([data-aig-meter="unavailable"],.probability-locked,:has(.locked))::after,
 .aig-refined-fixture .fixture-probabilities .probability-card[data-aig-meter]:not([data-aig-meter="unavailable"],.is-locked,:has(.locked))::after{
  content:"";position:absolute;inset:auto 4px 3px;height:3px;border-radius:4px;pointer-events:none;
  background:linear-gradient(to right,var(--aig-meter-ink) 0 var(--aig-meter-width,0%),#484c55 var(--aig-meter-width,0%) 100%)
+}
+@supports (color:color-mix(in oklab,black,white)){
+ :root .aig-refined-day .threeway-strip .probability-chip[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]):not(.probability-locked,:has(.locked))::after,
+ :root .aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]):not(.is-locked,:has(.locked))::after{
+  --aig-meter-slate:clamp(0%,calc((var(--aig-meter-width) - 25%)*4),100%);
+  --aig-meter-blue:clamp(0%,calc((var(--aig-meter-width) - 48%)*4.545),100%);
+  --aig-meter-teal:clamp(0%,calc((var(--aig-meter-width) - 67%)*5.882),100%);
+  --aig-meter-green:clamp(0%,calc((var(--aig-meter-width) - 81%)*5.556),100%);
+  --aig-meter-muted:color-mix(in oklab,#858993,#9ba7bd var(--aig-meter-slate));
+  --aig-meter-cool:color-mix(in oklab,var(--aig-meter-muted),#7bb8f6 var(--aig-meter-blue));
+  --aig-meter-warm:color-mix(in oklab,var(--aig-meter-cool),#68d4c9 var(--aig-meter-teal));
+  --aig-meter-spectrum:color-mix(in oklab,var(--aig-meter-warm),#82e580 var(--aig-meter-green));
+  background:linear-gradient(to right,var(--aig-meter-spectrum) 0 var(--aig-meter-width),#484c55 var(--aig-meter-width) 100%)
+ }
+}
+
+:root .aig-refined-day .center .aig-listing-odds,
+:root .aig-refined-day .pro-pick-center .aig-pick-odds{display:block;max-width:100%;margin-inline:auto;font-size:9px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;color:#cfd5da;font-variant-numeric:tabular-nums}
+:root .aig-refined-day .aig-listing-odds span,
+:root .aig-refined-day .aig-pick-odds::before{color:#a3aab2;font-weight:400}
+:root .aig-refined-day .aig-listing-odds b{font-weight:600}
+:root .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Odds "}
+:root[lang^="fr"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cote "}
+:root[lang^="de"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Quote "}
+:root[lang^="es"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cuota "}
+:root[lang^="pt"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cotação "}
+:root[lang^="ja"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"オッズ "}
+:root .aig-refined-day .aig-postponed{font-size:9px;font-weight:500}
+:root:not([data-aig-metric-ready])[data-aig-metric="goals"] .aig-refined-day .aig-listing-odds,
+:root .aig-refined-day .mrow:has(.winwrap > .metric-goals:not(.aig-initial-goals),.winwrap > .metric-btts) .aig-listing-odds{display:none}
+@media(max-width:430px){
+  :root .aig-refined-day .fixrow,
+  :root .aig-refined-day .pro-pick-fixture{grid-template-columns:minmax(0,1fr) 58px minmax(0,1fr)}
+  :root .aig-refined-day .center,
+  :root .aig-refined-day .center .ko,
+  :root .aig-refined-day .pro-pick-center{width:58px}
 }
 </style><script id="aig-paint-ready">(()=>{
  const all=(root,selector)=>[...(root.matches?.(selector)?[root]:[]),...root.querySelectorAll(selector)];
@@ -1089,7 +1123,7 @@ function nameLabels(full) {
 <img alt="Gornik Zabrze football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/340.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div><span class="aig-listing-odds" title="Odds 1.46"><span>Odds</span> <b>1.46</b></span>
 </div>
 <div class="side away">
 <img alt="Fenerbahçe football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/611.png" width="30"/>
@@ -1148,7 +1182,7 @@ function nameLabels(full) {
 <img alt="Kauno Žalgiris football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/3872.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 1.72"><span>Odds</span> <b>1.72</b></span>
 </div>
 <div class="side away">
 <img alt="KI Klaksvik football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/701.png" width="30"/>
@@ -1323,7 +1357,7 @@ function nameLabels(full) {
 <img alt="FC Copenhagen football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/400.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div><span class="aig-listing-odds" title="Odds 1.65"><span>Odds</span> <b>1.65</b></span>
 </div>
 <div class="side away">
 <img alt="Polessya football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/6496.png" width="30"/>
@@ -1382,7 +1416,7 @@ function nameLabels(full) {
 <img alt="Internacional football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/119.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div><span class="aig-listing-odds" title="Odds 1.9"><span>Odds</span> <b>1.9</b></span>
 </div>
 <div class="side away">
 <img alt="Flamengo football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/127.png" width="30"/>
@@ -1441,7 +1475,7 @@ function nameLabels(full) {
 <img alt="MP football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/9175.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div><span class="aig-listing-odds" title="Odds 2.03"><span>Odds</span> <b>2.03</b></span>
 </div>
 <div class="side away">
 <img alt="KäPa football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/9187.png" width="30"/>
@@ -1558,7 +1592,7 @@ function nameLabels(full) {
 <img alt="Santos football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/128.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>4:2</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>4:2</strong></div><span class="aig-listing-odds" title="Odds 1.25"><span>Odds</span> <b>1.25</b></span>
 </div>
 <div class="side away">
 <img alt="UCV football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/2840.png" width="30"/>
@@ -1675,7 +1709,7 @@ function nameLabels(full) {
 <img alt="Dukagjini football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/14393.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:5</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:5</strong></div><span class="aig-listing-odds" title="Odds 1.62"><span>Odds</span> <b>1.62</b></span>
 </div>
 <div class="side away">
 <img alt="FC Lugano football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/606.png" width="30"/>
@@ -1908,7 +1942,7 @@ function nameLabels(full) {
 <img alt="Vasco DA Gama football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/133.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 1.62"><span>Odds</span> <b>1.62</b></span>
 </div>
 <div class="side away">
 <img alt="Independiente Medellin football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1128.png" width="30"/>
@@ -1967,7 +2001,7 @@ function nameLabels(full) {
 <img alt="Hapoel Beer Sheva football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/563.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div><span class="aig-listing-odds" title="Odds 1.57"><span>Odds</span> <b>1.57</b></span>
 </div>
 <div class="side away">
 <img alt="Vikingur Reykjavik football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/278.png" width="30"/>
@@ -2258,7 +2292,7 @@ function nameLabels(full) {
 <img alt="Kairat Almaty football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/664.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 3.2"><span>Odds</span> <b>3.2</b></span>
 </div>
 <div class="side away">
 <img alt="Omonia Nicosia football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/3402.png" width="30"/>
@@ -2375,7 +2409,7 @@ function nameLabels(full) {
 <img alt="Sportivo Luqueno football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1183.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div><span class="aig-listing-odds" title="Odds 3.0"><span>Odds</span> <b>3.0</b></span>
 </div>
 <div class="side away">
 <img alt="Sportivo Trinidense football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1187.png" width="30"/>
@@ -2492,7 +2526,7 @@ function nameLabels(full) {
 <img alt="Throttur Reykjavik football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/829.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>4:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>4:1</strong></div><span class="aig-listing-odds" title="Odds 2.8"><span>Odds</span> <b>2.8</b></span>
 </div>
 <div class="side away">
 <img alt="Afturelding football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/3514.png" width="30"/>
@@ -2551,7 +2585,7 @@ function nameLabels(full) {
 <img alt="Internacional Palmira football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/23326.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:2</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:2</strong></div><span class="aig-listing-odds" title="Odds 2.5"><span>Odds</span> <b>2.5</b></span>
 </div>
 <div class="side away">
 <img alt="Internacional de Bogota football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1134.png" width="30"/>
@@ -2610,7 +2644,7 @@ function nameLabels(full) {
 <img alt="Barranquilla football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1466.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>3:3</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>3:3</strong></div><span class="aig-listing-odds" title="Odds 1.71"><span>Odds</span> <b>1.71</b></span>
 </div>
 <div class="side away">
 <img alt="Junior football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1135.png" width="30"/>
@@ -2669,7 +2703,7 @@ function nameLabels(full) {
 <img alt="Lech Poznan football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/347.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div><span class="aig-listing-odds" title="Odds 4.35"><span>Odds</span> <b>4.35</b></span>
 </div>
 <div class="side away">
 <img alt="Aarhus football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/406.png" width="30"/>
@@ -2728,7 +2762,7 @@ function nameLabels(full) {
 <img alt="Nacional Asuncion football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1175.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div><span class="aig-listing-odds" title="Odds 2.6"><span>Odds</span> <b>2.6</b></span>
 </div>
 <div class="side away">
 <img alt="Olimpia football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1182.png" width="30"/>
@@ -2787,7 +2821,7 @@ function nameLabels(full) {
 <img alt="Tigres FC football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1145.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>0:2</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>0:2</strong></div><span class="aig-listing-odds" title="Odds 1.94"><span>Odds</span> <b>1.94</b></span>
 </div>
 <div class="side away">
 <img alt="Atletico Nacional football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1137.png" width="30"/>
@@ -2846,7 +2880,7 @@ function nameLabels(full) {
 <img alt="Rosario Central football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/437.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>0:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>0:0</strong></div><span class="aig-listing-odds" title="Odds 2.25"><span>Odds</span> <b>2.25</b></span>
 </div>
 <div class="side away">
 <img alt="Racing Club football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/436.png" width="30"/>
@@ -2963,7 +2997,7 @@ function nameLabels(full) {
 <img alt="Barracas Central football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/2432.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 2.32"><span>Odds</span> <b>2.32</b></span>
 </div>
 <div class="side away">
 <img alt="Aldosivi football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/463.png" width="30"/>
@@ -3022,7 +3056,7 @@ function nameLabels(full) {
 <img alt="Defensa Y Justicia football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/442.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div><span class="aig-listing-odds" title="Odds 2.12"><span>Odds</span> <b>2.12</b></span>
 </div>
 <div class="side away">
 <img alt="Deportivo Riestra football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/476.png" width="30"/>
@@ -3081,7 +3115,7 @@ function nameLabels(full) {
 <img alt="Chapecoense-sc football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/132.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc="">21:00</div>
+<div class="ko" data-kickoff-utc=""><span class="aig-postponed" title="Postponed">Postponed</span></div>
 </div>
 <div class="side away">
 <img alt="Vasco DA Gama football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/133.png" width="30"/>
@@ -3206,7 +3240,7 @@ function nameLabels(full) {
 <img alt="Gornik Zabrze football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/340.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div><span class="aig-listing-odds" title="Odds 1.46"><span>Odds</span> <b>1.46</b></span>
 </div>
 <div class="side away">
 <img alt="Fenerbahçe football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/611.png" width="30"/>
@@ -3265,7 +3299,7 @@ function nameLabels(full) {
 <img alt="Kauno Žalgiris football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/3872.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 1.72"><span>Odds</span> <b>1.72</b></span>
 </div>
 <div class="side away">
 <img alt="KI Klaksvik football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/701.png" width="30"/>
@@ -3382,7 +3416,7 @@ function nameLabels(full) {
 <img alt="Hapoel Beer Sheva football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/563.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div><span class="aig-listing-odds" title="Odds 1.57"><span>Odds</span> <b>1.57</b></span>
 </div>
 <div class="side away">
 <img alt="Vikingur Reykjavik football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/278.png" width="30"/>
@@ -3441,7 +3475,7 @@ function nameLabels(full) {
 <img alt="Kairat Almaty football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/664.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 3.2"><span>Odds</span> <b>3.2</b></span>
 </div>
 <div class="side away">
 <img alt="Omonia Nicosia football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/3402.png" width="30"/>
@@ -3500,7 +3534,7 @@ function nameLabels(full) {
 <img alt="Lech Poznan football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/347.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div><span class="aig-listing-odds" title="Odds 4.35"><span>Odds</span> <b>4.35</b></span>
 </div>
 <div class="side away">
 <img alt="Aarhus football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/406.png" width="30"/>
@@ -3566,7 +3600,7 @@ function nameLabels(full) {
 <img alt="FC Copenhagen football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/400.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div><span class="aig-listing-odds" title="Odds 1.65"><span>Odds</span> <b>1.65</b></span>
 </div>
 <div class="side away">
 <img alt="Polessya football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/6496.png" width="30"/>
@@ -3625,7 +3659,7 @@ function nameLabels(full) {
 <img alt="Dukagjini football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/14393.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:5</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:5</strong></div><span class="aig-listing-odds" title="Odds 1.62"><span>Odds</span> <b>1.62</b></span>
 </div>
 <div class="side away">
 <img alt="FC Lugano football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/606.png" width="30"/>
@@ -3749,7 +3783,7 @@ function nameLabels(full) {
 <img alt="Santos football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/128.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>4:2</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>4:2</strong></div><span class="aig-listing-odds" title="Odds 1.25"><span>Odds</span> <b>1.25</b></span>
 </div>
 <div class="side away">
 <img alt="UCV football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/2840.png" width="30"/>
@@ -3808,7 +3842,7 @@ function nameLabels(full) {
 <img alt="Vasco DA Gama football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/133.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 1.62"><span>Odds</span> <b>1.62</b></span>
 </div>
 <div class="side away">
 <img alt="Independiente Medellin football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1128.png" width="30"/>
@@ -3874,7 +3908,7 @@ function nameLabels(full) {
 <img alt="Internacional football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/119.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:1</strong></div><span class="aig-listing-odds" title="Odds 1.9"><span>Odds</span> <b>1.9</b></span>
 </div>
 <div class="side away">
 <img alt="Flamengo football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/127.png" width="30"/>
@@ -3933,7 +3967,7 @@ function nameLabels(full) {
 <img alt="Chapecoense-sc football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/132.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc="">21:00</div>
+<div class="ko" data-kickoff-utc=""><span class="aig-postponed" title="Postponed">Postponed</span></div>
 </div>
 <div class="side away">
 <img alt="Vasco DA Gama football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/133.png" width="30"/>
@@ -3998,7 +4032,7 @@ function nameLabels(full) {
 <img alt="Rosario Central football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/437.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>0:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>0:0</strong></div><span class="aig-listing-odds" title="Odds 2.25"><span>Odds</span> <b>2.25</b></span>
 </div>
 <div class="side away">
 <img alt="Racing Club football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/436.png" width="30"/>
@@ -4057,7 +4091,7 @@ function nameLabels(full) {
 <img alt="Barracas Central football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/2432.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:0</strong></div><span class="aig-listing-odds" title="Odds 2.32"><span>Odds</span> <b>2.32</b></span>
 </div>
 <div class="side away">
 <img alt="Aldosivi football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/463.png" width="30"/>
@@ -4116,7 +4150,7 @@ function nameLabels(full) {
 <img alt="Defensa Y Justicia football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/442.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div><span class="aig-listing-odds" title="Odds 2.12"><span>Odds</span> <b>2.12</b></span>
 </div>
 <div class="side away">
 <img alt="Deportivo Riestra football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/476.png" width="30"/>
@@ -4182,7 +4216,7 @@ function nameLabels(full) {
 <img alt="Sportivo Luqueno football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1183.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:4</strong></div><span class="aig-listing-odds" title="Odds 3.0"><span>Odds</span> <b>3.0</b></span>
 </div>
 <div class="side away">
 <img alt="Sportivo Trinidense football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1187.png" width="30"/>
@@ -4241,7 +4275,7 @@ function nameLabels(full) {
 <img alt="Nacional Asuncion football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1175.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:0</strong></div><span class="aig-listing-odds" title="Odds 2.6"><span>Odds</span> <b>2.6</b></span>
 </div>
 <div class="side away">
 <img alt="Olimpia football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1182.png" width="30"/>
@@ -4307,7 +4341,7 @@ function nameLabels(full) {
 <img alt="Internacional Palmira football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/23326.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>1:2</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>1:2</strong></div><span class="aig-listing-odds" title="Odds 2.5"><span>Odds</span> <b>2.5</b></span>
 </div>
 <div class="side away">
 <img alt="Internacional de Bogota football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1134.png" width="30"/>
@@ -4366,7 +4400,7 @@ function nameLabels(full) {
 <img alt="Barranquilla football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1466.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>3:3</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>3:3</strong></div><span class="aig-listing-odds" title="Odds 1.71"><span>Odds</span> <b>1.71</b></span>
 </div>
 <div class="side away">
 <img alt="Junior football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1135.png" width="30"/>
@@ -4425,7 +4459,7 @@ function nameLabels(full) {
 <img alt="Tigres FC football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1145.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>0:2</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>0:2</strong></div><span class="aig-listing-odds" title="Odds 1.94"><span>Odds</span> <b>1.94</b></span>
 </div>
 <div class="side away">
 <img alt="Atletico Nacional football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/1137.png" width="30"/>
@@ -5227,7 +5261,7 @@ function nameLabels(full) {
 <img alt="MP football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/9175.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>2:1</strong></div><span class="aig-listing-odds" title="Odds 2.03"><span>Odds</span> <b>2.03</b></span>
 </div>
 <div class="side away">
 <img alt="KäPa football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/9187.png" width="30"/>
@@ -5293,7 +5327,7 @@ function nameLabels(full) {
 <img alt="Throttur Reykjavik football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/829.png" width="30"/>
 </div>
 <div class="center">
-<div class="ko" data-kickoff-utc=""><strong>4:1</strong></div>
+<div class="ko" data-kickoff-utc=""><strong>4:1</strong></div><span class="aig-listing-odds" title="Odds 2.8"><span>Odds</span> <b>2.8</b></span>
 </div>
 <div class="side away">
 <img alt="Afturelding football team crest" class="crest" decoding="async" height="30" loading="lazy" onerror="this.style.visibility='hidden'" src="https://media.api-sports.io/football/teams/3514.png" width="30"/>

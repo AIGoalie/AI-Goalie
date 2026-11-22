@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-aig-meters="1" data-aig-initial="20261108-v1" lang="de">
+<html data-aig-meters="1" data-aig-list-odds="1" data-aig-initial="20261108-v1" lang="de">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DP174X78CW"></script>
@@ -646,12 +646,46 @@ html[data-aig-view] .aig-refined-day .view-btn{background:none!important;color:#
 .aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]){
  box-shadow:inset 0 0 0 1px #a1a9b8;--aig-meter-ink:#a9d6ff
 }
-.aig-refined-day .threeway-strip .probability-chip[data-probability-side][data-aig-meter="strong"],
-.aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side][data-aig-meter="strong"]{--aig-meter-ink:#7bdfa2}
 .aig-refined-day .threeway-strip .probability-chip[data-aig-meter]:not([data-aig-meter="unavailable"],.probability-locked,:has(.locked))::after,
 .aig-refined-fixture .fixture-probabilities .probability-card[data-aig-meter]:not([data-aig-meter="unavailable"],.is-locked,:has(.locked))::after{
  content:"";position:absolute;inset:auto 4px 3px;height:3px;border-radius:4px;pointer-events:none;
  background:linear-gradient(to right,var(--aig-meter-ink) 0 var(--aig-meter-width,0%),#484c55 var(--aig-meter-width,0%) 100%)
+}
+@supports (color:color-mix(in oklab,black,white)){
+ :root .aig-refined-day .threeway-strip .probability-chip[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]):not(.probability-locked,:has(.locked))::after,
+ :root .aig-refined-fixture .fixture-probabilities .probability-card[data-probability-side]:is([data-aig-meter="pick"],[data-aig-meter="strong"]):not(.is-locked,:has(.locked))::after{
+  --aig-meter-slate:clamp(0%,calc((var(--aig-meter-width) - 25%)*4),100%);
+  --aig-meter-blue:clamp(0%,calc((var(--aig-meter-width) - 48%)*4.545),100%);
+  --aig-meter-teal:clamp(0%,calc((var(--aig-meter-width) - 67%)*5.882),100%);
+  --aig-meter-green:clamp(0%,calc((var(--aig-meter-width) - 81%)*5.556),100%);
+  --aig-meter-muted:color-mix(in oklab,#858993,#9ba7bd var(--aig-meter-slate));
+  --aig-meter-cool:color-mix(in oklab,var(--aig-meter-muted),#7bb8f6 var(--aig-meter-blue));
+  --aig-meter-warm:color-mix(in oklab,var(--aig-meter-cool),#68d4c9 var(--aig-meter-teal));
+  --aig-meter-spectrum:color-mix(in oklab,var(--aig-meter-warm),#82e580 var(--aig-meter-green));
+  background:linear-gradient(to right,var(--aig-meter-spectrum) 0 var(--aig-meter-width),#484c55 var(--aig-meter-width) 100%)
+ }
+}
+
+:root .aig-refined-day .center .aig-listing-odds,
+:root .aig-refined-day .pro-pick-center .aig-pick-odds{display:block;max-width:100%;margin-inline:auto;font-size:9px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;color:#cfd5da;font-variant-numeric:tabular-nums}
+:root .aig-refined-day .aig-listing-odds span,
+:root .aig-refined-day .aig-pick-odds::before{color:#a3aab2;font-weight:400}
+:root .aig-refined-day .aig-listing-odds b{font-weight:600}
+:root .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Odds "}
+:root[lang^="fr"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cote "}
+:root[lang^="de"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Quote "}
+:root[lang^="es"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cuota "}
+:root[lang^="pt"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"Cotação "}
+:root[lang^="ja"] .aig-refined-day .pro-pick-center .aig-pick-odds::before{content:"オッズ "}
+:root .aig-refined-day .aig-postponed{font-size:9px;font-weight:500}
+:root:not([data-aig-metric-ready])[data-aig-metric="goals"] .aig-refined-day .aig-listing-odds,
+:root .aig-refined-day .mrow:has(.winwrap > .metric-goals:not(.aig-initial-goals),.winwrap > .metric-btts) .aig-listing-odds{display:none}
+@media(max-width:430px){
+  :root .aig-refined-day .fixrow,
+  :root .aig-refined-day .pro-pick-fixture{grid-template-columns:minmax(0,1fr) 58px minmax(0,1fr)}
+  :root .aig-refined-day .center,
+  :root .aig-refined-day .center .ko,
+  :root .aig-refined-day .pro-pick-center{width:58px}
 }
 </style><script id="aig-paint-ready">(()=>{
  const all=(root,selector)=>[...(root.matches?.(selector)?[root]:[]),...root.querySelectorAll(selector)];
@@ -840,7 +874,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>0:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>0:2</strong></div><span class="aig-listing-odds" title="Quoten 2.3"><span>Quoten</span> <b>2.3</b></span>
         </div>
         <div class="side away">
           
@@ -926,7 +960,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 1.56"><span>Quoten</span> <b>1.56</b></span>
         </div>
         <div class="side away">
           
@@ -1086,7 +1120,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>3:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>3:2</strong></div><span class="aig-listing-odds" title="Quoten 1.72"><span>Quoten</span> <b>1.72</b></span>
         </div>
         <div class="side away">
           
@@ -1326,7 +1360,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 1.18"><span>Quoten</span> <b>1.18</b></span>
         </div>
         <div class="side away">
           
@@ -1406,7 +1440,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T17:00:00Z"><strong>3:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T17:00:00Z"><strong>3:0</strong></div><span class="aig-listing-odds" title="Quoten 1.22"><span>Quoten</span> <b>1.22</b></span>
         </div>
         <div class="side away">
           
@@ -1646,7 +1680,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-15T09:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-15T09:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Quoten 1.77"><span>Quoten</span> <b>1.77</b></span>
         </div>
         <div class="side away">
           
@@ -1726,7 +1760,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T17:30:00Z"><strong>4:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T17:30:00Z"><strong>4:0</strong></div><span class="aig-listing-odds" title="Quoten 1.36"><span>Quoten</span> <b>1.36</b></span>
         </div>
         <div class="side away">
           
@@ -1886,7 +1920,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>5:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>5:1</strong></div><span class="aig-listing-odds" title="Quoten 1.28"><span>Quoten</span> <b>1.28</b></span>
         </div>
         <div class="side away">
           
@@ -2126,7 +2160,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>5:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>5:1</strong></div><span class="aig-listing-odds" title="Quoten 1.67"><span>Quoten</span> <b>1.67</b></span>
         </div>
         <div class="side away">
           
@@ -2526,7 +2560,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T16:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T16:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 1.65"><span>Quoten</span> <b>1.65</b></span>
         </div>
         <div class="side away">
           
@@ -2686,7 +2720,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T00:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T00:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Quoten 1.93"><span>Quoten</span> <b>1.93</b></span>
         </div>
         <div class="side away">
           
@@ -3006,7 +3040,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T15:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T15:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 2.5"><span>Quoten</span> <b>2.5</b></span>
         </div>
         <div class="side away">
           
@@ -3566,7 +3600,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T16:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T16:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Quoten 2.16"><span>Quoten</span> <b>2.16</b></span>
         </div>
         <div class="side away">
           
@@ -3726,7 +3760,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T21:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T21:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 2.06"><span>Quoten</span> <b>2.06</b></span>
         </div>
         <div class="side away">
           
@@ -4046,7 +4080,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T19:15:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T19:15:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 1.6"><span>Quoten</span> <b>1.6</b></span>
         </div>
         <div class="side away">
           
@@ -4606,7 +4640,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Quoten 2.1"><span>Quoten</span> <b>2.1</b></span>
         </div>
         <div class="side away">
           
@@ -4686,7 +4720,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T22:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T22:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 2.85"><span>Quoten</span> <b>2.85</b></span>
         </div>
         <div class="side away">
           
@@ -4766,7 +4800,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T20:15:00Z"><strong>2:5</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T20:15:00Z"><strong>2:5</strong></div><span class="aig-listing-odds" title="Quoten 3.66"><span>Quoten</span> <b>3.66</b></span>
         </div>
         <div class="side away">
           
@@ -4926,7 +4960,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T18:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T18:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Quoten 1.9"><span>Quoten</span> <b>1.9</b></span>
         </div>
         <div class="side away">
           
@@ -5006,7 +5040,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-12T23:10:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-12T23:10:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Quoten 2.5"><span>Quoten</span> <b>2.5</b></span>
         </div>
         <div class="side away">
           
@@ -5086,7 +5120,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T15:30:00Z"><strong>0:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T15:30:00Z"><strong>0:2</strong></div><span class="aig-listing-odds" title="Quoten 2.8"><span>Quoten</span> <b>2.8</b></span>
         </div>
         <div class="side away">
           
@@ -5246,7 +5280,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-12T23:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-12T23:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 2.06"><span>Quoten</span> <b>2.06</b></span>
         </div>
         <div class="side away">
           
@@ -5341,7 +5375,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>0:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>0:2</strong></div><span class="aig-listing-odds" title="Quoten 2.3"><span>Quoten</span> <b>2.3</b></span>
         </div>
         <div class="side away">
           
@@ -5597,7 +5631,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-15T09:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-15T09:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Quoten 1.77"><span>Quoten</span> <b>1.77</b></span>
         </div>
         <div class="side away">
           
@@ -6077,7 +6111,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T15:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T15:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 2.5"><span>Quoten</span> <b>2.5</b></span>
         </div>
         <div class="side away">
           
@@ -6317,7 +6351,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T16:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T16:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Quoten 2.16"><span>Quoten</span> <b>2.16</b></span>
         </div>
         <div class="side away">
           
@@ -7037,7 +7071,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T15:30:00Z"><strong>0:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T15:30:00Z"><strong>0:2</strong></div><span class="aig-listing-odds" title="Quoten 2.8"><span>Quoten</span> <b>2.8</b></span>
         </div>
         <div class="side away">
           
@@ -7213,7 +7247,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>3:2</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>3:2</strong></div><span class="aig-listing-odds" title="Quoten 1.72"><span>Quoten</span> <b>1.72</b></span>
         </div>
         <div class="side away">
           
@@ -7293,7 +7327,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 1.18"><span>Quoten</span> <b>1.18</b></span>
         </div>
         <div class="side away">
           
@@ -7453,7 +7487,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T17:30:00Z"><strong>4:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T17:30:00Z"><strong>4:0</strong></div><span class="aig-listing-odds" title="Quoten 1.36"><span>Quoten</span> <b>1.36</b></span>
         </div>
         <div class="side away">
           
@@ -7533,7 +7567,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>5:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T19:00:00Z"><strong>5:1</strong></div><span class="aig-listing-odds" title="Quoten 1.28"><span>Quoten</span> <b>1.28</b></span>
         </div>
         <div class="side away">
           
@@ -7693,7 +7727,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T16:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T16:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 1.65"><span>Quoten</span> <b>1.65</b></span>
         </div>
         <div class="side away">
           
@@ -7871,7 +7905,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 1.56"><span>Quoten</span> <b>1.56</b></span>
         </div>
         <div class="side away">
           
@@ -8321,7 +8355,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-12T23:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-12T23:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 2.06"><span>Quoten</span> <b>2.06</b></span>
         </div>
         <div class="side away">
           
@@ -8515,7 +8549,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T00:00:00Z"><strong>1:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T00:00:00Z"><strong>1:0</strong></div><span class="aig-listing-odds" title="Quoten 1.93"><span>Quoten</span> <b>1.93</b></span>
         </div>
         <div class="side away">
           
@@ -8613,7 +8647,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T21:30:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T21:30:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 2.06"><span>Quoten</span> <b>2.06</b></span>
         </div>
         <div class="side away">
           
@@ -8693,7 +8727,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-12T23:10:00Z"><strong>0:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-12T23:10:00Z"><strong>0:0</strong></div><span class="aig-listing-odds" title="Quoten 2.5"><span>Quoten</span> <b>2.5</b></span>
         </div>
         <div class="side away">
           
@@ -8791,7 +8825,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T19:15:00Z"><strong>2:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T19:15:00Z"><strong>2:1</strong></div><span class="aig-listing-odds" title="Quoten 1.6"><span>Quoten</span> <b>1.6</b></span>
         </div>
         <div class="side away">
           
@@ -8889,7 +8923,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>5:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-14T17:00:00Z"><strong>5:1</strong></div><span class="aig-listing-odds" title="Quoten 1.67"><span>Quoten</span> <b>1.67</b></span>
         </div>
         <div class="side away">
           
@@ -9049,7 +9083,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T20:15:00Z"><strong>2:5</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T20:15:00Z"><strong>2:5</strong></div><span class="aig-listing-odds" title="Quoten 3.66"><span>Quoten</span> <b>3.66</b></span>
         </div>
         <div class="side away">
           
@@ -9421,7 +9455,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>0:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T14:00:00Z"><strong>0:1</strong></div><span class="aig-listing-odds" title="Quoten 2.1"><span>Quoten</span> <b>2.1</b></span>
         </div>
         <div class="side away">
           
@@ -9615,7 +9649,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T17:00:00Z"><strong>3:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T17:00:00Z"><strong>3:0</strong></div><span class="aig-listing-odds" title="Quoten 1.22"><span>Quoten</span> <b>1.22</b></span>
         </div>
         <div class="side away">
           
@@ -9891,7 +9925,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T22:00:00Z"><strong>1:1</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T22:00:00Z"><strong>1:1</strong></div><span class="aig-listing-odds" title="Quoten 2.85"><span>Quoten</span> <b>2.85</b></span>
         </div>
         <div class="side away">
           
@@ -9989,7 +10023,7 @@ function nameLabels(full) {
   
         </div>
         <div class="center">
-          <div class="ko" data-kickoff-utc="2026-07-13T18:00:00Z"><strong>2:0</strong></div>
+          <div class="ko" data-kickoff-utc="2026-07-13T18:00:00Z"><strong>2:0</strong></div><span class="aig-listing-odds" title="Quoten 1.9"><span>Quoten</span> <b>1.9</b></span>
         </div>
         <div class="side away">
           
